@@ -1,0 +1,16 @@
+{
+    "resource": "automation",
+    "version": "v4",
+    "class": "WorkflowExtensionHubspot",
+    "documentation": "https://developers.hubspot.com/docs/api/automation/custom-workflow-actions",
+    "methods": {
+        "completeCallback": {
+            "path": "actions/callbacks/{callbackId}/complete",         
+            "action": "POST"
+        },
+        "completeBatchCallbacks": {
+            "path": "actions/callbacks/complete",           
+            "action": "POST"
+        }
+    }
+}

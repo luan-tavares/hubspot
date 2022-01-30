@@ -1,0 +1,39 @@
+{
+    "name": "luan-tavares/hubspot",
+    "license": "MIT",
+    "description": "Hubspot API for everyone",
+    "keywords": ["hubspot","api","integration"],
+    "type": "library",
+    "authors": [
+        {
+            "name": "Luan Tavares Lourenço",
+            "email": "luan.tavares.lourenco@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "LTL\\HubspotApi\\": "src/"
+        },
+        "files": [
+            "src/config/config.php",
+            "src/helpers/helpers.php"
+        ]
+    },
+    "bin": [
+        "bin/resource"
+    ],
+    "require": {
+        "php": "^8.0",
+        "larapack/dd": "1.*"
+    },
+    "scripts": {
+        "deploy": [
+            "git add .",
+            "echo \"Commit description: (press ctrl + d)\" && cat > commit.txt",
+            "git commit -F commit.txt",
+            "rm commit.txt",
+            "git push"
+        ]
+    }
+}

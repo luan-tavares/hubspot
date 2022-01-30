@@ -1,0 +1,32 @@
+{
+    "resource": "crm",
+    "version": "v3",
+    "class": "DealHubspot",
+    "documentation": "https://developers.hubspot.com/docs/api/crm/deals",
+    "methods": {
+        "list": {
+            "path": "objects/deals",           
+            "action": "GET"
+        },
+        "get": {
+            "path": "objects/deals/{contactId}",
+            "action": "GET"
+        },
+        "create": {
+            "path": "objects/deals",
+            "action": "POST"
+        },
+        "archive": {
+            "path": "objects/deals/{contactId}",
+            "action": "DELETE"
+        },
+        "update": {
+            "path": "objects/deals/{contactId}",
+            "action": "PATCH"
+        },
+        "search": {
+            "path": "objects/deals/search",
+            "action": "POST"
+        }
+    }
+}

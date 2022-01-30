@@ -1,0 +1,36 @@
+{
+    "resource": "crm",
+    "version": "v3",
+    "class": "CrmObjectHubspot",
+    "documentation": "https://developers.hubspot.com/docs/api/crm/crm-custom-objects",
+    "methods": {
+        "list": {
+            "path": "objects/{objectType}",           
+            "action": "GET"
+        },
+        "get": {
+            "path": "objects/{objectType}/{objectId}",
+            "action": "GET"
+        },
+        "create": {
+            "path": "objects/{objectType}",
+            "action": "POST"
+        },
+        "archive": {
+            "path": "objects/{objectType}/{objectId}",
+            "action": "DELETE"
+        },
+        "update": {
+            "path": "objects/{objectType}/{objectId}",
+            "action": "PATCH"
+        },
+        "delete": {
+            "path": "objects/{objectType}/gdpr-delete",
+            "action": "POST"
+        },
+        "search": {
+            "path": "objects/{objectType}/search",
+            "action": "POST"
+        }
+    }
+}

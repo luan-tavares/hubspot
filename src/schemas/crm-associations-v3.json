@@ -1,0 +1,20 @@
+{
+    "resource": "crm",
+    "version": "v3",
+    "class": "CrmAssociationV3Hubspot",
+    "documentation": "https://developers.hubspot.com/docs/api/crm/associations",
+    "methods": {
+        "batchGet": {
+            "path": "associations/{fromObjectType}/{toObjectType}/batch/read",
+            "action": "createOrUpdate"
+        },
+        "batchCreate": {
+            "path": "associations/{fromObjectType}/{toObjectType}/batch/create",
+            "action": "createOrUpdate"
+        },
+        "batchArchive": {
+            "path": "associations/{fromObjectType}/{toObjectType}/batch/archive",
+            "action": "createOrUpdate"
+        }
+    }
+}

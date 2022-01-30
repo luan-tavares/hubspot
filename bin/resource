@@ -1,0 +1,66 @@
+#!/usr/bin/env php
+<?php
+
+$dir = __DIR__.'/vendor';
+
+if (!file_exists($dir.'/autoload.php')) {
+    $dir = __DIR__.'/../vendor';
+}
+
+if (!file_exists($dir.'/autoload.php')) {
+    $dir = __DIR__.'/../../vendor';
+}
+
+if (!file_exists($dir.'/autoload.php')) {
+    echo 'Autoload not found.';
+
+    exit(1);
+}
+
+require $dir.'/autoload.php';
+
+
+$template = file_get_contents(__ROOT__ . '/src/stubs/resource.stub');
+
+$files = glob(__ROOT__ .'/src/schemas/*.json');
+
+$resources = array_map(function ($path) {
+    preg_match('/schemas\/(.*?)\.json/', $path, $match);
+   
+    return $match[1];
+}, $files);
+
+foreach ($resources as $resource) {
+    $document = json_decode(file_get_contents(__ROOT__ . "/src/schemas/{$resource}.json"), true);
+
+    $content = $template;
+    $content = str_replace('{{class}}', $document['class'], $content);
+    $content = str_replace('{{name}}', $resource, $content);
+
+
+    $doc = '';
+    foreach ($document['methods'] as $method => $value) {
+        preg_match_all('/\{(.*?)\}/', $value['path'], $matches);
+
+        $params = array_map(function ($item) {
+            return 'int|string $'. $item;
+        }, $matches[1]);
+
+        if ($value['action'] != 'GET' && $value['action'] != 'DELETE') {
+            $params[] = 'array $requestBody';
+        }
+ 
+        $params = implode(', ', $params);
+
+        $description = @$value['description'];
+    
+        $doc .= "* @method static \$this {$method}({$params}) {$description}\n";
+        $doc .= "* @method \$this {$method}({$params}) {$description}\n";
+    }
+
+    $content = str_replace('{{docs}}', $doc, $content);
+
+    file_put_contents(__ROOT__ .'/src/Resources/'. $document['class'] .'.php', $content);
+
+    dump("{$resource} created!");
+}

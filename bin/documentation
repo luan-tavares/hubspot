@@ -1,0 +1,83 @@
+#!/usr/bin/env php
+<?php
+
+
+
+$dir = __DIR__.'/vendor';
+
+if (!file_exists($dir.'/autoload.php')) {
+    $dir = __DIR__.'/../vendor';
+}
+
+if (!file_exists($dir.'/autoload.php')) {
+    $dir = __DIR__.'/../../vendor';
+}
+
+if (!file_exists($dir.'/autoload.php')) {
+    echo 'Autoload not found.';
+
+    exit(1);
+}
+
+require $dir.'/autoload.php';
+
+use LTL\HubspotApi\Hubspot;
+use LTL\HubspotApi\Request\Interfaces\CurlComponentInterface;
+use LTL\HubspotApi\Request\Interfaces\HeaderInterface;
+use LTL\HubspotApi\Request\Interfaces\QueryInterface;
+
+function generateDoc(string $class, string $title): string
+{
+    $reflectionClass = new ReflectionClass($class);
+
+    $reflectionMethods =  $reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC);
+    
+    $doc = " *\n * {$title}\n *\n";
+    foreach ($reflectionMethods as $reflectionMethod) {
+        preg_match_all('/\-\ (.*?)\\n/', $reflectionMethod->getDocComment(), $matches, PREG_PATTERN_ORDER);
+        $description = @$matches[1][0] ?? '';
+        $name = $reflectionMethod->name;
+    
+        $params = array_map(function ($item) {
+            $reflectionType = $item->getType();
+            $type = (!is_null($reflectionType))?($reflectionType):('mixed');
+    
+            $multiple = '';
+    
+            if ($item->name === 'arguments') {
+                $type = 'string';
+                $multiple = '...';
+            }
+    
+            return "{$type} {$multiple}$". $item->name;
+        }, $reflectionMethod->getParameters());
+     
+        $params = implode(', ', $params);
+        
+        $doc .= " * @method \$this {$name}({$params}) {$description}\n";
+        $doc .= " * @method static \$this {$name}({$params}) {$description}\n";
+    }
+
+    return $doc;
+}
+$doc = "/**\n";
+$doc .= generateDoc(QueryInterface::class, 'Uri Query Methods');
+$doc .= generateDoc(HeaderInterface::class, 'Uri Header Methods');
+$doc .= generateDoc(CurlComponentInterface::class, 'Uri Curl Methods');
+$doc .= '*/';
+
+$content = file_get_contents(__ROOT__ . '/src/Hubspot.php');
+
+$rc = new ReflectionClass(Hubspot::class);
+
+if ($rc->getDocComment()) {
+    $document = str_replace($rc->getDocComment(), $doc, $content);
+} else {
+    $doc .= "\n abstract class";
+    $document = str_replace('abstract class', $doc, $content);
+}
+
+
+file_put_contents(__ROOT__ .'/src/Hubspot.php', $document);
+
+dump($doc);

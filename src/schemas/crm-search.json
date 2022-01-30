@@ -1,0 +1,13 @@
+{
+    "resource": "crm",
+    "version": "v3",
+    "documentation": "https://developers.hubspot.com/docs/api/crm/search",
+    "class": "CrmSearchHubspot",
+    "methods": {
+        "search": {
+            "path": "objects/{objectType}/search",
+            "action": "POST",
+            "description": "Make a search request"
+        }      
+    }
+}

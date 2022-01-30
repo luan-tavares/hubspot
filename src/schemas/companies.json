@@ -1,0 +1,73 @@
+{
+    "resource": "crm",
+    "version": "v3",
+    "class": "CompanyHubspot",
+    "documentation": "https://developers.hubspot.com/docs/api/crm/companies",
+    "methods": {
+        "list": {
+            "path": "objects/companies",           
+            "action": "GET",
+            "description": "Read a page of companies"
+        },
+        "get": {
+            "path": "objects/companies/{companyId}",
+            "action": "GET",
+            "description": "Read an company identified by {companyId}"
+        },
+        "create": {
+            "path": "objects/companies",
+            "action": "POST",
+            "description": "Create a company with the given properties"
+        },
+        "archive": {
+            "path": "objects/companies/{companyId}",
+            "action": "DELETE",
+            "description": "Move an company identified by {companyId} to the recycling bin"
+        },
+        "update": {
+            "path": "objects/companies/{companyId}",
+            "action": "PATCH",
+            "description": "Perform a partial update of an company identified by {companyId}"
+        },
+        "listAssociationsByType": {
+            "path": "objects/companies/{companyId}/associations/{toObjectType}",
+            "action": "GET",
+            "description": "List associations of a company by type"
+        },
+        "createAssociation": {
+            "path": "objects/companies/{companyId}/associations/{toObjectType}/{toObjectId}/{associationType}",
+            "action": "PUT",
+            "description": "Associate a company with another object"
+        },
+        "removeAssociation": {
+            "path": "objects/companies/{companyId}/associations/{toObjectType}/{toObjectId}/{associationType}",
+            "action": "DELETE",
+            "description": "Remove an association with companies"
+        },
+        "batchArchive": {
+            "path": "objects/companies/batch/archive",
+            "action": "DELETE",
+            "description": "Archive a batch of companies by ID"
+        },
+        "batchCreate": {
+            "path": "objects/companies/batch/create",
+            "action": "POST",
+            "description": "Create a batch of companies"
+        },
+        "batchRead": {
+            "path": "objects/companies/batch/read",
+            "action": "POST",
+            "description": "Read a batch of companies by internal ID, or unique property values"
+        },
+        "batchUpdate": {
+            "path": "objects/companies/batch/update",
+            "action": "POST",
+            "description": "Update a batch of companies"
+        },
+        "search": {
+            "path": "objects/companies/search",
+            "action": "POST",
+            "description": "Serach Companies"
+        }
+    }
+}
