@@ -1,0 +1,52 @@
+{
+    "resource": "crm-objects",
+    "version": "v1",
+    "class": "LineItemV1Hubspot",
+    "methods": {
+        "getAll": {
+            "path": "objects/line_items/paged",
+            "documentation": "https://legacydocs.hubspot.com/docs/methods/line-items/get-all-line-items",
+            "action": "GET"
+        },
+        "get": {
+            "path": "objects/line_items/{id}",
+            "documentation": "https://legacydocs.hubspot.com/docs/methods/line-items/get_line_item_by_id",
+            "action": "GET"
+        },
+        "create": {
+            "path": "objects/line_items",
+            "documentation": "https://legacydocs.hubspot.com/docs/methods/line-items/create-line-item",
+            "action": "POST"
+        },
+        "update": {
+            "path": "objects/line_items/{id}",
+            "documentation": "https://legacydocs.hubspot.com/docs/methods/line-items/update-line-item",
+            "action": "PUT"
+        },
+        "delete": {
+            "path": "objects/line_items/{id}",
+            "documentation": "https://legacydocs.hubspot.com/docs/methods/line-items/delete-line-item",
+            "action": "DELETE"
+        },
+        "getGroup": {
+            "path": "objects/line_items/batch-read",
+            "documentation": "https://legacydocs.hubspot.com/docs/methods/line-items/batch-get-line-items",
+            "action": "POST"
+        },
+        "batchCreate": {
+            "path": "objects/line_items/batch-create",
+            "documentation": "https://legacydocs.hubspot.com/docs/methods/line-items/batch-create-line-items",
+            "action": "POST"
+        },
+        "batchUpdate": {
+            "path": "objects/line_items/batch-update",
+            "documentation": "https://legacydocs.hubspot.com/docs/methods/line-items/batch-update-line-items",
+            "action": "POST"
+        },
+        "batchDelete": {
+            "path": "objects/line_items/batch-delete",
+            "documentation": "https://legacydocs.hubspot.com/docs/methods/line-items/batch-delete-line-items",
+            "action": "POST"
+        }
+    }
+}
