@@ -9,7 +9,7 @@
             "action": "GET"
         },
         "get": {
-            "path": "objects/deals/{contactId}",
+            "path": "objects/deals/{dealId}",
             "action": "GET"
         },
         "create": {
@@ -17,11 +17,11 @@
             "action": "POST"
         },
         "archive": {
-            "path": "objects/deals/{contactId}",
+            "path": "objects/deals/{dealId}",
             "action": "DELETE"
         },
         "update": {
-            "path": "objects/deals/{contactId}",
+            "path": "objects/deals/{dealId}",
             "action": "PATCH"
         },
         "search": {

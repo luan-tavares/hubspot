@@ -5,14 +5,14 @@ namespace LTL\HubspotApi\Resources;
 use LTL\HubspotApi\Hubspot;
 
 /**
-* @method static $this get(int|string $dealId, array $requestBody) 
-* @method $this get(int|string $dealId, array $requestBody) 
-* @method static $this getAll(array $requestBody) 
-* @method $this getAll(array $requestBody) 
-* @method static $this getRecentlyModified(array $requestBody) 
-* @method $this getRecentlyModified(array $requestBody) 
-* @method static $this getRecentlyCreated(array $requestBody) 
-* @method $this getRecentlyCreated(array $requestBody) 
+* @method static $this get(int|string $dealId) 
+* @method $this get(int|string $dealId) 
+* @method static $this getAll() 
+* @method $this getAll() 
+* @method static $this getRecentlyModified() 
+* @method $this getRecentlyModified() 
+* @method static $this getRecentlyCreated() 
+* @method $this getRecentlyCreated() 
 * @method static $this create(array $requestBody) 
 * @method $this create(array $requestBody) 
 * @method static $this update(int|string $dealId, array $requestBody) 

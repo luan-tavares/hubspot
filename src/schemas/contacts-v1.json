@@ -51,7 +51,7 @@
         "updateByEmail": {
             "path": "contact/email/{email}/profile",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/contacts/update_contact-by-email",
-            "action": "createOrUpdate"
+            "action": "POST"
         },
         "createOrUpdate": {
             "path": "contact/createOrUpdate/email/{email}",

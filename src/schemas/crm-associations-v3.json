@@ -6,15 +6,15 @@
     "methods": {
         "batchGet": {
             "path": "associations/{fromObjectType}/{toObjectType}/batch/read",
-            "action": "createOrUpdate"
+            "action": "POST"
         },
         "batchCreate": {
             "path": "associations/{fromObjectType}/{toObjectType}/batch/create",
-            "action": "createOrUpdate"
+            "action": "POST"
         },
         "batchArchive": {
             "path": "associations/{fromObjectType}/{toObjectType}/batch/archive",
-            "action": "createOrUpdate"
+            "action": "POST"
         }
     }
 }
