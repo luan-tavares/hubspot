@@ -1,0 +1,47 @@
+{
+    "resource": "properties",
+    "version": "v1",
+    "class": "ContactPropertyV1Hubspot",
+    "methods": {
+        "getAll": {
+            "path": "contacts/properties",
+            "documentation": "",
+            "action": "GET"
+        },
+        "get": {
+            "path": "contacts/properties/named/{property_name}",
+            "documentation": "",
+            "action": "GET"
+        },
+        "create": {
+            "path": "contacts/properties",
+            "documentation": "https://legacydocs.hubspot.com/docs/methods/contacts/v2/create_contacts_property",
+            "action": "POST"
+        },
+        "update": {
+            "path": "contacts/properties/named/{property_name}",
+            "documentation": "https://legacydocs.hubspot.com/docs/methods/contacts/v2/update_contact_property",
+            "action": "PUT"
+        },
+        "delete": {
+            "path": "contacts/properties/named/{property_name}",
+            "documentation": "https://legacydocs.hubspot.com/docs/methods/contacts/v2/delete_contact_property",
+            "action": "DELETE"
+        },
+        "getAllGroups": {
+            "path": "contacts/groups",
+            "documentation": "",
+            "action": "PATCH"
+        },
+        "createGroup": {
+            "path": "contacts/groups",
+            "documentation": "https://legacydocs.hubspot.com/docs/methods/contacts/v2/create_contacts_property_group",
+            "action": "POST"
+        },
+        "updateGroup": {
+            "path": "contacts/groups/named/{group_name}",
+            "documentation": "https://legacydocs.hubspot.com/docs/methods/contacts/v2/update_contact_property_group",
+            "action": "PUT"
+        }
+    }
+}

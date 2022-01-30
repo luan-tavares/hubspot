@@ -1,0 +1,17 @@
+{
+    "resource": "automation",
+    "version": "v3",
+    "class": "WorkflowV3Hubspot",
+    "methods": {
+        "getAll": {
+            "path": "workflows",
+            "documentation": "https://legacydocs.hubspot.com/docs/methods/workflows/v3/get_workflows",
+            "action": "GET"
+        },
+        "get": {
+            "path": "workflows/{workflowId}",
+            "documentation": "https://legacydocs.hubspot.com/docs/methods/workflows/v3/get_workflow",
+            "action": "GET"
+        }
+    }
+}
