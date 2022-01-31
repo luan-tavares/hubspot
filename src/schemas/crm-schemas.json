@@ -3,14 +3,14 @@
     "version": "v3",
     "class": "CrmSchemaHubspot",
     "documentation": "https://developers.hubspot.com/docs/api/crm/crm-custom-objects",
-    "methods": {
+    "actions": {
         "getAll": {
             "path": "schemas",
-            "action": "GET"
+            "method": "GET"
         },
         "get": {
             "path": "schemas/{objectId}",
-            "action": "GET"
+            "method": "GET"
         }
     }
 }

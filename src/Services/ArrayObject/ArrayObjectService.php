@@ -1,13 +1,13 @@
 <?php
 
-namespace LTL\HubspotApi\Services\ArrayObject;
+namespace LTL\Hubspot\Services\ArrayObject;
 
 use ArrayAccess;
 use Countable;
 use Iterator;
-use LTL\HubspotApi\Services\ArrayObject\Interfaces\AddArrayInterface;
-use LTL\HubspotApi\Services\ArrayObject\Interfaces\DeleteArrayInterface;
-use LTL\HubspotApi\Services\ArrayObject\Interfaces\GetArrayInterface;
+use LTL\Hubspot\Services\ArrayObject\Interfaces\AddArrayInterface;
+use LTL\Hubspot\Services\ArrayObject\Interfaces\DeleteArrayInterface;
+use LTL\Hubspot\Services\ArrayObject\Interfaces\GetArrayInterface;
 
 class ArrayObjectService implements Iterator, Countable, ArrayAccess, AddArrayInterface, DeleteArrayInterface, GetArrayInterface
 {

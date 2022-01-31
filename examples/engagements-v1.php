@@ -1,6 +1,6 @@
 <?php
 
-use LTL\HubspotApi\Resources\EngagementV1Hubspot;
+use LTL\Hubspot\Resources\EngagementV1Hubspot;
 
 require_once __DIR__ .'/__init.php';
 

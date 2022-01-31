@@ -13,7 +13,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "LTL\\HubspotApi\\": "src/"
+            "LTL\\Hubspot\\": "src/"
         },
         "files": [
             "src/config/config.php",
@@ -24,7 +24,9 @@
         "bin/resource"
     ],
     "require": {
-        "php": "^8.0",
+        "php": "^8.0"
+    },
+    "require-dev": {
         "larapack/dd": "1.*"
     },
     "scripts": {

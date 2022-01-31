@@ -1,10 +1,10 @@
 <?php
 
-namespace LTL\HubspotApi\Request\Components;
+namespace LTL\Hubspot\Core\Request\Components;
 
-use LTL\HubspotApi\Request\Components\RequestComponent;
-use LTL\HubspotApi\Request\Interfaces\QueryInterface;
-use LTL\HubspotApi\Traits\MethodsListable;
+use LTL\Hubspot\Core\Request\Components\RequestComponent;
+use LTL\Hubspot\Core\Request\Interfaces\QueryInterface;
+use LTL\Hubspot\Core\Traits\MethodsListable;
 
 class QueryRequestComponent extends RequestComponent implements QueryInterface
 {

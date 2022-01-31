@@ -1,13 +1,13 @@
 <?php
 
-namespace LTL\HubspotApi\Request\Components;
+namespace LTL\Hubspot\Core\Request\Components;
 
-use LTL\HubspotApi\Core\Schema;
-use LTL\HubspotApi\Interfaces\ResourceInterface;
-use LTL\HubspotApi\Request\Request;
-use LTL\HubspotApi\Services\ArrayObject\ArrayObjectService;
-use LTL\HubspotApi\Services\Observer\Interfaces\SubjectInterface;
-use LTL\HubspotApi\Services\Observer\Traits\SubjectTrait;
+use LTL\Hubspot\Core\Schema;
+use LTL\Hubspot\Core\Interfaces\ResourceInterface;
+use LTL\Hubspot\Core\Request\Request;
+use LTL\Hubspot\Services\ArrayObject\ArrayObjectService;
+use LTL\Hubspot\Services\Observer\Interfaces\SubjectInterface;
+use LTL\Hubspot\Services\Observer\Traits\SubjectTrait;
 
 abstract class RequestComponent extends ArrayObjectService implements SubjectInterface
 {
@@ -28,9 +28,9 @@ abstract class RequestComponent extends ArrayObjectService implements SubjectInt
         return $this->request->getSchema();
     }
 
-    public function getMethodSchema(string $method): array
+    public function getActionSchema(string $method): array
     {
-        return $this->request->getMethodSchema($method);
+        return $this->request->getActionSchema($method);
     }
 
     public function getResource(): ResourceInterface

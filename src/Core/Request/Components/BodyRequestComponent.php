@@ -1,15 +1,15 @@
 <?php
 
-namespace LTL\HubspotApi\Request\Components;
+namespace LTL\Hubspot\Core\Request\Components;
 
-use LTL\HubspotApi\Request\Components\RequestComponent;
+use LTL\Hubspot\Core\Request\Components\RequestComponent;
 
 class BodyRequestComponent extends RequestComponent
 {
     public function add(?array $body): void
     {
         if (is_null($body)) {
-            $this->notify('removeContentType');
+            $this->notify('bodyRemoved');
 
             return;
         }

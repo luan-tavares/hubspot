@@ -2,46 +2,46 @@
     "resource": "deals",
     "version": "v1",
     "class": "DealV1Hubspot",
-    "methods": {
+    "actions": {
         "get": {
             "path": "deal/{dealId}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/deals/get_deal",
-            "action": "GET"
+            "method": "GET"
         },
         "getAll": {
             "path": "deal/paged",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/deals/get-all-deals",
-            "action": "GET"
+            "method": "GET"
         },
         "getRecentlyModified": {
             "path": "deal/recent/modified",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/deals/get_deals_modified",
-            "action": "GET"
+            "method": "GET"
         },
         "getRecentlyCreated": {
             "path": "deal/recent/created",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/deals/get_deals_created",
-            "action": "GET"
+            "method": "GET"
         },
         "create": {
             "path": "deal",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/deals/create_deal",
-            "action": "POST"
+            "method": "POST"
         },
         "update": {
             "path": "deal/{dealId}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/deals/update_deal",
-            "action": "PUT"
+            "method": "PUT"
         },
         "delete": {
             "path": "deal/{dealId}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/deals/delete_deal",
-            "action": "delete"
+            "method": "delete"
         },
         "batchUpdate": {
             "path": "batch-async/update",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/deals/batch-update-deals",
-            "action": "POST"
+            "method": "POST"
         }
     }
 }

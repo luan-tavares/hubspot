@@ -3,34 +3,34 @@
     "version": "v3",
     "class": "CrmObjectHubspot",
     "documentation": "https://developers.hubspot.com/docs/api/crm/crm-custom-objects",
-    "methods": {
+    "actions": {
         "list": {
             "path": "objects/{objectType}",           
-            "action": "GET"
+            "method": "GET"
         },
         "get": {
             "path": "objects/{objectType}/{objectId}",
-            "action": "GET"
+            "method": "GET"
         },
         "create": {
             "path": "objects/{objectType}",
-            "action": "POST"
+            "method": "POST"
         },
         "archive": {
             "path": "objects/{objectType}/{objectId}",
-            "action": "DELETE"
+            "method": "DELETE"
         },
         "update": {
             "path": "objects/{objectType}/{objectId}",
-            "action": "PATCH"
+            "method": "PATCH"
         },
         "delete": {
             "path": "objects/{objectType}/gdpr-delete",
-            "action": "POST"
+            "method": "POST"
         },
         "search": {
             "path": "objects/{objectType}/search",
-            "action": "POST"
+            "method": "POST"
         }
     }
 }

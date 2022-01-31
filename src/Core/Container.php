@@ -1,9 +1,11 @@
 <?php
 
-namespace LTL\HubspotApi\Core;
+namespace LTL\Hubspot\Core;
 
-use LTL\HubspotApi\Core\Builder;
-use LTL\HubspotApi\Interfaces\ResourceInterface;
+use LTL\Hubspot\Core\Builder;
+use LTL\Hubspot\Core\Request\Interfaces\ResponseInterface;
+use LTL\Hubspot\Core\Interfaces\ResourceInterface;
+use ReflectionObject;
 use stdClass;
 
 abstract class Container
@@ -56,5 +58,30 @@ abstract class Container
         }
 
         return self::$apikey;
+    }
+
+    public static function setResponseToResource(ResourceInterface $resource, ResponseInterface $response)
+    {
+        $reflector = new ReflectionObject($resource);
+
+        $property = $reflector->getProperty('response');
+        $property->setValue($resource, $response);
+
+        $property = $reflector->getProperty('documentation');
+        $property->setValue($resource, self::getDocumentation($resource));
+              
+        return $resource;
+    }
+
+    private static function getDocumentation(ResourceInterface $resource): ?string
+    {
+        $schema = self::getSchema($resource);
+        $documentation = @$schema->getActionSchema($resource->action())['documentation'];
+        
+        if (!is_null(@$documentation)) {
+            return $documentation;
+        }
+
+        return @$schema['documentation'];
     }
 }

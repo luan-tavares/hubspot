@@ -2,35 +2,35 @@
     "resource": "crm-pipelines",
     "version": "v1",
     "class": "CrmPipelineV1Hubspot",
-    "methods": {
+    "actions": {
         "getAll": {
             "path": "pipelines/{object_type}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/pipelines/get_pipelines_for_object_type",
-            "action": "GET",
+            "method": "GET",
             "description": "Get all pipelines for a specified object type"
         },
         "get": {
             "path": "pipelines/{object_type}/{pipeline_id}",
             "documentation": "",
-            "action": "GET",
+            "method": "GET",
             "description": "Get an existing pipeline"
         },
         "create": {
             "path": "pipelines/{object_type}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/pipelines/create_new_pipeline",
-            "action": "POST",
+            "method": "POST",
             "description": "Create a new pipeline"
         },
         "update": {
             "path": "pipelines/{object_type}/{pipeline_id}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/pipelines/update_pipeline",
-            "action": "PUT",
+            "method": "PUT",
             "description": "Update an existing pipeline"
         },
         "delete": {
             "path": "pipelines/{object_type}/{pipeline_id}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/pipelines/delete_pipeline",
-            "action": "DELETE",
+            "method": "DELETE",
             "description": "Delete an existing pipeline"
         }
     }

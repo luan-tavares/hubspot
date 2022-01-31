@@ -1,46 +1,46 @@
 {
     "class": "EngagementV1Hubspot",
-    "methods": {
+    "actions": {
         "getRecents": {
             "path": "engagements/v1/engagements/recent/modified",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/engagements/get-recent-engagements",
-            "action": "GET",
+            "method": "GET",
             "description": "Get recent engagements"
         },
         "create": {
             "path": "engagements/v1/engagements",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/engagements/create_engagement",
-            "action": "POST",
+            "method": "POST",
             "description": "Create an engagement"
         },
         "update": {
             "path": "engagements/v1/engagements/{engagementId}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/engagements/update_engagement-patch",
-            "action": "PATCH",
+            "method": "PATCH",
             "description": "Update an Engagement"
         },
         "get": {
             "path": "engagements/v1/engagements/{engagementId}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/engagements/get_engagement",
-            "action": "GET",
+            "method": "GET",
             "description": "Get an engagement"
         },
         "getAll": {
             "path": "engagements/v1/engagements/paged",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/engagements/get-all-engagements",
-            "action": "GET",
+            "method": "GET",
             "description": "Get all engagements"
         },
         "delete": {
             "path": "engagements/v1/engagements/{engagementId}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/engagements/delete-engagement",
-            "action": "DELETE",
+            "method": "DELETE",
             "description": "DELETE an Engagement"
         },
         "getCallDispositions": {
             "path": "calling/v1/dispositions",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/engagements/get-call-dispositions",
-            "action": "GET",
+            "method": "GET",
             "description": "Get call engagement dispositions"
         }
     }

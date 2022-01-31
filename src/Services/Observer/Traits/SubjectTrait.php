@@ -1,8 +1,8 @@
 <?php
 
-namespace LTL\HubspotApi\Services\Observer\Traits;
+namespace LTL\Hubspot\Services\Observer\Traits;
 
-use LTL\HubspotApi\Services\Observer\Interfaces\ObserverInterface;
+use LTL\Hubspot\Services\Observer\Interfaces\ObserverInterface;
 use SplObjectStorage;
 
 trait SubjectTrait

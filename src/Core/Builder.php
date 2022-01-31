@@ -1,11 +1,11 @@
 <?php
 
-namespace LTL\HubspotApi\Core;
+namespace LTL\Hubspot\Core;
 
-use LTL\HubspotApi\Core\Container;
-use LTL\HubspotApi\Exceptions\HubspotResourceException;
-use LTL\HubspotApi\Interfaces\ResourceInterface;
-use LTL\HubspotApi\Request\Request;
+use LTL\Hubspot\Core\Container;
+use LTL\Hubspot\Core\Exceptions\HubspotResourceException;
+use LTL\Hubspot\Core\Interfaces\ResourceInterface;
+use LTL\Hubspot\Core\Request\Request;
 
 class Builder
 {
@@ -56,7 +56,15 @@ class Builder
     private function makeAfterAction(string $method, ?array $arguments): mixed
     {
         if (!$this->request->hasConnected()) {
-            throw new HubspotResourceException('Can\'t use '. get_class($this->resource) .'::'. $method .'() before request!');
+            $schema = Container::getSchema($this->resource);
+
+            $actions = $schema->mapKey(function ($action) {
+                return "{$action}()";
+            });
+
+            throw new HubspotResourceException(
+                "Can\'t use ". get_class($this->resource) .'::'. $method ."() before actions requests:\n[ ". implode(', ', $actions) .' ]'
+            );
         }
 
         return $this->resource->{$method}(...$arguments);
@@ -71,12 +79,12 @@ class Builder
      */
     private function makeRequestAction(string $method, ?array $arguments): ResourceInterface
     {
-        $resource = $this->request->dispatch($method, $arguments);
+        $response = $this->request->dispatch($method, $arguments);
 
         unset($this->request);
 
         $this->request = new Request($this->resource);
 
-        return $resource;
+        return Container::setResponseToResource($this->resource, $response);
     }
 }

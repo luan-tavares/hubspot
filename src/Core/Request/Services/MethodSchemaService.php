@@ -1,22 +1,22 @@
 <?php
 
-namespace LTL\HubspotApi\Request\Services;
+namespace LTL\Hubspot\Core\Request\Services;
 
-use LTL\HubspotApi\Exceptions\HubspotResourceException;
-use LTL\HubspotApi\Request\Components\BodyRequestComponent;
-use LTL\HubspotApi\Request\Components\HeaderRequestComponent;
-use LTL\HubspotApi\Request\Components\UriRequestComponent;
-use LTL\HubspotApi\Request\RequestConstants;
+use LTL\Hubspot\Core\Request\Components\BodyRequestComponent;
+use LTL\Hubspot\Core\Request\Components\HeaderRequestComponent;
+use LTL\Hubspot\Core\Request\Components\UriRequestComponent;
+use LTL\Hubspot\Core\Request\RequestConstants;
+use LTL\Hubspot\Core\Exceptions\HubspotResourceException;
 
 class MethodSchemaService
 {
     private $withBodyMethods = ['PUT', 'POST', 'PATCH'];
 
-    public function __construct(private string $method, private array $arguments)
+    public function __construct(private string $action, private array $arguments)
     {
     }
 
-    public function resolveMethodSchema(UriRequestComponent $uriComponent, BodyRequestComponent $bodyComponent): void
+    public function resolveActionSchema(UriRequestComponent $uriComponent, BodyRequestComponent $bodyComponent): void
     {
         $schema = $uriComponent->getSchema();
 
@@ -26,10 +26,10 @@ class MethodSchemaService
         $uri .= (@$schema['resource'])?('/'. $schema['resource']):('');
         $uri .= (@$schema['version'])?('/'. $schema['version']):('');
        
-        $methodSchema = $uriComponent->getMethodSchema($this->method);
+        $methodSchema = $uriComponent->getActionSchema($this->action);
 
         $uriPath = $methodSchema['path'];
-        $action = $methodSchema['action'];
+        $method = $methodSchema['method'];
 
         preg_match_all('/{(.*?)}/', $uriPath, $matches, PREG_PATTERN_ORDER);
 
@@ -38,13 +38,13 @@ class MethodSchemaService
         $nParams = count($fixedParams);
         $nArguments = count($this->arguments);
 
-        if (in_array($methodSchema['action'], $this->withBodyMethods)) {
+        if (in_array($methodSchema['method'], $this->withBodyMethods)) {
             $nParams++;
         }
 
         if ($nParams !== $nArguments) {
             throw new HubspotResourceException(
-                get_class($uriComponent->getResource()) ."::{$this->method}() must be {$nParams} params. {$nArguments} given!"
+                get_class($uriComponent->getResource()) ."::{$this->action}() must be {$nParams} params. {$nArguments} given!"
             );
         }
 
@@ -56,14 +56,15 @@ class MethodSchemaService
 
         $uriComponent->addUri("{$uri}/{$uriPath}");
 
-        $uriComponent->addAction($action);
+        $uriComponent->addMethod($method);
+
 
         $bodyComponent->add(@$arguments[0]);
     }
 
     public function resolveContentType(HeaderRequestComponent $headerComponent): void
     {
-        $methodSchema = $headerComponent->getMethodSchema($this->method);
+        $methodSchema = $headerComponent->getActionSchema($this->action);
       
         if (!array_key_exists('contentType', $methodSchema)) {
             return;

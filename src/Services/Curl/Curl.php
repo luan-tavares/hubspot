@@ -1,9 +1,11 @@
 <?php
 
-namespace LTL\HubspotApi\Services\Curl;
+namespace LTL\Hubspot\Services\Curl;
 
-use LTL\HubspotApi\Interfaces\ResourceInterface;
-use LTL\HubspotApi\Request\Request;
+use LTL\Hubspot\Core\Request\Interfaces\ResponseInterface;
+use LTL\Hubspot\Core\Request\Request;
+use LTL\Hubspot\Core\Request\Response;
+use LTL\Hubspot\Core\Interfaces\ResourceInterface;
 
 class Curl
 {
@@ -25,11 +27,12 @@ class Curl
     /**
      * Execute de Curl Request
      *
-     * @return ResourceInterface
+     * @return ResponseInterface
      */
-    public function connect(): ResourceInterface
+    public function connect(): ResponseInterface
     {
         $request = curl_init($this->uri);
+
   
         foreach ($this->params as $index => $value) {
             curl_setopt($request, $index, $value);
@@ -41,7 +44,7 @@ class Curl
 
         curl_close($request);
   
-        return $this->request->returnResolvedResource($response, $status);
+        return new Response($response, $status, $this->request->getAction());
     }
 
     private function resolveOtherParams(): self
@@ -93,7 +96,7 @@ class Curl
 
     private function resolveAction(): self
     {
-        $this->params[CURLOPT_CUSTOMREQUEST] = $this->request->getAction();
+        $this->params[CURLOPT_CUSTOMREQUEST] = $this->request->getMethod();
 
         return $this;
     }

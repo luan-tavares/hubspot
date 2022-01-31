@@ -1,10 +1,11 @@
 <?php
 
-namespace LTL\HubspotApi\Core;
+namespace LTL\Hubspot\Core;
 
-use LTL\HubspotApi\Core\Container;
-use LTL\HubspotApi\Interfaces\ResourceInterface;
-use LTL\HubspotApi\Traits\MethodsListable;
+use LTL\Hubspot\Core\Container;
+use LTL\Hubspot\Core\Request\Interfaces\ResponseInterface;
+use LTL\Hubspot\Core\Interfaces\ResourceInterface;
+use LTL\Hubspot\Core\Traits\MethodsListable;
 
 abstract class Resource implements ResourceInterface
 {
@@ -12,9 +13,7 @@ abstract class Resource implements ResourceInterface
     
     protected string $resource;
 
-    protected ?string $response;
-
-    protected ?int $status;
+    protected ResponseInterface $response;
 
     protected ?string $documentation;
 
@@ -43,7 +42,7 @@ abstract class Resource implements ResourceInterface
      */
     public function toArray(): ?array
     {
-        return json_decode($this->response, true);
+        return json_decode($this->response->get(), true);
     }
   
     /**
@@ -53,7 +52,7 @@ abstract class Resource implements ResourceInterface
      */
     public function toJson(): ?string
     {
-        return $this->response;
+        return $this->response->get();
     }
   
     /**
@@ -63,7 +62,17 @@ abstract class Resource implements ResourceInterface
      */
     public function status(): int
     {
-        return $this->status;
+        return $this->response->getStatus();
+    }
+
+    /**
+     * Return true if has response error
+     *
+     * @return boolean
+     */
+    public function error(): bool
+    {
+        return !($this->response->getStatus() >= 200 && $this->response->getStatus() <= 299);
     }
  
     /**
@@ -74,5 +83,15 @@ abstract class Resource implements ResourceInterface
     public function documentation(): ?string
     {
         return $this->documentation;
+    }
+
+    /**
+     * Return the Documentation
+     *
+     * @return string|null
+     */
+    public function action(): ?string
+    {
+        return $this->response->getAction();
     }
 }

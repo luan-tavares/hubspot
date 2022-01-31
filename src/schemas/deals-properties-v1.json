@@ -2,56 +2,56 @@
     "resource": "properties",
     "version": "v1",
     "class": "DealPropertyV1Hubspot",
-    "methods": {
+    "actions": {
         "getAll": {
             "path": "deals/properties",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/deals/get_deal_properties",
-            "action": "GET"
+            "method": "GET"
         },
         "get": {
             "path": "deals/properties/named/{property}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/deals/get_deal_property",
-            "action": "GET"
+            "method": "GET"
         },
         "create": {
             "path": "deals/properties",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/deals/create_deal_property",
-            "action": "POST"
+            "method": "POST"
         },
         "update": {
             "path": "deals/properties/named/{property}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/deals/update_deal_property",
-            "action": "PUT"
+            "method": "PUT"
         },
         "delete": {
             "path": "deals/properties/named/{property}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/deals/delete_deal_property",
-            "action": "DELETE"
+            "method": "DELETE"
         },
         "getAllGroups": {
             "path": "deals/groups",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/deals/get_deal_property_groups",
-            "action": "GET"
+            "method": "GET"
         },
         "getGroup": {
             "path": "deals/groups/named/{group}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/deals/get_deal_property_group",
-            "action": "GET"
+            "method": "GET"
         },
         "createGroup": {
             "path": "deals/groups",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/deals/create_deal_property_group",
-            "action": "POST"
+            "method": "POST"
         },
         "updateGroup": {
             "path": "deals/groups/named/{group}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/deals/update_deal_property_group",
-            "action": "PUT"
+            "method": "PUT"
         },
         "deleteGroup": {
             "path": "deals/groups/named/{group}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/deals/delete_deal_property_group",
-            "action": "DELETE"
+            "method": "DELETE"
         }
     }
 }

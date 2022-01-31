@@ -1,5 +1,5 @@
 <?php
-namespace LTL\HubspotApi\Exceptions;
+namespace LTL\Hubspot\Core\Exceptions;
 
 use Exception;
 use Throwable;

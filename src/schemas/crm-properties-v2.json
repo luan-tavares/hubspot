@@ -2,46 +2,46 @@
     "resource": "properties",
     "version": "v2",
     "class": "CrmPropertyV2Hubspot",
-    "methods": {
+    "actions": {
         "getAll": {
             "path": "{objectType}/properties",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/crm-properties/get-properties",
-            "action": "GET"
+            "method": "GET"
         },
         "create": {
             "path": "{objectType}/properties",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/crm-properties/create-property",
-            "action": "POST"
+            "method": "POST"
         },
         "update": {
             "path": "{objectType}/properties/named/{propertyName}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/crm-properties/update-property",
-            "action": "PATCH"
+            "method": "PATCH"
         },
         "delete": {
             "path": "{objectType}/properties/named/{propertyName}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/crm-properties/delete-property",
-            "action": "DELETE"
+            "method": "DELETE"
         },
         "getGroups": {
             "path": "{objectType}/groups",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/crm-properties/get-property-groups",
-            "action": "GET"
+            "method": "GET"
         },
         "createGroup": {
             "path": "{objectType}/groups",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/crm-properties/create-property-group",
-            "action": "POST"
+            "method": "POST"
         },
         "updateGroup": {
             "path": "{objectType}/groups/named/{groupName}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/crm-properties/udpate-property-group",
-            "action": "PUT"
+            "method": "PUT"
         },
         "deleteGroup": {
             "path": "{objectType}/groups/named/{groupName}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/crm-properties/delete-property-group",
-            "action": "DELETE"
+            "method": "DELETE"
         }
     }
 }

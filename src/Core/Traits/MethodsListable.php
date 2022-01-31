@@ -1,8 +1,8 @@
 <?php
 
-namespace LTL\HubspotApi\Traits;
+namespace LTL\Hubspot\Core\Traits;
 
-use LTL\HubspotApi\Services\PublicMethods\PublicMethods;
+use LTL\Hubspot\Services\PublicMethods\PublicMethods;
 
 trait MethodsListable
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace LTL\HubspotApi\Resources;
+namespace LTL\Hubspot\Resources;
 
-use LTL\HubspotApi\Hubspot;
+use LTL\Hubspot\Hubspot;
 
 /**
 * @method static $this batchGet(int|string $fromObjectType, int|string $toObjectType, array $requestBody) 

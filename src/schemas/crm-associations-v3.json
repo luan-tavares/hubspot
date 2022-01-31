@@ -3,18 +3,18 @@
     "version": "v3",
     "class": "CrmAssociationV3Hubspot",
     "documentation": "https://developers.hubspot.com/docs/api/crm/associations",
-    "methods": {
+    "actions": {
         "batchGet": {
             "path": "associations/{fromObjectType}/{toObjectType}/batch/read",
-            "action": "POST"
+            "method": "POST"
         },
         "batchCreate": {
             "path": "associations/{fromObjectType}/{toObjectType}/batch/create",
-            "action": "POST"
+            "method": "POST"
         },
         "batchArchive": {
             "path": "associations/{fromObjectType}/{toObjectType}/batch/archive",
-            "action": "POST"
+            "method": "POST"
         }
     }
 }

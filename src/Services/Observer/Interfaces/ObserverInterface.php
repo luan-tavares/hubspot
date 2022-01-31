@@ -1,8 +1,8 @@
 <?php
 
-namespace LTL\HubspotApi\Services\Observer\Interfaces;
+namespace LTL\Hubspot\Services\Observer\Interfaces;
 
-use LTL\HubspotApi\Services\Observer\Interfaces\SubjectInterface;
+use LTL\Hubspot\Services\Observer\Interfaces\SubjectInterface;
 
 interface ObserverInterface
 {

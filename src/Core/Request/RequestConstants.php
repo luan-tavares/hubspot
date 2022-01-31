@@ -1,5 +1,5 @@
 <?php
-namespace LTL\HubspotApi\Request;
+namespace LTL\Hubspot\Core\Request;
 
 class RequestConstants
 {

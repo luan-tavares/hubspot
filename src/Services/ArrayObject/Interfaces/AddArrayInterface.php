@@ -1,6 +1,6 @@
 <?php
 
-namespace LTL\HubspotApi\Services\ArrayObject\Interfaces;
+namespace LTL\Hubspot\Services\ArrayObject\Interfaces;
 
 interface AddArrayInterface
 {

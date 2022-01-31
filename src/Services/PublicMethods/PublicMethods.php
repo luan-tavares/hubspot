@@ -1,6 +1,6 @@
 <?php
 
-namespace LTL\HubspotApi\Services\PublicMethods;
+namespace LTL\Hubspot\Services\PublicMethods;
 
 use ReflectionClass;
 use ReflectionMethod;

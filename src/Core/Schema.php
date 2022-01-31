@@ -1,14 +1,14 @@
 <?php
 
-namespace LTL\HubspotApi\Core;
+namespace LTL\Hubspot\Core;
 
 use ArrayAccess;
 use Countable;
 use Iterator;
-use LTL\HubspotApi\Exceptions\HubspotResourceException;
-use LTL\HubspotApi\Interfaces\MethodListInterface;
-use LTL\HubspotApi\Interfaces\ResourceInterface;
-use LTL\HubspotApi\Interfaces\SchemaInterface;
+use LTL\Hubspot\Core\Exceptions\HubspotResourceException;
+use LTL\Hubspot\Core\Interfaces\MethodListInterface;
+use LTL\Hubspot\Core\Interfaces\ResourceInterface;
+use LTL\Hubspot\Core\Interfaces\SchemaInterface;
 
 class Schema implements ArrayAccess, Countable, Iterator, SchemaInterface, MethodListInterface
 {
@@ -21,16 +21,21 @@ class Schema implements ArrayAccess, Countable, Iterator, SchemaInterface, Metho
 
     public function getMethods(): array
     {
-        return array_keys($this['methods']);
+        return array_keys($this['actions']);
     }
 
-    public function getMethodSchema(string $method): array
+    public function mapKey(callable $function): array
     {
-        if (!array_key_exists($method, $this['methods'])) {
+        return array_map($function, $this->getMethods());
+    }
+
+    public function getActionSchema(string $method): array
+    {
+        if (!array_key_exists($method, $this['actions'])) {
             throw new HubspotResourceException($this->resource::class ."::{$method}() not exists!", 1);
         }
 
-        return $this['methods'][$method];
+        return $this['actions'][$method];
     }
 
     /**ArrayAccess */
@@ -57,33 +62,33 @@ class Schema implements ArrayAccess, Countable, Iterator, SchemaInterface, Metho
 
     public function count(): int
     {
-        return count($this->schema['methods']);
+        return count($this->schema['actions']);
     }
 
     /**Iterator */
 
     public function rewind(): void
     {
-        reset($this->schema['methods']);
+        reset($this->schema['actions']);
     }
     
     public function current(): mixed
     {
-        return current($this->schema['methods']);
+        return current($this->schema['actions']);
     }
     
     public function key(): mixed
     {
-        return key($this->schema['methods']);
+        return key($this->schema['actions']);
     }
     
     public function next(): void
     {
-        next($this->schema['methods']);
+        next($this->schema['actions']);
     }
     
     public function valid(): bool
     {
-        return key($this->schema['methods']) !== null;
+        return key($this->schema['actions']) !== null;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-use LTL\HubspotApi\Core\Container;
+use LTL\Hubspot\Core\Container;
 
 if (!function_exists('hubspotKey')) {
     /**

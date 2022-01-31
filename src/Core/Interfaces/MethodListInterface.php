@@ -1,5 +1,5 @@
 <?php
-namespace LTL\HubspotApi\Interfaces;
+namespace LTL\Hubspot\Core\Interfaces;
 
 interface MethodListInterface
 {

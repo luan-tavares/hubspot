@@ -1,8 +1,8 @@
 <?php
 
-namespace LTL\HubspotApi\Resources;
+namespace LTL\Hubspot\Resources;
 
-use LTL\HubspotApi\Hubspot;
+use LTL\Hubspot\Hubspot;
 
 /**
 * @method static $this search(int|string $objectType, array $requestBody) Make a search request

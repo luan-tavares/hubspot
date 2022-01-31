@@ -1,8 +1,8 @@
 <?php
 
-namespace LTL\HubspotApi;
+namespace LTL\Hubspot;
 
-use LTL\HubspotApi\Core\Resource;
+use LTL\Hubspot\Core\Resource;
 
 /**
  *

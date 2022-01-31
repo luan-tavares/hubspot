@@ -1,6 +1,6 @@
 <?php
 
-namespace LTL\HubspotApi\Services\Curl;
+namespace LTL\Hubspot\Services\Curl;
 
 abstract class CurlConstants
 {

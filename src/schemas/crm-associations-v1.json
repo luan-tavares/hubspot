@@ -2,31 +2,31 @@
     "resource": "crm-associations",
     "version": "v1",
     "class": "CrmAssociationV1Hubspot",
-    "methods": {
+    "actions": {
         "get": {
             "path": "associations/{objectId}/HUBSPOT_DEFINED/{definitionId}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/crm-associations/get-associations",
-            "action": "GET"
+            "method": "GET"
         },
         "create": {
             "path": "associations",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/crm-associations/associate-objects",
-            "action": "PUT"
+            "method": "PUT"
         },
         "delete": {
             "path": "associations/delete",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/crm-associations/delete-association",
-            "action": "DELETE"
+            "method": "DELETE"
         },
         "batchCreate": {
             "path": "associations/create-batch",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/crm-associations/batch-associate-objects",
-            "action": "PUT"
+            "method": "PUT"
         },
         "batchDelete": {
             "path": "associations/delete-batch",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/crm-associations/batch-delete-associations",
-            "action": "PUT"
+            "method": "PUT"
         }
     }
 }

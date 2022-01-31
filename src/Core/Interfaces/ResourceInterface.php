@@ -1,8 +1,8 @@
 <?php
 
-namespace LTL\HubspotApi\Interfaces;
+namespace LTL\Hubspot\Core\Interfaces;
 
-use LTL\HubspotApi\Interfaces\MethodListInterface;
+use LTL\Hubspot\Core\Interfaces\MethodListInterface;
 
 interface ResourceInterface extends MethodListInterface
 {
@@ -10,4 +10,5 @@ interface ResourceInterface extends MethodListInterface
     public function toJson(): ?string;
     public function status(): ?int;
     public function documentation(): ?string;
+    public function action(): ?string;
 }

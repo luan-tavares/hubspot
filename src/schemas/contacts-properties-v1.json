@@ -2,46 +2,46 @@
     "resource": "properties",
     "version": "v1",
     "class": "ContactPropertyV1Hubspot",
-    "methods": {
+    "actions": {
         "getAll": {
             "path": "contacts/properties",
             "documentation": "",
-            "action": "GET"
+            "method": "GET"
         },
         "get": {
             "path": "contacts/properties/named/{property_name}",
             "documentation": "",
-            "action": "GET"
+            "method": "GET"
         },
         "create": {
             "path": "contacts/properties",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/contacts/v2/create_contacts_property",
-            "action": "POST"
+            "method": "POST"
         },
         "update": {
             "path": "contacts/properties/named/{property_name}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/contacts/v2/update_contact_property",
-            "action": "PUT"
+            "method": "PUT"
         },
         "delete": {
             "path": "contacts/properties/named/{property_name}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/contacts/v2/delete_contact_property",
-            "action": "DELETE"
+            "method": "DELETE"
         },
         "getAllGroups": {
             "path": "contacts/groups",
             "documentation": "",
-            "action": "PATCH"
+            "method": "PATCH"
         },
         "createGroup": {
             "path": "contacts/groups",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/contacts/v2/create_contacts_property_group",
-            "action": "POST"
+            "method": "POST"
         },
         "updateGroup": {
             "path": "contacts/groups/named/{group_name}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/contacts/v2/update_contact_property_group",
-            "action": "PUT"
+            "method": "PUT"
         }
     }
 }

@@ -1,6 +1,6 @@
 <?php
  
-namespace LTL\HubspotApi\Request\Interfaces;
+namespace LTL\Hubspot\Core\Request\Interfaces;
 
 interface CurlComponentInterface
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace LTL\HubspotApi\Request\Components;
+namespace LTL\Hubspot\Core\Request\Components;
 
-use LTL\HubspotApi\Request\Components\RequestComponent;
-use LTL\HubspotApi\Request\Interfaces\HeaderInterface;
-use LTL\HubspotApi\Traits\MethodsListable;
+use LTL\Hubspot\Core\Request\Components\RequestComponent;
+use LTL\Hubspot\Core\Request\Interfaces\HeaderInterface;
+use LTL\Hubspot\Core\Traits\MethodsListable;
 
 class HeaderRequestComponent extends RequestComponent implements HeaderInterface
 {
@@ -19,7 +19,7 @@ class HeaderRequestComponent extends RequestComponent implements HeaderInterface
 
     public function oAuth(string $oAuth): self
     {
-        $this->notify('removeApikey');
+        $this->notify('oAuthInserted');
         
         return $this->header('Authorization', "Bearer {$oAuth}");
     }

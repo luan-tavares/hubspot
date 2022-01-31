@@ -1,8 +1,8 @@
 <?php
 
-namespace LTL\HubspotApi\Interfaces;
+namespace LTL\Hubspot\Core\Interfaces;
 
-use LTL\HubspotApi\Exceptions\HubspotResourceException;
+use LTL\Hubspot\Core\Exceptions\HubspotResourceException;
 
 interface SchemaInterface
 {
@@ -13,5 +13,5 @@ interface SchemaInterface
      * @return array
      * @throws HubspotResourceException
      */
-    public function getMethodSchema(string $method): array;
+    public function getActionSchema(string $method): array;
 }

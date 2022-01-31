@@ -3,34 +3,34 @@
     "version": "v3",
     "class": "ContactHubspot",
     "documentation": "https://developers.hubspot.com/docs/api/crm/contacts",
-    "methods": {
+    "actions": {
         "list": {
             "path": "objects/contacts",           
-            "action": "GET"
+            "method": "GET"
         },
         "get": {
             "path": "objects/contacts/{contactId}",
-            "action": "GET"
+            "method": "GET"
         },
         "create": {
             "path": "objects/contacts",
-            "action": "POST"
+            "method": "POST"
         },
         "archive": {
             "path": "objects/contacts/{contactId}",
-            "action": "DELETE"
+            "method": "DELETE"
         },
         "update": {
             "path": "objects/contacts/{contactId}",
-            "action": "PATCH"
+            "method": "PATCH"
         },
         "delete": {
             "path": "objects/contacts/gdpr-delete",
-            "action": "POST"
+            "method": "POST"
         },
         "search": {
             "path": "objects/contacts/search",
-            "action": "POST"
+            "method": "POST"
         }
     }
 }
