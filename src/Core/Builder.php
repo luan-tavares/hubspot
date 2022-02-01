@@ -3,18 +3,20 @@
 namespace LTL\Hubspot\Core;
 
 use LTL\Hubspot\Core\Container;
-use LTL\Hubspot\Core\Exceptions\HubspotResourceException;
+use LTL\Hubspot\Core\Exceptions\HubspotApiException;
 use LTL\Hubspot\Core\Interfaces\ResourceInterface;
-use LTL\Hubspot\Core\Request\Request;
+use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
 
 class Builder
 {
-    private Request $request;
-
+    private RequestInterface $request;
+    
     public function __construct(private ResourceInterface $resource)
     {
-        $this->request = new Request($this->resource);
+        $this->request = Container::getRequest($this->resource);
     }
+
+
 
     public function __call($method, $arguments)
     {
@@ -24,13 +26,13 @@ class Builder
 
         $schema = Container::getSchema($this->resource);
 
-        if (in_array($method, $schema->getMethods())) {
+        if (in_array($method, $schema->getActions())) {
             return $this->makeRequestAction($method, $arguments);
         }
 
         return $this->buildRequestAction($method, $arguments);
     }
-
+     
     /**
      * Make Build Request Action
      *
@@ -51,18 +53,18 @@ class Builder
      * @param string $method
      * @param array|null $arguments
      * @return mixed
-     * @throws HubspotResourceException
+     * @throws HubspotApiException
      */
     private function makeAfterAction(string $method, ?array $arguments): mixed
     {
         if (!$this->request->hasConnected()) {
             $schema = Container::getSchema($this->resource);
 
-            $actions = $schema->mapKey(function ($action) {
+            $actions = $schema->mapWithActions(function ($action) {
                 return "{$action}()";
             });
 
-            throw new HubspotResourceException(
+            throw new HubspotApiException(
                 "Can\'t use ". get_class($this->resource) .'::'. $method ."() before actions requests:\n[ ". implode(', ', $actions) .' ]'
             );
         }
@@ -80,10 +82,6 @@ class Builder
     private function makeRequestAction(string $method, ?array $arguments): ResourceInterface
     {
         $response = $this->request->dispatch($method, $arguments);
-
-        unset($this->request);
-
-        $this->request = new Request($this->resource);
 
         return Container::setResponseToResource($this->resource, $response);
     }

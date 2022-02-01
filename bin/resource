@@ -30,37 +30,43 @@ $resources = array_map(function ($path) {
     return $match[1];
 }, $files);
 
+$methodsWithBody = [
+    'PUT',
+    'PATCH',
+    'POST'
+];
+
 foreach ($resources as $resource) {
-    $document = json_decode(file_get_contents(__ROOT__ . "/src/schemas/{$resource}.json"), true);
+    $document = json_decode(file_get_contents(__ROOT__ . "/src/schemas/{$resource}.json"));
 
     $content = $template;
-    $content = str_replace('{{class}}', $document['class'], $content);
+    $content = str_replace('{{class}}', $document->class, $content);
     $content = str_replace('{{name}}', $resource, $content);
 
 
     $doc = '';
-    foreach ($document['methods'] as $method => $value) {
-        preg_match_all('/\{(.*?)\}/', $value['path'], $matches);
+    foreach ($document->actions as $action => $actionDefinition) {
+        preg_match_all('/\{(.*?)\}/', $actionDefinition->path, $matches);
 
         $params = array_map(function ($item) {
             return 'int|string $'. $item;
         }, $matches[1]);
 
-        if ($value['action'] != 'GET' && $value['action'] != 'DELETE') {
+        if (in_array($actionDefinition->method, $methodsWithBody)) {
             $params[] = 'array $requestBody';
         }
  
         $params = implode(', ', $params);
 
-        $description = @$value['description'];
+        $description = @$actionDefinition->description;
     
-        $doc .= "* @method static \$this {$method}({$params}) {$description}\n";
-        $doc .= "* @method \$this {$method}({$params}) {$description}\n";
+        $doc .= "* @method static \$this {$action}({$params}) {$description}\n";
+        $doc .= "* @method \$this {$action}({$params}) {$description}\n";
     }
 
     $content = str_replace('{{docs}}', $doc, $content);
 
-    file_put_contents(__ROOT__ .'/src/Resources/'. $document['class'] .'.php', $content);
+    file_put_contents(__ROOT__ ."/src/Resources/{$document->class}.php", $content);
 
     dump("{$resource} created!");
 }

@@ -2,78 +2,114 @@
 
 namespace LTL\Hubspot\Services\Curl;
 
-use LTL\Hubspot\Core\Request\Interfaces\ResponseInterface;
-use LTL\Hubspot\Core\Request\Request;
-use LTL\Hubspot\Core\Request\Response;
-use LTL\Hubspot\Core\Interfaces\ResourceInterface;
+use LTL\Hubspot\Services\Curl\CurlConstants;
 
 class Curl
 {
     private array $params = [];
 
-    private string $uri;
+    private array $headers = [];
 
-    public function __construct(private Request $request)
+    private static $curl;
+
+    private ?string $response;
+
+    private int $status;
+
+    public function __construct(private string $uri)
     {
-        $this->params = CurlConstants::CURL_PARAMS;
-
-        $this->resolveHeader()
-            ->resolveBody()
-            ->resolveUri()
-            ->resolveAction()
-            ->resolveOtherParams();
     }
 
-    /**
-     * Execute de Curl Request
-     *
-     * @return ResponseInterface
-     */
-    public function connect(): ResponseInterface
+    public function header(string|array $haystack, int|string $value = null): self
     {
-        $request = curl_init($this->uri);
+        if (is_array($haystack)) {
+            $this->headers = array_merge($this->headers, $haystack);
 
-  
-        foreach ($this->params as $index => $value) {
-            curl_setopt($request, $index, $value);
+            return $this;
         }
 
-        $response = curl_exec($request);
-
-        $status = curl_getinfo($request, CURLINFO_HTTP_CODE);
-
-        curl_close($request);
-  
-        return new Response($response, $status, $this->request->getAction());
-    }
-
-    private function resolveOtherParams(): self
-    {
-        $curlParams = $this->request->getCurlParams();
-
-        if (@$curlParams['progress']) {
-            $this->params[CURLOPT_NOPROGRESS] = false;
-            $this->params[CURLOPT_PROGRESSFUNCTION] = CurlProgressBar::class .'::progress';
-        }
-
+        $this->headers[$haystack] = $value;
 
         return $this;
     }
 
-    private function resolveBody(): self
+    public function get(): self
     {
-        $body = $this->request->getBody();
-     
+        return $this->connect('GET');
+    }
 
+    public function delete(): self
+    {
+        return $this->connect('DELETE');
+    }
+
+    public function put(array $body): self
+    {
+        return $this->connect('PUT', $body);
+    }
+
+    public function patch(array $body): self
+    {
+        return $this->connect('PATCH', $body);
+    }
+
+    public function post(array $body): self
+    {
+        return $this->connect('POST', $body);
+    }
+
+    public function connect(string $method, ?array $body = null): self
+    {
+        if (is_null(self::$curl)) {
+            self::$curl = curl_init();
+            foreach (CurlConstants::CURL_PARAMS as $index => $value) {
+                curl_setopt(self::$curl, $index, $value);
+            }
+        }
+
+        $this->resolveHeader()
+            ->resolveBody($body)
+            ->resolveMethod($method)
+            ->resolveUri();
+
+        foreach ($this->params as $index => $value) {
+            curl_setopt(self::$curl, $index, $value);
+        }
+
+  
+        $this->response = curl_exec(self::$curl);
+      
+    
+        $this->status = curl_getinfo(self::$curl, CURLINFO_HTTP_CODE);
+
+        curl_close(self::$curl);
+        //$this->response = '{"d":1}';
+  
+        return $this;
+    }
+
+    public function removeLeak(): void
+    {
+        $this->response = null;
+    }
+
+    public function withProgress(): self
+    {
+        $this->params[CURLOPT_NOPROGRESS] = false;
+        $this->params[CURLOPT_PROGRESSFUNCTION] = CurlProgressBar::class .'::progress';
+
+        return $this;
+    }
+
+    private function resolveBody(?array $body): self
+    {
         if (!$body) {
             unset($this->params[CURLOPT_POSTFIELDS]);
 
             return $this;
         }
 
-        $contentType = $this->request->getHeader('Content-Type');
-
-        if (is_array($body) && !($contentType === 'multipart/form-data')) {
+        if (@$this->headers['Content-Type'] !== 'multipart/form-data') {
             $body = json_encode($body, CurlConstants::JSON_ENCODE);
         }
         $this->params[CURLOPT_POSTFIELDS] = $body;
@@ -83,8 +119,11 @@ class Curl
   
     private function resolveHeader(): self
     {
-        $headers = $this->request->getHeaders();
+        $headers = $this->headers;
 
+        if (count($headers) === 0) {
+            return $this;
+        }
         $resolveHeader = [];
         foreach ($headers as $name => $value) {
             $resolveHeader[] = "{$name}: {$value}";
@@ -94,26 +133,38 @@ class Curl
         return $this;
     }
 
-    private function resolveAction(): self
+    private function resolveMethod(string $method): self
     {
-        $this->params[CURLOPT_CUSTOMREQUEST] = $this->request->getMethod();
+        $this->params[CURLOPT_CUSTOMREQUEST] = $method;
 
         return $this;
     }
 
     private function resolveUri(): self
     {
-        $this->uri = $this->request->getUri() .'?'. $this->setUriQuery();
+        $this->params[CURLOPT_URL] = $this->uri;
 
         return $this;
     }
 
-    private function setUriQuery(): string
+    /**
+     * Get the value of response
+     */
+    public function getResponse()
     {
-        $queries = $this->request->getQueries();
+        return $this->response;
+    }
 
-        $query = http_build_query($queries);
+    /**
+     * Get the value of status
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
 
-        return preg_replace('/%5B[0-9]+%5D/i', '', $query);
+    public function getUri()
+    {
+        return $this->uri;
     }
 }

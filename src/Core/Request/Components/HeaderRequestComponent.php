@@ -23,4 +23,9 @@ class HeaderRequestComponent extends RequestComponent implements HeaderInterface
         
         return $this->header('Authorization', "Bearer {$oAuth}");
     }
+
+    public function contentType(string $contentType): self
+    {
+        return $this->header('Content-Type', $contentType);
+    }
 }

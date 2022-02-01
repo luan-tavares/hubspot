@@ -1,7 +1,7 @@
 {
     "resource": "crm-associations",
     "version": "v1",
-    "class": "CrmAssociationV1Hubspot",
+    "class": "AssociationV1Hubspot",
     "actions": {
         "get": {
             "path": "associations/{objectId}/HUBSPOT_DEFINED/{definitionId}",

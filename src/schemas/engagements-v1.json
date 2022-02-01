@@ -5,7 +5,8 @@
             "path": "engagements/v1/engagements/recent/modified",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/engagements/get-recent-engagements",
             "method": "GET",
-            "description": "Get recent engagements"
+            "description": "Get recent engagements",
+            "iterator": "results"
         },
         "create": {
             "path": "engagements/v1/engagements",
@@ -29,7 +30,8 @@
             "path": "engagements/v1/engagements/paged",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/engagements/get-all-engagements",
             "method": "GET",
-            "description": "Get all engagements"
+            "description": "Get all engagements",
+            "iterator": "results"
         },
         "delete": {
             "path": "engagements/v1/engagements/{engagementId}",

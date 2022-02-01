@@ -1,20 +1,24 @@
 {
     "resource": "crm",
     "version": "v3",
-    "class": "CrmAssociationV3Hubspot",
+    "class": "AssociationV3Hubspot",
     "documentation": "https://developers.hubspot.com/docs/api/crm/associations",
     "actions": {
         "batchGet": {
             "path": "associations/{fromObjectType}/{toObjectType}/batch/read",
-            "method": "POST"
+            "method": "POST",
+            "description": "Get the IDs of all {toObjectType} objects associated with those specified in the request body.",
+            "iterator": "results"
         },
         "batchCreate": {
             "path": "associations/{fromObjectType}/{toObjectType}/batch/create",
-            "method": "POST"
+            "method": "POST",
+            "description": "Associate all pairs of objects identified in the request body."
         },
         "batchArchive": {
             "path": "associations/{fromObjectType}/{toObjectType}/batch/archive",
-            "method": "POST"
+            "method": "POST",
+            "description": "Remove the associations between all pairs of objects identified in the request body."
         }
     }
 }

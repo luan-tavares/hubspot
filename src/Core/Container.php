@@ -3,20 +3,27 @@
 namespace LTL\Hubspot\Core;
 
 use LTL\Hubspot\Core\Builder;
-use LTL\Hubspot\Core\Request\Interfaces\ResponseInterface;
 use LTL\Hubspot\Core\Interfaces\ResourceInterface;
-use ReflectionObject;
-use stdClass;
+use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
+use LTL\Hubspot\Core\Request\Request;
+use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
+use LTL\Hubspot\Core\Schemas\Interfaces\ResourceSchemaInterface;
+use LTL\Hubspot\Core\Schemas\ResourceSchema;
+use ReflectionProperty;
 
 abstract class Container
 {
-    private static $map;
+    private static array $builders = [];
+
+    private static array $schemas = [];
+
+    private static array $requests = [];
+
+    private static array $reflectionProperties = [];
 
     private static $apikey;
 
     private static $singleton = [];
-
-    public static $ob;
 
     public static function singleton(string $class): object
     {
@@ -27,28 +34,48 @@ abstract class Container
         return self::$singleton[$class];
     }
 
-    private static function map(ResourceInterface $resource): stdClass
+    public static function getRequest(ResourceInterface $resource): RequestInterface
     {
-        if (!isset(self::$map[get_class($resource)])) {
-            self::$map[get_class($resource)] = new stdClass;
+        $hash = get_class($resource);
 
-            $map = &self::$map[get_class($resource)];
-            
-            $map->schema = new Schema($resource);
-            $map->builder = new Builder($resource);
+
+        if (!array_key_exists($hash, self::$requests)) {
+            self::$requests[$hash] = new Request($resource);
         }
+        self::$requests[$hash]->reset();
 
-        return self::$map[get_class($resource)];
+        return self::$requests[$hash];
     }
+
 
     public static function getBuilder(ResourceInterface $resource): Builder
     {
-        return self::map($resource)->builder;
+        $hash = get_class($resource);
+
+
+        if (!array_key_exists($hash, self::$builders)) {
+            self::$builders[$hash] = new Builder($resource);
+        }
+        
+        return self::$builders[$hash];
     }
 
-    public static function getSchema(ResourceInterface $resource): Schema
+    private static function removeBuilder(ResourceInterface $resource): void
     {
-        return self::map($resource)->schema;
+        $hash = get_class($resource);
+
+        unset(self::$builders[$hash]);
+    }
+
+    public static function getSchema(ResourceInterface $resource): ResourceSchemaInterface
+    {
+        $hash = get_class($resource);
+
+        if (!array_key_exists($hash, self::$schemas)) {
+            self::$schemas[$hash] = new ResourceSchema($resource);
+        }
+
+        return self::$schemas[$hash];
     }
 
     public static function apikey(?string $apikey = null): ?string
@@ -62,26 +89,19 @@ abstract class Container
 
     public static function setResponseToResource(ResourceInterface $resource, ResponseInterface $response)
     {
-        $reflector = new ReflectionObject($resource);
+        self::getResourceReflectionProperty('response')->setValue($resource, $response);
+        
+        self::removeBuilder($resource);
 
-        $property = $reflector->getProperty('response');
-        $property->setValue($resource, $response);
-
-        $property = $reflector->getProperty('documentation');
-        $property->setValue($resource, self::getDocumentation($resource));
-              
         return $resource;
     }
 
-    private static function getDocumentation(ResourceInterface $resource): ?string
+    private static function getResourceReflectionProperty(string $property): ReflectionProperty
     {
-        $schema = self::getSchema($resource);
-        $documentation = @$schema->getActionSchema($resource->action())['documentation'];
-        
-        if (!is_null(@$documentation)) {
-            return $documentation;
+        if (!array_key_exists($property, self::$reflectionProperties)) {
+            self::$reflectionProperties[$property] = new ReflectionProperty(Resource::class, $property);
         }
 
-        return @$schema['documentation'];
+        return self::$reflectionProperties[$property];
     }
 }

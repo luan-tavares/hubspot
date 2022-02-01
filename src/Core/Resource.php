@@ -3,17 +3,16 @@
 namespace LTL\Hubspot\Core;
 
 use LTL\Hubspot\Core\Container;
-use LTL\Hubspot\Core\Request\Interfaces\ResponseInterface;
 use LTL\Hubspot\Core\Interfaces\ResourceInterface;
+use LTL\Hubspot\Core\Interfaces\ResourceIterableInterface;
 use LTL\Hubspot\Core\Traits\MethodsListable;
+use LTL\Hubspot\Core\Traits\ResourceIterable;
 
-abstract class Resource implements ResourceInterface
+abstract class Resource implements ResourceInterface, ResourceIterableInterface
 {
-    use MethodsListable;
+    use MethodsListable, ResourceIterable;
     
     protected string $resource;
-
-    protected ResponseInterface $response;
 
     protected ?string $documentation;
 
@@ -42,7 +41,7 @@ abstract class Resource implements ResourceInterface
      */
     public function toArray(): ?array
     {
-        return json_decode($this->response->get(), true);
+        return $this->response->toArray();
     }
   
     /**
@@ -82,16 +81,6 @@ abstract class Resource implements ResourceInterface
      */
     public function documentation(): ?string
     {
-        return $this->documentation;
-    }
-
-    /**
-     * Return the Documentation
-     *
-     * @return string|null
-     */
-    public function action(): ?string
-    {
-        return $this->response->getAction();
+        return $this->response->getDocumentation();
     }
 }

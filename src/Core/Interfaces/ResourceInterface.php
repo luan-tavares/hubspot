@@ -10,5 +10,4 @@ interface ResourceInterface extends MethodListInterface
     public function toJson(): ?string;
     public function status(): ?int;
     public function documentation(): ?string;
-    public function action(): ?string;
 }

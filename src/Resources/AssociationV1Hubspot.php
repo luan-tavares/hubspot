@@ -16,7 +16,7 @@ use LTL\Hubspot\Hubspot;
 * @method static $this batchDelete(array $requestBody) 
 * @method $this batchDelete(array $requestBody) 
  */
-class CrmAssociationV1Hubspot extends Hubspot
+class AssociationV1Hubspot extends Hubspot
 {
-    protected string $resource = "crm-associations-v1";
+    protected string $resource = "associations-v1";
 }

@@ -17,8 +17,8 @@ use LTL\Hubspot\Hubspot;
 * @method $this create(array $requestBody) 
 * @method static $this update(int|string $dealId, array $requestBody) 
 * @method $this update(int|string $dealId, array $requestBody) 
-* @method static $this delete(int|string $dealId, array $requestBody) 
-* @method $this delete(int|string $dealId, array $requestBody) 
+* @method static $this delete(int|string $dealId) 
+* @method $this delete(int|string $dealId) 
 * @method static $this batchUpdate(array $requestBody) 
 * @method $this batchUpdate(array $requestBody) 
  */

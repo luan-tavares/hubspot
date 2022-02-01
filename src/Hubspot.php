@@ -41,6 +41,8 @@ use LTL\Hubspot\Core\Resource;
  * @method static $this header(string $name, string $value) 
  * @method $this oAuth(string $oAuth) 
  * @method static $this oAuth(string $oAuth) 
+ * @method $this contentType(string $contentType) 
+ * @method static $this contentType(string $contentType) 
  *
  * Uri Curl Methods
  *

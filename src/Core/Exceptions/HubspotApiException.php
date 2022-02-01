@@ -1,10 +1,11 @@
 <?php
+
 namespace LTL\Hubspot\Core\Exceptions;
 
 use Exception;
 use Throwable;
 
-class HubspotResourceException extends Exception
+class HubspotApiException extends Exception
 {
     public function __construct($message, $code = 0, Throwable $previous = null)
     {
