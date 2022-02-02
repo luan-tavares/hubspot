@@ -1,0 +1,95 @@
+{
+    "resource": "files",
+    "version": "v3",
+    "class": "FileHubspot",
+    "documentation": "https://developers.hubspot.com/docs/api/files/files",
+    "actions": {
+        "upload": {
+            "path": "files",
+            "method": "POST",
+            "contentType": "multipart/form-data",
+            "description": "Upload a single file with content specified in request body.",
+            "iterator": "objects"
+        },
+        "importFromUrl": {
+            "path": "files/import-from-url/async",
+            "method": "POST",
+            "description": "Asynchronously imports the file at the given URL into the file manager."
+        },
+        "checkImport": {
+            "path": "files/import-from-url/async/tasks/{taskId}/status",
+            "method": "GET",
+            "description": "Check the status of requested import."
+        },
+        "getAll": {
+            "path": "files/search",
+            "method": "GET",
+            "description": "Search through files in the file manager. Does not display hidden or archived files.",
+            "iterator": "results",
+            "offset": "paging.next.after"
+        },
+        "get": {
+            "path": "files/{fileId}",
+            "method": "GET",
+            "description": "Get file by ID."
+        },
+        "update": {
+            "path": "files/{fileId}",
+            "method": "PATCH",
+            "description": "Update properties of file by ID."
+        },
+        "replace": {
+            "path": "files/{fileId}",
+            "method": "PUT",
+            "contentType": "multipart/form-data",
+            "description": "Replace existing file data with new file data."
+        },
+        "delete": {
+            "path": "files/{fileId}",
+            "method": "DELETE",
+            "description": "Delete file by ID."
+        },
+        "gdprDelete": {
+            "path": "files/{fileId}/gdpr-delete",
+            "method": "DELETE",
+            "description": "GDRP delete file."
+        },
+        "getPublicUrl": {
+            "path": "files/{fileId}/signed-url",
+            "method": "GET",
+            "description": "Generates signed URL that allows temporary access to a private file."
+        },
+        "createFolder": {
+            "path": "folders",
+            "method": "POST",
+            "description": "Creates a folder."
+        },
+        "getAllFolders": {
+            "path": "folders/search",
+            "method": "GET",
+            "description": "Search for folders. Does not contain hidden or archived folders.",
+            "iterator": "results",
+            "offset": "paging.next.after"
+        },
+        "updateFolder": {
+            "path": "folders/update/async",
+            "method": "POST",
+            "description": "Update properties of folder by given ID."
+        },
+        "checkUpdateFolder": {
+            "path": "folders/update/async/tasks/{taskId}/status",
+            "method": "GET",
+            "description": "Check status of folder update. Folder updates happen asynchronously."
+        },
+        "getFolder": {
+            "path": "folders/{folderIdOrPath}",
+            "method": "GET",
+            "description": "Get folder by ID or PATH."
+        },
+        "deleteFolder": {
+            "path": "folders/{folderIdorPath}",
+            "method": "DELETE",
+            "description": "Delete folder by ID or Path."
+        }
+    }
+}

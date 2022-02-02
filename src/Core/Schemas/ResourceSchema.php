@@ -15,6 +15,8 @@ use LTL\Hubspot\Core\Schemas\Interfaces\ResourceSchemaInterface;
 class ResourceSchema extends Schema implements Countable, Iterator, ResourceSchemaInterface
 {
     private array $actions;
+
+    private array $actionSchemas = [];
     
     private string $class;
   
@@ -24,18 +26,18 @@ class ResourceSchema extends Schema implements Countable, Iterator, ResourceSche
 
     private ?string $documentation;
 
+    private object $schema;
+
 
     public function __construct(ResourceInterface $resource)
     {
         $schema = json_decode(file_get_contents(__ROOT__.'/src/schemas/'. (string) $resource .'.json'));
 
+        $this->actions = (array) $schema->actions;
         $this->class = $schema->class;
         $this->resource = @$schema->resource;
         $this->version = @$schema->version;
         $this->documentation = @$schema->documentation;
-        foreach ($schema->actions as $action => $actionSchema) {
-            $this->actions[$action] = new ActionSchema($action, $schema);
-        }
     }
 
     public function __get($property)
@@ -59,11 +61,11 @@ class ResourceSchema extends Schema implements Countable, Iterator, ResourceSche
 
     public function getActionSchema(string $action): ActionSchemaInterface
     {
-        if (!array_key_exists($action, $this->actions)) {
-            throw new HubspotApiException($this->resource::class ."::{$action}() not exists!");
+        if (!array_key_exists($action, $this->actionSchemas)) {
+            $this->actionSchemas[$action] = new ActionSchema($action, $this);
         }
 
-        return $this->actions[$action];
+        return $this->actionSchemas[$action];
     }
 
     /***Countable */

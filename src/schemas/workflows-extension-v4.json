@@ -6,11 +6,13 @@
     "actions": {
         "completeCallback": {
             "path": "actions/callbacks/{callbackId}/complete",         
-            "method": "POST"
+            "method": "POST",
+            "description": "Completes the given action callback."
         },
-        "completeBatchCallbacks": {
+        "batchCompleteCallbacks": {
             "path": "actions/callbacks/complete",           
-            "method": "POST"
+            "method": "POST",
+            "description": "Completes the given action callbacks."
         }
     }
 }

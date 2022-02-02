@@ -20,5 +20,5 @@ use LTL\Hubspot\Hubspot;
  */
 class DealHubspot extends Hubspot
 {
-    protected string $resource = "deals";
+    protected string $resource = "deals-v3";
 }

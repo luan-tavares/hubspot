@@ -34,5 +34,5 @@ use LTL\Hubspot\Hubspot;
  */
 class CompanyHubspot extends Hubspot
 {
-    protected string $resource = "companies";
+    protected string $resource = "companies-v3";
 }

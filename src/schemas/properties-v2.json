@@ -1,7 +1,7 @@
 {
     "resource": "properties",
     "version": "v2",
-    "class": "CrmPropertyV2Hubspot",
+    "class": "PropertyV2Hubspot",
     "actions": {
         "getAll": {
             "path": "{objectType}/properties",

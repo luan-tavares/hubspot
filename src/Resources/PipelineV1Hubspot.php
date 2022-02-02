@@ -16,7 +16,7 @@ use LTL\Hubspot\Hubspot;
 * @method static $this delete(int|string $object_type, int|string $pipeline_id) Delete an existing pipeline
 * @method $this delete(int|string $object_type, int|string $pipeline_id) Delete an existing pipeline
  */
-class CrmPipelineV1Hubspot extends Hubspot
+class PipelineV1Hubspot extends Hubspot
 {
-    protected string $resource = "crm-pipelines-v1";
+    protected string $resource = "pipelines-v1";
 }

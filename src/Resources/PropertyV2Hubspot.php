@@ -22,7 +22,7 @@ use LTL\Hubspot\Hubspot;
 * @method static $this deleteGroup(int|string $objectType, int|string $groupName) 
 * @method $this deleteGroup(int|string $objectType, int|string $groupName) 
  */
-class CrmPropertyV2Hubspot extends Hubspot
+class PropertyV2Hubspot extends Hubspot
 {
-    protected string $resource = "crm-properties-v2";
+    protected string $resource = "properties-v2";
 }

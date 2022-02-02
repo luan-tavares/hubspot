@@ -1,13 +1,14 @@
 {
     "resource": "crm-pipelines",
     "version": "v1",
-    "class": "CrmPipelineV1Hubspot",
+    "class": "PipelineV1Hubspot",
     "actions": {
         "getAll": {
             "path": "pipelines/{object_type}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/pipelines/get_pipelines_for_object_type",
             "method": "GET",
-            "description": "Get all pipelines for a specified object type"
+            "description": "Get all pipelines for a specified object type",
+            "iterator": "results"
         },
         "get": {
             "path": "pipelines/{object_type}/{pipeline_id}",

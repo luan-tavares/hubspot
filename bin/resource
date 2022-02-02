@@ -36,6 +36,14 @@ $methodsWithBody = [
     'POST'
 ];
 
+$methods = [
+    'PUT',
+    'PATCH',
+    'POST',
+    'GET',
+    'DELETE'
+];
+
 foreach ($resources as $resource) {
     $document = json_decode(file_get_contents(__ROOT__ . "/src/schemas/{$resource}.json"));
 
@@ -46,6 +54,10 @@ foreach ($resources as $resource) {
 
     $doc = '';
     foreach ($document->actions as $action => $actionDefinition) {
+        if (!in_array($actionDefinition->method, $methods)) {
+            dd("{$actionDefinition->method} not Allowed in {$resource}!");
+        }
+
         preg_match_all('/\{(.*?)\}/', $actionDefinition->path, $matches);
 
         $params = array_map(function ($item) {

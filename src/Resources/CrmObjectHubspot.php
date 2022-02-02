@@ -5,22 +5,36 @@ namespace LTL\Hubspot\Resources;
 use LTL\Hubspot\Hubspot;
 
 /**
-* @method static $this list(int|string $objectType) 
-* @method $this list(int|string $objectType) 
-* @method static $this get(int|string $objectType, int|string $objectId) 
-* @method $this get(int|string $objectType, int|string $objectId) 
-* @method static $this create(int|string $objectType, array $requestBody) 
-* @method $this create(int|string $objectType, array $requestBody) 
-* @method static $this archive(int|string $objectType, int|string $objectId) 
-* @method $this archive(int|string $objectType, int|string $objectId) 
-* @method static $this update(int|string $objectType, int|string $objectId, array $requestBody) 
-* @method $this update(int|string $objectType, int|string $objectId, array $requestBody) 
-* @method static $this delete(int|string $objectType, array $requestBody) 
-* @method $this delete(int|string $objectType, array $requestBody) 
-* @method static $this search(int|string $objectType, array $requestBody) 
-* @method $this search(int|string $objectType, array $requestBody) 
+* @method static $this getAll(int|string $objectType) Read a page of objects. Control what is returned via the properties query param.
+* @method $this getAll(int|string $objectType) Read a page of objects. Control what is returned via the properties query param.
+* @method static $this get(int|string $objectType, int|string $objectId) Read an Object identified by {objectId}.
+* @method $this get(int|string $objectType, int|string $objectId) Read an Object identified by {objectId}.
+* @method static $this create(int|string $objectType, array $requestBody) Create a CRM object with the given properties and return a copy of the object, including the ID.
+* @method $this create(int|string $objectType, array $requestBody) Create a CRM object with the given properties and return a copy of the object, including the ID.
+* @method static $this archive(int|string $objectType, int|string $objectId) Move an Object identified by {objectId} to the recycling bin.
+* @method $this archive(int|string $objectType, int|string $objectId) Move an Object identified by {objectId} to the recycling bin.
+* @method static $this update(int|string $objectType, int|string $objectId, array $requestBody) Perform a partial update of an Object identified by {objectId}.
+* @method $this update(int|string $objectType, int|string $objectId, array $requestBody) Perform a partial update of an Object identified by {objectId}.
+* @method static $this delete(int|string $objectType, array $requestBody) Permanently delete a contact and all associated content to follow GDPR.
+* @method $this delete(int|string $objectType, array $requestBody) Permanently delete a contact and all associated content to follow GDPR.
+* @method static $this search(int|string $objectType, array $requestBody) Make a search request
+* @method $this search(int|string $objectType, array $requestBody) Make a search request
+* @method static $this batchRead(int|string $objectType, array $requestBody) Read a batch of objects by internal ID, or unique property values.
+* @method $this batchRead(int|string $objectType, array $requestBody) Read a batch of objects by internal ID, or unique property values.
+* @method static $this batchCreate(int|string $objectType, array $requestBody) Create a batch of objects.
+* @method $this batchCreate(int|string $objectType, array $requestBody) Create a batch of objects.
+* @method static $this batchUpdate(int|string $objectType, array $requestBody) Update a batch of objects.
+* @method $this batchUpdate(int|string $objectType, array $requestBody) Update a batch of objects.
+* @method static $this batchArchive(int|string $objectType, array $requestBody) Archive a batch of objects by ID.
+* @method $this batchArchive(int|string $objectType, array $requestBody) Archive a batch of objects by ID.
+* @method static $this getAssociations(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType) List associations of an object by type.
+* @method $this getAssociations(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType) List associations of an object by type.
+* @method static $this createAssociation(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType, int|string $toObjectId, int|string $associationType, array $requestBody) Associate an object with another object.
+* @method $this createAssociation(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType, int|string $toObjectId, int|string $associationType, array $requestBody) Associate an object with another object.
+* @method static $this removeAssociation(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType, int|string $toObjectId, int|string $associationType) Remove an association between two objects.
+* @method $this removeAssociation(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType, int|string $toObjectId, int|string $associationType) Remove an association between two objects.
  */
 class CrmObjectHubspot extends Hubspot
 {
-    protected string $resource = "crm-objects";
+    protected string $resource = "crm-objects-v3";
 }

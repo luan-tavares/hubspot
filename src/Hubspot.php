@@ -10,6 +10,8 @@ use LTL\Hubspot\Core\Resource;
  *
  * @method $this query(string $name, array|string|int $value) Add a Query
  * @method static $this query(string $name, array|string|int $value) Add a Query
+ * @method $this archived(string $archived) 
+ * @method static $this archived(string $archived) 
  * @method $this limit(int $limit) 
  * @method static $this limit(int $limit) 
  * @method $this setCount(int $count) 

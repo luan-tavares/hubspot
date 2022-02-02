@@ -5,7 +5,8 @@
             "path": "filemanager/api/v3/files/upload",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/files/v3/upload_new_file",
             "method": "POST",
-            "contentType": "multipart/form-data"
+            "contentType": "multipart/form-data",
+            "iterator": "objects"
         },
         "replace": {
             "path": "filemanager/api/v3/files/{file_id}/replace",

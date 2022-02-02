@@ -2,7 +2,6 @@
 
 namespace LTL\Hubspot\Core\Response;
 
-use LTL\Hubspot\Core\Exceptions\HubspotApiException;
 use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
 use LTL\Hubspot\Core\Response\ResponseArrayStorage;
 use LTL\Hubspot\Core\Schemas\Interfaces\ActionSchemaInterface;

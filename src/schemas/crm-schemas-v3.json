@@ -1,0 +1,50 @@
+{
+    "resource": "crm",
+    "version": "v3",
+    "class": "CrmSchemaHubspot",
+    "documentation": "https://developers.hubspot.com/docs/api/crm/crm-custom-objects",
+    "actions": {
+        "getAll": {
+            "path": "schemas",
+            "method": "GET",
+            "description": "Returns all object schemas that have been defined for your account.",
+            "iterator": "results",
+            "offset": null
+        },
+        "get": {
+            "path": "schemas/{objectId}",
+            "method": "GET",
+            "description": "Returns an existing object schema."
+        },
+        "create": {
+            "path": "schemas",
+            "method": "POST",
+            "description": "Define a new object schema, along with custom properties and associations."
+        },
+        "update": {
+            "path": "schemas/{objectId}",
+            "method": "PATCH",
+            "description": "Update the details for an existing object schema."
+        },
+        "delete": {
+            "path": "schemas/{objectId}",
+            "method": "DELETE",
+            "description": "Deletes a schema. Any existing records of this schema must be deleted first. Otherwise this call will fail."
+        },
+        "createAssociation": {
+            "path": "schemas/{objectType}/associations",
+            "method": "POST",
+            "description": "Defines a new association between the primary schema's object type and other object types."
+        },
+        "deleteAssociation": {
+            "path": "schemas/{objectType}/associations/{associationIdentifier}",
+            "method": "DELETE",
+            "description": "Removes an existing association from a schema."
+        },
+        "purge": {
+            "path": "schemas/{objectType}/purge",
+            "method": "DELETE",
+            "description": "???"
+        }
+    }
+}

@@ -1,0 +1,72 @@
+{
+    "resource": "crm",
+    "version": "v3",
+    "class": "PipelineHubspot",
+    "documentation": "https://developers.hubspot.com/docs/api/crm/pipelines",
+    "actions": {
+        "getAll": {
+            "path": "pipelines/{objectType}",
+            "method": "GET",
+            "description": "Return all pipelines for the object type specified by {objectType}.",
+            "iterator": "results",
+            "offset": "paging.next.after"
+        },
+        "get": {
+            "path": "pipelines/{objectType}/{pipelineId}",
+            "method": "GET",
+            "description": "Return a single pipeline object identified by its unique {pipelineId}."
+        },
+        "create": {
+            "path": "pipelines/{objectType}",
+            "method": "POST",
+            "description": "Create a new pipeline with the provided property values."
+        },
+        "update": {
+            "path": "pipelines/{objectType}/{pipelineId}",
+            "method": "PATCH",
+            "description": "Perform a partial update of the pipeline identified by {pipelineId}."
+        },
+        "replace": {
+            "path": "pipelines/{objectType}/{pipelineId}",
+            "method": "PUT",
+            "description": "Replace all the properties of an existing pipeline with the values provided."
+        },
+        "delete": {
+            "path": "pipelines/{objectType}/{pipelineId}",
+            "method": "DELETE",
+            "description": "Archive the pipeline identified by {pipelineId}."
+        },
+        "getAllStages": {
+            "path": "pipelines/{objectType}/{pipelineId}/stages",
+            "method": "GET",
+            "description": "Return all the stages associated with the pipeline identified by {pipelineId}.",
+            "iterator": "results",
+            "offset": "paging.next.after"
+        },
+        "getStage": {
+            "path": "pipelines/{objectType}/{pipelineId}/stages/{stageId}",
+            "method": "GET",
+            "description": "Return the stage identified by {stageId} associated with the pipeline identified by {pipelineId}."
+        },
+        "createStage": {
+            "path": "pipelines/{objectType}/{pipelineId}/stages",
+            "method": "POST",
+            "description": "Create a new stage associated with the pipeline identified by {pipelineId}."
+        },
+        "updateStage": {
+            "path": "pipelines/{objectType}/{pipelineId}/stages/{stageId}",
+            "method": "PATCH",
+            "description": "Perform a partial update of the pipeline stage identified by {stageId} associated with the pipeline identified by {pipelineId}."
+        },
+        "replaceStage": {
+            "path": "pipelines/{objectType}/{pipelineId}/stages/{stageId}",
+            "method": "PUT",
+            "description": "Replace all the properties of an existing pipeline stage with the values provided. The updated stage will be returned in the response."
+        },
+        "deleteStage": {
+            "path": "pipelines/{objectType}/{pipelineId}/stages/{stageId}",
+            "method": "DELETE",
+            "description": "Archive the pipeline stage identified by {stageId} associated with the pipeline identified by {pipelineId}."
+        }
+    }
+}

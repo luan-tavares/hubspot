@@ -1,0 +1,80 @@
+{
+    "resource": "crm",
+    "version": "v3",
+    "class": "PropertyHubspot",
+    "documentation": "https://developers.hubspot.com/docs/api/crm/properties",
+    "actions": {
+        "getAll": {
+            "path": "properties/{objectType}",
+            "method": "GET",
+            "description": "Read all existing properties for the specified object type and HubSpot account.",
+            "iterator": "results",
+            "offset": "paging.next.after"
+        },
+        "get": {
+            "path": "properties/{objectType}/{propertyName}",
+            "method": "GET",
+            "description": "Read a property identified by {propertyName}."
+        },
+        "create": {
+            "path": "properties/{objectType}",
+            "method": "POST",
+            "description": "Create and return a copy of a new property for the specified object type."
+        },
+        "update": {
+            "path": "properties/{objectType}/{propertyName}",
+            "method": "PATCH",
+            "description": "Perform a partial update of a property identified by {propertyName}. Provided fields will be overwritten."
+        },
+        "archive": {
+            "path": "properties/{objectType}/{propertyName}",
+            "method": "DELETE",
+            "description": "Move a property identified by {propertyName} to the recycling bin."
+        },
+        "batchArchive": {
+            "path": "properties/{objectType}/batch/archive",
+            "method": "POST",
+            "description": "Archive a provided list of properties."
+        },
+        "batchCreate": {
+            "path": "properties/{objectType}/batch/create",
+            "method": "POST",
+            "iterator": "results",
+            "description": "Create a batch of properties using the same rules as when creating an individual property."
+        },
+        "batchRead": {
+            "path": "properties/{objectType}/batch/read",
+            "method": "POST",
+            "description": "Read a provided list of properties.",
+            "iterator": "results",
+            "offset": null
+        },
+        "getAllGroups": {
+            "path": "properties/{objectType}/groups",
+            "method": "GET",
+            "description": "Read all existing property groups for the specified object type and HubSpot account.",
+            "iterator": "results",
+            "offset": "paging.next.after"
+        },
+        "getGroup": {
+            "path": "properties/{objectType}/groups/{groupName}",
+            "method": "GET",
+            "description": "Read a property group identified by {groupName}."
+        },
+        "createGroup": {
+            "path": "properties/{objectType}/groups",
+            "method": "POST",
+            "description": "Create and return a copy of a new property group."
+        },
+        "updateGroup": {
+            "path": "properties/{objectType}/groups/{groupName}",
+            "method": "PATCH",
+            "description": "Perform a partial update of a property group identified by {groupName}. Provided fields will be overwritten."
+        },
+        "archiveGroup": {
+            "path": "properties/{objectType}/groups/{groupName}",
+            "method": "DELETE",
+            "description": "Move a property group identified by {groupName} to the recycling bin."
+        }
+    }
+}

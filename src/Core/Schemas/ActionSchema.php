@@ -6,51 +6,51 @@ use LTL\Hubspot\Core\Exceptions\HubspotApiException;
 use LTL\Hubspot\Core\Request\RequestConstants;
 use LTL\Hubspot\Core\Schemas\Base\Schema;
 use LTL\Hubspot\Core\Schemas\Interfaces\ActionSchemaInterface;
+use LTL\Hubspot\Core\Schemas\Interfaces\ResourceSchemaInterface;
 
 /**
- * @property-read string $method;
- * @property-read string $path;
- * @property-read string $uri;
+ * @property-read string $baseUri;
  * @property-read ?string $description;
  * @property-read ?string $iterator;
+ * @property-read ?string $offset;
  * @property-read ?string $documentation;
  * @property-read ?string $contentType;
- * @property-read array $params;
+ * @property-read ?array $params;
  * @property-read bool $hasBody;
+ * @property-read string $method;
  */
 class ActionSchema extends Schema implements ActionSchemaInterface
 {
-    private string $method;
-
-    private string $path;
-
-    private string $uri;
+    private string $baseUri;
 
     private ?string $description;
 
     private ?string $iterator;
 
+    private ?string $offset;
+
     private ?string $documentation;
 
     private ?string $contentType;
 
-    private array $params;
+    private ?array $params;
 
     private bool $hasBody;
 
-    public function __construct(private string $action, object $schema)
+    private string $method;
+
+    public function __construct(private string $action, ResourceSchemaInterface $schema)
     {
-        $actionSchema = $schema->actions->{$action};
-              
-        
-        $this->path = $actionSchema->path;
+        $actionSchema = $schema->actions[$action];
+  
         $this->method = $actionSchema->method;
         $this->description = @$actionSchema->description;
         $this->iterator = @$actionSchema->iterator;
+        $this->offset = @$actionSchema->offset;
         $this->hasBody = in_array($this->method, RequestConstants::METHODS_WITH_BODY);
 
         $this->contentType = $this->setContentType($schema, $actionSchema);
-        $this->uri = $this->setUri($schema, $actionSchema);
+        $this->baseUri = $this->setUri($schema, $actionSchema);
         $this->documentation = $this->setDocumentation($schema, $actionSchema);
         $this->params = $this->setParams($schema, $actionSchema);
     }
@@ -83,16 +83,20 @@ class ActionSchema extends Schema implements ActionSchemaInterface
         $uri .= (@$schema->resource)?('/'. $schema->resource):('');
         $uri .= (@$schema->version)?('/'. $schema->version):('');
 
-        return "{$uri}/{$this->path}";
+        return "{$uri}/{$actionSchema->path}";
     }
 
-    private function setParams(object $schema, object $actionSchema): array
+    private function setParams(object $schema, object $actionSchema): ?array
     {
-        preg_match_all('/{(.*?)}/', $this->path, $matches, PREG_PATTERN_ORDER);
+        preg_match_all('/{(.*?)}/', $actionSchema->path, $matches, PREG_PATTERN_ORDER);
         $arguments = $matches[0];
 
         if ($this->hasBody) {
             $arguments[] = '{requestBody}';
+        }
+
+        if (count($arguments) === 0) {
+            return null;
         }
 
         return $arguments;

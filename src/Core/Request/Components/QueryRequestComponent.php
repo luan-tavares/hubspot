@@ -17,6 +17,11 @@ class QueryRequestComponent extends RequestComponent implements QueryInterface
         return $this;
     }
 
+    public function archived(string $archived): self
+    {
+        return $this->query('archived', $archived);
+    }
+
     public function limit(int $limit): self
     {
         return $this->query('limit', $limit);

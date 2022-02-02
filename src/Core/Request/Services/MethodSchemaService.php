@@ -6,7 +6,6 @@ use LTL\Hubspot\Core\Exceptions\HubspotApiException;
 use LTL\Hubspot\Core\Request\Components\BodyRequestComponent;
 use LTL\Hubspot\Core\Request\Components\HeaderRequestComponent;
 use LTL\Hubspot\Core\Request\Components\UriRequestComponent;
-use LTL\Hubspot\Core\Request\RequestConstants;
 use LTL\Hubspot\Core\Schemas\Interfaces\ActionSchemaInterface;
 
 class MethodSchemaService
@@ -18,9 +17,9 @@ class MethodSchemaService
     public function resolveActionSchema(UriRequestComponent $uriComponent, BodyRequestComponent $bodyComponent): void
     {
         $arguments = $this->arguments;
-        $params = $this->actionSchema->params;
+        $params = $this->actionSchema->params ?? [];
 
-        $uri = $this->actionSchema->uri;
+        $uri = $this->actionSchema->baseUri;
         $nParams = count($params);
         $nArguments = count($arguments);
   

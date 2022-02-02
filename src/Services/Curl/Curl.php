@@ -10,7 +10,7 @@ class Curl
 
     private array $headers = [];
 
-    private static $curl;
+    private $curl;
 
     private ?string $response;
 
@@ -60,30 +60,28 @@ class Curl
 
     public function connect(string $method, ?array $body = null): self
     {
-        if (is_null(self::$curl)) {
-            self::$curl = curl_init();
-            foreach (CurlConstants::CURL_PARAMS as $index => $value) {
-                curl_setopt(self::$curl, $index, $value);
-            }
-        }
+        $this->curl = curl_init();
 
+        foreach (CurlConstants::CURL_PARAMS as $index => $value) {
+            curl_setopt($this->curl, $index, $value);
+        }
         $this->resolveHeader()
             ->resolveBody($body)
             ->resolveMethod($method)
             ->resolveUri();
 
         foreach ($this->params as $index => $value) {
-            curl_setopt(self::$curl, $index, $value);
+            curl_setopt($this->curl, $index, $value);
         }
 
-  
-        $this->response = curl_exec(self::$curl);
+        $this->response = curl_exec($this->curl);
       
     
-        $this->status = curl_getinfo(self::$curl, CURLINFO_HTTP_CODE);
+        $this->status = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
 
-        curl_close(self::$curl);
-        //$this->response = '{"d":1}';
+        curl_reset($this->curl);
+
+        curl_close($this->curl);
   
         return $this;
     }
