@@ -4,8 +4,8 @@
     "class": "ContactHubspot",
     "documentation": "https://developers.hubspot.com/docs/api/crm/contacts",
     "actions": {
-        "getAll": {
-            "path": "objects/contacts",           
+        "all": {
+            "path": "objects/contacts",
             "method": "GET",
             "description": "Read a page of contacts. Control what is returned via the properties query param.",
             "iterator": "results",
@@ -15,6 +15,14 @@
             "path": "objects/contacts/{contactIdOrEmail}",
             "method": "GET",
             "description": "Read an contact identified by {contactIdOrEmail}."
+        },
+        "getByEmail": {
+            "path": "objects/contacts/{contactEmail}",
+            "method": "GET",
+            "description": "Read an contact identified by {contactEmail}.",
+            "queries": {
+                "idProperty": "email"
+            }
         },
         "create": {
             "path": "objects/contacts",

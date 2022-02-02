@@ -3,20 +3,22 @@
 namespace LTL\Hubspot\Core\Exceptions;
 
 use Exception;
+use LTL\Hubspot\Core\Interfaces\ResourceInterface;
 use Throwable;
 
 class HubspotApiException extends Exception
 {
-    public function __construct($message, $code = 0, Throwable $previous = null)
+    public function __construct($message, private ?ResourceInterface $resource = null)
     {
-        parent::__construct($message, $code, $previous);
+        parent::__construct($message);
     }
 
 
     public function __toString()
     {
-        $error = $this->getTrace()[count($this->getTrace()) - 1];
+        $error = $this->getTrace();
+        dd($error);
 
-        return __CLASS__ .': '. $this->message . ' in '. $error['file'] .' on line '. $error['line'];
+        return __CLASS__ .': '. $this->message ;
     }
 }

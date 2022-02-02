@@ -10,11 +10,11 @@ interface ResourceSchemaInterface
     /**
      * Get Method from schema
      *
-     * @param string $method
+     * @param string $action
      * @return ActionSchemaInterface
      * @throws HubspotApiException
      */
-    public function getActionSchema(string $method): ActionSchemaInterface;
+    public function getActionDefinition(string $action): ActionSchemaInterface;
     public function getActions(): array;
     public function mapWithActions(callable $function): array;
 }

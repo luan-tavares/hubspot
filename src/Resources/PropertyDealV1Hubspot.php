@@ -5,26 +5,66 @@ namespace LTL\Hubspot\Resources;
 use LTL\Hubspot\Hubspot;
 
 /**
-* @method static $this getAll() 
-* @method $this getAll() 
-* @method static $this get(int|string $property) 
-* @method $this get(int|string $property) 
-* @method static $this create(array $requestBody) 
-* @method $this create(array $requestBody) 
-* @method static $this update(int|string $property, array $requestBody) 
-* @method $this update(int|string $property, array $requestBody) 
-* @method static $this delete(int|string $property) 
-* @method $this delete(int|string $property) 
-* @method static $this getAllGroups() 
-* @method $this getAllGroups() 
-* @method static $this getGroup(int|string $group) 
-* @method $this getGroup(int|string $group) 
-* @method static $this createGroup(array $requestBody) 
-* @method $this createGroup(array $requestBody) 
-* @method static $this updateGroup(int|string $group, array $requestBody) 
-* @method $this updateGroup(int|string $group, array $requestBody) 
-* @method static $this deleteGroup(int|string $group) 
-* @method $this deleteGroup(int|string $group) 
+ * @method static $this all() 
+ * See 
+ *
+ * @method $this all() 
+ * See 
+ *
+ * @method static $this get(int|string $property) 
+ * See 
+ *
+ * @method $this get(int|string $property) 
+ * See 
+ *
+ * @method static $this create(array $requestBody) 
+ * See 
+ *
+ * @method $this create(array $requestBody) 
+ * See 
+ *
+ * @method static $this update(int|string $property, array $requestBody) 
+ * See 
+ *
+ * @method $this update(int|string $property, array $requestBody) 
+ * See 
+ *
+ * @method static $this delete(int|string $property) 
+ * See 
+ *
+ * @method $this delete(int|string $property) 
+ * See 
+ *
+ * @method static $this getAllGroups() 
+ * See 
+ *
+ * @method $this getAllGroups() 
+ * See 
+ *
+ * @method static $this getGroup(int|string $group) 
+ * See 
+ *
+ * @method $this getGroup(int|string $group) 
+ * See 
+ *
+ * @method static $this createGroup(array $requestBody) 
+ * See 
+ *
+ * @method $this createGroup(array $requestBody) 
+ * See 
+ *
+ * @method static $this updateGroup(int|string $group, array $requestBody) 
+ * See 
+ *
+ * @method $this updateGroup(int|string $group, array $requestBody) 
+ * See 
+ *
+ * @method static $this deleteGroup(int|string $group) 
+ * See 
+ *
+ * @method $this deleteGroup(int|string $group) 
+ * See 
+ *
  */
 class PropertyDealV1Hubspot extends Hubspot
 {

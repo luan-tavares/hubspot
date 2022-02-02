@@ -3,7 +3,7 @@
     "version": "v1",
     "class": "LineItemV1Hubspot",
     "actions": {
-        "getAll": {
+        "all": {
             "path": "objects/line_items/paged",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/line-items/get-all-line-items",
             "method": "GET"

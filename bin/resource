@@ -47,11 +47,14 @@ $methods = [
 foreach ($resources as $resource) {
     $document = json_decode(file_get_contents(__ROOT__ . "/src/schemas/{$resource}.json"));
 
+    $documentation = @$document->documentation;
+
     $content = $template;
     $content = str_replace('{{class}}', $document->class, $content);
     $content = str_replace('{{name}}', $resource, $content);
 
 
+    $doc = "* @link {$documentation}\n *\n";
     $doc = '';
     foreach ($document->actions as $action => $actionDefinition) {
         if (!in_array($actionDefinition->method, $methods)) {
@@ -69,11 +72,13 @@ foreach ($resources as $resource) {
         }
  
         $params = implode(', ', $params);
+        
+        $methodLink = @$actionDefinition->documentation ?? $documentation;
 
         $description = @$actionDefinition->description;
     
-        $doc .= "* @method static \$this {$action}({$params}) {$description}\n";
-        $doc .= "* @method \$this {$action}({$params}) {$description}\n";
+        $doc .= " * @method static \$this {$action}({$params}) {$description}\n * See {$documentation}\n *\n";
+        $doc .= " * @method \$this {$action}({$params}) {$description}\n * See {$documentation}\n *\n";
     }
 
     $content = str_replace('{{docs}}', $doc, $content);

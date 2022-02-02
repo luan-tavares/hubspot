@@ -4,7 +4,7 @@
     "class": "ProductHubspot",
     "documentation": "https://developers.hubspot.com/docs/api/crm/products",
     "actions": {
-        "getAll": {
+        "all": {
             "path": "objects/products",           
             "method": "GET",
             "description": "Read a page of products. Control what is returned via the properties query param.",

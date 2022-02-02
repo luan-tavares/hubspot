@@ -1,7 +1,7 @@
 <?php
 namespace LTL\Hubspot\Core\Interfaces;
 
-interface MethodListInterface
+interface MethodsListableInterface
 {
     public function getMethods(): array;
 }

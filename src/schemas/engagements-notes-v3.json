@@ -4,7 +4,7 @@
     "class": "NoteHubspot",
     "documentation": "https://developers.hubspot.com/docs/api/crm/notes",
     "actions": {
-        "getAll": {
+        "all": {
             "path": "objects/notes",           
             "method": "GET",
             "description": "Read a page of notes. Control what is returned via the properties query param.",

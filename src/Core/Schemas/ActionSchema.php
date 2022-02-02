@@ -9,33 +9,36 @@ use LTL\Hubspot\Core\Schemas\Interfaces\ActionSchemaInterface;
 use LTL\Hubspot\Core\Schemas\Interfaces\ResourceSchemaInterface;
 
 /**
- * @property-read string $baseUri;
- * @property-read ?string $description;
- * @property-read ?string $iterator;
- * @property-read ?string $offset;
- * @property-read ?string $documentation;
- * @property-read ?string $contentType;
- * @property-read ?array $params;
- * @property-read bool $hasBody;
- * @property-read string $method;
+ * @property-read string $baseUri
+ * @property-read string|null $description
+ * @property-read string|null $iterator
+ * @property-read string|null $offset
+ * @property-read string|null $documentation
+ * @property-read string|null $contentType
+ * @property-read array|null $params
+ * @property-read bool $hasBody
+ * @property-read string $method
+ * @property-read array|null $baseQuery
  */
 class ActionSchema extends Schema implements ActionSchemaInterface
 {
     private string $baseUri;
 
-    private ?string $description;
+    private string|null $description;
 
-    private ?string $iterator;
+    private string|null $iterator;
 
-    private ?string $offset;
+    private string|null $offset;
 
-    private ?string $documentation;
+    private string|null $documentation;
 
-    private ?string $contentType;
+    private string|null $contentType;
 
-    private ?array $params;
+    private array|null $params;
 
     private bool $hasBody;
+
+    private array|null $baseQuery;
 
     private string $method;
 
@@ -49,10 +52,11 @@ class ActionSchema extends Schema implements ActionSchemaInterface
         $this->offset = @$actionSchema->offset;
         $this->hasBody = in_array($this->method, RequestConstants::METHODS_WITH_BODY);
 
-        $this->contentType = $this->setContentType($schema, $actionSchema);
+        $this->baseQuery = $this->setBaseQuery($actionSchema);
+        $this->contentType = $this->setContentType($actionSchema);
         $this->baseUri = $this->setUri($schema, $actionSchema);
         $this->documentation = $this->setDocumentation($schema, $actionSchema);
-        $this->params = $this->setParams($schema, $actionSchema);
+        $this->params = $this->setParams($actionSchema);
     }
 
     public function __get($property)
@@ -68,6 +72,15 @@ class ActionSchema extends Schema implements ActionSchemaInterface
     public function __toString()
     {
         return $this->action;
+    }
+
+    private function setBaseQuery(object $actionSchema): ?array
+    {
+        if (is_null(@$actionSchema->queries)) {
+            return null;
+        }
+
+        return (array) @$actionSchema->queries;
     }
 
     private function setDocumentation(object $schema, object $actionSchema): ?string
@@ -86,7 +99,7 @@ class ActionSchema extends Schema implements ActionSchemaInterface
         return "{$uri}/{$actionSchema->path}";
     }
 
-    private function setParams(object $schema, object $actionSchema): ?array
+    private function setParams(object $actionSchema): ?array
     {
         preg_match_all('/{(.*?)}/', $actionSchema->path, $matches, PREG_PATTERN_ORDER);
         $arguments = $matches[0];
@@ -102,7 +115,7 @@ class ActionSchema extends Schema implements ActionSchemaInterface
         return $arguments;
     }
 
-    private function setContentType(object $schema, object $actionSchema): ?string
+    private function setContentType(object $actionSchema): ?string
     {
         if (!$this->hasBody) {
             return null;

@@ -49,7 +49,7 @@
             "method": "GET",
             "description": "Get a single field from a form"
         },
-        "getAll": {
+        "all": {
             "path": "forms/v2/forms",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/forms/v2/get_forms",
             "method": "GET",

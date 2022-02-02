@@ -7,6 +7,7 @@ use LTL\Hubspot\Core\Interfaces\ResourceInterface;
 use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
 use LTL\Hubspot\Core\Request\Request;
 use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
+use LTL\Hubspot\Core\Schemas\Interfaces\ActionSchemaInterface;
 use LTL\Hubspot\Core\Schemas\Interfaces\ResourceSchemaInterface;
 use LTL\Hubspot\Core\Schemas\ResourceSchema;
 use ReflectionProperty;
@@ -76,6 +77,17 @@ abstract class Container
         }
 
         return self::$schemas[$hash];
+    }
+
+    public static function getActionDefinition(ResourceInterface $resource, string $action): ActionSchemaInterface
+    {
+        $hash = get_class($resource);
+
+        if (!array_key_exists($hash, self::$schemas)) {
+            self::$schemas[$hash] = new ResourceSchema($resource);
+        }
+
+        return self::$schemas[$hash]->getActionDefinition($action);
     }
 
     public static function apikey(?string $apikey = null): ?string

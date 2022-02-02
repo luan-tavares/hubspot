@@ -21,7 +21,7 @@
             "method": "GET",
             "description": "Check the status of requested import."
         },
-        "getAll": {
+        "all": {
             "path": "files/search",
             "method": "GET",
             "description": "Search through files in the file manager. Does not display hidden or archived files.",

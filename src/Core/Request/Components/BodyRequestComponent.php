@@ -3,8 +3,9 @@
 namespace LTL\Hubspot\Core\Request\Components;
 
 use LTL\Hubspot\Core\Request\Components\RequestComponent;
+use LTL\Hubspot\Core\Request\Interfaces\BodyComponentInterface;
 
-class BodyRequestComponent extends RequestComponent
+class BodyRequestComponent extends RequestComponent implements BodyComponentInterface
 {
     public function add(?array $body): void
     {
@@ -19,7 +20,7 @@ class BodyRequestComponent extends RequestComponent
         $this->addArray($body);
     }
 
-    public function getBody(): ?array
+    public function get(): ?array
     {
         $body = $this->all();
 

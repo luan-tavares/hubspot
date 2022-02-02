@@ -3,24 +3,25 @@
 namespace LTL\Hubspot\Core\Request\Components;
 
 use LTL\Hubspot\Core\Request\Components\RequestComponent;
+use LTL\Hubspot\Core\Request\Interfaces\UriComponentInterface;
 
-class UriRequestComponent extends RequestComponent
+class UriRequestComponent extends RequestComponent implements UriComponentInterface
 {
     private string $uri;
 
     private string $method;
 
-    public function addUri(string $uri): void
+    public function set(string $uri): void
     {
         $this->uri = $uri;
     }
 
-    public function addMethod(string $method): void
+    public function setMethod(string $method): void
     {
         $this->method = $method;
     }
 
-    public function getUri(): ?string
+    public function get(): ?string
     {
         return $this->uri;
     }

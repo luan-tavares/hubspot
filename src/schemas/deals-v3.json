@@ -4,7 +4,7 @@
     "class": "DealHubspot",
     "documentation": "https://developers.hubspot.com/docs/api/crm/deals",
     "actions": {
-        "getAll": {
+        "all": {
             "path": "objects/deals",           
             "method": "GET",
             "description": "Read a page of deals. Control what is returned via the properties query param.",

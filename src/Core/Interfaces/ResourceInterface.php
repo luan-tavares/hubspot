@@ -2,9 +2,9 @@
 
 namespace LTL\Hubspot\Core\Interfaces;
 
-use LTL\Hubspot\Core\Interfaces\MethodListInterface;
+use LTL\Hubspot\Core\Interfaces\MethodsListableInterface;
 
-interface ResourceInterface extends MethodListInterface
+interface ResourceInterface extends MethodsListableInterface
 {
     public function toArray(): ?array;
     public function toJson(): ?string;

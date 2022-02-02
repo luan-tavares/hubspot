@@ -21,10 +21,10 @@ if (!file_exists($dir.'/autoload.php')) {
 
 require $dir.'/autoload.php';
 
-use LTL\Hubspot\Hubspot;
 use LTL\Hubspot\Core\Request\Interfaces\CurlComponentInterface;
-use LTL\Hubspot\Core\Request\Interfaces\HeaderInterface;
-use LTL\Hubspot\Core\Request\Interfaces\QueryInterface;
+use LTL\Hubspot\Core\Request\Interfaces\HeaderComponentInterface;
+use LTL\Hubspot\Core\Request\Interfaces\QueryComponentInterface;
+use LTL\Hubspot\Hubspot;
 
 function generateDoc(string $class, string $title): string
 {
@@ -34,6 +34,9 @@ function generateDoc(string $class, string $title): string
     
     $doc = " *\n * {$title}\n *\n";
     foreach ($reflectionMethods as $reflectionMethod) {
+        if ($reflectionMethod->class !== $class) {
+            continue;
+        }
         preg_match_all('/\-\ (.*?)\\n/', $reflectionMethod->getDocComment(), $matches, PREG_PATTERN_ORDER);
         $description = @$matches[1][0] ?? '';
         $name = $reflectionMethod->name;
@@ -58,11 +61,13 @@ function generateDoc(string $class, string $title): string
         $doc .= " * @method static \$this {$name}({$params}) {$description}\n";
     }
 
+ 
+
     return $doc;
 }
 $doc = "/**\n";
-$doc .= generateDoc(QueryInterface::class, 'Uri Query Methods');
-$doc .= generateDoc(HeaderInterface::class, 'Uri Header Methods');
+$doc .= generateDoc(QueryComponentInterface::class, 'Uri Query Methods');
+$doc .= generateDoc(HeaderComponentInterface::class, 'Uri Header Methods');
 $doc .= generateDoc(CurlComponentInterface::class, 'Uri Curl Methods');
 $doc .= '*/';
 

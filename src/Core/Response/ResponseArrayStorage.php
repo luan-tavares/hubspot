@@ -12,7 +12,7 @@ abstract class ResponseArrayStorage
         $hash = spl_object_hash($response);
 
         if (!array_key_exists($hash, self::$responses)) {
-            self::$responses[$hash] = json_decode($response->get(), true);
+            self::$responses[$hash] = json_decode($response->get(), JSON_FORCE_OBJECT);
         }
 
         return self::$responses[$hash];

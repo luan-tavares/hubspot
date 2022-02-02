@@ -21,7 +21,7 @@ class Response implements ResponseInterface
     {
         $this->status = $curl->getStatus();
         $this->response = $curl->getResponse();
-        $this->uri = $this->hiddeApikey($curl->getUri());
+        $this->uri = $this->hideApikey($curl->getUri());
     }
 
     public function __destruct()
@@ -29,7 +29,7 @@ class Response implements ResponseInterface
         ResponseArrayStorage::unset($this);
     }
 
-    private function hiddeApikey(string $uri): string
+    private function hideApikey(string $uri): string
     {
         preg_match('/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/', $uri, $uuid);
 

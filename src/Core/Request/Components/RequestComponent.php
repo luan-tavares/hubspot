@@ -29,14 +29,9 @@ abstract class RequestComponent extends ArrayObjectService implements SubjectInt
         return $this->request;
     }
 
-    public function getSchema(): ResourceSchemaInterface
+    public function getActionDefinition(string $method): ActionSchemaInterface
     {
-        return $this->request->getSchema();
-    }
-
-    public function getActionSchema(string $method): ActionSchemaInterface
-    {
-        return $this->request->getActionSchema($method);
+        return $this->request->getActionDefinition($method);
     }
 
     public function getResource(): ResourceInterface

@@ -3,10 +3,10 @@
 namespace LTL\Hubspot\Core\Request\Components;
 
 use LTL\Hubspot\Core\Request\Components\RequestComponent;
-use LTL\Hubspot\Core\Request\Interfaces\QueryInterface;
+use LTL\Hubspot\Core\Request\Interfaces\QueryComponentInterface;
 use LTL\Hubspot\Core\Traits\MethodsListable;
 
-class QueryRequestComponent extends RequestComponent implements QueryInterface
+class QueryRequestComponent extends RequestComponent implements QueryComponentInterface
 {
     use MethodsListable;
 

@@ -5,10 +5,18 @@ namespace LTL\Hubspot\Resources;
 use LTL\Hubspot\Hubspot;
 
 /**
-* @method static $this completeCallback(int|string $callbackId, array $requestBody) Completes the given action callback.
-* @method $this completeCallback(int|string $callbackId, array $requestBody) Completes the given action callback.
-* @method static $this batchCompleteCallbacks(array $requestBody) Completes the given action callbacks.
-* @method $this batchCompleteCallbacks(array $requestBody) Completes the given action callbacks.
+ * @method static $this completeCallback(int|string $callbackId, array $requestBody) Completes the given action callback.
+ * See https://developers.hubspot.com/docs/api/automation/custom-workflow-actions
+ *
+ * @method $this completeCallback(int|string $callbackId, array $requestBody) Completes the given action callback.
+ * See https://developers.hubspot.com/docs/api/automation/custom-workflow-actions
+ *
+ * @method static $this batchCompleteCallbacks(array $requestBody) Completes the given action callbacks.
+ * See https://developers.hubspot.com/docs/api/automation/custom-workflow-actions
+ *
+ * @method $this batchCompleteCallbacks(array $requestBody) Completes the given action callbacks.
+ * See https://developers.hubspot.com/docs/api/automation/custom-workflow-actions
+ *
  */
 class WorkflowExtensionHubspot extends Hubspot
 {

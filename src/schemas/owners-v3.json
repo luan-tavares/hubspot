@@ -4,7 +4,7 @@
     "class": "OwnerHubspot",
     "documentation": "https://developers.hubspot.com/docs/api/crm/owners",
     "actions": {
-        "getAll": {
+        "all": {
             "path": "objects/owners",           
             "method": "GET",
             "description": "Read a page of owners.",

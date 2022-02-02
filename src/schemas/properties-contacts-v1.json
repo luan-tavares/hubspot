@@ -3,7 +3,7 @@
     "version": "v1",
     "class": "PropertyContactV1Hubspot",
     "actions": {
-        "getAll": {
+        "all": {
             "path": "contacts/properties",
             "documentation": "",
             "method": "GET"

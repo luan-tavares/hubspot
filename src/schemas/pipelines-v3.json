@@ -4,7 +4,7 @@
     "class": "PipelineHubspot",
     "documentation": "https://developers.hubspot.com/docs/api/crm/pipelines",
     "actions": {
-        "getAll": {
+        "all": {
             "path": "pipelines/{objectType}",
             "method": "GET",
             "description": "Return all pipelines for the object type specified by {objectType}.",

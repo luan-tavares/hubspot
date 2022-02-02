@@ -2,11 +2,9 @@
 
 namespace LTL\Hubspot\Core\Schemas;
 
-use ArrayAccess;
 use Countable;
 use Iterator;
 use LTL\Hubspot\Core\Exceptions\HubspotApiException;
-use LTL\Hubspot\Core\Interfaces\MethodListInterface;
 use LTL\Hubspot\Core\Interfaces\ResourceInterface;
 use LTL\Hubspot\Core\Schemas\Base\Schema;
 use LTL\Hubspot\Core\Schemas\Interfaces\ActionSchemaInterface;
@@ -59,7 +57,7 @@ class ResourceSchema extends Schema implements Countable, Iterator, ResourceSche
         return array_map($function, $this->getActions());
     }
 
-    public function getActionSchema(string $action): ActionSchemaInterface
+    public function getActionDefinition(string $action): ActionSchemaInterface
     {
         if (!array_key_exists($action, $this->actionSchemas)) {
             $this->actionSchemas[$action] = new ActionSchema($action, $this);
