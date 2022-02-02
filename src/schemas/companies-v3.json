@@ -7,69 +7,79 @@
         "getAll": {
             "path": "objects/companies",           
             "method": "GET",
-            "description": "Read a page of companies",
+            "description": "Read a page of companies. Control what is returned via the properties query param.",
             "iterator": "results",
             "after": "paging.next.after"
         },
         "get": {
             "path": "objects/companies/{companyId}",
             "method": "GET",
-            "description": "Read an company identified by {companyId}"
+            "description": "Read an Object identified by {companyId}."
         },
         "create": {
             "path": "objects/companies",
             "method": "POST",
-            "description": "Create a company with the given properties"
-        },
-        "archive": {
-            "path": "objects/companies/{companyId}",
-            "method": "DELETE",
-            "description": "Move an company identified by {companyId} to the recycling bin"
+            "description": "Create a company with the given properties and return a copy of the object, including the ID."
         },
         "update": {
             "path": "objects/companies/{companyId}",
             "method": "PATCH",
-            "description": "Perform a partial update of an company identified by {companyId}"
+            "description": "Perform a partial update of an Object identified by {companyId}."
+        },
+        "delete": {
+            "path": "objects/companies/{companyId}",
+            "method": "DELETE",
+            "description": "Move an Object identified by {companyId} to the recycling bin."
         },
         "getAssociations": {
             "path": "objects/companies/{companyId}/associations/{toObjectType}",
             "method": "GET",
-            "description": "List associations of a company by type"
+            "description": "List associations of a company by type.",
+            "iterator": "results",
+            "after": "paging.next.after"
         },
         "createAssociation": {
             "path": "objects/companies/{companyId}/associations/{toObjectType}/{toObjectId}/{associationType}",
             "method": "PUT",
-            "description": "Associate a company with another object"
+            "description": "Associate a company with another object."
         },
         "removeAssociation": {
             "path": "objects/companies/{companyId}/associations/{toObjectType}/{toObjectId}/{associationType}",
             "method": "DELETE",
-            "description": "Remove an association with companies"
+            "description": "Remove an association between a company and an object."
         },
-        "batchArchive": {
+        "batchDelete": {
             "path": "objects/companies/batch/archive",
-            "method": "DELETE",
-            "description": "Archive a batch of companies by ID"
+            "method": "POST",
+            "description": "Archive a batch of companies by ID."
         },
         "batchCreate": {
             "path": "objects/companies/batch/create",
             "method": "POST",
-            "description": "Create a batch of companies"
+            "description": "Create a batch of companies.",
+            "iterator": "results",
+            "after": null
         },
         "batchRead": {
             "path": "objects/companies/batch/read",
             "method": "POST",
-            "description": "Read a batch of companies by internal ID, or unique property values"
+            "description": "Read a batch of companies by internal ID, or unique property values.",
+            "iterator": "results",
+            "after": null
         },
         "batchUpdate": {
             "path": "objects/companies/batch/update",
             "method": "POST",
-            "description": "Update a batch of companies"
+            "description": "Update a batch of companies.",
+            "iterator": "results",
+            "after": null
         },
         "search": {
             "path": "objects/companies/search",
             "method": "POST",
-            "description": "Serach Companies"
+            "description": "Search companies.",
+            "iterator": "results",
+            "after": "paging.next.after"
         }
     }
 }

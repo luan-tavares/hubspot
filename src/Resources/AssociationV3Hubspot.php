@@ -9,8 +9,8 @@ use LTL\Hubspot\Hubspot;
 * @method $this batchGet(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Get the IDs of all {toObjectType} objects associated with those specified in the request body.
 * @method static $this batchCreate(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Associate all pairs of objects identified in the request body.
 * @method $this batchCreate(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Associate all pairs of objects identified in the request body.
-* @method static $this batchArchive(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Remove the associations between all pairs of objects identified in the request body.
-* @method $this batchArchive(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Remove the associations between all pairs of objects identified in the request body.
+* @method static $this batchDelete(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Remove the associations between all pairs of objects identified in the request body.
+* @method $this batchDelete(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Remove the associations between all pairs of objects identified in the request body.
  */
 class AssociationV3Hubspot extends Hubspot
 {

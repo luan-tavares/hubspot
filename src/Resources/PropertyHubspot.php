@@ -13,10 +13,10 @@ use LTL\Hubspot\Hubspot;
 * @method $this create(int|string $objectType, array $requestBody) Create and return a copy of a new property for the specified object type.
 * @method static $this update(int|string $objectType, int|string $propertyName, array $requestBody) Perform a partial update of a property identified by {propertyName}. Provided fields will be overwritten.
 * @method $this update(int|string $objectType, int|string $propertyName, array $requestBody) Perform a partial update of a property identified by {propertyName}. Provided fields will be overwritten.
-* @method static $this archive(int|string $objectType, int|string $propertyName) Move a property identified by {propertyName} to the recycling bin.
-* @method $this archive(int|string $objectType, int|string $propertyName) Move a property identified by {propertyName} to the recycling bin.
-* @method static $this batchArchive(int|string $objectType, array $requestBody) Archive a provided list of properties.
-* @method $this batchArchive(int|string $objectType, array $requestBody) Archive a provided list of properties.
+* @method static $this delete(int|string $objectType, int|string $propertyName) Move a property identified by {propertyName} to the recycling bin.
+* @method $this delete(int|string $objectType, int|string $propertyName) Move a property identified by {propertyName} to the recycling bin.
+* @method static $this batchDelete(int|string $objectType, array $requestBody) Archive a provided list of properties.
+* @method $this batchDelete(int|string $objectType, array $requestBody) Archive a provided list of properties.
 * @method static $this batchCreate(int|string $objectType, array $requestBody) Create a batch of properties using the same rules as when creating an individual property.
 * @method $this batchCreate(int|string $objectType, array $requestBody) Create a batch of properties using the same rules as when creating an individual property.
 * @method static $this batchRead(int|string $objectType, array $requestBody) Read a provided list of properties.
@@ -29,8 +29,8 @@ use LTL\Hubspot\Hubspot;
 * @method $this createGroup(int|string $objectType, array $requestBody) Create and return a copy of a new property group.
 * @method static $this updateGroup(int|string $objectType, int|string $groupName, array $requestBody) Perform a partial update of a property group identified by {groupName}. Provided fields will be overwritten.
 * @method $this updateGroup(int|string $objectType, int|string $groupName, array $requestBody) Perform a partial update of a property group identified by {groupName}. Provided fields will be overwritten.
-* @method static $this archiveGroup(int|string $objectType, int|string $groupName) Move a property group identified by {groupName} to the recycling bin.
-* @method $this archiveGroup(int|string $objectType, int|string $groupName) Move a property group identified by {groupName} to the recycling bin.
+* @method static $this deleteGroup(int|string $objectType, int|string $groupName) Move a property group identified by {groupName} to the recycling bin.
+* @method $this deleteGroup(int|string $objectType, int|string $groupName) Move a property group identified by {groupName} to the recycling bin.
  */
 class PropertyHubspot extends Hubspot
 {

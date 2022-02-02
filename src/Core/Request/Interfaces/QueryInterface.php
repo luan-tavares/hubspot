@@ -12,7 +12,8 @@ interface QueryInterface
      * @return self
      */
     public function query(string $name, string|int|array $value): self;
-    public function archived(string $archived): self;
+    public function archived(): self;
+    public function byEmail(): self;
     public function limit(int $limit): self;
     public function setCount(int $count): self;
     public function offset(string|int $hubspotId): self;

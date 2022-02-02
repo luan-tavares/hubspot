@@ -42,7 +42,7 @@
             "iterator": "results"
         },
         "get": {
-            "path": "objects/{objectType}/{objectId}/associations/{toObjectType}",
+            "path": "objects/{fromObjectType}/{fromObjectId}/associations/{toObjectType}",
             "method": "GET",
             "description": "List all associations of an object by object type. Limit 1000 per call.",
             "iterator": "results"

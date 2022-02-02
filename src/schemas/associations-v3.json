@@ -15,7 +15,7 @@
             "method": "POST",
             "description": "Associate all pairs of objects identified in the request body."
         },
-        "batchArchive": {
+        "batchDelete": {
             "path": "associations/{fromObjectType}/{toObjectType}/batch/archive",
             "method": "POST",
             "description": "Remove the associations between all pairs of objects identified in the request body."

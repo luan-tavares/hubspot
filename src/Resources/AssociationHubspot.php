@@ -19,8 +19,8 @@ use LTL\Hubspot\Hubspot;
 * @method $this batchCreate(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Batch create associations for objects.
 * @method static $this batchGet(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Batch read associations for objects to specific object type.
 * @method $this batchGet(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Batch read associations for objects to specific object type.
-* @method static $this get(int|string $objectType, int|string $objectId, int|string $toObjectType) List all associations of an object by object type. Limit 1000 per call.
-* @method $this get(int|string $objectType, int|string $objectId, int|string $toObjectType) List all associations of an object by object type. Limit 1000 per call.
+* @method static $this get(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType) List all associations of an object by object type. Limit 1000 per call.
+* @method $this get(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType) List all associations of an object by object type. Limit 1000 per call.
 * @method static $this create(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType, int|string $toObjectId, array $requestBody) Set association labels between two records.
 * @method $this create(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType, int|string $toObjectId, array $requestBody) Set association labels between two records.
 * @method static $this delete(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType, int|string $toObjectId) deletes all associations between two records.

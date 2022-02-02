@@ -22,7 +22,7 @@ use LTL\Hubspot\Hubspot;
 * @method static $this updateGroup(int|string $group_name, array $requestBody) 
 * @method $this updateGroup(int|string $group_name, array $requestBody) 
  */
-class ContactPropertyV1Hubspot extends Hubspot
+class PropertyContactV1Hubspot extends Hubspot
 {
-    protected string $resource = "contacts-properties-v1";
+    protected string $resource = "properties-contacts-v1";
 }

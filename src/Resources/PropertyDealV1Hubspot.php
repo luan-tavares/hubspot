@@ -26,7 +26,7 @@ use LTL\Hubspot\Hubspot;
 * @method static $this deleteGroup(int|string $group) 
 * @method $this deleteGroup(int|string $group) 
  */
-class DealPropertyV1Hubspot extends Hubspot
+class PropertyDealV1Hubspot extends Hubspot
 {
-    protected string $resource = "deals-properties-v1";
+    protected string $resource = "properties-deals-v1";
 }

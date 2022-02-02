@@ -1,0 +1,85 @@
+{
+    "resource": "crm",
+    "version": "v3",
+    "class": "ProductHubspot",
+    "documentation": "https://developers.hubspot.com/docs/api/crm/products",
+    "actions": {
+        "getAll": {
+            "path": "objects/products",           
+            "method": "GET",
+            "description": "Read a page of products. Control what is returned via the properties query param.",
+            "iterator": "results",
+            "after": "paging.next.after"
+        },
+        "get": {
+            "path": "objects/products/{productId}",
+            "method": "GET",
+            "description": "Read an Object identified by {productId}."
+        },
+        "create": {
+            "path": "objects/products",
+            "method": "POST",
+            "description": "Create a product with the given properties and return a copy of the object, including the ID."
+        },
+        "update": {
+            "path": "objects/products/{productId}",
+            "method": "PATCH",
+            "description": "Perform a partial update of an Object identified by {productId}."
+        },
+        "delete": {
+            "path": "objects/products/{productId}",
+            "method": "DELETE",
+            "description": "Move an Object identified by {productId} to the recycling bin."
+        },
+        "getAssociations": {
+            "path": "objects/products/{productId}/associations/{toObjectType}",
+            "method": "GET",
+            "description": "List associations of a product by type.",
+            "iterator": "results",
+            "after": "paging.next.after"
+        },
+        "createAssociation": {
+            "path": "objects/products/{productId}/associations/{toObjectType}/{toObjectId}/{associationType}",
+            "method": "PUT",
+            "description": "Associate a product with another object."
+        },
+        "removeAssociation": {
+            "path": "objects/products/{productId}/associations/{toObjectType}/{toObjectId}/{associationType}",
+            "method": "DELETE",
+            "description": "Remove an association between products and an object."
+        },
+        "batchDelete": {
+            "path": "objects/products/batch/archive",
+            "method": "POST",
+            "description": "Archive a batch of products by ID."
+        },
+        "batchCreate": {
+            "path": "objects/products/batch/create",
+            "method": "POST",
+            "description": "Create a batch of products.",
+            "iterator": "results",
+            "after": null
+        },
+        "batchRead": {
+            "path": "objects/products/batch/read",
+            "method": "POST",
+            "description": "Read a batch of products by internal ID, or unique property values.",
+            "iterator": "results",
+            "after": null
+        },
+        "batchUpdate": {
+            "path": "objects/products/batch/update",
+            "method": "POST",
+            "description": "Update a batch of products.",
+            "iterator": "results",
+            "after": null
+        },
+        "search": {
+            "path": "objects/products/search",
+            "method": "POST",
+            "description": "Search products.",
+            "iterator": "results",
+            "after": "paging.next.after"
+        }
+    }
+}

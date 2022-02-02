@@ -1,7 +1,7 @@
 {
     "resource": "properties",
     "version": "v1",
-    "class": "ContactPropertyV1Hubspot",
+    "class": "PropertyContactV1Hubspot",
     "actions": {
         "getAll": {
             "path": "contacts/properties",

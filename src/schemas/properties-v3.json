@@ -26,12 +26,12 @@
             "method": "PATCH",
             "description": "Perform a partial update of a property identified by {propertyName}. Provided fields will be overwritten."
         },
-        "archive": {
+        "delete": {
             "path": "properties/{objectType}/{propertyName}",
             "method": "DELETE",
             "description": "Move a property identified by {propertyName} to the recycling bin."
         },
-        "batchArchive": {
+        "batchDelete": {
             "path": "properties/{objectType}/batch/archive",
             "method": "POST",
             "description": "Archive a provided list of properties."
@@ -71,7 +71,7 @@
             "method": "PATCH",
             "description": "Perform a partial update of a property group identified by {groupName}. Provided fields will be overwritten."
         },
-        "archiveGroup": {
+        "deleteGroup": {
             "path": "properties/{objectType}/groups/{groupName}",
             "method": "DELETE",
             "description": "Move a property group identified by {groupName} to the recycling bin."

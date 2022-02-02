@@ -21,28 +21,20 @@
             "method": "POST",
             "description": "Create a CRM object with the given properties and return a copy of the object, including the ID."
         },
-        "archive": {
-            "path": "objects/{objectType}/{objectId}",
-            "method": "DELETE",
-            "description": "Move an Object identified by {objectId} to the recycling bin."
-        },
         "update": {
             "path": "objects/{objectType}/{objectId}",
             "method": "PATCH",
             "description": "Perform a partial update of an Object identified by {objectId}."
         },
         "delete": {
+            "path": "objects/{objectType}/{objectId}",
+            "method": "DELETE",
+            "description": "Move an Object identified by {objectId} to the recycling bin."
+        },
+        "gdprDelete": {
             "path": "objects/{objectType}/gdpr-delete",
             "method": "POST",
             "description": "Permanently delete a contact and all associated content to follow GDPR."
-        },
-        "search": {
-            "path": "objects/{objectType}/search",
-            "method": "POST",
-            "description": "Make a search request",
-            "documentation": "https://developers.hubspot.com/docs/api/crm/search",
-            "iterator": "results",
-            "after": "paging.next.after"
         },
         "batchRead": {
             "path": "objects/{objectType}/batch/read",
@@ -59,7 +51,7 @@
             "method": "POST",
             "description": "Update a batch of objects."
         },
-        "batchArchive": {
+        "batchDelete": {
             "path": "objects/{objectType}/batch/archive",
             "method": "POST",
             "description": "Archive a batch of objects by ID."
@@ -80,6 +72,14 @@
             "path": "objects/{fromObjectType}/{fromObjectId}/associations/{toObjectType}/{toObjectId}/{associationType}",
             "method": "DELETE",
             "description": "Remove an association between two objects."
+        },
+        "search": {
+            "path": "objects/{objectType}/search",
+            "method": "POST",
+            "description": "Search objects by {objectType}.",
+            "documentation": "https://developers.hubspot.com/docs/api/crm/search",
+            "iterator": "results",
+            "after": "paging.next.after"
         }
     }
 }

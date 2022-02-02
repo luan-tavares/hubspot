@@ -7,28 +7,79 @@
         "getAll": {
             "path": "objects/deals",           
             "method": "GET",
+            "description": "Read a page of deals. Control what is returned via the properties query param.",
             "iterator": "results",
             "after": "paging.next.after"
         },
         "get": {
             "path": "objects/deals/{dealId}",
-            "method": "GET"
+            "method": "GET",
+            "description": "Read an Object identified by {dealId}."
         },
         "create": {
             "path": "objects/deals",
-            "method": "POST"
-        },
-        "archive": {
-            "path": "objects/deals/{dealId}",
-            "method": "DELETE"
+            "method": "POST",
+            "description": "Create a deal with the given properties and return a copy of the object, including the ID."
         },
         "update": {
             "path": "objects/deals/{dealId}",
-            "method": "PATCH"
+            "method": "PATCH",
+            "description": "Perform a partial update of an Object identified by {dealId}."
+        },
+        "delete": {
+            "path": "objects/deals/{dealId}",
+            "method": "DELETE",
+            "description": "Move an Object identified by {dealId} to the recycling bin."
+        },
+        "getAssociations": {
+            "path": "objects/deals/{dealId}/associations/{toObjectType}",
+            "method": "GET",
+            "description": "List associations of a deal by type.",
+            "iterator": "results",
+            "after": "paging.next.after"
+        },
+        "createAssociation": {
+            "path": "objects/deals/{dealId}/associations/{toObjectType}/{toObjectId}/{associationType}",
+            "method": "PUT",
+            "description": "Associate a deal with another object."
+        },
+        "removeAssociation": {
+            "path": "objects/deals/{dealId}/associations/{toObjectType}/{toObjectId}/{associationType}",
+            "method": "DELETE",
+            "description": "Remove an association between a deal and an object."
+        },
+        "batchDelete": {
+            "path": "objects/deals/batch/archive",
+            "method": "POST",
+            "description": "Archive a batch of deals by ID."
+        },
+        "batchCreate": {
+            "path": "objects/deals/batch/create",
+            "method": "POST",
+            "description": "Create a batch of deals.",
+            "iterator": "results",
+            "after": null
+        },
+        "batchRead": {
+            "path": "objects/deals/batch/read",
+            "method": "POST",
+            "description": "Read a batch of deals by internal ID, or unique property values.",
+            "iterator": "results",
+            "after": null
+        },
+        "batchUpdate": {
+            "path": "objects/deals/batch/update",
+            "method": "POST",
+            "description": "Update a batch of deals.",
+            "iterator": "results",
+            "after": null
         },
         "search": {
             "path": "objects/deals/search",
-            "method": "POST"
+            "method": "POST",
+            "description": "Search deals.",
+            "iterator": "results",
+            "after": "paging.next.after"
         }
     }
 }

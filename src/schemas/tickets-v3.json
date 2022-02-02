@@ -1,0 +1,85 @@
+{
+    "resource": "crm",
+    "version": "v3",
+    "class": "TicketHubspot",
+    "documentation": "https://developers.hubspot.com/docs/api/crm/tickets",
+    "actions": {
+        "getAll": {
+            "path": "objects/tickets",           
+            "method": "GET",
+            "description": "Read a page of tickets. Control what is returned via the properties query param.",
+            "iterator": "results",
+            "after": "paging.next.after"
+        },
+        "get": {
+            "path": "objects/tickets/{ticketId}",
+            "method": "GET",
+            "description": "Read an Object identified by {ticketId}."
+        },
+        "create": {
+            "path": "objects/tickets",
+            "method": "POST",
+            "description": "Create a ticket with the given properties and return a copy of the object, including the ID."
+        },
+        "update": {
+            "path": "objects/tickets/{ticketId}",
+            "method": "PATCH",
+            "description": "Perform a partial update of an Object identified by {ticketId}."
+        },
+        "delete": {
+            "path": "objects/tickets/{ticketId}",
+            "method": "DELETE",
+            "description": "Move an Object identified by {ticketId} to the recycling bin."
+        },
+        "getAssociations": {
+            "path": "objects/tickets/{ticketId}/associations/{toObjectType}",
+            "method": "GET",
+            "description": "List associations of a ticket by type.",
+            "iterator": "results",
+            "after": "paging.next.after"
+        },
+        "createAssociation": {
+            "path": "objects/tickets/{ticketId}/associations/{toObjectType}/{toObjectId}/{associationType}",
+            "method": "PUT",
+            "description": "Associate a ticket with another object."
+        },
+        "removeAssociation": {
+            "path": "objects/tickets/{ticketId}/associations/{toObjectType}/{toObjectId}/{associationType}",
+            "method": "DELETE",
+            "description": "Remove an association between a ticket and an object."
+        },
+        "batchDelete": {
+            "path": "objects/tickets/batch/archive",
+            "method": "POST",
+            "description": "Archive a batch of tickets by ID."
+        },
+        "batchCreate": {
+            "path": "objects/tickets/batch/create",
+            "method": "POST",
+            "description": "Create a batch of tickets.",
+            "iterator": "results",
+            "after": null
+        },
+        "batchRead": {
+            "path": "objects/tickets/batch/read",
+            "method": "POST",
+            "description": "Read a batch of tickets by internal ID, or unique property values.",
+            "iterator": "results",
+            "after": null
+        },
+        "batchUpdate": {
+            "path": "objects/tickets/batch/update",
+            "method": "POST",
+            "description": "Update a batch of tickets.",
+            "iterator": "results",
+            "after": null
+        },
+        "search": {
+            "path": "objects/tickets/search",
+            "method": "POST",
+            "description": "Search tickets.",
+            "iterator": "results",
+            "after": "paging.next.after"
+        }
+    }
+}

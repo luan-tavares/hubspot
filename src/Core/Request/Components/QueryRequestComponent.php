@@ -17,9 +17,14 @@ class QueryRequestComponent extends RequestComponent implements QueryInterface
         return $this;
     }
 
-    public function archived(string $archived): self
+    public function archived(): self
     {
-        return $this->query('archived', $archived);
+        return $this->query('archived', 'true');
+    }
+
+    public function byEmail(): self
+    {
+        return $this->query('idProperty', 'email');
     }
 
     public function limit(int $limit): self

@@ -7,32 +7,84 @@
         "getAll": {
             "path": "objects/contacts",           
             "method": "GET",
+            "description": "Read a page of contacts. Control what is returned via the properties query param.",
             "iterator": "results",
             "after": "paging.next.after"
         },
         "get": {
-            "path": "objects/contacts/{contactId}",
-            "method": "GET"
+            "path": "objects/contacts/{contactIdOrEmail}",
+            "method": "GET",
+            "description": "Read an Object identified by {contactIdOrEmail}."
         },
         "create": {
             "path": "objects/contacts",
-            "method": "POST"
-        },
-        "archive": {
-            "path": "objects/contacts/{contactId}",
-            "method": "DELETE"
+            "method": "POST",
+            "description": "Create a contact with the given properties and return a copy of the object, including the ID."
         },
         "update": {
-            "path": "objects/contacts/{contactId}",
-            "method": "PATCH"
+            "path": "objects/contacts/{contactIdOrEmail}",
+            "method": "PATCH",
+            "description": "Perform a partial update of an Object identified by {contactIdOrEmail}."
         },
         "delete": {
+            "path": "objects/contacts/{contactId}",
+            "method": "DELETE",
+            "description": "Move an Object identified by {contactId} to the recycling bin."
+        },
+        "gdprDelete": {
             "path": "objects/contacts/gdpr-delete",
-            "method": "POST"
+            "method": "POST",
+            "description": "Permanently delete a contact and all associated content to follow GDPR."
+        },
+        "getAssociations": {
+            "path": "objects/contacts/{contactId}/associations/{toObjectType}",
+            "method": "GET",
+            "description": "List associations of a contact by type.",
+            "iterator": "results",
+            "after": "paging.next.after"
+        },
+        "createAssociation": {
+            "path": "objects/contacts/{contactId}/associations/{toObjectType}/{toObjectId}/{associationType}",
+            "method": "PUT",
+            "description": "Associate a contact with another object."
+        },
+        "removeAssociation": {
+            "path": "objects/contacts/{contactId}/associations/{toObjectType}/{toObjectId}/{associationType}",
+            "method": "DELETE",
+            "description": "Remove an association between a contact and an object."
+        },
+        "batchDelete": {
+            "path": "objects/contacts/batch/archive",
+            "method": "POST",
+            "description": "Archive a batch of contacts by ID."
+        },
+        "batchCreate": {
+            "path": "objects/contacts/batch/create",
+            "method": "POST",
+            "description": "Create a batch of contacts.",
+            "iterator": "results",
+            "after": null
+        },
+        "batchRead": {
+            "path": "objects/contacts/batch/read",
+            "method": "POST",
+            "description": "Read a batch of contacts by internal ID, or unique property values.",
+            "iterator": "results",
+            "after": null
+        },
+        "batchUpdate": {
+            "path": "objects/contacts/batch/update",
+            "method": "POST",
+            "description": "Update a batch of contacts.",
+            "iterator": "results",
+            "after": null
         },
         "search": {
             "path": "objects/contacts/search",
-            "method": "POST"
+            "method": "POST",
+            "description": "Search contacts.",
+            "iterator": "results",
+            "after": "paging.next.after"
         }
     }
 }

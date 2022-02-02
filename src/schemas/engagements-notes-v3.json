@@ -26,7 +26,7 @@
             "method": "PATCH",
             "description": "Perform a partial update of an Object identified by {noteId}."
         },
-        "archive": {
+        "delete": {
             "path": "objects/notes/{noteId}",
             "method": "DELETE",
             "description": "Move an Object identified by {noteId} to the recycling bin."
@@ -46,9 +46,9 @@
         "removeAssociation": {
             "path": "objects/notes/{noteId}/associations/{toObjectType}/{toObjectId}/{associationType}",
             "method": "DELETE",
-            "description": "Remove an association between two notes."
+            "description": "Remove an association between ticket and an object."
         },
-        "batchArchive": {
+        "batchDelete": {
             "path": "objects/notes/batch/archive",
             "method": "POST",
             "description": "Archive a batch of notes by ID."
@@ -77,7 +77,7 @@
         "search": {
             "path": "objects/notes/search",
             "method": "POST",
-            "description": "Search Notes",
+            "description": "Search notes.",
             "iterator": "results",
             "after": "paging.next.after"
         }

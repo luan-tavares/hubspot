@@ -1,0 +1,85 @@
+{
+    "resource": "crm",
+    "version": "v3",
+    "class": "LineItemHubspot",
+    "documentation": "https://developers.hubspot.com/docs/api/crm/line-items",
+    "actions": {
+        "getAll": {
+            "path": "objects/line_items",           
+            "method": "GET",
+            "description": "Read a page of line items. Control what is returned via the properties query param.",
+            "iterator": "results",
+            "after": "paging.next.after"
+        },
+        "get": {
+            "path": "objects/line_items/{lineItemId}",
+            "method": "GET",
+            "description": "Read an Object identified by {lineItemId}."
+        },
+        "create": {
+            "path": "objects/line_items",
+            "method": "POST",
+            "description": "Create a line item with the given properties and return a copy of the object, including the ID."
+        },
+        "update": {
+            "path": "objects/line_items/{lineItemId}",
+            "method": "PATCH",
+            "description": "Perform a partial update of an Object identified by {lineItemId}."
+        },
+        "delete": {
+            "path": "objects/line_items/{lineItemId}",
+            "method": "DELETE",
+            "description": "Move an Object identified by {lineItemId} to the recycling bin."
+        },
+        "getAssociations": {
+            "path": "objects/line_items/{lineItemId}/associations/{toObjectType}",
+            "method": "GET",
+            "description": "List associations of a line item by type.",
+            "iterator": "results",
+            "after": "paging.next.after"
+        },
+        "createAssociation": {
+            "path": "objects/line_items/{lineItemId}/associations/{toObjectType}/{toObjectId}/{associationType}",
+            "method": "PUT",
+            "description": "Associate a line item with another object."
+        },
+        "removeAssociation": {
+            "path": "objects/line_items/{lineItemId}/associations/{toObjectType}/{toObjectId}/{associationType}",
+            "method": "DELETE",
+            "description": "Remove an association between line items and an object."
+        },
+        "batchDelete": {
+            "path": "objects/line_items/batch/archive",
+            "method": "POST",
+            "description": "Archive a batch of line items by ID."
+        },
+        "batchCreate": {
+            "path": "objects/line_items/batch/create",
+            "method": "POST",
+            "description": "Create a batch of line items.",
+            "iterator": "results",
+            "after": null
+        },
+        "batchRead": {
+            "path": "objects/line_items/batch/read",
+            "method": "POST",
+            "description": "Read a batch of line items by internal ID, or unique property values.",
+            "iterator": "results",
+            "after": null
+        },
+        "batchUpdate": {
+            "path": "objects/line_items/batch/update",
+            "method": "POST",
+            "description": "Update a batch of line items.",
+            "iterator": "results",
+            "after": null
+        },
+        "search": {
+            "path": "objects/line_items/search",
+            "method": "POST",
+            "description": "Search line items.",
+            "iterator": "results",
+            "after": "paging.next.after"
+        }
+    }
+}
