@@ -14,7 +14,7 @@
         "get": {
             "path": "objects/products/{productId}",
             "method": "GET",
-            "description": "Read an Object identified by {productId}."
+            "description": "Read an product identified by {productId}."
         },
         "create": {
             "path": "objects/products",
@@ -24,12 +24,12 @@
         "update": {
             "path": "objects/products/{productId}",
             "method": "PATCH",
-            "description": "Perform a partial update of an Object identified by {productId}."
+            "description": "Perform a partial update of an product identified by {productId}."
         },
         "delete": {
             "path": "objects/products/{productId}",
             "method": "DELETE",
-            "description": "Move an Object identified by {productId} to the recycling bin."
+            "description": "Move an product identified by {productId} to the recycling bin."
         },
         "getAssociations": {
             "path": "objects/products/{productId}/associations/{toObjectType}",

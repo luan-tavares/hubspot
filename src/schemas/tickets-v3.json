@@ -14,7 +14,7 @@
         "get": {
             "path": "objects/tickets/{ticketId}",
             "method": "GET",
-            "description": "Read an Object identified by {ticketId}."
+            "description": "Read an ticket identified by {ticketId}."
         },
         "create": {
             "path": "objects/tickets",
@@ -24,12 +24,12 @@
         "update": {
             "path": "objects/tickets/{ticketId}",
             "method": "PATCH",
-            "description": "Perform a partial update of an Object identified by {ticketId}."
+            "description": "Perform a partial update of an ticket identified by {ticketId}."
         },
         "delete": {
             "path": "objects/tickets/{ticketId}",
             "method": "DELETE",
-            "description": "Move an Object identified by {ticketId} to the recycling bin."
+            "description": "Move an ticket identified by {ticketId} to the recycling bin."
         },
         "getAssociations": {
             "path": "objects/tickets/{ticketId}/associations/{toObjectType}",

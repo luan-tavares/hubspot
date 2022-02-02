@@ -14,7 +14,7 @@
         "get": {
             "path": "objects/contacts/{contactIdOrEmail}",
             "method": "GET",
-            "description": "Read an Object identified by {contactIdOrEmail}."
+            "description": "Read an contact identified by {contactIdOrEmail}."
         },
         "create": {
             "path": "objects/contacts",
@@ -24,12 +24,12 @@
         "update": {
             "path": "objects/contacts/{contactIdOrEmail}",
             "method": "PATCH",
-            "description": "Perform a partial update of an Object identified by {contactIdOrEmail}."
+            "description": "Perform a partial update of an contact identified by {contactIdOrEmail}."
         },
         "delete": {
             "path": "objects/contacts/{contactId}",
             "method": "DELETE",
-            "description": "Move an Object identified by {contactId} to the recycling bin."
+            "description": "Move an contact identified by {contactId} to the recycling bin."
         },
         "gdprDelete": {
             "path": "objects/contacts/gdpr-delete",

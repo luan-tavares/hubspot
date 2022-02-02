@@ -1,0 +1,21 @@
+{
+    "resource": "crm",
+    "version": "v3",
+    "class": "OwnerHubspot",
+    "documentation": "https://developers.hubspot.com/docs/api/crm/owners",
+    "actions": {
+        "getAll": {
+            "path": "objects/owners",           
+            "method": "GET",
+            "description": "Read a page of owners.",
+            "iterator": "results",
+            "after": "paging.next.after"
+        },
+        "get": {
+            "path": "objects/owners/{ownerId}",
+            "method": "GET",
+            "description": "Read an owner identified by {ownerId}."
+        }
+        
+    }
+}

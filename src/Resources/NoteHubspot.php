@@ -7,14 +7,14 @@ use LTL\Hubspot\Hubspot;
 /**
 * @method static $this getAll() Read a page of notes. Control what is returned via the properties query param.
 * @method $this getAll() Read a page of notes. Control what is returned via the properties query param.
-* @method static $this get(int|string $noteId) Read an Object identified by {noteId}.
-* @method $this get(int|string $noteId) Read an Object identified by {noteId}.
+* @method static $this get(int|string $noteId) Read an note identified by {noteId}.
+* @method $this get(int|string $noteId) Read an note identified by {noteId}.
 * @method static $this create(array $requestBody) Create a note with the given properties and return a copy of the object, including the ID.
 * @method $this create(array $requestBody) Create a note with the given properties and return a copy of the object, including the ID.
-* @method static $this update(int|string $noteId, array $requestBody) Perform a partial update of an Object identified by {noteId}.
-* @method $this update(int|string $noteId, array $requestBody) Perform a partial update of an Object identified by {noteId}.
-* @method static $this delete(int|string $noteId) Move an Object identified by {noteId} to the recycling bin.
-* @method $this delete(int|string $noteId) Move an Object identified by {noteId} to the recycling bin.
+* @method static $this update(int|string $noteId, array $requestBody) Perform a partial update of an note identified by {noteId}.
+* @method $this update(int|string $noteId, array $requestBody) Perform a partial update of an note identified by {noteId}.
+* @method static $this delete(int|string $noteId) Move an note identified by {noteId} to the recycling bin.
+* @method $this delete(int|string $noteId) Move an note identified by {noteId} to the recycling bin.
 * @method static $this getAssociations(int|string $noteId, int|string $toObjectType) List associations of a note by type.
 * @method $this getAssociations(int|string $noteId, int|string $toObjectType) List associations of a note by type.
 * @method static $this createAssociation(int|string $noteId, int|string $toObjectType, int|string $toObjectId, int|string $associationType, array $requestBody) Associate a note with another object.

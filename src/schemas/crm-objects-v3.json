@@ -14,7 +14,7 @@
         "get": {
             "path": "objects/{objectType}/{objectId}",
             "method": "GET",
-            "description": "Read an Object identified by {objectId}."
+            "description": "Read an object identified by {objectId}."
         },
         "create": {
             "path": "objects/{objectType}",
@@ -24,12 +24,12 @@
         "update": {
             "path": "objects/{objectType}/{objectId}",
             "method": "PATCH",
-            "description": "Perform a partial update of an Object identified by {objectId}."
+            "description": "Perform a partial update of an object identified by {objectId}."
         },
         "delete": {
             "path": "objects/{objectType}/{objectId}",
             "method": "DELETE",
-            "description": "Move an Object identified by {objectId} to the recycling bin."
+            "description": "Move an object identified by {objectId} to the recycling bin."
         },
         "gdprDelete": {
             "path": "objects/{objectType}/gdpr-delete",

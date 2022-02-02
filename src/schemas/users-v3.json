@@ -1,0 +1,49 @@
+{
+    "resource": "settings",
+    "version": "v3",
+    "class": "UserHubspot",
+    "documentation": "https://developers.hubspot.com/docs/api/settings/user-provisioning",
+    "actions": {
+        "getAll": {
+            "path": "users",           
+            "method": "GET",
+            "description": "Read a page of users.",
+            "iterator": "results",
+            "after": "paging.next.after"
+        },
+        "get": {
+            "path": "users/{userId}",
+            "method": "GET",
+            "description": "Read an user identified by {userId}."
+        },
+        "create": {
+            "path": "users",
+            "method": "POST",
+            "description": "Create a user with the given properties and return a copy of the object, including the ID."
+        },
+        "update": {
+            "path": "users/{userId}",
+            "method": "PUT",
+            "description": "Perform a update in a user identified by {userId}."
+        },
+        "delete": {
+            "path": "users/{userId}",
+            "method": "DELETE",
+            "description": "Move an user identified by {userId} to the recycling bin."
+        },
+        "getRoles": {
+            "path": "users/roles",
+            "method": "GET",
+            "description": "Retrieves the roles on an account.",
+            "iterator": "results",
+            "after": null
+        },
+        "getTeams": {
+            "path": "users/teams",
+            "method": "GET",
+            "description": "See details about this account's teams.",
+            "iterator": "results",
+            "after": null
+        }
+    }
+}

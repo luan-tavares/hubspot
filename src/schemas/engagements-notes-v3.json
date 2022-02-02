@@ -14,7 +14,7 @@
         "get": {
             "path": "objects/notes/{noteId}",
             "method": "GET",
-            "description": "Read an Object identified by {noteId}."
+            "description": "Read an note identified by {noteId}."
         },
         "create": {
             "path": "objects/notes",
@@ -24,12 +24,12 @@
         "update": {
             "path": "objects/notes/{noteId}",
             "method": "PATCH",
-            "description": "Perform a partial update of an Object identified by {noteId}."
+            "description": "Perform a partial update of an note identified by {noteId}."
         },
         "delete": {
             "path": "objects/notes/{noteId}",
             "method": "DELETE",
-            "description": "Move an Object identified by {noteId} to the recycling bin."
+            "description": "Move an note identified by {noteId} to the recycling bin."
         },
         "getAssociations": {
             "path": "objects/notes/{noteId}/associations/{toObjectType}",

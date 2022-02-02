@@ -14,7 +14,7 @@
         "get": {
             "path": "objects/deals/{dealId}",
             "method": "GET",
-            "description": "Read an Object identified by {dealId}."
+            "description": "Read an deal identified by {dealId}."
         },
         "create": {
             "path": "objects/deals",
@@ -24,12 +24,12 @@
         "update": {
             "path": "objects/deals/{dealId}",
             "method": "PATCH",
-            "description": "Perform a partial update of an Object identified by {dealId}."
+            "description": "Perform a partial update of an deal identified by {dealId}."
         },
         "delete": {
             "path": "objects/deals/{dealId}",
             "method": "DELETE",
-            "description": "Move an Object identified by {dealId} to the recycling bin."
+            "description": "Move an deal identified by {dealId} to the recycling bin."
         },
         "getAssociations": {
             "path": "objects/deals/{dealId}/associations/{toObjectType}",

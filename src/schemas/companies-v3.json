@@ -14,7 +14,7 @@
         "get": {
             "path": "objects/companies/{companyId}",
             "method": "GET",
-            "description": "Read an Object identified by {companyId}."
+            "description": "Read an company identified by {companyId}."
         },
         "create": {
             "path": "objects/companies",
@@ -24,12 +24,12 @@
         "update": {
             "path": "objects/companies/{companyId}",
             "method": "PATCH",
-            "description": "Perform a partial update of an Object identified by {companyId}."
+            "description": "Perform a partial update of an company identified by {companyId}."
         },
         "delete": {
             "path": "objects/companies/{companyId}",
             "method": "DELETE",
-            "description": "Move an Object identified by {companyId} to the recycling bin."
+            "description": "Move an company identified by {companyId} to the recycling bin."
         },
         "getAssociations": {
             "path": "objects/companies/{companyId}/associations/{toObjectType}",

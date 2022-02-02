@@ -14,7 +14,7 @@
         "get": {
             "path": "objects/line_items/{lineItemId}",
             "method": "GET",
-            "description": "Read an Object identified by {lineItemId}."
+            "description": "Read an line item identified by {lineItemId}."
         },
         "create": {
             "path": "objects/line_items",
@@ -24,12 +24,12 @@
         "update": {
             "path": "objects/line_items/{lineItemId}",
             "method": "PATCH",
-            "description": "Perform a partial update of an Object identified by {lineItemId}."
+            "description": "Perform a partial update of an line item identified by {lineItemId}."
         },
         "delete": {
             "path": "objects/line_items/{lineItemId}",
             "method": "DELETE",
-            "description": "Move an Object identified by {lineItemId} to the recycling bin."
+            "description": "Move an line item identified by {lineItemId} to the recycling bin."
         },
         "getAssociations": {
             "path": "objects/line_items/{lineItemId}/associations/{toObjectType}",
