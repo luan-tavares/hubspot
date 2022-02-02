@@ -4,9 +4,11 @@
     "class": "ContactHubspot",
     "documentation": "https://developers.hubspot.com/docs/api/crm/contacts",
     "actions": {
-        "list": {
+        "getAll": {
             "path": "objects/contacts",           
-            "method": "GET"
+            "method": "GET",
+            "iterator": "results",
+            "after": "paging.next.after"
         },
         "get": {
             "path": "objects/contacts/{contactId}",

@@ -4,9 +4,11 @@
     "class": "DealHubspot",
     "documentation": "https://developers.hubspot.com/docs/api/crm/deals",
     "actions": {
-        "list": {
+        "getAll": {
             "path": "objects/deals",           
-            "method": "GET"
+            "method": "GET",
+            "iterator": "results",
+            "after": "paging.next.after"
         },
         "get": {
             "path": "objects/deals/{dealId}",

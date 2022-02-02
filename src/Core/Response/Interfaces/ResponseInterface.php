@@ -13,4 +13,5 @@ interface ResponseInterface extends Countable, ArrayAccess
     public function toArray(): ?array;
     public function getIterator(): ?string;
     public function getAction(): string;
+    public function offset(): int|string|null;
 }

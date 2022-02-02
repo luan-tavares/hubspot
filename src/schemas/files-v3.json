@@ -26,7 +26,7 @@
             "method": "GET",
             "description": "Search through files in the file manager. Does not display hidden or archived files.",
             "iterator": "results",
-            "offset": "paging.next.after"
+            "after": "paging.next.after"
         },
         "get": {
             "path": "files/{fileId}",
@@ -69,7 +69,7 @@
             "method": "GET",
             "description": "Search for folders. Does not contain hidden or archived folders.",
             "iterator": "results",
-            "offset": "paging.next.after"
+            "after": "paging.next.after"
         },
         "updateFolder": {
             "path": "folders/update/async",

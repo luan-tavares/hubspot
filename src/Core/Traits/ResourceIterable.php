@@ -38,7 +38,7 @@ trait ResourceIterable
     
     public function current(): mixed
     {
-        return $this->response[$this->index()][$this->i];
+        return (object) $this->response[$this->index()][$this->i];
     }
     
     public function key(): mixed

@@ -1,0 +1,85 @@
+{
+    "resource": "crm",
+    "version": "v3",
+    "class": "NoteHubspot",
+    "documentation": "https://developers.hubspot.com/docs/api/crm/notes",
+    "actions": {
+        "getAll": {
+            "path": "objects/notes",           
+            "method": "GET",
+            "description": "Read a page of notes. Control what is returned via the properties query param.",
+            "iterator": "results",
+            "after": "paging.next.after"
+        },
+        "get": {
+            "path": "objects/notes/{noteId}",
+            "method": "GET",
+            "description": "Read an Object identified by {noteId}."
+        },
+        "create": {
+            "path": "objects/notes",
+            "method": "POST",
+            "description": "Create a note with the given properties and return a copy of the object, including the ID."
+        },
+        "update": {
+            "path": "objects/notes/{noteId}",
+            "method": "PATCH",
+            "description": "Perform a partial update of an Object identified by {noteId}."
+        },
+        "archive": {
+            "path": "objects/notes/{noteId}",
+            "method": "DELETE",
+            "description": "Move an Object identified by {noteId} to the recycling bin."
+        },
+        "getAssociations": {
+            "path": "objects/notes/{noteId}/associations/{toObjectType}",
+            "method": "GET",
+            "description": "List associations of a note by type.",
+            "iterator": "results",
+            "after": "paging.next.after"
+        },
+        "createAssociation": {
+            "path": "objects/notes/{noteId}/associations/{toObjectType}/{toObjectId}/{associationType}",
+            "method": "PUT",
+            "description": "Associate a note with another object."
+        },
+        "removeAssociation": {
+            "path": "objects/notes/{noteId}/associations/{toObjectType}/{toObjectId}/{associationType}",
+            "method": "DELETE",
+            "description": "Remove an association between two notes."
+        },
+        "batchArchive": {
+            "path": "objects/notes/batch/archive",
+            "method": "POST",
+            "description": "Archive a batch of notes by ID."
+        },
+        "batchCreate": {
+            "path": "objects/notes/batch/create",
+            "method": "POST",
+            "description": "Create a batch of notes.",
+            "iterator": "results",
+            "after": null
+        },
+        "batchRead": {
+            "path": "objects/notes/batch/read",
+            "method": "POST",
+            "description": "Read a batch of notes by internal ID, or unique property values.",
+            "iterator": "results",
+            "after": null
+        },
+        "batchUpdate": {
+            "path": "objects/notes/batch/update",
+            "method": "POST",
+            "description": "Update a batch of notes.",
+            "iterator": "results",
+            "after": null
+        },
+        "search": {
+            "path": "objects/notes/search",
+            "method": "POST",
+            "description": "Search Notes",
+            "iterator": "results",
+            "after": "paging.next.after"
+        }
+    }
+}

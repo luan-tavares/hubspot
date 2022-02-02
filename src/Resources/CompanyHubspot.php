@@ -5,8 +5,8 @@ namespace LTL\Hubspot\Resources;
 use LTL\Hubspot\Hubspot;
 
 /**
-* @method static $this list() Read a page of companies
-* @method $this list() Read a page of companies
+* @method static $this getAll() Read a page of companies
+* @method $this getAll() Read a page of companies
 * @method static $this get(int|string $companyId) Read an company identified by {companyId}
 * @method $this get(int|string $companyId) Read an company identified by {companyId}
 * @method static $this create(array $requestBody) Create a company with the given properties
@@ -15,8 +15,8 @@ use LTL\Hubspot\Hubspot;
 * @method $this archive(int|string $companyId) Move an company identified by {companyId} to the recycling bin
 * @method static $this update(int|string $companyId, array $requestBody) Perform a partial update of an company identified by {companyId}
 * @method $this update(int|string $companyId, array $requestBody) Perform a partial update of an company identified by {companyId}
-* @method static $this listAssociationsByType(int|string $companyId, int|string $toObjectType) List associations of a company by type
-* @method $this listAssociationsByType(int|string $companyId, int|string $toObjectType) List associations of a company by type
+* @method static $this getAssociations(int|string $companyId, int|string $toObjectType) List associations of a company by type
+* @method $this getAssociations(int|string $companyId, int|string $toObjectType) List associations of a company by type
 * @method static $this createAssociation(int|string $companyId, int|string $toObjectType, int|string $toObjectId, int|string $associationType, array $requestBody) Associate a company with another object
 * @method $this createAssociation(int|string $companyId, int|string $toObjectType, int|string $toObjectId, int|string $associationType, array $requestBody) Associate a company with another object
 * @method static $this removeAssociation(int|string $companyId, int|string $toObjectType, int|string $toObjectId, int|string $associationType) Remove an association with companies

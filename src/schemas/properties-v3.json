@@ -9,7 +9,7 @@
             "method": "GET",
             "description": "Read all existing properties for the specified object type and HubSpot account.",
             "iterator": "results",
-            "offset": "paging.next.after"
+            "after": "paging.next.after"
         },
         "get": {
             "path": "properties/{objectType}/{propertyName}",
@@ -47,14 +47,14 @@
             "method": "POST",
             "description": "Read a provided list of properties.",
             "iterator": "results",
-            "offset": null
+            "after": null
         },
         "getAllGroups": {
             "path": "properties/{objectType}/groups",
             "method": "GET",
             "description": "Read all existing property groups for the specified object type and HubSpot account.",
             "iterator": "results",
-            "offset": "paging.next.after"
+            "after": "paging.next.after"
         },
         "getGroup": {
             "path": "properties/{objectType}/groups/{groupName}",

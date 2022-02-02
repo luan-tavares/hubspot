@@ -66,6 +66,19 @@ class Response implements ResponseInterface
         return $this->actionSchema->action;
     }
 
+    public function offset(): int|string|null
+    {
+        $map = explode('.', $this->actionSchema->offset);
+
+        $offset = ResponseArrayStorage::get($this);
+
+        foreach ($map as $current) {
+            $offset = @$offset[$current];
+        }
+
+        return $offset;
+    }
+
     /**Countable */
     public function count(): int
     {

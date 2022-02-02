@@ -83,4 +83,9 @@ abstract class Resource implements ResourceInterface, ResourceIterableInterface
     {
         return $this->response->getDocumentation();
     }
+
+    public function responseOffset()
+    {
+        return $this->response->offset();
+    }
 }

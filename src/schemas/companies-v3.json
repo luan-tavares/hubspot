@@ -4,11 +4,12 @@
     "class": "CompanyHubspot",
     "documentation": "https://developers.hubspot.com/docs/api/crm/companies",
     "actions": {
-        "list": {
+        "getAll": {
             "path": "objects/companies",           
             "method": "GET",
             "description": "Read a page of companies",
-            "iterator": "results"
+            "iterator": "results",
+            "after": "paging.next.after"
         },
         "get": {
             "path": "objects/companies/{companyId}",
@@ -30,7 +31,7 @@
             "method": "PATCH",
             "description": "Perform a partial update of an company identified by {companyId}"
         },
-        "listAssociationsByType": {
+        "getAssociations": {
             "path": "objects/companies/{companyId}/associations/{toObjectType}",
             "method": "GET",
             "description": "List associations of a company by type"

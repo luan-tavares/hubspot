@@ -9,7 +9,7 @@
             "method": "GET",
             "description": "Returns all object schemas that have been defined for your account.",
             "iterator": "results",
-            "offset": null
+            "after": null
         },
         "get": {
             "path": "schemas/{objectId}",

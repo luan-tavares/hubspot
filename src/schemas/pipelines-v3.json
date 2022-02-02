@@ -9,7 +9,7 @@
             "method": "GET",
             "description": "Return all pipelines for the object type specified by {objectType}.",
             "iterator": "results",
-            "offset": "paging.next.after"
+            "after": "paging.next.after"
         },
         "get": {
             "path": "pipelines/{objectType}/{pipelineId}",
@@ -41,7 +41,7 @@
             "method": "GET",
             "description": "Return all the stages associated with the pipeline identified by {pipelineId}.",
             "iterator": "results",
-            "offset": "paging.next.after"
+            "after": "paging.next.after"
         },
         "getStage": {
             "path": "pipelines/{objectType}/{pipelineId}/stages/{stageId}",

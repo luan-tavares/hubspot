@@ -5,8 +5,8 @@ namespace LTL\Hubspot\Resources;
 use LTL\Hubspot\Hubspot;
 
 /**
-* @method static $this list() 
-* @method $this list() 
+* @method static $this getAll() 
+* @method $this getAll() 
 * @method static $this get(int|string $contactId) 
 * @method $this get(int|string $contactId) 
 * @method static $this create(array $requestBody) 

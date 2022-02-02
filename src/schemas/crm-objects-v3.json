@@ -9,7 +9,7 @@
             "method": "GET",
             "description": "Read a page of objects. Control what is returned via the properties query param.",
             "iterator": "results",
-            "offset": "paging.next.after"
+            "after": "paging.next.after"
         },
         "get": {
             "path": "objects/{objectType}/{objectId}",
@@ -42,7 +42,7 @@
             "description": "Make a search request",
             "documentation": "https://developers.hubspot.com/docs/api/crm/search",
             "iterator": "results",
-            "offset": "paging.next.after"
+            "after": "paging.next.after"
         },
         "batchRead": {
             "path": "objects/{objectType}/batch/read",
@@ -69,7 +69,7 @@
             "method": "GET",
             "description": "List associations of an object by type.",
             "iterator": "results",
-            "offset": "paging.next.after"
+            "after": "paging.next.after"
         },
         "createAssociation": {
             "path": "objects/{fromObjectType}/{fromObjectId}/associations/{toObjectType}/{toObjectId}/{associationType}",
