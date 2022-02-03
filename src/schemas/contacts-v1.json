@@ -3,7 +3,7 @@
     "version": "v1",
     "class": "ContactV1Hubspot",
     "actions": {
-        "all": {
+        "getAll": {
             "path": "lists/all/contacts/all",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/contacts/get_contacts",
             "method": "GET"

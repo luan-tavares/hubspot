@@ -5,10 +5,10 @@ namespace LTL\Hubspot\Resources;
 use LTL\Hubspot\Hubspot;
 
 /**
- * @method static $this all() Read a page of users.
+ * @method static $this getAll() Read a page of users.
  * See https://developers.hubspot.com/docs/api/settings/user-provisioning
  *
- * @method $this all() Read a page of users.
+ * @method $this getAll() Read a page of users.
  * See https://developers.hubspot.com/docs/api/settings/user-provisioning
  *
  * @method static $this get(int|string $userId) Read an user identified by {userId}.

@@ -23,10 +23,10 @@ use LTL\Hubspot\Hubspot;
  * @method $this checkImport(int|string $taskId) Check the status of requested import.
  * See https://developers.hubspot.com/docs/api/files/files
  *
- * @method static $this all() Search through files in the file manager. Does not display hidden or archived files.
+ * @method static $this getAll() Search through files in the file manager. Does not display hidden or archived files.
  * See https://developers.hubspot.com/docs/api/files/files
  *
- * @method $this all() Search through files in the file manager. Does not display hidden or archived files.
+ * @method $this getAll() Search through files in the file manager. Does not display hidden or archived files.
  * See https://developers.hubspot.com/docs/api/files/files
  *
  * @method static $this get(int|string $fileId) Get file by ID.

@@ -4,7 +4,7 @@
     "class": "TicketHubspot",
     "documentation": "https://developers.hubspot.com/docs/api/crm/tickets",
     "actions": {
-        "all": {
+        "getAll": {
             "path": "objects/tickets",           
             "method": "GET",
             "description": "Read a page of tickets. Control what is returned via the properties query param.",

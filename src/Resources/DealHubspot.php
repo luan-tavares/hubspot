@@ -5,10 +5,10 @@ namespace LTL\Hubspot\Resources;
 use LTL\Hubspot\Hubspot;
 
 /**
- * @method static $this all() Read a page of deals. Control what is returned via the properties query param.
+ * @method static $this getAll() Read a page of deals. Control what is returned via the properties query param.
  * See https://developers.hubspot.com/docs/api/crm/deals
  *
- * @method $this all() Read a page of deals. Control what is returned via the properties query param.
+ * @method $this getAll() Read a page of deals. Control what is returned via the properties query param.
  * See https://developers.hubspot.com/docs/api/crm/deals
  *
  * @method static $this get(int|string $dealId) Read an deal identified by {dealId}.

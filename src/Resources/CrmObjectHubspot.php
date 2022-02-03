@@ -5,10 +5,10 @@ namespace LTL\Hubspot\Resources;
 use LTL\Hubspot\Hubspot;
 
 /**
- * @method static $this all(int|string $objectType) Read a page of objects. Control what is returned via the properties query param.
+ * @method static $this getAll(int|string $objectType) Read a page of objects. Control what is returned via the properties query param.
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
- * @method $this all(int|string $objectType) Read a page of objects. Control what is returned via the properties query param.
+ * @method $this getAll(int|string $objectType) Read a page of objects. Control what is returned via the properties query param.
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
  * @method static $this get(int|string $objectType, int|string $objectId) Read an object identified by {objectId}.

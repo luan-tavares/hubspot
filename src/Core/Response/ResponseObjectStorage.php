@@ -3,16 +3,18 @@ namespace LTL\Hubspot\Core\Response;
 
 use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
 
-abstract class ResponseArrayStorage
+abstract class ResponseObjectStorage
 {
     private static array $responses = [];
 
-    public static function get(ResponseInterface $response): ?array
+
+    public static function get(ResponseInterface $response): mixed
     {
         $hash = spl_object_hash($response);
 
         if (!array_key_exists($hash, self::$responses)) {
-            self::$responses[$hash] = json_decode($response->get(), JSON_FORCE_OBJECT);
+            $object = json_decode($response->get());
+            self::$responses[$hash] = $object;
         }
 
         return self::$responses[$hash];

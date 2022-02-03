@@ -29,10 +29,10 @@ use LTL\Hubspot\Hubspot;
  * @method $this get(int|string $engagementId) Get an engagement
  * See 
  *
- * @method static $this all() Get all engagements
+ * @method static $this getAll() Get all engagements
  * See 
  *
- * @method $this all() Get all engagements
+ * @method $this getAll() Get all engagements
  * See 
  *
  * @method static $this delete(int|string $engagementId) DELETE an Engagement

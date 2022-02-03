@@ -37,7 +37,7 @@ abstract class Container
 
     public static function getRequest(ResourceInterface $resource): RequestInterface
     {
-        $hash = get_class($resource);
+        $hash = spl_object_hash($resource);
 
 
         if (!array_key_exists($hash, self::$requests)) {
@@ -51,7 +51,7 @@ abstract class Container
 
     public static function getBuilder(ResourceInterface $resource): Builder
     {
-        $hash = get_class($resource);
+        $hash = spl_object_hash($resource);
 
 
         if (!array_key_exists($hash, self::$builders)) {
@@ -59,13 +59,6 @@ abstract class Container
         }
         
         return self::$builders[$hash];
-    }
-
-    private static function removeBuilder(ResourceInterface $resource): void
-    {
-        $hash = get_class($resource);
-
-        unset(self::$builders[$hash]);
     }
 
     public static function getSchema(ResourceInterface $resource): ResourceSchemaInterface
@@ -101,11 +94,11 @@ abstract class Container
 
     public static function setResponseToResource(ResourceInterface $resource, ResponseInterface $response)
     {
-        self::getResourceReflectionProperty('response')->setValue($resource, $response);
-        
-        self::removeBuilder($resource);
+        $copy = $resource;
 
-        return $resource;
+        self::getResourceReflectionProperty('response')->setValue($copy, $response);
+
+        return $copy;
     }
 
     private static function getResourceReflectionProperty(string $property): ReflectionProperty

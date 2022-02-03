@@ -5,10 +5,10 @@ namespace LTL\Hubspot\Resources;
 use LTL\Hubspot\Hubspot;
 
 /**
- * @method static $this all() Read a page of contacts. Control what is returned via the properties query param.
+ * @method static $this getAll() Read a page of contacts. Control what is returned via the properties query param.
  * See https://developers.hubspot.com/docs/api/crm/contacts
  *
- * @method $this all() Read a page of contacts. Control what is returned via the properties query param.
+ * @method $this getAll() Read a page of contacts. Control what is returned via the properties query param.
  * See https://developers.hubspot.com/docs/api/crm/contacts
  *
  * @method static $this get(int|string $contactIdOrEmail) Read an contact identified by {contactIdOrEmail}.

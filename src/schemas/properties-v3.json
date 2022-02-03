@@ -4,7 +4,7 @@
     "class": "PropertyHubspot",
     "documentation": "https://developers.hubspot.com/docs/api/crm/properties",
     "actions": {
-        "all": {
+        "getAll": {
             "path": "properties/{objectType}",
             "method": "GET",
             "description": "Read all existing properties for the specified object type and HubSpot account.",

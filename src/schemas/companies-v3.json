@@ -4,7 +4,7 @@
     "class": "CompanyHubspot",
     "documentation": "https://developers.hubspot.com/docs/api/crm/companies",
     "actions": {
-        "all": {
+        "getAll": {
             "path": "objects/companies",           
             "method": "GET",
             "description": "Read a page of companies. Control what is returned via the properties query param.",

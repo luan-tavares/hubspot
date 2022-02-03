@@ -4,7 +4,7 @@
     "class": "ContactHubspot",
     "documentation": "https://developers.hubspot.com/docs/api/crm/contacts",
     "actions": {
-        "all": {
+        "getAll": {
             "path": "objects/contacts",
             "method": "GET",
             "description": "Read a page of contacts. Control what is returned via the properties query param.",

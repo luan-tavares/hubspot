@@ -27,7 +27,7 @@ class FinishRequestDefinitionAction
 
         if ($nParams !== $nArguments) {
             throw new HubspotApiException(
-                get_class($this->request->getResource()) ."::{$this->actionSchema}() must be {$nParams} params. {$nArguments} given!"
+                get_class($this->request->getResource()) ."::{$this->actionSchema}() must be {$nParams} params ({$nArguments} given)"
             );
         }
 

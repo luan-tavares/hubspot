@@ -3,7 +3,7 @@
     "version": "v1",
     "class": "PipelineV1Hubspot",
     "actions": {
-        "all": {
+        "getAll": {
             "path": "pipelines/{object_type}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/pipelines/get_pipelines_for_object_type",
             "method": "GET",

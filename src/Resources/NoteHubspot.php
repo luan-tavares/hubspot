@@ -5,10 +5,10 @@ namespace LTL\Hubspot\Resources;
 use LTL\Hubspot\Hubspot;
 
 /**
- * @method static $this all() Read a page of notes. Control what is returned via the properties query param.
+ * @method static $this getAll() Read a page of notes. Control what is returned via the properties query param.
  * See https://developers.hubspot.com/docs/api/crm/notes
  *
- * @method $this all() Read a page of notes. Control what is returned via the properties query param.
+ * @method $this getAll() Read a page of notes. Control what is returned via the properties query param.
  * See https://developers.hubspot.com/docs/api/crm/notes
  *
  * @method static $this get(int|string $noteId) Read an note identified by {noteId}.

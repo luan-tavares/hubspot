@@ -65,12 +65,14 @@ class Builder
             });
 
             throw new HubspotApiException(
-                "Can\'t use ". get_class($this->resource) .'::'. $method ."() before actions requests:\n[ ". implode(', ', $actions) .' ]'
+                "Can't use ". get_class($this->resource) .'::'. $method ."() before actions requests:\n[". implode(', ', $actions) .']'
             );
         }
 
         return $this->resource->{$method}(...$arguments);
     }
+
+
 
     /**
      * Make Request and Reset Action

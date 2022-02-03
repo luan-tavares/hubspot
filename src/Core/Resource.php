@@ -3,14 +3,18 @@
 namespace LTL\Hubspot\Core;
 
 use LTL\Hubspot\Core\Container;
+use LTL\Hubspot\Core\Exceptions\HubspotApiException;
 use LTL\Hubspot\Core\Interfaces\ResourceInterface;
 use LTL\Hubspot\Core\Interfaces\ResourceIterableInterface;
+use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
 use LTL\Hubspot\Core\Traits\MethodsListable;
 use LTL\Hubspot\Core\Traits\ResourceIterable;
 
 abstract class Resource implements ResourceInterface, ResourceIterableInterface
 {
     use MethodsListable, ResourceIterable;
+
+    private ?ResponseInterface $response = null;
     
     protected string $resource;
 
@@ -33,6 +37,25 @@ abstract class Resource implements ResourceInterface, ResourceIterableInterface
         return $this->resource;
     }
 
+ 
+
+    public function __get($property)
+    {
+        if (is_null($this->response)) {
+            $schema = Container::getSchema($this);
+
+            $actions = $schema->mapWithActions(function ($action) {
+                return "{$action}()";
+            });
+
+            throw new HubspotApiException(
+                "Can't use ". get_class($this) ."::{$property} before actions requests:\n[". implode(', ', $actions) .']'
+            );
+        }
+
+        return $this->response->{$property};
+    }
+
 
     /**
      * Return Array Response
@@ -41,7 +64,7 @@ abstract class Resource implements ResourceInterface, ResourceIterableInterface
      */
     public function toArray(): ?array
     {
-        return $this->response->toArray();
+        return $this->response->getArray();
     }
   
     /**
@@ -82,10 +105,5 @@ abstract class Resource implements ResourceInterface, ResourceIterableInterface
     public function documentation(): ?string
     {
         return $this->response->getDocumentation();
-    }
-
-    public function responseOffset()
-    {
-        return $this->response->offset();
     }
 }

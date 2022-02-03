@@ -7,28 +7,11 @@ use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
 
 trait ResourceIterable
 {
-    private ResponseInterface $response;
-
-    private $index;
-
-    private int $i = 0;
-
-    private function index()
-    {
-        if (is_null($this->index)) {
-            $this->index = $this->response->getIterator();
-        }
-
-        if (is_null($this->index)) {
-            throw new HubspotApiException(get_class($this) ."::{$this->response->getAction()}() response is not Iterable/Countable.");
-        }
-
-        return $this->index;
-    }
+    private $i = 0;
 
     public function count(): int
     {
-        return count($this->response[$this->index()]);
+        return count($this->response->{$this->index});
     }
 
     public function rewind(): void
@@ -38,7 +21,7 @@ trait ResourceIterable
     
     public function current(): mixed
     {
-        return (object) $this->response[$this->index()][$this->i];
+        return $this->response->{$this->index}[$this->i];
     }
     
     public function key(): mixed
@@ -53,6 +36,6 @@ trait ResourceIterable
     
     public function valid(): bool
     {
-        return isset($this->response[$this->index()][$this->i]);
+        return isset($this->response->{$this->index}[$this->i]);
     }
 }

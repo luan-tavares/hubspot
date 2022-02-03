@@ -5,10 +5,10 @@ namespace LTL\Hubspot\Resources;
 use LTL\Hubspot\Hubspot;
 
 /**
- * @method static $this all(int|string $objectType) 
+ * @method static $this getAll(int|string $objectType) 
  * See 
  *
- * @method $this all(int|string $objectType) 
+ * @method $this getAll(int|string $objectType) 
  * See 
  *
  * @method static $this create(int|string $objectType, array $requestBody) 

@@ -5,10 +5,10 @@ namespace LTL\Hubspot\Resources;
 use LTL\Hubspot\Hubspot;
 
 /**
- * @method static $this all() 
+ * @method static $this getAll() 
  * See 
  *
- * @method $this all() 
+ * @method $this getAll() 
  * See 
  *
  * @method static $this get(int|string $id) 

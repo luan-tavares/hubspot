@@ -5,10 +5,10 @@ namespace LTL\Hubspot\Resources;
 use LTL\Hubspot\Hubspot;
 
 /**
- * @method static $this all(int|string $objectType) Read all existing properties for the specified object type and HubSpot account.
+ * @method static $this getAll(int|string $objectType) Read all existing properties for the specified object type and HubSpot account.
  * See https://developers.hubspot.com/docs/api/crm/properties
  *
- * @method $this all(int|string $objectType) Read all existing properties for the specified object type and HubSpot account.
+ * @method $this getAll(int|string $objectType) Read all existing properties for the specified object type and HubSpot account.
  * See https://developers.hubspot.com/docs/api/crm/properties
  *
  * @method static $this get(int|string $objectType, int|string $propertyName) Read a property identified by {propertyName}.

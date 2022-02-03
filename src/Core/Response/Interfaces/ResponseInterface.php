@@ -2,16 +2,11 @@
 
 namespace LTL\Hubspot\Core\Response\Interfaces;
 
-use ArrayAccess;
-use Countable;
-
-interface ResponseInterface extends Countable, ArrayAccess
+interface ResponseInterface
 {
     public function getStatus(): int;
     public function get(): ?string;
     public function getDocumentation(): ?string;
-    public function toArray(): ?array;
-    public function getIterator(): ?string;
+    public function getArray(): ?array;
     public function getAction(): string;
-    public function offset(): int|string|null;
 }

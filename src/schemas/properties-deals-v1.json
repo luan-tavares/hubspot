@@ -3,7 +3,7 @@
     "version": "v1",
     "class": "PropertyDealV1Hubspot",
     "actions": {
-        "all": {
+        "getAll": {
             "path": "deals/properties",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/deals/get_deal_properties",
             "method": "GET"

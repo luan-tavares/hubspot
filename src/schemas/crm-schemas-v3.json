@@ -4,7 +4,7 @@
     "class": "CrmSchemaHubspot",
     "documentation": "https://developers.hubspot.com/docs/api/crm/crm-custom-objects",
     "actions": {
-        "all": {
+        "getAll": {
             "path": "schemas",
             "method": "GET",
             "description": "Returns all object schemas that have been defined for your account.",

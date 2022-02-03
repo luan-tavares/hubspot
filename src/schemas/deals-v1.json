@@ -8,7 +8,7 @@
             "documentation": "https://legacydocs.hubspot.com/docs/methods/deals/get_deal",
             "method": "GET"
         },
-        "all": {
+        "getAll": {
             "path": "deal/paged",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/deals/get-all-deals",
             "method": "GET"

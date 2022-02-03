@@ -3,7 +3,7 @@
     "version": "v3",
     "class": "WorkflowV3Hubspot",
     "actions": {
-        "all": {
+        "getAll": {
             "path": "workflows",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/workflows/v3/get_workflows",
             "method": "GET"

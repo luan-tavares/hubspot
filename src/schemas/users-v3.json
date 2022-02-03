@@ -4,7 +4,7 @@
     "class": "UserHubspot",
     "documentation": "https://developers.hubspot.com/docs/api/settings/user-provisioning",
     "actions": {
-        "all": {
+        "getAll": {
             "path": "users",           
             "method": "GET",
             "description": "Read a page of users.",

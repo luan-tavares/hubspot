@@ -17,10 +17,10 @@ use LTL\Hubspot\Hubspot;
  * @method $this replace(int|string $file_id, array $requestBody) 
  * See 
  *
- * @method static $this all() 
+ * @method static $this getAll() 
  * See 
  *
- * @method $this all() 
+ * @method $this getAll() 
  * See 
  *
  * @method static $this get(int|string $file_id) 

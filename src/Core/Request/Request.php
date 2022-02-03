@@ -27,15 +27,15 @@ class Request implements RequestInterface
 {
     private bool $hasConnected = false;
 
-    public UriComponentInterface $uri;
+    private UriComponentInterface $uri;
 
-    public QueryComponentInterface $query;
+    private QueryComponentInterface $query;
 
-    public HeaderComponentInterface $header;
+    private HeaderComponentInterface $header;
 
-    public BodyComponentInterface $body;
+    private BodyComponentInterface $body;
 
-    public CurlComponentInterface $curl;
+    private CurlComponentInterface $curl;
 
     public function __construct(private ResourceInterface $resource)
     {
@@ -56,7 +56,7 @@ class Request implements RequestInterface
             return $this->curl->{$method}(...$arguments);
         }
 
-        throw new HubspotApiException($this->resource::class ."::{$method}() not exists!");
+        throw new HubspotApiException($this->resource::class ."::{$method}() not exists");
     }
 
     public function reset(): void
@@ -124,8 +124,10 @@ class Request implements RequestInterface
         return $this;
     }
 
-    public function addQuery(array $queries): self
+    public function addQuery(?array $queries): self
     {
+        $queries = $queries ?? [];
+
         foreach ($queries as $query => $value) {
             $this->query->query($query, $value);
         }

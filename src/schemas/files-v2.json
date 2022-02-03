@@ -13,7 +13,7 @@
             "documentation": "https://legacydocs.hubspot.com/docs/methods/files/v3/upload_replacement_file",
             "method": "POST"
         },
-        "all": {
+        "getAll": {
             "path": "filemanager/api/v2/files",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/files/get_files",
             "method": "GET"

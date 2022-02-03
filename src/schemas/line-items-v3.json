@@ -4,7 +4,7 @@
     "class": "LineItemHubspot",
     "documentation": "https://developers.hubspot.com/docs/api/crm/line-items",
     "actions": {
-        "all": {
+        "getAll": {
             "path": "objects/line_items",           
             "method": "GET",
             "description": "Read a page of line items. Control what is returned via the properties query param.",

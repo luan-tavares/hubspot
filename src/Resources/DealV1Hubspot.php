@@ -11,10 +11,10 @@ use LTL\Hubspot\Hubspot;
  * @method $this get(int|string $dealId) 
  * See 
  *
- * @method static $this all() 
+ * @method static $this getAll() 
  * See 
  *
- * @method $this all() 
+ * @method $this getAll() 
  * See 
  *
  * @method static $this getRecentlyModified() 

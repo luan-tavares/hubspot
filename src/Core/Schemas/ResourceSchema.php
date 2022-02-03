@@ -3,8 +3,8 @@
 namespace LTL\Hubspot\Core\Schemas;
 
 use Countable;
+use Exception;
 use Iterator;
-use LTL\Hubspot\Core\Exceptions\HubspotApiException;
 use LTL\Hubspot\Core\Interfaces\ResourceInterface;
 use LTL\Hubspot\Core\Schemas\Base\Schema;
 use LTL\Hubspot\Core\Schemas\Interfaces\ActionSchemaInterface;
@@ -44,7 +44,7 @@ class ResourceSchema extends Schema implements Countable, Iterator, ResourceSche
             return $this->{$property};
         }
 
-        throw new HubspotApiException("Property {$property} not exists in ". __CLASS__);
+        throw new Exception("Property {$property} not exists in ". __CLASS__);
     }
 
     public function getActions(): array

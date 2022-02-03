@@ -2,7 +2,7 @@
 
 namespace LTL\Hubspot\Core\Schemas;
 
-use LTL\Hubspot\Core\Exceptions\HubspotApiException;
+use Exception;
 use LTL\Hubspot\Core\Request\RequestConstants;
 use LTL\Hubspot\Core\Schemas\Base\Schema;
 use LTL\Hubspot\Core\Schemas\Interfaces\ActionSchemaInterface;
@@ -12,7 +12,7 @@ use LTL\Hubspot\Core\Schemas\Interfaces\ResourceSchemaInterface;
  * @property-read string $baseUri
  * @property-read string|null $description
  * @property-read string|null $iterator
- * @property-read string|null $offset
+ * @property-read string|null $after
  * @property-read string|null $documentation
  * @property-read string|null $contentType
  * @property-read array|null $params
@@ -28,7 +28,7 @@ class ActionSchema extends Schema implements ActionSchemaInterface
 
     private string|null $iterator;
 
-    private string|null $offset;
+    private string|null $after;
 
     private string|null $documentation;
 
@@ -49,7 +49,7 @@ class ActionSchema extends Schema implements ActionSchemaInterface
         $this->method = $actionSchema->method;
         $this->description = @$actionSchema->description;
         $this->iterator = @$actionSchema->iterator;
-        $this->offset = @$actionSchema->offset;
+        $this->after = @$actionSchema->after;
         $this->hasBody = in_array($this->method, RequestConstants::METHODS_WITH_BODY);
 
         $this->baseQuery = $this->setBaseQuery($actionSchema);
@@ -66,7 +66,7 @@ class ActionSchema extends Schema implements ActionSchemaInterface
         }
         
 
-        throw new HubspotApiException("Property {$property} not exists in ". __CLASS__);
+        throw new Exception("Property {$property} not exists in ". __CLASS__);
     }
 
     public function __toString()

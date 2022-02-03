@@ -4,7 +4,7 @@
     "class": "CrmObjectHubspot",
     "documentation": "https://developers.hubspot.com/docs/api/crm/crm-custom-objects",
     "actions": {
-        "all": {
+        "getAll": {
             "path": "objects/{objectType}",           
             "method": "GET",
             "description": "Read a page of objects. Control what is returned via the properties query param.",

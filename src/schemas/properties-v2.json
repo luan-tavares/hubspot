@@ -3,7 +3,7 @@
     "version": "v2",
     "class": "PropertyV2Hubspot",
     "actions": {
-        "all": {
+        "getAll": {
             "path": "{objectType}/properties",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/crm-properties/get-properties",
             "method": "GET"

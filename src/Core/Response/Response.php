@@ -2,8 +2,9 @@
 
 namespace LTL\Hubspot\Core\Response;
 
+use LTL\Hubspot\Core\Exceptions\HubspotApiException;
 use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
-use LTL\Hubspot\Core\Response\ResponseArrayStorage;
+use LTL\Hubspot\Core\Response\ResponseObjectStorage;
 use LTL\Hubspot\Core\Schemas\Interfaces\ActionSchemaInterface;
 use LTL\Hubspot\Services\Curl\Curl;
 
@@ -26,7 +27,51 @@ class Response implements ResponseInterface
 
     public function __destruct()
     {
-        ResponseArrayStorage::unset($this);
+        ResponseObjectStorage::unset($this);
+    }
+
+    public function __get($property)
+    {
+        if ($property === 'index') {
+            return $this->getIndex();
+        }
+
+        if ($property === 'after') {
+            return @$this->getAfter();
+        }
+
+        if (!property_exists(ResponseObjectStorage::get($this), $property)) {
+            throw new HubspotApiException(
+                "Property \"{$property}\" not exists in response first level:\n{$this->response}"
+            );
+        }
+
+        return ResponseObjectStorage::get($this)->{$property};
+    }
+
+    private function getIndex(): int|string|null
+    {
+        if (
+            is_null($this->actionSchema->iterator)||
+            !property_exists(ResponseObjectStorage::get($this), $this->actionSchema->iterator)
+        ) {
+            throw new HubspotApiException(get_class($this) ."::{$this->getAction()}() response is not iterable/countable:\n{$this->response}");
+        }
+
+        return $this->actionSchema->iterator;
+    }
+
+    private function getAfter(): int|string|null
+    {
+        $map = explode('.', $this->actionSchema->after);
+     
+        $after = ResponseObjectStorage::get($this);
+
+        foreach ($map as $current) {
+            $after = @$after->{$current};
+        }
+
+        return $after;
     }
 
     private function hideApikey(string $uri): string
@@ -46,9 +91,9 @@ class Response implements ResponseInterface
         return $this->response;
     }
 
-    public function toArray(): ?array
+    public function getArray(): ?array
     {
-        return ResponseArrayStorage::get($this);
+        return json_decode($this->response, true);
     }
 
     public function getDocumentation(): ?string
@@ -56,51 +101,8 @@ class Response implements ResponseInterface
         return $this->actionSchema->documentation;
     }
 
-    public function getIterator(): ?string
-    {
-        return $this->actionSchema->iterator;
-    }
-
     public function getAction(): string
     {
         return $this->actionSchema->action;
-    }
-
-    public function offset(): int|string|null
-    {
-        $map = explode('.', $this->actionSchema->offset);
-
-        $offset = ResponseArrayStorage::get($this);
-
-        foreach ($map as $current) {
-            $offset = @$offset[$current];
-        }
-
-        return $offset;
-    }
-
-    /**Countable */
-    public function count(): int
-    {
-        return count($this->toArray());
-    }
-
-    /**ArrayAccess */
-    public function offsetSet($offset, $value): void
-    {
-    }
-
-    public function offsetExists($offset): bool
-    {
-        return isset($this->toArray()[$offset]);
-    }
-
-    public function offsetUnset($offset): void
-    {
-    }
-
-    public function offsetGet($offset): mixed
-    {
-        return $this->toArray()[$offset];
     }
 }

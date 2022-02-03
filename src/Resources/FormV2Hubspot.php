@@ -53,10 +53,10 @@ use LTL\Hubspot\Hubspot;
  * @method $this getField(int|string $form_guid, int|string $field_name) Get a single field from a form
  * See 
  *
- * @method static $this all() Get all forms from an account
+ * @method static $this getAll() Get all forms from an account
  * See 
  *
- * @method $this all() Get all forms from an account
+ * @method $this getAll() Get all forms from an account
  * See 
  *
  * @method static $this delete(int|string $form_guid) Delete an existing form

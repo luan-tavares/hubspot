@@ -26,7 +26,7 @@
             "method": "GET",
             "description": "Get an engagement"
         },
-        "all": {
+        "getAll": {
             "path": "engagements/v1/engagements/paged",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/engagements/get-all-engagements",
             "method": "GET",

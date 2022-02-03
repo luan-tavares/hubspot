@@ -5,10 +5,10 @@ namespace LTL\Hubspot\Resources;
 use LTL\Hubspot\Hubspot;
 
 /**
- * @method static $this all() Returns all object schemas that have been defined for your account.
+ * @method static $this getAll() Returns all object schemas that have been defined for your account.
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
- * @method $this all() Returns all object schemas that have been defined for your account.
+ * @method $this getAll() Returns all object schemas that have been defined for your account.
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
  * @method static $this get(int|string $objectId) Returns an existing object schema.
