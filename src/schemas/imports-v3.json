@@ -1,0 +1,36 @@
+{
+    "resource": "crm",
+    "version": "v3",
+    "class": "ImportHubspot",
+    "documentation": "https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/imports",
+    "actions": {
+        "getAll": {
+            "path": "imports",           
+            "method": "GET",
+            "description": "Returns a paged list of active imports for this account.",
+            "iterable": "results",
+            "after": "paging.next.after"
+        },
+        "get": {
+            "path": "imports/{importId}",           
+            "method": "GET",
+            "description": "A complete summary of an import record, including any updates."
+        },
+        "start": {
+            "path": "imports",           
+            "method": "POST",
+            "description": "Begins importing data from the specified file resources.",
+            "contentType": "multipart/form-data"
+        },
+        "cancel": {
+            "path": "imports/{importId}/cancel",           
+            "method": "POST",
+            "description": "This allows a developer to cancel an active import."
+        },
+        "errors": {
+            "path": "imports/{importId}/errors",           
+            "method": "GET",
+            "description": "Get import error."
+        }
+    }
+}
