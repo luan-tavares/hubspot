@@ -5,6 +5,8 @@ namespace LTL\Hubspot\Resources;
 use LTL\Hubspot\Hubspot;
 
 /**
+ * @link https://developers.hubspot.com/docs/api/settings/user-provisioning
+ *
  * @method static $this getAll() Read a page of users.
  * See https://developers.hubspot.com/docs/api/settings/user-provisioning
  *

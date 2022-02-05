@@ -1,0 +1,208 @@
+{
+    "resource": "cms",
+    "version": "v3",
+    "class": "HubDbHubspot",
+    "documentation": "https://developers.hubspot.com/docs/api/cms/hubdb",
+    "actions": {
+        "getAll": {
+            "path": "hubdb/tables",
+            "method": "GET",
+            "description": "Returns the details for the published version of each table defined in an account, including column definitions.",
+            "iterable": "results",
+            "after": "paging.next.after",
+            "queries": {
+                "includeForeignIds": "false"
+            }
+        },
+        "getAllDraft": {
+            "path": "hubdb/tables/draft",
+            "method": "GET",
+            "description": "Returns the details for each draft table defined in the specified account, including column definitions.",
+            "iterable": "results",
+            "after": "paging.next.after",
+            "queries": {
+                "includeForeignIds": "false"
+            }
+        },
+        "get": {
+            "path": "hubdb/tables/{tableIdOrName}",
+            "method": "GET",
+            "description": "Returns the details for the published version of the specified table.",
+            "queries": {
+                "includeForeignIds": null
+            }
+        },
+        "getDraft": {
+            "path": "hubdb/tables/{tableIdOrName}/draft",
+            "method": "GET",
+            "description": "Get the details for the draft version of a specific HubDB table.",
+            "queries": {
+                "includeForeignIds": "false"
+            }
+        },
+        "create": {
+            "path": "hubdb/tables",
+            "method": "POST",
+            "description": "Creates a new draft HubDB table given a JSON schema. The table name and label should be unique for each account."
+        },
+        "delete": {
+            "path": "hubdb/tables/{tableIdOrName}",
+            "method": "DELETE",
+            "description": "Archive (soft delete) an existing HubDB table. This archives both the published and draft versions."
+        },
+        "update": {
+            "path": "hubdb/tables/{tableIdOrName}/draft",
+            "method": "PATCH",
+            "description": "Update an existing HubDB table. "
+        },
+        "clone": {
+            "path": "hubdb/tables/{tableIdOrName}/draft/clone",
+            "method": "POST",
+            "description": "Clone an existing HubDB table."
+        },
+        "exportDraft": {
+            "path": "hubdb/tables/{tableIdOrName}/draft/export",
+            "method": "GET",
+            "description": "Exports the draft version of a table to CSV / EXCEL format.",
+            "queries": {
+                "format": "csv"
+            },
+            "accept": "application/vnd.ms-excel"
+        },
+        "export": {
+            "path": "hubdb/tables/{tableIdOrName}/export",
+            "method": "GET",
+            "description": "Exports the published version of a table to CSV / EXCEL format.",
+            "queries": {
+                "format": "csv"
+            },
+            "accept": "application/vnd.ms-excel"
+        },
+        "importToDraft": {
+            "path": "hubdb/tables/{tableIdOrName}/draft/import",
+            "method": "POST",
+            "description": "Import the contents of a CSV file into an existing HubDB table.",
+            "contentType": "multipart/form-data"
+        },
+        "publish": {
+            "path": "hubdb/tables/{tableIdOrName}/draft/publish",
+            "method": "POST",
+            "description": "Publishes the table by copying the data and table schema changes from draft version to the published version, meaning any website pages using data from the table will be updated.",
+            "queries": {
+                "includeForeignIds": "false"
+            }
+        },
+        "resetDraft": {
+            "path": "hubdb/tables/{tableIdOrName}/draft/reset",
+            "method": "POST",
+            "description": "Replaces the data in the draft version of the table with values from the published version.",
+            "queries": {
+                "includeForeignIds": "false"
+            }
+        },
+        "unpublish": {
+            "path": "hubdb/tables/{tableIdOrName}/unpublish",
+            "method": "POST",
+            "description": "Unpublishes the table, meaning any website pages using data from the table will not render any data.",
+            "queries": {
+                "includeForeignIds": "false"
+            }
+        },
+        "getAllRows": {
+            "path": "hubdb/tables/{tableIdOrName}/rows",
+            "method": "GET",
+            "description": "Returns a set of rows in the published version of the specified table.",
+            "iterable": "results",
+            "after": "paging.next.after"
+        },
+        "getAllRowsDraft": {
+            "path": "hubdb/tables/{tableIdOrName}/rows/draft",
+            "method": "GET",
+            "description": "Returns rows in the draft version of the specified table. Row results can be filtered and sorted.",
+            "iterable": "results",
+            "after": "paging.next.after"
+        },
+        "getRow": {
+            "path": "hubdb/tables/{tableIdOrName}/rows/{rowId}",
+            "method": "GET",
+            "description": "Get a single row by ID from a table's published version."
+        },
+        "getRowDraft": {
+            "path": "hubdb/tables/{tableIdOrName}/rows/{rowId}/draft",
+            "method": "GET",
+            "description": "Get a single row by ID from a table's draft version."
+        },
+        "createRow": {
+            "path": "hubdb/tables/{tableIdOrName}/rows",
+            "method": "POST",
+            "description": "Add a new row to a HubDB table. New rows will be added to the draft version of the table."
+        },
+        "updateRow": {
+            "path": "hubdb/tables/{tableIdOrName}/rows/{rowId}/draft",
+            "method": "PATCH",
+            "description": "Sparse updates a single row in the table's draft version. All the column values need not be specified. "
+        },
+        "replaceRow": {
+            "path": "hubdb/tables/{tableIdOrName}/rows/{rowId}/draft",
+            "method": "PUT",
+            "description": "Replace a single row in the table's draft version."
+        },
+        "deleteRow": {
+            "path": "hubdb/tables/{tableIdOrName}/rows/{rowId}/draft",
+            "method": "DELETE",
+            "description": "Permanently deletes a row from a table's draft version."
+        },
+        "cloneRow": {
+            "path": "hubdb/tables/{tableIdOrName}/rows/{rowId}/draft/clone",
+            "method": "POST",
+            "description": "Clones a single row in the draft version of the table."
+        },
+        "batchReadRows": {
+            "path": "hubdb/tables/{tableIdOrName}/rows/batch/read",
+            "method": "POST",
+            "description": "Returns rows in the published version of the specified table, given a set of row ids.",
+            "iterable": "results",
+            "after": "paging.next.after"
+        },
+        "batchReadRowsDraft": {
+            "path": "hubdb/tables/{tableIdOrName}/rows/draft/batch/read",
+            "method": "POST",
+            "description": "Returns rows in the draft version of the specified table, given a set of row ids.",
+            "iterable": "results",
+            "after": "paging.next.after"
+        },
+        "batchCloneRows": {
+            "path": "hubdb/tables/{tableIdOrName}/rows/draft/batch/clone",
+            "method": "POST",
+            "description": "Clones rows in the draft version of the specified table, given a set of row ids.",
+            "iterable": "results",
+            "after": "paging.next.after"
+        },
+        "batchCreateRows": {
+            "path": "hubdb/tables/{tableIdOrName}/rows/draft/batch/create",
+            "method": "POST",
+            "description": "Creates rows in the draft version of the specified table, given an array of row objects.",
+            "iterable": "results",
+            "after": "paging.next.after"
+        },
+        "batchDeleteRows": {
+            "path": "hubdb/tables/{tableIdOrName}/rows/draft/batch/purge",
+            "method": "POST",
+            "description": "Permanently deletes rows from the draft version of the table, given a set of row ids."
+        },
+        "batchReplaceRows": {
+            "path": "hubdb/tables/{tableIdOrName}/rows/draft/batch/replace",
+            "method": "POST",
+            "description": "Replaces multiple rows as a batch in the draft version of the table.",
+            "iterable": "results",
+            "after": "paging.next.after"
+        },
+        "batchUpdateRows": {
+            "path": "hubdb/tables/{tableIdOrName}/rows/draft/batch/update",
+            "method": "POST",
+            "description": "Updates multiple rows as a batch in the draft version of the table.",
+            "iterable": "results",
+            "after": "paging.next.after"
+        }
+    }
+}

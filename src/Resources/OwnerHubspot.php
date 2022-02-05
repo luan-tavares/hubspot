@@ -5,6 +5,8 @@ namespace LTL\Hubspot\Resources;
 use LTL\Hubspot\Hubspot;
 
 /**
+ * @link https://developers.hubspot.com/docs/api/crm/owners
+ *
  * @method static $this getAll() Read a page of owners.
  * See https://developers.hubspot.com/docs/api/crm/owners
  *

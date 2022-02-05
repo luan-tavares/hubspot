@@ -52,10 +52,11 @@ foreach ($resources as $resource) {
     $content = $template;
     $content = str_replace('{{class}}', $document->class, $content);
     $content = str_replace('{{name}}', $resource, $content);
-
-
-    $doc = "* @link {$documentation}\n *\n";
     $doc = '';
+
+    if ($documentation) {
+        $doc .= " * @link {$documentation}\n *\n";
+    }
     foreach ($document->actions as $action => $actionDefinition) {
         if (!in_array($actionDefinition->method, $methods)) {
             dd("{$actionDefinition->method} not Allowed in {$resource}!");
@@ -73,12 +74,23 @@ foreach ($resources as $resource) {
  
         $params = implode(', ', $params);
         
-        $methodLink = @$actionDefinition->documentation ?? $documentation;
+        $methodDocumentation = @$actionDefinition->documentation ?? $documentation;
 
         $description = @$actionDefinition->description;
     
-        $doc .= " * @method static \$this {$action}({$params}) {$description}\n * See {$documentation}\n *\n";
-        $doc .= " * @method \$this {$action}({$params}) {$description}\n * See {$documentation}\n *\n";
+        $doc .= " * @method static \$this {$action}({$params}) {$description}\n";
+
+        if ($methodDocumentation) {
+            $doc .= " * See {$methodDocumentation}\n";
+        }
+        $doc .= " *\n";
+
+        $doc .= " * @method \$this {$action}({$params}) {$description}\n";
+
+        if ($methodDocumentation) {
+            $doc .= " * See {$methodDocumentation}\n";
+        }
+        $doc .= " *\n";
     }
 
     $content = str_replace('{{docs}}', $doc, $content);

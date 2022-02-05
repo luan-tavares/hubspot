@@ -5,6 +5,8 @@ namespace LTL\Hubspot\Resources;
 use LTL\Hubspot\Hubspot;
 
 /**
+ * @link https://developers.hubspot.com/docs/api/crm/crm-custom-objects
+ *
  * @method static $this getAll() Returns all object schemas that have been defined for your account.
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *

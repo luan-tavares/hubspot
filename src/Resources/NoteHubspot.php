@@ -5,6 +5,8 @@ namespace LTL\Hubspot\Resources;
 use LTL\Hubspot\Hubspot;
 
 /**
+ * @link https://developers.hubspot.com/docs/api/crm/notes
+ *
  * @method static $this getAll() Read a page of notes. Control what is returned via the properties query param.
  * See https://developers.hubspot.com/docs/api/crm/notes
  *

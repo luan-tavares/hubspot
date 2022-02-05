@@ -5,6 +5,8 @@ namespace LTL\Hubspot\Resources;
 use LTL\Hubspot\Hubspot;
 
 /**
+ * @link https://developers.hubspot.com/docs/api/crm/associations
+ *
  * @method static $this batchGet(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Get the IDs of all {toObjectType} objects associated with those specified in the request body.
  * See https://developers.hubspot.com/docs/api/crm/associations
  *

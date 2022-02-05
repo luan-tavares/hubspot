@@ -5,6 +5,8 @@ namespace LTL\Hubspot\Resources;
 use LTL\Hubspot\Hubspot;
 
 /**
+ * @link https://developers.hubspot.com/docs/api/files/files
+ *
  * @method static $this upload(array $requestBody) Upload a single file with content specified in request body.
  * See https://developers.hubspot.com/docs/api/files/files
  *

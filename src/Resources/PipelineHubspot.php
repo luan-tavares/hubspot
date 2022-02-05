@@ -5,6 +5,8 @@ namespace LTL\Hubspot\Resources;
 use LTL\Hubspot\Hubspot;
 
 /**
+ * @link https://developers.hubspot.com/docs/api/crm/pipelines
+ *
  * @method static $this getAll(int|string $objectType) Return all pipelines for the object type specified by {objectType}.
  * See https://developers.hubspot.com/docs/api/crm/pipelines
  *

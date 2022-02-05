@@ -5,6 +5,8 @@ namespace LTL\Hubspot\Resources;
 use LTL\Hubspot\Hubspot;
 
 /**
+ * @link https://developers.hubspot.com/docs/api/automation/custom-workflow-actions
+ *
  * @method static $this completeCallback(int|string $callbackId, array $requestBody) Completes the given action callback.
  * See https://developers.hubspot.com/docs/api/automation/custom-workflow-actions
  *

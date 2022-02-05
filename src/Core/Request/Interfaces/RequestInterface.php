@@ -23,6 +23,7 @@ interface RequestInterface
     public function addUri(string $uri): self;
     public function addMethod(string $method): self;
     public function addContentType(?string $contentType): self;
+    public function addAccept(?string $accept): self;
 
     public function getActionDefinition(string $action): ActionSchemaInterface;
 

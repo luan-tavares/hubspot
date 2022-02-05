@@ -42,6 +42,8 @@ class FinishRequestDefinitionAction
 
         $request->addContentType($this->actionSchema->contentType);
 
+        $request->addAccept($this->actionSchema->accept);
+
         $request->addQuery($this->actionSchema->baseQuery);
     }
 }

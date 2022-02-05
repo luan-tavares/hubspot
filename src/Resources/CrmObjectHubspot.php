@@ -5,6 +5,8 @@ namespace LTL\Hubspot\Resources;
 use LTL\Hubspot\Hubspot;
 
 /**
+ * @link https://developers.hubspot.com/docs/api/crm/crm-custom-objects
+ *
  * @method static $this getAll(int|string $objectType) Read a page of objects. Control what is returned via the properties query param.
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
@@ -84,10 +86,10 @@ use LTL\Hubspot\Hubspot;
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
  * @method static $this search(int|string $objectType, array $requestBody) Search objects by {objectType}.
- * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
+ * See https://developers.hubspot.com/docs/api/crm/search
  *
  * @method $this search(int|string $objectType, array $requestBody) Search objects by {objectType}.
- * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
+ * See https://developers.hubspot.com/docs/api/crm/search
  *
  */
 class CrmObjectHubspot extends Hubspot

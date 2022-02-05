@@ -10,7 +10,7 @@ class HeaderRequestComponent extends RequestComponent implements HeaderComponent
 {
     use PublicMethodsListable;
 
-    public function header(string $name, ?string $value): self
+    public function header(string $name, string|null $value): self
     {
         if (!is_null($value)) {
             $this[$name] = $value;
@@ -26,8 +26,13 @@ class HeaderRequestComponent extends RequestComponent implements HeaderComponent
         return $this->header('Authorization', "Bearer {$oAuth}");
     }
 
-    public function contentType(?string $contentType): self
+    public function contentType(string|null $contentType): self
     {
         return $this->header('Content-Type', $contentType);
+    }
+
+    public function accept(string|null $accept): self
+    {
+        return $this->header('accept', $accept);
     }
 }

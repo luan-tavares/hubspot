@@ -6,82 +6,82 @@ use LTL\Hubspot\Hubspot;
 
 /**
  * @method static $this upload(array $requestBody) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/files/v3/upload_new_file
  *
  * @method $this upload(array $requestBody) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/files/v3/upload_new_file
  *
  * @method static $this replace(int|string $file_id, array $requestBody) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/files/v3/upload_replacement_file
  *
  * @method $this replace(int|string $file_id, array $requestBody) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/files/v3/upload_replacement_file
  *
  * @method static $this getAll() 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/files/get_files
  *
  * @method $this getAll() 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/files/get_files
  *
  * @method static $this get(int|string $file_id) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/files/get_files_file_id
  *
  * @method $this get(int|string $file_id) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/files/get_files_file_id
  *
  * @method static $this changeAccess(array $requestBody) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/files/update_file_access
  *
  * @method $this changeAccess(array $requestBody) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/files/update_file_access
  *
  * @method static $this delete(int|string $file_id, array $requestBody) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/files/hard_delete_file_and_associated_objects
  *
  * @method $this delete(int|string $file_id, array $requestBody) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/files/hard_delete_file_and_associated_objects
  *
  * @method static $this getPublicUrl(int|string $fileId) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/files/get-signed-url-private-file
  *
  * @method $this getPublicUrl(int|string $fileId) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/files/get-signed-url-private-file
  *
  * @method static $this move(int|string $file_id, array $requestBody) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/files/post_files_file_id_move_file
  *
  * @method $this move(int|string $file_id, array $requestBody) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/files/post_files_file_id_move_file
  *
  * @method static $this getAllFolders() 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/files/get_folders
  *
  * @method $this getAllFolders() 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/files/get_folders
  *
  * @method static $this getFolder(int|string $folder_id) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/files/get_folders_folder_id
  *
  * @method $this getFolder(int|string $folder_id) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/files/get_folders_folder_id
  *
  * @method static $this createFolder(array $requestBody) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/files/post_folders
  *
  * @method $this createFolder(array $requestBody) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/files/post_folders
  *
  * @method static $this moveFolder(int|string $folder_id, array $requestBody) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/files/post_folders_folder_id_move_folder
  *
  * @method $this moveFolder(int|string $folder_id, array $requestBody) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/files/post_folders_folder_id_move_folder
  *
  * @method static $this deleteFolder(int|string $folder_id) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/files/delete_folders_folder_id
  *
  * @method $this deleteFolder(int|string $folder_id) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/files/delete_folders_folder_id
  *
  */
 class FileV2Hubspot extends Hubspot

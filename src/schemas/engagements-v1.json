@@ -5,32 +5,33 @@
             "path": "engagements/v1/engagements/recent/modified",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/engagements/get-recent-engagements",
             "method": "GET",
-            "description": "Get recent engagements",
-            "iterable": "results"
+            "description": "Get recent engagements.",
+            "iterable": "results",
+            "after": "offset"
         },
         "create": {
             "path": "engagements/v1/engagements",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/engagements/create_engagement",
             "method": "POST",
-            "description": "Create an engagement"
+            "description": "Create an engagement."
         },
         "update": {
             "path": "engagements/v1/engagements/{engagementId}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/engagements/update_engagement-patch",
             "method": "PATCH",
-            "description": "Update an Engagement"
+            "description": "Update an Engagement."
         },
         "get": {
             "path": "engagements/v1/engagements/{engagementId}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/engagements/get_engagement",
             "method": "GET",
-            "description": "Get an engagement"
+            "description": "Get an engagement."
         },
         "getAll": {
             "path": "engagements/v1/engagements/paged",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/engagements/get-all-engagements",
             "method": "GET",
-            "description": "Get all engagements",
+            "description": "Get all engagements.",
             "iterable": "results",
             "after": "offset"
         },
@@ -38,13 +39,13 @@
             "path": "engagements/v1/engagements/{engagementId}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/engagements/delete-engagement",
             "method": "DELETE",
-            "description": "DELETE an Engagement"
+            "description": "DELETE an Engagement."
         },
         "getCallDispositions": {
             "path": "calling/v1/dispositions",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/engagements/get-call-dispositions",
             "method": "GET",
-            "description": "Get call engagement dispositions"
+            "description": "Get call engagement dispositions."
         }
     }
 }

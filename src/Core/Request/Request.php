@@ -153,6 +153,13 @@ class Request implements RequestInterface
  
         return $this;
     }
+
+    public function addAccept(?string $accept): self
+    {
+        $this->header->accept($accept);
+ 
+        return $this;
+    }
  
     /**Items for Curl Request */
     public function getUri(): string

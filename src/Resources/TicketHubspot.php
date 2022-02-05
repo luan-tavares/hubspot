@@ -5,6 +5,8 @@ namespace LTL\Hubspot\Resources;
 use LTL\Hubspot\Hubspot;
 
 /**
+ * @link https://developers.hubspot.com/docs/api/crm/tickets
+ *
  * @method static $this getAll() Read a page of tickets. Control what is returned via the properties query param.
  * See https://developers.hubspot.com/docs/api/crm/tickets
  *

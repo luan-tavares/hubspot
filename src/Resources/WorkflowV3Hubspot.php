@@ -6,16 +6,16 @@ use LTL\Hubspot\Hubspot;
 
 /**
  * @method static $this getAll() 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/workflows/v3/get_workflows
  *
  * @method $this getAll() 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/workflows/v3/get_workflows
  *
  * @method static $this get(int|string $workflowId) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/workflows/v3/get_workflow
  *
  * @method $this get(int|string $workflowId) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/workflows/v3/get_workflow
  *
  */
 class WorkflowV3Hubspot extends Hubspot

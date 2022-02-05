@@ -1,0 +1,57 @@
+{
+    "resource": "webhooks",
+    "version": "v3",
+    "class": "WebhookHubspot",
+    "documentation": "https://developers.hubspot.com/docs/api/webhooks",
+    "actions": {
+        "getSettings": {
+            "path": "v3/{appId}/settings",           
+            "method": "GET",
+            "description": "Returns the current state of webhook settings for the given app. These settings include the app's configured target URL and max concurrency limit."
+        },
+        "updateSettings": {
+            "path": "{appId}/settings",
+            "method": "PUT",
+            "description": "Used to set the webhook target URL and max concurrency limit for the given app."
+        },
+        "deleteSettings": {
+            "path": "{appId}/settings",
+            "method": "DELETE",
+            "description": "Resets webhook target URL to empty, and max concurrency limit to 0 for the given app."
+        },
+        "getAll": {
+            "path": "{appId}/subscriptions",
+            "method": "GET",
+            "description": "Returns full details for all existing subscriptions for the given app.",
+            "iterable": "results",
+            "after": null
+        },
+        "create": {
+            "path": "{appId}/subscriptions",
+            "method": "POST",
+            "description": "Creates a new webhook subscription for the given app. Each subscription in an app must be unique."
+        },
+        "batchUpdate": {
+            "path": "{appId}/subscriptions/batch/update",
+            "method": "POST",
+            "description": "Activates or deactivates target app subscriptions.",
+            "iterable": "results",
+            "after": null
+        },
+        "get": {
+            "path": "{appId}/subscriptions/{subscriptionId}",
+            "method": "GET",
+            "description": "Returns details about a subscription."
+        },
+        "update": {
+            "path": "{appId}/subscriptions/{subscriptionId}",
+            "method": "PATCH",
+            "description": "Updates the details for an existing subscription."
+        },
+        "delete": {
+            "path": "{appId}/subscriptions/{subscriptionId}",
+            "method": "DELETE",
+            "description": "Permanently deletes a subscription. This cannot be undone."
+        }
+    }
+}

@@ -5,6 +5,8 @@ namespace LTL\Hubspot\Resources;
 use LTL\Hubspot\Hubspot;
 
 /**
+ * @link https://developers.hubspot.com/docs/api/crm/associations/v4
+ *
  * @method static $this getDefinition(int|string $fromObjectType, int|string $toObjectType) Returns all association types between two object types.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *

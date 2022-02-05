@@ -10,7 +10,7 @@ class QueryRequestComponent extends RequestComponent implements QueryComponentIn
 {
     use PublicMethodsListable;
 
-    public function query(string $name, string|int|array $value): self
+    public function query(string $name, string|int|array|null $value): self
     {
         $this[$name] = $value;
 
@@ -20,6 +20,16 @@ class QueryRequestComponent extends RequestComponent implements QueryComponentIn
     public function archived(): self
     {
         return $this->query('archived', 'true');
+    }
+
+    public function includeForeignIds(): self
+    {
+        return $this->query('includeForeignIds', 'true');
+    }
+
+    public function format(string $fileFormat): self
+    {
+        return $this->query('format', $fileFormat);
     }
 
     public function byEmail(): self
@@ -80,6 +90,11 @@ class QueryRequestComponent extends RequestComponent implements QueryComponentIn
     public function listEmails($arguments): self
     {
         return $this->query('email', func_get_args());
+    }
+
+    public function sort($arguments): self
+    {
+        return $this->query('sort', func_get_args());
     }
 
     public function listVids($arguments): self

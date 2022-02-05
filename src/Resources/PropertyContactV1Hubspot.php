@@ -6,52 +6,46 @@ use LTL\Hubspot\Hubspot;
 
 /**
  * @method static $this getAll() 
- * See 
  *
  * @method $this getAll() 
- * See 
  *
  * @method static $this get(int|string $property_name) 
- * See 
  *
  * @method $this get(int|string $property_name) 
- * See 
  *
  * @method static $this create(array $requestBody) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/contacts/v2/create_contacts_property
  *
  * @method $this create(array $requestBody) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/contacts/v2/create_contacts_property
  *
  * @method static $this update(int|string $property_name, array $requestBody) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/contacts/v2/update_contact_property
  *
  * @method $this update(int|string $property_name, array $requestBody) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/contacts/v2/update_contact_property
  *
  * @method static $this delete(int|string $property_name) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/contacts/v2/delete_contact_property
  *
  * @method $this delete(int|string $property_name) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/contacts/v2/delete_contact_property
  *
  * @method static $this getAllGroups(array $requestBody) 
- * See 
  *
  * @method $this getAllGroups(array $requestBody) 
- * See 
  *
  * @method static $this createGroup(array $requestBody) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/contacts/v2/create_contacts_property_group
  *
  * @method $this createGroup(array $requestBody) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/contacts/v2/create_contacts_property_group
  *
  * @method static $this updateGroup(int|string $group_name, array $requestBody) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/contacts/v2/update_contact_property_group
  *
  * @method $this updateGroup(int|string $group_name, array $requestBody) 
- * See 
+ * See https://legacydocs.hubspot.com/docs/methods/contacts/v2/update_contact_property_group
  *
  */
 class PropertyContactV1Hubspot extends Hubspot
