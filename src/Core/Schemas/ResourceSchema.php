@@ -51,9 +51,9 @@ class ResourceSchema extends Schema implements Countable, Iterator, ResourceSche
         return array_keys($this->actions);
     }
 
-    public function mapWithActions(callable $function): array
+    public function mapWithActions(callable $callback): array
     {
-        return array_map($function, $this->getActions());
+        return array_map($callback, $this->getActions());
     }
 
     public function getActionDefinition(string $action): ActionSchemaInterface

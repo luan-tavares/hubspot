@@ -13,4 +13,8 @@ interface ResourceInterface extends PublicMethodsListableInterface, Countable, I
     public function toJson(): ?string;
     public function status(): ?int;
     public function documentation(): ?string;
+
+    public function each(callable $callback): void;
+    public function map(callable $callback): array;
+    public function filter(callable $callback): array;
 }

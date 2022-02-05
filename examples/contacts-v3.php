@@ -17,6 +17,7 @@ dd($hubspot->filter(function ($item) {
 }));
 
 
+
 $hubspotCreate = ContactHubspot::create(['properties' => ['firstname' => 1]]);
 $id = $hubspotCreate->id;
 $hubspotDelete = ContactHubspot::delete($id);
