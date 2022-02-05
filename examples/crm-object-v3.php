@@ -4,18 +4,17 @@
 require_once __DIR__ .'/__init.php';
 
 use LTL\Hubspot\Resources\CrmObjectHubspot;
-use LTL\Hubspot\Resources\PipelineHubspot;
 
 $after = 0;
 
 while (true) {
-    $properties =  CrmObjectHubspot::limit(100)->after($after)->getAll('companies');
+    $properties =  CrmObjectHubspot::limit(100)->after($after)->getAll('p1858913_teste_extensao');
     foreach ($properties as $company) {
         dump($company->properties);
     }
-    $after = $properties->responseOffset();
+    $after = $properties->after;
 
-    dump($after, count($properties));
+    dump($after);
 
     if (is_null($after)) {
         break;

@@ -8,6 +8,5 @@ use LTL\Hubspot\Resources\CrmSchemaHubspot;
 $schemas =  CrmSchemaHubspot::getAll();
 
 dd(
-    $schemas,
-    CrmSchemaHubspot::get('deals')
+    $schemas->toArray()
 );

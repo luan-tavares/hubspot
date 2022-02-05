@@ -37,7 +37,7 @@ class Response implements ResponseInterface
         }
 
         if ($property === 'after') {
-            return @$this->getAfter();
+            return $this->getAfter();
         }
 
         if ($property === 'object') {
@@ -58,9 +58,14 @@ class Response implements ResponseInterface
      
         $after = ResponseObjectContainer::get($this);
 
+        
         foreach ($map as $current) {
+            if (!isset($after->{$current})) {
+                return null;
+            }
             $after = @$after->{$current};
         }
+       
 
         return $after;
     }

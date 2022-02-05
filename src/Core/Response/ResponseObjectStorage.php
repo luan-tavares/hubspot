@@ -26,6 +26,11 @@ class ResponseObjectStorage implements Iterator, Countable
         return $this->object->{$property};
     }
 
+    public function __isset($property): bool
+    {
+        return property_exists($this->object, $property);
+    }
+
     private function verifyIterable(): void
     {
         if (is_null($this->response->index) || !property_exists($this->object, $this->response->index)) {
