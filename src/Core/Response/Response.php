@@ -2,9 +2,8 @@
 
 namespace LTL\Hubspot\Core\Response;
 
-use LTL\Hubspot\Core\Exceptions\HubspotApiException;
+use LTL\Hubspot\Containers\ResponseObjectContainer;
 use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
-use LTL\Hubspot\Core\Response\ResponseObjectContainer;
 use LTL\Hubspot\Core\Schemas\Interfaces\ActionSchemaInterface;
 use LTL\Hubspot\Services\Curl\Curl;
 
@@ -95,10 +94,5 @@ class Response implements ResponseInterface
     public function getDocumentation(): ?string
     {
         return $this->actionSchema->documentation;
-    }
-
-    public function getAction(): string
-    {
-        return $this->actionSchema->action;
     }
 }

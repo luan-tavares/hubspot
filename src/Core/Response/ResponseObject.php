@@ -6,7 +6,7 @@ use Iterator;
 use LTL\Hubspot\Core\Exceptions\HubspotApiException;
 use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
 
-class ResponseObjectStorage implements Iterator, Countable
+class ResponseObject implements Iterator, Countable
 {
     private object|null $object;
 

@@ -4,8 +4,8 @@ namespace LTL\Hubspot\Containers;
 
 use LTL\Hubspot\Containers\Interfaces\ContainerByResourceInterface;
 use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
-use LTL\Hubspot\Core\Request\RequestFactory;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
+use LTL\Hubspot\Factories\RequestFactory;
 
 abstract class RequestContainer implements ContainerByResourceInterface
 {

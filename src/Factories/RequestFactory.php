@@ -1,6 +1,6 @@
 <?php
 
-namespace LTL\Hubspot\Core\Request;
+namespace LTL\Hubspot\Factories;
 
 use LTL\Hubspot\Containers\ObserverContainer;
 use LTL\Hubspot\Containers\SingletonContainer;
@@ -13,9 +13,10 @@ use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
 use LTL\Hubspot\Core\Request\Observers\RequestObserver;
 use LTL\Hubspot\Core\Request\Request;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
+use LTL\Hubspot\Factories\Interfaces\FactoryInterface;
 use ReflectionClass;
 
-abstract class RequestFactory
+abstract class RequestFactory implements FactoryInterface
 {
     private const COMPONENTS = [
         'query' => QueryRequestComponent::class,

@@ -16,13 +16,9 @@ abstract class Resource implements ResourceInterface
 {
     use PublicMethodsListable, ResourceIterable, ResourceArrayable, ResourceCountable;
 
-    private ?ResponseInterface $response = null;
+    protected ResponseInterface|null $response = null;
     
     protected string $resource;
-
-    protected ?string $documentation;
-
-    protected ?string $uri;
 
     public function __call($name, $arguments)
     {

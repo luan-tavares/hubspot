@@ -5,6 +5,7 @@ namespace LTL\Hubspot\Containers;
 use LTL\Hubspot\Containers\Interfaces\ContainerByResourceInterface;
 use LTL\Hubspot\Core\Builder;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
+use LTL\Hubspot\Factories\BuilderFactory;
 
 abstract class BuilderContainer implements ContainerByResourceInterface
 {
@@ -18,7 +19,7 @@ abstract class BuilderContainer implements ContainerByResourceInterface
 
         if (!array_key_exists($hash, self::$objects)) {
             self::removeLastIf((count(self::$objects) >= self::MAX_OBJECTS));
-            self::$objects[$hash] = new Builder($resource);
+            self::$objects[$hash] = BuilderFactory::build($resource);
         }
 
         

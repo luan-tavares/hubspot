@@ -1,7 +1,9 @@
 <?php
-namespace LTL\Hubspot\Core\Response;
+
+namespace LTL\Hubspot\Containers;
 
 use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
+use LTL\Hubspot\Core\Response\ResponseObject;
 
 abstract class ResponseObjectContainer
 {
@@ -12,10 +14,8 @@ abstract class ResponseObjectContainer
         $hash = spl_object_hash($response);
 
         if (!array_key_exists($hash, self::$objects)) {
-            self::$objects[$hash] = new ResponseObjectStorage($response);
+            self::$objects[$hash] = new ResponseObject($response);
         }
-
-       
 
         return self::$objects[$hash];
     }

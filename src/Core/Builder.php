@@ -4,17 +4,24 @@ namespace LTL\Hubspot\Core;
 
 use LTL\Hubspot\Containers\RequestContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
+use LTL\Hubspot\Core\BindResponseToResource;
 use LTL\Hubspot\Core\Exceptions\HubspotApiException;
 use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
+use LTL\Hubspot\Factories\ResourceFactory;
 
 class Builder
 {
     private RequestInterface $request;
+
+    private ResourceInterface $resource;
     
-    public function __construct(private ResourceInterface $resource)
+    private function __construct()
     {
-        $this->request = RequestContainer::get($this->resource);
+    }
+
+    private function __clone()
+    {
     }
 
     public function __call($method, $arguments)
@@ -62,6 +69,6 @@ class Builder
     {
         $response = $this->request->dispatch($method, $arguments);
 
-        return AddResponseToResourceAction::execute($this->resource, $response);
+        return ResourceFactory::build($this->resource, $response);
     }
 }

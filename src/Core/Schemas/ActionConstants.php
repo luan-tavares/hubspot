@@ -1,8 +1,8 @@
 <?php
 
-namespace LTL\Hubspot\Core\Request;
+namespace LTL\Hubspot\Core\Schemas;
 
-class RequestConstants
+class ActionConstants
 {
     public const BASE_URL = 'https://api.hubapi.com';
 

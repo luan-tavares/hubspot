@@ -28,4 +28,33 @@ trait ResourceIterable
     {
         return $this->object->valid();
     }
+
+    public function each(callable $callback): void
+    {
+        foreach ($this as $value) {
+            $callback($value);
+        }
+    }
+
+    public function map(callable $callback): array
+    {
+        $result = [];
+        foreach ($this as $value) {
+            $result[] = $callback($value);
+        }
+
+        return $result;
+    }
+
+    public function filter(callable $callback): array
+    {
+        $result = [];
+        foreach ($this as $value) {
+            if ($callback($value)) {
+                $result[] = $value;
+            }
+        }
+
+        return $result;
+    }
 }

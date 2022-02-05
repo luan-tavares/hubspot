@@ -26,7 +26,6 @@ class ResourceSchema extends Schema implements Countable, Iterator, ResourceSche
 
     private object $schema;
 
-
     public function __construct(ResourceInterface $resource)
     {
         $schema = json_decode(file_get_contents(__ROOT__.'/src/schemas/'. (string) $resource .'.json'));
