@@ -70,9 +70,9 @@ abstract class Resource implements ResourceInterface
      *
      * @return array|null
      */
-    public function toArray(): ?array
+    public function toArray(): array
     {
-        return json_decode($this->response->get(), true);
+        return json_decode($this->response->get(), true) ?? [];
     }
   
     /**

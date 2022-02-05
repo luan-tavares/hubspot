@@ -13,8 +13,11 @@ $id = $hubspotCreate->id;
 $hubspotDelete = CompanyHubspot::delete($id);
 $companies = CompanyHubspot::limit(10)->getAll();
 
+$companies = CompanyHubspot::get(5);
 
-foreach ($companies as $company) {
+
+
+foreach ($companies['results'] as $company) {
     dump($company);
 }
 dd('a');

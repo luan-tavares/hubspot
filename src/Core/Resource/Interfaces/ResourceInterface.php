@@ -9,7 +9,7 @@ use LTL\Hubspot\Services\PublicMethods\Interfaces\PublicMethodsListableInterface
 
 interface ResourceInterface extends PublicMethodsListableInterface, Countable, Iterator, ArrayAccess
 {
-    public function toArray(): ?array;
+    public function toArray(): array;
     public function toJson(): ?string;
     public function status(): ?int;
     public function documentation(): ?string;
