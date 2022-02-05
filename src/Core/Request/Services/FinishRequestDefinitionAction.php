@@ -28,7 +28,7 @@ class FinishRequestDefinitionAction
         $nArguments = count($arguments);
   
         if ($nParams !== $nArguments) {
-            throw new HubspotApiException('"'. get_class($this->resource) ."::{$this->actionSchema}()\" must be {$nParams} params ({$nArguments} given)");
+            throw new HubspotApiException('"'. get_class($this->resource) ."::{$this->actionSchema}()\" must be {$nParams} params, {$nArguments} given");
         }
 
         if ($this->actionSchema->hasBody) {

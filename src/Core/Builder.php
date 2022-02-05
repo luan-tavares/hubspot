@@ -70,7 +70,7 @@ class Builder
             });
 
             throw new HubspotApiException(
-                'Method "'. get_class($this->resource) ."::{$method}()\" must not be used before actions:\n[". implode(', ', $actions) .']'
+                'Method "'. get_class($this->resource) ."::{$method}()\" must not be used before actions:\n\n[". implode(', ', $actions) .']'
             );
         }
 

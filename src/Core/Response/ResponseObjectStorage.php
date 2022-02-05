@@ -18,7 +18,9 @@ class ResponseObjectStorage implements Iterator, Countable
     public function __get($property)
     {
         if (!property_exists($this->object, $property)) {
-            throw new HubspotApiException("Property \"{$property}\" not exists in response object first level:\n{$this->response->get()}");
+            $response = mb_strimwidth($this->response->get(), 0, 300, ' ...');
+
+            throw new HubspotApiException("Property \"{$property}\" not exists in response object first level:\n\n{$response}\n\n");
         }
 
         return $this->object->{$property};
@@ -27,8 +29,10 @@ class ResponseObjectStorage implements Iterator, Countable
     private function verifyIterable(): void
     {
         if (is_null($this->response->index) || !property_exists($this->object, $this->response->index)) {
+            $response = mb_strimwidth($this->response->get(), 0, 300, ' ...');
+
             throw new HubspotApiException(
-                "Resource response is not iterable or countable:\n{$this->response->get()}"
+                "Resource response is not iterable or countable:\n\n{$response}\n\n"
             );
         }
     }

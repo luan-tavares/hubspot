@@ -57,7 +57,7 @@ abstract class Resource implements ResourceInterface
 
            
             throw new HubspotApiException(
-                'Property access in "'. get_class($this) ."\" must not be used before actions:\n[". implode(', ', $actions) .']'
+                'Property access in "'. get_class($this) ."\" must not be used before actions:\n\n[". implode(', ', $actions) .']'
             );
         }
 

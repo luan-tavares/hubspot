@@ -22,7 +22,9 @@ trait ResourceArrayable
     public function offsetGet($offset)
     {
         if (!array_key_exists($offset, $this->toArray())) {
-            throw new HubspotApiException("Undefined \"{$offset}\" offset in response array first level:\n{$this->toJson()}");
+            $response = mb_strimwidth($this->toJson(), 0, 300, ' ...');
+
+            throw new HubspotApiException("Undefined \"{$offset}\" offset in response array first level:\n\n{$response}\n\n");
         }
 
         return $this->toArray()[$offset];
