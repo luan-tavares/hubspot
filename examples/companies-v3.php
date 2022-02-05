@@ -6,25 +6,31 @@ require_once __DIR__ .'/__init.php';
 use LTL\Hubspot\Resources\CompanyHubspot;
 
 $memory = $after = 0;
-$companyBuilder = CompanyHubspot::limit(100);
-$count = 0;
-while (true) {
-    $companies = $companyBuilder->after($after)->getAll();
-    $after = $companies->after;
-    //dump('Add: '. memory_get_peak_usage() - $memory);
-    
-    foreach ($companies as $company) {
-        $a = ['properties' => [
-            'a',
-            'b',
-            $company
-        ]];
-        dd($a);
-    }
-   
+$companyBuilder = CompanyHubspot::limit(3);
 
-    if (!$after) {
-        break;
-    }
+$hubspotCreate = CompanyHubspot::create(['properties' => ['name' => 1]]);
+$id = $hubspotCreate->id;
+$hubspotDelete = CompanyHubspot::delete($id);
+$companies = CompanyHubspot::limit(10)->getAll();
+
+
+foreach ($companies as $company) {
+    dump($company);
+}
+dd('a');
+
+
+
+while (true) {
+    //$companies =  CompanyHubspot::limit(2)->after($after)->getAll(); // with memory leak
+    $companies = $companyBuilder->after($after)->getAll(); //without memory leak
+
+    $after = $companies->after;
+    //$index = $companies->index;
+    
+    // dump(CompanyHubspot::limit(2));
+    dump('---------', $companies, memory_get_peak_usage() - $memory);
+
+
     $memory = memory_get_peak_usage();
 }

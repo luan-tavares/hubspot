@@ -1,10 +1,10 @@
 <?php
 
-namespace LTL\Hubspot\Core\Traits;
+namespace LTL\Hubspot\Services\PublicMethods\Traits;
 
 use LTL\Hubspot\Services\PublicMethods\PublicMethods;
 
-trait MethodsListable
+trait PublicMethodsListable
 {
     private static $methods;
 

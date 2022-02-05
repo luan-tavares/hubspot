@@ -2,10 +2,10 @@
  
 namespace LTL\Hubspot\Core\Request\Interfaces;
 
-use LTL\Hubspot\Core\Interfaces\MethodsListableInterface;
 use LTL\Hubspot\Core\Request\Interfaces\ComponentInterface;
+use LTL\Hubspot\Services\PublicMethods\Interfaces\PublicMethodsListableInterface;
 
-interface QueryComponentInterface extends ComponentInterface, MethodsListableInterface
+interface QueryComponentInterface extends ComponentInterface, PublicMethodsListableInterface
 {
     /**
      * - Add a Query

@@ -4,7 +4,9 @@ require_once __DIR__ .'/__init.php';
 
 use LTL\Hubspot\Resources\FileHubspot;
 
-$upload_file = new CURLFile(__DIR__ .'/teste.xlsx', 'application/octet-stream');
+$path = '/home/luan/Desktop/hub.py';
+
+$upload_file = new CURLFile($path, 'application/octet-stream');
 
 $file_options = [
     'access' => 'PUBLIC_NOT_INDEXABLE',
@@ -16,12 +18,13 @@ $file_options = [
 
 $post_data = [
     'file' => $upload_file,
-    'fileName' => 'aaa.xlsx',
+    'fileName' => 'aaa.py',
     'options' => json_encode($file_options),
     'folderPath' => '/__luan'
 ];
 
-$file = FileHubspot::upload($post_data);
+$file = FileHubspot::progressBar()->upload($post_data);
+dd($file);
 
 
 $params = [
@@ -38,4 +41,4 @@ $params = [
 
 //$file = FileHubspot::progressBar()->importFromUrl($params);
 
-dump(FileHubspot::getAllFolders()->toArray());
+//dump($file, FileHubspot::getAllFolders()->toArray());

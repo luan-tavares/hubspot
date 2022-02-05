@@ -41,11 +41,6 @@ class CurlRequestService
         return $this->curl->connect($this->method, $this->body);
     }
 
-    public function removeLeak(): void
-    {
-        $this->curl->removeLeak();
-    }
-
     private function getEncodedUri(): string
     {
         $queries = $this->request->getQueries();

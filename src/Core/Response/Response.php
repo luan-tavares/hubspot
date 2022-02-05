@@ -4,7 +4,7 @@ namespace LTL\Hubspot\Core\Response;
 
 use LTL\Hubspot\Core\Exceptions\HubspotApiException;
 use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
-use LTL\Hubspot\Core\Response\ResponseObjectStorage;
+use LTL\Hubspot\Core\Response\ResponseObjectContainer;
 use LTL\Hubspot\Core\Schemas\Interfaces\ActionSchemaInterface;
 use LTL\Hubspot\Services\Curl\Curl;
 
@@ -12,7 +12,7 @@ class Response implements ResponseInterface
 {
     private int $status;
 
-    private string $response;
+    private string|null $response;
 
     private $header;
 
@@ -27,7 +27,7 @@ class Response implements ResponseInterface
 
     public function __destruct()
     {
-        ResponseObjectStorage::unset($this);
+        $this->destroy();
     }
 
     public function __get($property)
@@ -40,32 +40,23 @@ class Response implements ResponseInterface
             return @$this->getAfter();
         }
 
-        if (!property_exists(ResponseObjectStorage::get($this), $property)) {
-            throw new HubspotApiException(
-                "Property \"{$property}\" not exists in response first level:\n{$this->response}"
-            );
+        if ($property === 'object') {
+            return ResponseObjectContainer::get($this);
         }
 
-        return ResponseObjectStorage::get($this)->{$property};
+        return ResponseObjectContainer::get($this)->{$property};
     }
 
-    private function getIndex(): int|string|null
+    private function getIndex()
     {
-        if (
-            is_null($this->actionSchema->iterator)||
-            !property_exists(ResponseObjectStorage::get($this), $this->actionSchema->iterator)
-        ) {
-            throw new HubspotApiException(get_class($this) ."::{$this->getAction()}() response is not iterable/countable:\n{$this->response}");
-        }
-
-        return $this->actionSchema->iterator;
+        return $this->actionSchema->iterable;
     }
 
     private function getAfter(): int|string|null
     {
         $map = explode('.', $this->actionSchema->after);
      
-        $after = ResponseObjectStorage::get($this);
+        $after = ResponseObjectContainer::get($this);
 
         foreach ($map as $current) {
             $after = @$after->{$current};
@@ -81,6 +72,11 @@ class Response implements ResponseInterface
         return str_replace($uuid, 'xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx', $uri);
     }
 
+    public function destroy(): void
+    {
+        ResponseObjectContainer::destroy($this);
+    }
+
     public function getStatus(): int
     {
         return $this->status;
@@ -89,11 +85,6 @@ class Response implements ResponseInterface
     public function get(): ?string
     {
         return $this->response;
-    }
-
-    public function getArray(): ?array
-    {
-        return json_decode($this->response, true);
     }
 
     public function getDocumentation(): ?string

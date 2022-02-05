@@ -4,11 +4,11 @@ namespace LTL\Hubspot\Core\Request\Components;
 
 use LTL\Hubspot\Core\Request\Components\RequestComponent;
 use LTL\Hubspot\Core\Request\Interfaces\HeaderComponentInterface;
-use LTL\Hubspot\Core\Traits\MethodsListable;
+use LTL\Hubspot\Services\PublicMethods\Traits\PublicMethodsListable;
 
 class HeaderRequestComponent extends RequestComponent implements HeaderComponentInterface
 {
-    use MethodsListable;
+    use PublicMethodsListable;
 
     public function header(string $name, ?string $value): self
     {

@@ -8,7 +8,7 @@
             "path": "objects/companies",           
             "method": "GET",
             "description": "Read a page of companies. Control what is returned via the properties query param.",
-            "iterator": "results",
+            "iterable": "results",
             "after": "paging.next.after"
         },
         "get": {
@@ -35,7 +35,7 @@
             "path": "objects/companies/{companyId}/associations/{toObjectType}",
             "method": "GET",
             "description": "List associations of a company by type.",
-            "iterator": "results",
+            "iterable": "results",
             "after": "paging.next.after"
         },
         "createAssociation": {
@@ -57,28 +57,28 @@
             "path": "objects/companies/batch/create",
             "method": "POST",
             "description": "Create a batch of companies.",
-            "iterator": "results",
+            "iterable": "results",
             "after": null
         },
         "batchRead": {
             "path": "objects/companies/batch/read",
             "method": "POST",
             "description": "Read a batch of companies by internal ID, or unique property values.",
-            "iterator": "results",
+            "iterable": "results",
             "after": null
         },
         "batchUpdate": {
             "path": "objects/companies/batch/update",
             "method": "POST",
             "description": "Update a batch of companies.",
-            "iterator": "results",
+            "iterable": "results",
             "after": null
         },
         "search": {
             "path": "objects/companies/search",
             "method": "POST",
             "description": "Search companies.",
-            "iterator": "results",
+            "iterable": "results",
             "after": "paging.next.after"
         }
     }

@@ -2,10 +2,11 @@
 
 namespace LTL\Hubspot\Core;
 
-use LTL\Hubspot\Core\Container;
+use LTL\Hubspot\Containers\RequestContainer;
+use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Exceptions\HubspotApiException;
-use LTL\Hubspot\Core\Interfaces\ResourceInterface;
 use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
+use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 
 class Builder
 {
@@ -13,10 +14,8 @@ class Builder
     
     public function __construct(private ResourceInterface $resource)
     {
-        $this->request = Container::getRequest($this->resource);
+        $this->request = RequestContainer::get($this->resource);
     }
-
-
 
     public function __call($method, $arguments)
     {
@@ -24,7 +23,7 @@ class Builder
             return $this->makeAfterAction($method, $arguments);
         }
 
-        $schema = Container::getSchema($this->resource);
+        $schema = SchemaContainer::get($this->resource);
 
         if (in_array($method, $schema->getActions())) {
             return $this->makeRequestAction($method, $arguments);
@@ -32,7 +31,13 @@ class Builder
 
         return $this->buildRequestAction($method, $arguments);
     }
-     
+
+    public function __destruct()
+    {
+        RequestContainer::destroy($this->resource);
+    }
+
+
     /**
      * Make Build Request Action
      *
@@ -58,14 +63,14 @@ class Builder
     private function makeAfterAction(string $method, ?array $arguments): mixed
     {
         if (!$this->request->hasConnected()) {
-            $schema = Container::getSchema($this->resource);
+            $schema = SchemaContainer::get($this->resource);
 
             $actions = $schema->mapWithActions(function ($action) {
                 return "{$action}()";
             });
 
             throw new HubspotApiException(
-                "Can't use ". get_class($this->resource) .'::'. $method ."() before actions requests:\n[". implode(', ', $actions) .']'
+                'Method "'. get_class($this->resource) ."::{$method}()\" must not be used before actions:\n[". implode(', ', $actions) .']'
             );
         }
 
@@ -85,6 +90,8 @@ class Builder
     {
         $response = $this->request->dispatch($method, $arguments);
 
-        return Container::setResponseToResource($this->resource, $response);
+
+
+        return AddResponseToResourceAction::execute($this->resource, $response);
     }
 }

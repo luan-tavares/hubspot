@@ -16,6 +16,8 @@ class UriRequestComponent extends RequestComponent implements UriComponentInterf
         $this->uri = $uri;
     }
 
+
+
     public function setMethod(string $method): void
     {
         $this->method = $method;

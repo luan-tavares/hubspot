@@ -8,7 +8,7 @@
             "path": "objects/products",           
             "method": "GET",
             "description": "Read a page of products. Control what is returned via the properties query param.",
-            "iterator": "results",
+            "iterable": "results",
             "after": "paging.next.after"
         },
         "get": {
@@ -35,7 +35,7 @@
             "path": "objects/products/{productId}/associations/{toObjectType}",
             "method": "GET",
             "description": "List associations of a product by type.",
-            "iterator": "results",
+            "iterable": "results",
             "after": "paging.next.after"
         },
         "createAssociation": {
@@ -57,28 +57,28 @@
             "path": "objects/products/batch/create",
             "method": "POST",
             "description": "Create a batch of products.",
-            "iterator": "results",
+            "iterable": "results",
             "after": null
         },
         "batchRead": {
             "path": "objects/products/batch/read",
             "method": "POST",
             "description": "Read a batch of products by internal ID, or unique property values.",
-            "iterator": "results",
+            "iterable": "results",
             "after": null
         },
         "batchUpdate": {
             "path": "objects/products/batch/update",
             "method": "POST",
             "description": "Update a batch of products.",
-            "iterator": "results",
+            "iterable": "results",
             "after": null
         },
         "search": {
             "path": "objects/products/search",
             "method": "POST",
             "description": "Search products.",
-            "iterator": "results",
+            "iterable": "results",
             "after": "paging.next.after"
         }
     }

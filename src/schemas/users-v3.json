@@ -8,7 +8,7 @@
             "path": "users",           
             "method": "GET",
             "description": "Read a page of users.",
-            "iterator": "results",
+            "iterable": "results",
             "after": "paging.next.after"
         },
         "get": {
@@ -35,14 +35,14 @@
             "path": "users/roles",
             "method": "GET",
             "description": "Retrieves the roles on an account.",
-            "iterator": "results",
+            "iterable": "results",
             "after": null
         },
         "getTeams": {
             "path": "users/teams",
             "method": "GET",
             "description": "See details about this account's teams.",
-            "iterator": "results",
+            "iterable": "results",
             "after": null
         }
     }

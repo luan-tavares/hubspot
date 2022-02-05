@@ -8,7 +8,7 @@
             "path": "objects/{objectType}",           
             "method": "GET",
             "description": "Read a page of objects. Control what is returned via the properties query param.",
-            "iterator": "results",
+            "iterable": "results",
             "after": "paging.next.after"
         },
         "get": {
@@ -60,7 +60,7 @@
             "path": "objects/{fromObjectType}/{fromObjectId}/associations/{toObjectType}",
             "method": "GET",
             "description": "List associations of an object by type.",
-            "iterator": "results",
+            "iterable": "results",
             "after": "paging.next.after"
         },
         "createAssociation": {
@@ -78,7 +78,7 @@
             "method": "POST",
             "description": "Search objects by {objectType}.",
             "documentation": "https://developers.hubspot.com/docs/api/crm/search",
-            "iterator": "results",
+            "iterable": "results",
             "after": "paging.next.after"
         }
     }

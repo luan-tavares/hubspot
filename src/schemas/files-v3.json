@@ -9,7 +9,7 @@
             "method": "POST",
             "contentType": "multipart/form-data",
             "description": "Upload a single file with content specified in request body.",
-            "iterator": "objects"
+            "iterable": "objects"
         },
         "importFromUrl": {
             "path": "files/import-from-url/async",
@@ -25,7 +25,7 @@
             "path": "files/search",
             "method": "GET",
             "description": "Search through files in the file manager. Does not display hidden or archived files.",
-            "iterator": "results",
+            "iterable": "results",
             "after": "paging.next.after"
         },
         "get": {
@@ -68,7 +68,7 @@
             "path": "folders/search",
             "method": "GET",
             "description": "Search for folders. Does not contain hidden or archived folders.",
-            "iterator": "results",
+            "iterable": "results",
             "after": "paging.next.after"
         },
         "updateFolder": {

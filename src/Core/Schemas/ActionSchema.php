@@ -26,7 +26,7 @@ class ActionSchema extends Schema implements ActionSchemaInterface
 
     private string|null $description;
 
-    private string|null $iterator;
+    private string|null $iterable;
 
     private string|null $after;
 
@@ -48,7 +48,7 @@ class ActionSchema extends Schema implements ActionSchemaInterface
   
         $this->method = $actionSchema->method;
         $this->description = @$actionSchema->description;
-        $this->iterator = @$actionSchema->iterator;
+        $this->iterable = @$actionSchema->iterable;
         $this->after = @$actionSchema->after;
         $this->hasBody = in_array($this->method, RequestConstants::METHODS_WITH_BODY);
 

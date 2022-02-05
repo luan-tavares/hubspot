@@ -4,11 +4,11 @@ namespace LTL\Hubspot\Core\Request\Components;
 
 use LTL\Hubspot\Core\Request\Components\RequestComponent;
 use LTL\Hubspot\Core\Request\Interfaces\CurlComponentInterface;
-use LTL\Hubspot\Core\Traits\MethodsListable;
+use LTL\Hubspot\Services\PublicMethods\Traits\PublicMethodsListable;
 
 class CurlRequestComponent extends RequestComponent implements CurlComponentInterface
 {
-    use MethodsListable;
+    use PublicMethodsListable;
 
     public function progressBar(): self
     {

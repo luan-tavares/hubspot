@@ -1,5 +1,6 @@
 <?php
 
+use LTL\Hubspot\Containers\ApikeyContainer;
 use LTL\Hubspot\Core\Container;
 
 if (!function_exists('hubspotKey')) {
@@ -11,22 +12,10 @@ if (!function_exists('hubspotKey')) {
      */
     function hubspotKey(string $apikey)
     {
-        Container::apikey($apikey);
+        ApikeyContainer::store($apikey);
     }
 }
 
-if (!function_exists('container')) {
-    /**
-     * Get Singleton Class
-     *
-     * @param string $class
-     * @return object
-     */
-    function container(string $class): object
-    {
-        return Container::singleton($class);
-    }
-}
 
 
 if (!function_exists('envDefine')) {

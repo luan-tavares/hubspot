@@ -4,11 +4,11 @@ namespace LTL\Hubspot\Core\Request\Components;
 
 use LTL\Hubspot\Core\Request\Components\RequestComponent;
 use LTL\Hubspot\Core\Request\Interfaces\QueryComponentInterface;
-use LTL\Hubspot\Core\Traits\MethodsListable;
+use LTL\Hubspot\Services\PublicMethods\Traits\PublicMethodsListable;
 
 class QueryRequestComponent extends RequestComponent implements QueryComponentInterface
 {
-    use MethodsListable;
+    use PublicMethodsListable;
 
     public function query(string $name, string|int|array $value): self
     {

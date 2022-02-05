@@ -8,7 +8,7 @@
             "path": "objects/owners",           
             "method": "GET",
             "description": "Read a page of owners.",
-            "iterator": "results",
+            "iterable": "results",
             "after": "paging.next.after"
         },
         "get": {

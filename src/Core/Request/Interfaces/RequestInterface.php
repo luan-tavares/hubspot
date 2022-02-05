@@ -2,14 +2,12 @@
  
 namespace LTL\Hubspot\Core\Request\Interfaces;
 
-use LTL\Hubspot\Core\Interfaces\ResourceInterface;
+use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
 use LTL\Hubspot\Core\Schemas\Interfaces\ActionSchemaInterface;
 
 interface RequestInterface
 {
-    public function reset(): void;
-
     public function getBody(): ?array;
     public function getHeaders(): array;
     public function getQueries(): array;
@@ -27,8 +25,6 @@ interface RequestInterface
     public function addContentType(?string $contentType): self;
 
     public function getActionDefinition(string $action): ActionSchemaInterface;
-
-    public function getResource(): ResourceInterface;
 
     public function dispatch(string $action, ?array $arguments): ResponseInterface;
 }

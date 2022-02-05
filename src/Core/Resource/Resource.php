@@ -1,18 +1,20 @@
 <?php
 
-namespace LTL\Hubspot\Core;
+namespace LTL\Hubspot\Core\Resource;
 
-use LTL\Hubspot\Core\Container;
+use LTL\Hubspot\Containers\BuilderContainer;
+use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Exceptions\HubspotApiException;
-use LTL\Hubspot\Core\Interfaces\ResourceInterface;
-use LTL\Hubspot\Core\Interfaces\ResourceIterableInterface;
+use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
+use LTL\Hubspot\Core\Resource\Traits\ResourceArrayable;
+use LTL\Hubspot\Core\Resource\Traits\ResourceCountable;
+use LTL\Hubspot\Core\Resource\Traits\ResourceIterable;
 use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
-use LTL\Hubspot\Core\Traits\MethodsListable;
-use LTL\Hubspot\Core\Traits\ResourceIterable;
+use LTL\Hubspot\Services\PublicMethods\Traits\PublicMethodsListable;
 
-abstract class Resource implements ResourceInterface, ResourceIterableInterface
+abstract class Resource implements ResourceInterface
 {
-    use MethodsListable, ResourceIterable;
+    use PublicMethodsListable, ResourceIterable, ResourceArrayable, ResourceCountable;
 
     private ?ResponseInterface $response = null;
     
@@ -24,7 +26,7 @@ abstract class Resource implements ResourceInterface, ResourceIterableInterface
 
     public function __call($name, $arguments)
     {
-        return Container::getBuilder($this)->{$name}(...$arguments);
+        return BuilderContainer::get($this)->{$name}(...$arguments);
     }
 
     public static function __callStatic($name, $arguments)
@@ -32,24 +34,30 @@ abstract class Resource implements ResourceInterface, ResourceIterableInterface
         return call_user_func_array([(new static), $name], $arguments);
     }
 
+    public function __destruct()
+    {
+        if (!is_null($this->response)) {
+            $this->response->destroy();
+        }
+    }
+
     public function __toString()
     {
         return $this->resource;
     }
 
- 
-
     public function __get($property)
     {
         if (is_null($this->response)) {
-            $schema = Container::getSchema($this);
+            $schema = SchemaContainer::get($this);
 
             $actions = $schema->mapWithActions(function ($action) {
                 return "{$action}()";
             });
 
+           
             throw new HubspotApiException(
-                "Can't use ". get_class($this) ."::{$property} before actions requests:\n[". implode(', ', $actions) .']'
+                'Property access in "'. get_class($this) ."\" must not be used before actions:\n[". implode(', ', $actions) .']'
             );
         }
 
@@ -64,7 +72,7 @@ abstract class Resource implements ResourceInterface, ResourceIterableInterface
      */
     public function toArray(): ?array
     {
-        return $this->response->getArray();
+        return json_decode($this->response->get(), true);
     }
   
     /**

@@ -7,6 +7,6 @@ interface ResponseInterface
     public function getStatus(): int;
     public function get(): ?string;
     public function getDocumentation(): ?string;
-    public function getArray(): ?array;
     public function getAction(): string;
+    public function destroy(): void;
 }

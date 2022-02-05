@@ -8,7 +8,7 @@
             "documentation": "https://legacydocs.hubspot.com/docs/methods/pipelines/get_pipelines_for_object_type",
             "method": "GET",
             "description": "Get all pipelines for a specified object type",
-            "iterator": "results"
+            "iterable": "results"
         },
         "get": {
             "path": "pipelines/{object_type}/{pipeline_id}",

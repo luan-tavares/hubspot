@@ -8,7 +8,7 @@
             "path": "associations/{fromObjectType}/{toObjectType}/batch/read",
             "method": "POST",
             "description": "Get the IDs of all {toObjectType} objects associated with those specified in the request body.",
-            "iterator": "results"
+            "iterable": "results"
         },
         "batchCreate": {
             "path": "associations/{fromObjectType}/{toObjectType}/batch/create",

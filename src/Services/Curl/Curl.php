@@ -2,6 +2,7 @@
 
 namespace LTL\Hubspot\Services\Curl;
 
+use CurlHandle;
 use LTL\Hubspot\Services\Curl\CurlConstants;
 
 class Curl
@@ -10,7 +11,7 @@ class Curl
 
     private array $headers = [];
 
-    private $curl;
+    private CurlHandle $curl;
 
     private ?string $response;
 
@@ -75,8 +76,7 @@ class Curl
         }
 
         $this->response = curl_exec($this->curl);
-      
-    
+ 
         $this->status = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
 
         curl_reset($this->curl);
@@ -84,11 +84,6 @@ class Curl
         curl_close($this->curl);
   
         return $this;
-    }
-
-    public function removeLeak(): void
-    {
-        $this->response = null;
     }
 
     public function withProgress(): self
@@ -110,6 +105,7 @@ class Curl
         if (@$this->headers['Content-Type'] !== 'multipart/form-data') {
             $body = json_encode($body, CurlConstants::JSON_ENCODE);
         }
+
         $this->params[CURLOPT_POSTFIELDS] = $body;
 
         return $this;
@@ -148,20 +144,20 @@ class Curl
     /**
      * Get the value of response
      */
-    public function getResponse()
+    public function getResponse(): string|null
     {
-        return $this->response;
+        return (!empty($this->response)) ? $this->response : null;
     }
 
     /**
      * Get the value of status
      */
-    public function getStatus()
+    public function getStatus(): int
     {
         return $this->status;
     }
 
-    public function getUri()
+    public function getUri(): string
     {
         return $this->uri;
     }

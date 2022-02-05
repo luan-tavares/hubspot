@@ -8,7 +8,7 @@
             "path": "properties/{objectType}",
             "method": "GET",
             "description": "Read all existing properties for the specified object type and HubSpot account.",
-            "iterator": "results",
+            "iterable": "results",
             "after": "paging.next.after"
         },
         "get": {
@@ -39,21 +39,21 @@
         "batchCreate": {
             "path": "properties/{objectType}/batch/create",
             "method": "POST",
-            "iterator": "results",
+            "iterable": "results",
             "description": "Create a batch of properties using the same rules as when creating an individual property."
         },
         "batchRead": {
             "path": "properties/{objectType}/batch/read",
             "method": "POST",
             "description": "Read a provided list of properties.",
-            "iterator": "results",
+            "iterable": "results",
             "after": null
         },
         "getAllGroups": {
             "path": "properties/{objectType}/groups",
             "method": "GET",
             "description": "Read all existing property groups for the specified object type and HubSpot account.",
-            "iterator": "results",
+            "iterable": "results",
             "after": "paging.next.after"
         },
         "getGroup": {

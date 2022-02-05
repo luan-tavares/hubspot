@@ -12,8 +12,8 @@ abstract class CurlConstants
         CURLOPT_CUSTOMREQUEST   => null,
         CURLOPT_MAXREDIRS       => -1,
         CURLOPT_TIMEOUT         => 0,
-        CURLOPT_FORBID_REUSE    => true,
-        CURLINFO_HEADER_OUT     => false
+        //CURLOPT_FORBID_REUSE    => true,
+        //CURLINFO_HEADER_OUT     => false
     ];
     
     public const JSON_ENCODE = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;

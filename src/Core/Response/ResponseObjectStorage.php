@@ -1,29 +1,69 @@
 <?php
 namespace LTL\Hubspot\Core\Response;
 
+use Countable;
+use Iterator;
+use LTL\Hubspot\Core\Exceptions\HubspotApiException;
 use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
 
-abstract class ResponseObjectStorage
+class ResponseObjectStorage implements Iterator, Countable
 {
-    private static array $responses = [];
+    private object|null $object;
 
-
-    public static function get(ResponseInterface $response): mixed
+    public function __construct(private ResponseInterface $response)
     {
-        $hash = spl_object_hash($response);
-
-        if (!array_key_exists($hash, self::$responses)) {
-            $object = json_decode($response->get());
-            self::$responses[$hash] = $object;
-        }
-
-        return self::$responses[$hash];
+        $this->object = json_decode($this->response->get());
     }
 
-    public static function unset(ResponseInterface $response): void
+    public function __get($property)
     {
-        $hash = spl_object_hash($response);
+        if (!property_exists($this->object, $property)) {
+            throw new HubspotApiException("Property \"{$property}\" not exists in response object first level:\n{$this->response->get()}");
+        }
 
-        unset(self::$responses[$hash]);
+        return $this->object->{$property};
+    }
+
+    private function verifyIterable(): void
+    {
+        if (is_null($this->response->index) || !property_exists($this->object, $this->response->index)) {
+            throw new HubspotApiException(
+                "Resource response is not iterable or countable:\n{$this->response->get()}"
+            );
+        }
+    }
+
+    public function count(): int
+    {
+        $this->verifyIterable();
+
+        return count($this->object->{$this->response->index});
+    }
+
+    public function rewind(): void
+    {
+        $this->verifyIterable();
+
+        reset($this->object->{$this->response->index});
+    }
+    
+    public function current(): mixed
+    {
+        return current($this->object->{$this->response->index});
+    }
+    
+    public function key(): mixed
+    {
+        return key($this->object->{$this->response->index});
+    }
+    
+    public function next(): void
+    {
+        next($this->object->{$this->response->index});
+    }
+    
+    public function valid(): bool
+    {
+        return !is_null(key($this->object->{$this->response->index}));
     }
 }

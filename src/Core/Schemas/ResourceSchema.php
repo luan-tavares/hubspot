@@ -5,7 +5,7 @@ namespace LTL\Hubspot\Core\Schemas;
 use Countable;
 use Exception;
 use Iterator;
-use LTL\Hubspot\Core\Interfaces\ResourceInterface;
+use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 use LTL\Hubspot\Core\Schemas\Base\Schema;
 use LTL\Hubspot\Core\Schemas\Interfaces\ActionSchemaInterface;
 use LTL\Hubspot\Core\Schemas\Interfaces\ResourceSchemaInterface;
