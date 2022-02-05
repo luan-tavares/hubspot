@@ -4,7 +4,6 @@ namespace LTL\Hubspot\Containers;
 
 use LTL\Hubspot\Containers\Interfaces\ContainerByResourceInterface;
 use LTL\Hubspot\Core\Builder;
-use LTL\Hubspot\Core\Request\Request;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 
 abstract class BuilderContainer implements ContainerByResourceInterface
@@ -13,16 +12,12 @@ abstract class BuilderContainer implements ContainerByResourceInterface
 
     private static array $objects = [];
 
-    private static int $count = 0;
-
     public static function get(ResourceInterface $resource): Builder
     {
         $hash = spl_object_hash($resource);
 
         if (!array_key_exists($hash, self::$objects)) {
-            self::$count++;
             self::removeLastIf((count(self::$objects) >= self::MAX_OBJECTS));
-
             self::$objects[$hash] = new Builder($resource);
         }
 

@@ -113,16 +113,15 @@ class Curl
   
     private function resolveHeader(): self
     {
-        $headers = $this->headers;
-
-        if (count($headers) === 0) {
+        if (count($this->headers) === 0) {
             return $this;
         }
-        $resolveHeader = [];
-        foreach ($headers as $name => $value) {
-            $resolveHeader[] = "{$name}: {$value}";
+
+        $headers = [];
+        foreach ($this->headers as $name => $value) {
+            $headers[] = "{$name}: {$value}";
         }
-        $this->params[CURLOPT_HTTPHEADER] = $resolveHeader;
+        $this->params[CURLOPT_HTTPHEADER] = $headers;
 
         return $this;
     }

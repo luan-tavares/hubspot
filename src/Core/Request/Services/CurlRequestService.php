@@ -2,13 +2,14 @@
 
 namespace LTL\Hubspot\Core\Request\Services;
 
+use LTL\Hubspot\Containers\RequestContainer;
 use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
+use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 use LTL\Hubspot\Services\Curl\Curl;
-use stdClass;
 
 class CurlRequestService
 {
-    private ?array $body;
+    private array|null $body;
 
     private array $header;
 
@@ -20,20 +21,22 @@ class CurlRequestService
 
     private array $curlParams;
 
-    public function __construct(private RequestInterface $request)
+    public function __construct(private ResourceInterface $resource, string $url, string $method)
     {
-        $this->body = $this->request->getBody();
-        $this->header = $this->request->getHeaders();
-        $this->uri = $this->request->getUri() .'?'. $this->getEncodedUri();
-        $this->method = $this->request->getMethod();
-        $this->curlParams = $this->request->getCurlChanges();
-       
-        $this->curl = new Curl($this->uri);
-        $this->curl->header($this->header);
+        $request = RequestContainer::get($resource);
+    
+        $this->body = $request->getBody();
+        $this->header = $request->getHeaders();
+        $this->curlParams = $request->getCurlParams();
+        $this->uri = $this->getEncodedUri($request, $url);
+        $this->method = $method;
     }
 
     public function connect(): Curl
     {
+        $this->curl = new Curl($this->uri);
+        $this->curl->header($this->header);
+
         if (@$this->curlParams['progress']) {
             $this->curl->withProgress();
         }
@@ -41,12 +44,10 @@ class CurlRequestService
         return $this->curl->connect($this->method, $this->body);
     }
 
-    private function getEncodedUri(): string
+    private function getEncodedUri(RequestInterface $request, string $url): string
     {
-        $queries = $this->request->getQueries();
+        $query = http_build_query($request->getQueries());
 
-        $query = http_build_query($queries);
-
-        return preg_replace('/%5B[0-9]+%5D/i', '', $query);
+        return $url .'?'. preg_replace('/%5B[0-9]+%5D/i', '', $query);
     }
 }

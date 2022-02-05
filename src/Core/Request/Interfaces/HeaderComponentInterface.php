@@ -9,6 +9,6 @@ interface HeaderComponentInterface extends ComponentInterface, PublicMethodsList
 {
     public function header(string $name, string|null $value): self;
     public function oAuth(string $oAuth): self;
-    public function contentType(string|null $contentType): self;
-    public function accept(string|null $accept): self;
+    public function contentType(string $contentType): self;
+    public function accept(string $accept): self;
 }

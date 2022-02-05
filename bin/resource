@@ -43,8 +43,10 @@ $methods = [
     'GET',
     'DELETE'
 ];
-
+$i = $j = 0;
 foreach ($resources as $resource) {
+    $i++;
+    $j = 0;
     $document = json_decode(file_get_contents(__ROOT__ . "/src/schemas/{$resource}.json"));
 
     $documentation = @$document->documentation;
@@ -57,7 +59,10 @@ foreach ($resources as $resource) {
     if ($documentation) {
         $doc .= " * @link {$documentation}\n *\n";
     }
+    
     foreach ($document->actions as $action => $actionDefinition) {
+        $j++;
+
         if (!in_array($actionDefinition->method, $methods)) {
             dd("{$actionDefinition->method} not Allowed in {$resource}!");
         }
@@ -97,5 +102,5 @@ foreach ($resources as $resource) {
 
     file_put_contents(__ROOT__ ."/src/Resources/{$document->class}.php", $content);
 
-    dump("{$resource} created!");
+    dump("{$i} - {$resource} created! - {$j} actions!");
 }

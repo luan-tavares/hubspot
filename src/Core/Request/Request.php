@@ -1,34 +1,21 @@
 <?php
 namespace LTL\Hubspot\Core\Request;
 
-use LTL\Hubspot\Containers\ObserverContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Exceptions\HubspotApiException;
-use LTL\Hubspot\Core\Request\Components\BodyRequestComponent;
-use LTL\Hubspot\Core\Request\Components\CurlRequestComponent;
-use LTL\Hubspot\Core\Request\Components\HeaderRequestComponent;
-use LTL\Hubspot\Core\Request\Components\QueryRequestComponent;
-use LTL\Hubspot\Core\Request\Components\RequestComponent;
-use LTL\Hubspot\Core\Request\Components\UriRequestComponent;
 use LTL\Hubspot\Core\Request\Interfaces\BodyComponentInterface;
 use LTL\Hubspot\Core\Request\Interfaces\CurlComponentInterface;
 use LTL\Hubspot\Core\Request\Interfaces\HeaderComponentInterface;
 use LTL\Hubspot\Core\Request\Interfaces\QueryComponentInterface;
 use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
-use LTL\Hubspot\Core\Request\Interfaces\UriComponentInterface;
-use LTL\Hubspot\Core\Request\Observers\RequestObserver;
-use LTL\Hubspot\Core\Request\Services\CurlRequestService;
-use LTL\Hubspot\Core\Request\Services\FinishRequestDefinitionAction;
+use LTL\Hubspot\Core\Request\Services\MakeCurlServiceAction;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
 use LTL\Hubspot\Core\Response\Response;
-use LTL\Hubspot\Core\Schemas\Interfaces\ActionSchemaInterface;
 
 class Request implements RequestInterface
 {
-    private bool $hasConnected = false;
-
-    private UriComponentInterface $uri;
+    private bool $hasDispatched = false;
 
     private QueryComponentInterface $query;
 
@@ -38,17 +25,14 @@ class Request implements RequestInterface
 
     private CurlComponentInterface $curl;
 
-    public function __construct(private ResourceInterface $resource)
+    private ResourceInterface $resource;
+
+    private function __construct()
     {
-        $this->query = $this->instanciateComponent(QueryRequestComponent::class);
-       
-        $this->header = $this->instanciateComponent(HeaderRequestComponent::class);
+    }
 
-        $this->uri = $this->instanciateComponent(UriRequestComponent::class);
-
-        $this->body = $this->instanciateComponent(BodyRequestComponent::class);
-
-        $this->curl = $this->instanciateComponent(CurlRequestComponent::class);
+    private function __clone()
+    {
     }
 
     public function __call($method, $arguments)
@@ -68,37 +52,21 @@ class Request implements RequestInterface
         throw new HubspotApiException('Method "'. $this->resource::class ."::{$method}()\" not exists");
     }
 
-    private function instanciateComponent(string $class): RequestComponent
-    {
-        $component = new $class($this->resource);
-       
-        $component->attach(ObserverContainer::get(RequestObserver::class));
 
-        return $component;
-    }
-
-    public function dispatch(string $action, ?array $arguments = []): ResponseInterface
+    public function dispatch(string $action, array $arguments): ResponseInterface
     {
-        $actionSchema = $this->getActionDefinition($action);
+        $actionSchema = SchemaContainer::getAction($this->resource, $action);
         
-        (new FinishRequestDefinitionAction($this->resource, $actionSchema, $arguments))();
- 
-        $curl = (new CurlRequestService($this))->connect();
+        $curlService = MakeCurlServiceAction::execute($this->resource, $actionSchema, $arguments);
         
-        $this->hasConnected = true;
+        $this->hasDispatched = true;
      
-        return new Response($curl, $actionSchema);
+        return new Response($curlService->connect(), $actionSchema);
     }
 
-
-    public function getActionDefinition(string $action): ActionSchemaInterface
+    public function dispatched(): bool
     {
-        return SchemaContainer::getAction($this->resource, $action);
-    }
-
-    public function hasConnected(): bool
-    {
-        return $this->hasConnected;
+        return $this->hasDispatched;
     }
 
     public function removeHeader(string $header): self
@@ -133,45 +101,15 @@ class Request implements RequestInterface
         return $this;
     }
 
-    public function addUri(string $uri): self
+    public function addHeader(string $header, string|null $value): self
     {
-        $this->uri->set($uri);
-
-        return $this;
-    }
-
-    public function addMethod(string $method): self
-    {
-        $this->uri->setMethod($method);
-
-        return $this;
-    }
-
-    public function addContentType(?string $contentType): self
-    {
-        $this->header->contentType($contentType);
- 
-        return $this;
-    }
-
-    public function addAccept(?string $accept): self
-    {
-        $this->header->accept($accept);
+        $this->header->header($header, $value);
  
         return $this;
     }
  
     /**Items for Curl Request */
-    public function getUri(): string
-    {
-        return $this->uri->get();
-    }
 
-    public function getMethod(): string
-    {
-        return $this->uri->getMethod();
-    }
- 
     public function getQueries(): array
     {
         return $this->query->all();
@@ -187,7 +125,7 @@ class Request implements RequestInterface
         return $this->header->all();
     }
 
-    public function getCurlChanges(): array
+    public function getCurlParams(): array
     {
         return $this->curl->all();
     }

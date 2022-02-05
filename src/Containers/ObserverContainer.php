@@ -12,7 +12,6 @@ abstract class ObserverContainer
             self::$objects[$className] = new $className;
         }
       
-
         return self::$objects[$className];
     }
 }
