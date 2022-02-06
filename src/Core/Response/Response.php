@@ -39,12 +39,10 @@ class Response implements ResponseInterface
             return $this->getAfter();
         }
 
-        if ($property === 'object') {
-            return ResponseObjectContainer::get($this);
-        }
-
         return ResponseObjectContainer::get($this)->{$property};
     }
+
+
 
     private function getIndex()
     {
@@ -84,6 +82,11 @@ class Response implements ResponseInterface
     public function getStatus(): int
     {
         return $this->status;
+    }
+
+    public function getObject(): ResponseObject
+    {
+        return ResponseObjectContainer::get($this);
     }
     
     public function get(): ?string
