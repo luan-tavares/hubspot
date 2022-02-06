@@ -24,7 +24,7 @@ $post_data = [
 ];
 
 $file = FileHubspot::progressBar()->upload($post_data);
-dd($file);
+dump($file);
 
 
 $params = [
@@ -39,6 +39,6 @@ $params = [
 ];
 
 
-//$file = FileHubspot::progressBar()->importFromUrl($params);
+$file = FileHubspot::progressBar()->importFromUrl($params);
 
-//dump($file, FileHubspot::getAllFolders()->toArray());
+dump($file, FileHubspot::getAllFolders()->toArray());

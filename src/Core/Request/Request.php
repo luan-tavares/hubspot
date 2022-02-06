@@ -83,7 +83,7 @@ class Request implements RequestInterface
         return $this;
     }
 
-    public function addQuery(?array $queries): self
+    public function addQueries(array|null $queries): self
     {
         $queries = $queries ?? [];
 
@@ -94,17 +94,21 @@ class Request implements RequestInterface
         return $this;
     }
 
-    public function addBody(?array $body): self
+    public function addBody(array|null $body): self
     {
         $this->body->add($body);
 
         return $this;
     }
 
-    public function addHeader(string $header, string|null $value): self
+    public function addHeaders(array|null $headers): self
     {
-        $this->header->header($header, $value);
- 
+        $headers = $headers ?? [];
+
+        foreach ($headers as $header => $value) {
+            $this->header->header($header, $value);
+        }
+
         return $this;
     }
  

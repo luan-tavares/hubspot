@@ -27,12 +27,10 @@ abstract class MakeCurlServiceAction
             $request->addBody(array_pop($arguments));
             array_pop($params);
         }
-        
-        $request->addHeader('Content-Type', $actionSchema->contentType);
 
-        $request->addHeader('accept', $actionSchema->accept);
+        $request->addHeaders($actionSchema->baseHeader);
 
-        $request->addQuery($actionSchema->baseQuery);
+        $request->addQueries($actionSchema->baseQuery);
 
         $uri = str_replace($params, $arguments, $actionSchema->baseUri);
 

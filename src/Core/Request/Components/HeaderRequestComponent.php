@@ -25,14 +25,4 @@ class HeaderRequestComponent extends RequestComponent implements HeaderComponent
         
         return $this->header('Authorization', "Bearer {$oAuth}");
     }
-
-    public function contentType(string $contentType): self
-    {
-        return $this->header('Content-Type', $contentType);
-    }
-
-    public function accept(string $accept): self
-    {
-        return $this->header('accept', $accept);
-    }
 }

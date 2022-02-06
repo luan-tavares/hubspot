@@ -3,10 +3,10 @@
 namespace LTL\Hubspot\Core\Schemas;
 
 use Exception;
+use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Schemas\Base\Schema;
 use LTL\Hubspot\Core\Schemas\Interfaces\ActionSchemaInterface;
 use LTL\Hubspot\Core\Schemas\Interfaces\ResourceSchemaInterface;
-use LTL\Hubspot\Core\HubspotConfig;
 
 /**
  * @property-read string $baseUri
@@ -14,12 +14,11 @@ use LTL\Hubspot\Core\HubspotConfig;
  * @property-read string|null $iterator
  * @property-read string|null $after
  * @property-read string|null $documentation
- * @property-read string|null $contentType
  * @property-read array|null $params
  * @property-read bool $hasBody
  * @property-read string $method
  * @property-read array|null $baseQuery
- * @property-read string|null $accept
+ * @property-read array|null $baseHeader
  */
 class ActionSchema extends Schema implements ActionSchemaInterface
 {
@@ -32,16 +31,14 @@ class ActionSchema extends Schema implements ActionSchemaInterface
     private string|null $after;
 
     private string|null $documentation;
-
-    private string|null $contentType;
-
-    private string|null $accept;
-
+  
     private array|null $params;
 
-    private bool $hasBody;
-
     private array|null $baseQuery;
+
+    private array|null $baseHeader;
+
+    private bool $hasBody;
 
     private string $method;
 
@@ -53,11 +50,10 @@ class ActionSchema extends Schema implements ActionSchemaInterface
         $this->description = @$actionSchema->description;
         $this->iterable = @$actionSchema->iterable;
         $this->after = @$actionSchema->after;
-        $this->accept = @$actionSchema->accept;
         $this->hasBody = in_array($this->method, HubspotConfig::METHODS_WITH_BODY);
 
         $this->baseQuery = $this->setBaseQuery($actionSchema);
-        $this->contentType = $this->setContentType($actionSchema);
+        $this->baseHeader = $this->setBaseHeader($actionSchema);
         $this->baseUri = $this->setUri($schema, $actionSchema);
         $this->documentation = $this->setDocumentation($schema, $actionSchema);
         $this->params = $this->setParams($actionSchema);
@@ -69,13 +65,27 @@ class ActionSchema extends Schema implements ActionSchemaInterface
             return $this->{$property};
         }
         
-
         throw new Exception("Property {$property} not exists in ". __CLASS__);
     }
 
     public function __toString()
     {
         return $this->action;
+    }
+
+    private function setBaseHeader(object $actionSchema): ?array
+    {
+        $headers = (array) @$actionSchema->headers;
+        
+        if ($this->hasBody) {
+            $headers['Content-Type'] = @$actionSchema->headers->{'Content-Type'} ?? HubspotConfig::DEFAULT_CONTENT_TYPE;
+        }
+
+        if (empty($headers)) {
+            return null;
+        }
+
+        return $headers;
     }
 
     private function setBaseQuery(object $actionSchema): ?array
@@ -117,14 +127,5 @@ class ActionSchema extends Schema implements ActionSchemaInterface
         }
 
         return $arguments;
-    }
-
-    private function setContentType(object $actionSchema): ?string
-    {
-        if (!$this->hasBody) {
-            return null;
-        }
-
-        return $actionSchema->contentType ?? HubspotConfig::DEFAULT_CONTENT_TYPE;
     }
 }

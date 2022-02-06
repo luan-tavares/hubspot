@@ -55,16 +55,28 @@ use LTL\Hubspot\Hubspot;
  * @method $this clone(int|string $tableIdOrName, array $requestBody) Clone an existing HubDB table.
  * See https://developers.hubspot.com/docs/api/cms/hubdb
  *
- * @method static $this exportDraft(int|string $tableIdOrName) Exports the draft version of a table to CSV / EXCEL format.
+ * @method static $this exportDraftToCsv(int|string $tableIdOrName) Exports the draft version of a table to CSV format.
  * See https://developers.hubspot.com/docs/api/cms/hubdb
  *
- * @method $this exportDraft(int|string $tableIdOrName) Exports the draft version of a table to CSV / EXCEL format.
+ * @method $this exportDraftToCsv(int|string $tableIdOrName) Exports the draft version of a table to CSV format.
  * See https://developers.hubspot.com/docs/api/cms/hubdb
  *
- * @method static $this export(int|string $tableIdOrName) Exports the published version of a table to CSV / EXCEL format.
+ * @method static $this exportDraftToXlsx(int|string $tableIdOrName) Exports the draft version of a table to XLSX format.
  * See https://developers.hubspot.com/docs/api/cms/hubdb
  *
- * @method $this export(int|string $tableIdOrName) Exports the published version of a table to CSV / EXCEL format.
+ * @method $this exportDraftToXlsx(int|string $tableIdOrName) Exports the draft version of a table to XLSX format.
+ * See https://developers.hubspot.com/docs/api/cms/hubdb
+ *
+ * @method static $this exportToCsv(int|string $tableIdOrName) Exports the published version of a table to CSV format.
+ * See https://developers.hubspot.com/docs/api/cms/hubdb
+ *
+ * @method $this exportToCsv(int|string $tableIdOrName) Exports the published version of a table to CSV format.
+ * See https://developers.hubspot.com/docs/api/cms/hubdb
+ *
+ * @method static $this exportToXlsx(int|string $tableIdOrName) Exports the published version of a table to XLSX format.
+ * See https://developers.hubspot.com/docs/api/cms/hubdb
+ *
+ * @method $this exportToXlsx(int|string $tableIdOrName) Exports the published version of a table to XLSX format.
  * See https://developers.hubspot.com/docs/api/cms/hubdb
  *
  * @method static $this importToDraft(int|string $tableIdOrName, array $requestBody) Import the contents of a CSV file into an existing HubDB table.

@@ -60,29 +60,57 @@
             "method": "POST",
             "description": "Clone an existing HubDB table."
         },
-        "exportDraft": {
+        "exportDraftToCsv": {
             "path": "hubdb/tables/{tableIdOrName}/draft/export",
             "method": "GET",
-            "description": "Exports the draft version of a table to CSV / EXCEL format.",
+            "description": "Exports the draft version of a table to CSV format.",
             "queries": {
                 "format": "csv"
             },
-            "accept": "application/vnd.ms-excel"
+            "headers": {
+                "accept": "application/vnd.ms-excel"
+            }
         },
-        "export": {
+        "exportDraftToXlsx": {
+            "path": "hubdb/tables/{tableIdOrName}/draft/export",
+            "method": "GET",
+            "description": "Exports the draft version of a table to XLSX format.",
+            "queries": {
+                "format": "xlsx"
+            },
+            "headers": {
+                "accept": "application/vnd.ms-excel"
+            }
+        },
+        "exportToCsv": {
             "path": "hubdb/tables/{tableIdOrName}/export",
             "method": "GET",
-            "description": "Exports the published version of a table to CSV / EXCEL format.",
+            "description": "Exports the published version of a table to CSV format.",
             "queries": {
                 "format": "csv"
             },
-            "accept": "application/vnd.ms-excel"
+            "headers": {
+                "accept": "application/vnd.ms-excel"
+            }
+        },
+        "exportToXlsx": {
+            "path": "hubdb/tables/{tableIdOrName}/export",
+            "method": "GET",
+            "description": "Exports the published version of a table to XLSX format.",
+            "queries": {
+                "format": "xlsx"
+            },
+            "headers": {
+                "accept": "application/vnd.ms-excel"
+            }
         },
         "importToDraft": {
             "path": "hubdb/tables/{tableIdOrName}/draft/import",
             "method": "POST",
             "description": "Import the contents of a CSV file into an existing HubDB table.",
-            "contentType": "multipart/form-data"
+            "headers": {
+                "Content-Type": "multipart/form-data"
+            }
         },
         "publish": {
             "path": "hubdb/tables/{tableIdOrName}/draft/publish",

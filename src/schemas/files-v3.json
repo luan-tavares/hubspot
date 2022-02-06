@@ -7,9 +7,10 @@
         "upload": {
             "path": "files",
             "method": "POST",
-            "contentType": "multipart/form-data",
             "description": "Upload a single file with content specified in request body.",
-            "iterable": "objects"
+            "headers": {
+                "Content-Type": "multipart/form-data"
+            }
         },
         "importFromUrl": {
             "path": "files/import-from-url/async",
@@ -41,7 +42,9 @@
         "replace": {
             "path": "files/{fileId}",
             "method": "PUT",
-            "contentType": "multipart/form-data",
+            "headers": {
+                "Content-Type": "multipart/form-data"
+            },
             "description": "Replace existing file data with new file data."
         },
         "delete": {

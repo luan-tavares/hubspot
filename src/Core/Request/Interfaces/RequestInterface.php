@@ -13,9 +13,9 @@ interface RequestInterface
 
     public function removeHeader(string $header): self;
     public function removeQuery(string $query): self;
-    public function addQuery(array $queries): self;
-    public function addBody(?array $body): self;
-    public function addHeader(string $header, string|null $value): self;
+    public function addQueries(array|null $queries): self;
+    public function addBody(array|null $body): self;
+    public function addHeaders(array|null $headers): self;
 
     public function dispatch(string $action, array $arguments): ResponseInterface;
     public function dispatched(): bool;
