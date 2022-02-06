@@ -10,7 +10,7 @@ use LTL\Hubspot\Core\Request\Components\HeaderRequestComponent;
 use LTL\Hubspot\Core\Request\Components\QueryRequestComponent;
 use LTL\Hubspot\Core\Request\Interfaces\ComponentInterface;
 use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
-use LTL\Hubspot\Core\Request\Observers\RequestObserver;
+use LTL\Hubspot\Core\Request\Observers\ComponentObserver;
 use LTL\Hubspot\Core\Request\Request;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 use LTL\Hubspot\Factories\Interfaces\FactoryInterface;
@@ -53,7 +53,7 @@ abstract class RequestFactory implements FactoryInterface
     {
         $component = new $componentClass($resource);
        
-        $component->attach(ObserverContainer::get(RequestObserver::class));
+        $component->attach(ObserverContainer::get(ComponentObserver::class));
 
         return $component;
     }

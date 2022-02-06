@@ -1,6 +1,6 @@
 <?php
 
-namespace LTL\Hubspot\Core\Exceptions;
+namespace LTL\Hubspot\Exceptions;
 
 use Exception;
 

@@ -115,6 +115,7 @@
         "publish": {
             "path": "hubdb/tables/{tableIdOrName}/draft/publish",
             "method": "POST",
+            "noBody": true,
             "description": "Publishes the table by copying the data and table schema changes from draft version to the published version, meaning any website pages using data from the table will be updated.",
             "queries": {
                 "includeForeignIds": "false"
@@ -131,6 +132,7 @@
         "unpublish": {
             "path": "hubdb/tables/{tableIdOrName}/unpublish",
             "method": "POST",
+            "noBody": true,
             "description": "Unpublishes the table, meaning any website pages using data from the table will not render any data.",
             "queries": {
                 "includeForeignIds": "false"

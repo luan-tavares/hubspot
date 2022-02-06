@@ -6,7 +6,9 @@ require_once __DIR__ .'/__init.php';
 use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Resources\HubDbHubspot;
 
-HubDbHubspot::exportDraftToXlsx(5314890);
+dump(HubDbHubspot::publish(5314890));
+dump(HubDbHubspot::exportDraftToCsv(5314890));
+
 
 $file = new CURLFile(HubspotConfig::BASE_PATH .'/luan.csv', 'application/octet-stream');
 

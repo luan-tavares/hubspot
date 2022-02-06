@@ -46,8 +46,8 @@ class CurlRequestService
 
     private function getEncodedUri(RequestInterface $request, string $url): string
     {
-        $query = http_build_query($request->getQueries());
+        $encodedQueries = http_build_query($request->getQueries());
 
-        return $url .'?'. preg_replace('/%5B[0-9]+%5D/i', '', $query);
+        return $url .'?'. preg_replace('/%5B[0-9]+%5D/i', '', $encodedQueries);
     }
 }

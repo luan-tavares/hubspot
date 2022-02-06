@@ -3,7 +3,7 @@ namespace LTL\Hubspot\Core\Response;
 
 use Countable;
 use Iterator;
-use LTL\Hubspot\Core\Exceptions\HubspotApiException;
+use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
 
 class ResponseObject implements Iterator, Countable

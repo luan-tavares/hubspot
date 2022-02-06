@@ -23,11 +23,6 @@ trait SubjectTrait
             $this->observers->detach($observer);
         }
     }
-
-    public function show()
-    {
-        return $this->observers;
-    }
    
     public function notify(string $event)
     {

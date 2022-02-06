@@ -2,7 +2,6 @@
 namespace LTL\Hubspot\Core\Request;
 
 use LTL\Hubspot\Containers\SchemaContainer;
-use LTL\Hubspot\Core\Exceptions\HubspotApiException;
 use LTL\Hubspot\Core\Request\Interfaces\BodyComponentInterface;
 use LTL\Hubspot\Core\Request\Interfaces\CurlComponentInterface;
 use LTL\Hubspot\Core\Request\Interfaces\HeaderComponentInterface;
@@ -12,6 +11,7 @@ use LTL\Hubspot\Core\Request\Services\MakeCurlServiceAction;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
 use LTL\Hubspot\Core\Response\Response;
+use LTL\Hubspot\Exceptions\HubspotApiException;
 
 class Request implements RequestInterface
 {
@@ -85,29 +85,21 @@ class Request implements RequestInterface
 
     public function addQueries(array|null $queries): self
     {
-        $queries = $queries ?? [];
-
-        foreach ($queries as $query => $value) {
-            $this->query->query($query, $value);
-        }
+        $this->query->addAll($queries);
 
         return $this;
     }
-
+ 
     public function addBody(array|null $body): self
     {
-        $this->body->add($body);
+        $this->body->addAll($body);
 
         return $this;
     }
 
     public function addHeaders(array|null $headers): self
     {
-        $headers = $headers ?? [];
-
-        foreach ($headers as $header => $value) {
-            $this->header->header($header, $value);
-        }
+        $this->header->addAll($headers);
 
         return $this;
     }

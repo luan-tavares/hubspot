@@ -20,8 +20,12 @@ class ArrayObjectService implements Iterator, Countable, ArrayAccess, AddArrayIn
         return $this->items;
     }
 
-    public function addArray(array $object): void
+    public function addArray(array|null $object): void
     {
+        if (is_null($object)) {
+            return;
+        }
+
         foreach ($object as $key => $value) {
             $this->items[$key] = $value;
         }

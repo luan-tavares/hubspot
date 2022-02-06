@@ -10,19 +10,10 @@ class HeaderRequestComponent extends RequestComponent implements HeaderComponent
 {
     use PublicMethodsListable;
 
-    public function header(string $name, string|null $value): self
-    {
-        if (!is_null($value)) {
-            $this[$name] = $value;
-        }
-
-        return $this;
-    }
-
     public function oAuth(string $oAuth): self
     {
         $this->notify('oAuthInserted');
         
-        return $this->header('Authorization', "Bearer {$oAuth}");
+        return $this->add('Authorization', "Bearer {$oAuth}");
     }
 }

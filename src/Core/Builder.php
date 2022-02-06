@@ -5,7 +5,7 @@ namespace LTL\Hubspot\Core;
 use LTL\Hubspot\Containers\RequestContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\BindResponseToResource;
-use LTL\Hubspot\Core\Exceptions\HubspotApiException;
+use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 use LTL\Hubspot\Factories\ResourceFactory;

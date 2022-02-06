@@ -8,10 +8,10 @@ use LTL\Hubspot\Core\Resource\Resource;
  *
  * Uri Query Methods
  *
- * @method $this query(string $name, array|string|int|null $value) Add a Query
- * @method static $this query(string $name, array|string|int|null $value) Add a Query
  * @method $this byEmail() 
  * @method static $this byEmail() 
+ * @method $this q(string $query) 
+ * @method static $this q(string $query) 
  * @method $this archived() 
  * @method static $this archived() 
  * @method $this includeForeignIds() 
@@ -34,6 +34,8 @@ use LTL\Hubspot\Core\Resource\Resource;
  * @method static $this associations(string $associations) 
  * @method $this after(string $after) 
  * @method static $this after(string $after) 
+ * @method $this before(string $before) 
+ * @method static $this before(string $before) 
  * @method $this apikey(string $apikey) 
  * @method static $this apikey(string $apikey) 
  * @method $this listProperties(string ...$arguments) 
@@ -47,14 +49,8 @@ use LTL\Hubspot\Core\Resource\Resource;
  *
  * Uri Header Methods
  *
- * @method $this header(string $name, ?string $value) 
- * @method static $this header(string $name, ?string $value) 
  * @method $this oAuth(string $oAuth) 
  * @method static $this oAuth(string $oAuth) 
- * @method $this contentType(string $contentType) 
- * @method static $this contentType(string $contentType) 
- * @method $this accept(string $accept) 
- * @method static $this accept(string $accept) 
  *
  * Uri Curl Methods
  *

@@ -2,103 +2,114 @@
 
 namespace LTL\Hubspot\Core\Request\Components;
 
+use LTL\Hubspot\Containers\ApikeyContainer;
 use LTL\Hubspot\Core\Request\Components\RequestComponent;
 use LTL\Hubspot\Core\Request\Interfaces\QueryComponentInterface;
+use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 use LTL\Hubspot\Services\PublicMethods\Traits\PublicMethodsListable;
 
 class QueryRequestComponent extends RequestComponent implements QueryComponentInterface
 {
     use PublicMethodsListable;
 
-    public function query(string $name, string|int|array|null $value): self
+    public function __construct(ResourceInterface $resource, array $array = [])
     {
-        $this[$name] = $value;
+        parent::__construct($resource, $array);
+        $this->addAll(['hapikey' => ApikeyContainer::get()]);
+    }
 
-        return $this;
+    public function q(string $query): self
+    {
+        return $this->add('q', $query);
     }
 
     public function archived(): self
     {
-        return $this->query('archived', 'true');
+        return $this->add('archived', 'true');
     }
 
     public function includeForeignIds(): self
     {
-        return $this->query('includeForeignIds', 'true');
+        return $this->add('includeForeignIds', 'true');
     }
 
     public function format(string $fileFormat): self
     {
-        return $this->query('format', $fileFormat);
+        return $this->add('format', $fileFormat);
     }
 
     public function byEmail(): self
     {
-        return $this->query('idProperty', 'email');
+        return $this->add('idProperty', 'email');
     }
 
     public function limit(int $limit): self
     {
-        return $this->query('limit', $limit);
+        return $this->add('limit', $limit);
     }
 
     public function setCount(int $count): self
     {
-        return $this->query('count', $count);
+        return $this->add('count', $count);
     }
 
     public function offset(string|int $hubspotId): self
     {
-        return $this->query('offset', $hubspotId);
+        return $this->add('offset', $hubspotId);
     }
 
     public function vidOffset(string|int $hubspotId): self
     {
-        return $this->query('vidOffset', $hubspotId);
+        return $this->add('vidOffset', $hubspotId);
     }
 
     public function timeOffset(string|int $hubspotId): self
     {
-        return $this->query('timeOffset', $hubspotId);
+        return $this->add('timeOffset', $hubspotId);
     }
 
     public function properties(string $properties): self
     {
-        return $this->query('properties', $properties);
+        return $this->add('properties', $properties);
     }
 
     public function associations(string $associations): self
     {
-        return $this->query('associations', $associations);
+        return $this->add('associations', $associations);
     }
 
     public function after(string $after): self
     {
-        return $this->query('after', $after);
+        return $this->add('after', $after);
+    }
+
+    public function before(string $before): self
+    {
+        return $this->add('before', $before);
     }
 
     public function apikey(string $apikey): self
     {
-        return $this->query('hapikey', $apikey);
+        return $this->add('hapikey', $apikey);
     }
 
     public function listProperties($arguments): self
     {
-        return $this->query('property', func_get_args());
+        return $this->add('property', func_get_args());
     }
 
     public function listEmails($arguments): self
     {
-        return $this->query('email', func_get_args());
+        return $this->add('email', func_get_args());
     }
 
     public function sort($arguments): self
     {
-        return $this->query('sort', func_get_args());
+        return $this->add('sort', func_get_args());
     }
 
     public function listVids($arguments): self
     {
-        return $this->query('vid', func_get_args());
+        return $this->add('vid', func_get_args());
     }
 }

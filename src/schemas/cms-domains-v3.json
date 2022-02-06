@@ -1,0 +1,20 @@
+{
+    "resource": "cms",
+    "version": "v3",
+    "class": "CmsDomainHubspot",
+    "documentation": "https://app.hubspot.com/developer-docs/api?spec=v1/apis/cms/v3/domains",
+    "actions": {
+        "getAll": {
+            "path": "domains",           
+            "method": "GET",
+            "description": "Returns all existing domains that have been created. Results can be limited and filtered by creation or updated date.",
+            "iterable": "results",
+            "after": null
+        },
+        "get": {
+            "path": "domains/{domainId}",
+            "method": "GET",
+            "description": "Returns a single domains with the id specified."
+        }      
+    }
+}

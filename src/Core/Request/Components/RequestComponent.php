@@ -17,14 +17,32 @@ abstract class RequestComponent extends ArrayObjectService implements SubjectInt
     public function __construct(private ResourceInterface $resource, array $array = [])
     {
         parent::__construct($array);
-
-        if (get_class($this) === QueryRequestComponent::class) {
-            $this->addArray(['hapikey' => ApikeyContainer::get()]);
-        }
     }
 
     public function getRequest(): RequestInterface
     {
         return RequestContainer::get($this->resource);
+    }
+
+    public function addAll(array|null $array): self
+    {
+        if (is_null($array)) {
+            return $this;
+        }
+
+        $this->addArray($array);
+
+        return $this;
+    }
+ 
+    public function add(string $name, string|int|array|null $value): self
+    {
+        if (is_null($value)) {
+            return $this;
+        }
+        
+        $this[$name] = $value;
+
+        return $this;
     }
 }

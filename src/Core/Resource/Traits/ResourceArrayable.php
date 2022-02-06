@@ -2,7 +2,7 @@
 
 namespace LTL\Hubspot\Core\Resource\Traits;
 
-use LTL\Hubspot\Core\Exceptions\HubspotApiException;
+use LTL\Hubspot\Exceptions\HubspotApiException;
 
 trait ResourceArrayable
 {

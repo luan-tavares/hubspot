@@ -7,15 +7,8 @@ use LTL\Hubspot\Services\PublicMethods\Interfaces\PublicMethodsListableInterface
 
 interface QueryComponentInterface extends ComponentInterface, PublicMethodsListableInterface
 {
-    /**
-     * - Add a Query
-     *
-     * @param string $name
-     * @param string|integer|array $value
-     * @return self
-     */
-    public function query(string $name, string|int|array|null $value): self;
     public function byEmail(): self;
+    public function q(string $query): self;
     public function archived(): self;
     public function includeForeignIds(): self;
     public function format(string $fileFormat): self;
@@ -27,6 +20,7 @@ interface QueryComponentInterface extends ComponentInterface, PublicMethodsLista
     public function properties(string $properties): self;
     public function associations(string $associations): self;
     public function after(string $after): self;
+    public function before(string $before): self;
     public function apikey(string $apikey): self;
     public function listProperties($arguments): self;
     public function sort($arguments): self;

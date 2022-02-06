@@ -53,28 +53,28 @@ foreach ($resources as $resource) {
         $doc .= " * @link {$documentation}\n *\n";
     }
     
-    foreach ($document->actions as $action => $actionDefinition) {
+    foreach ($document->actions as $action => $actionSchema) {
         $j++;
 
-        if (!in_array($actionDefinition->method, HubspotConfig::METHODS)) {
-            dd("{$actionDefinition->method} not Allowed in {$resource}!");
+        if (!in_array($actionSchema->method, HubspotConfig::METHODS)) {
+            dd("{$actionSchema->method} not Allowed in {$resource}!");
         }
 
-        preg_match_all('/\{(.*?)\}/', $actionDefinition->path, $matches);
+        preg_match_all('/\{(.*?)\}/', $actionSchema->path, $matches);
 
         $params = array_map(function ($item) {
             return 'int|string $'. $item;
         }, $matches[1]);
 
-        if (in_array($actionDefinition->method, HubspotConfig::METHODS_WITH_BODY)) {
+        if (in_array($actionSchema->method, HubspotConfig::METHODS_WITH_BODY)  && !@$actionSchema->noBody) {
             $params[] = 'array $requestBody';
         }
  
         $params = implode(', ', $params);
         
-        $methodDocumentation = @$actionDefinition->documentation ?? $documentation;
+        $methodDocumentation = @$actionSchema->documentation ?? $documentation;
 
-        $description = @$actionDefinition->description;
+        $description = @$actionSchema->description;
     
         $doc .= " * @method static \$this {$action}({$params}) {$description}\n";
 

@@ -85,10 +85,10 @@ use LTL\Hubspot\Hubspot;
  * @method $this importToDraft(int|string $tableIdOrName, array $requestBody) Import the contents of a CSV file into an existing HubDB table.
  * See https://developers.hubspot.com/docs/api/cms/hubdb
  *
- * @method static $this publish(int|string $tableIdOrName, array $requestBody) Publishes the table by copying the data and table schema changes from draft version to the published version, meaning any website pages using data from the table will be updated.
+ * @method static $this publish(int|string $tableIdOrName) Publishes the table by copying the data and table schema changes from draft version to the published version, meaning any website pages using data from the table will be updated.
  * See https://developers.hubspot.com/docs/api/cms/hubdb
  *
- * @method $this publish(int|string $tableIdOrName, array $requestBody) Publishes the table by copying the data and table schema changes from draft version to the published version, meaning any website pages using data from the table will be updated.
+ * @method $this publish(int|string $tableIdOrName) Publishes the table by copying the data and table schema changes from draft version to the published version, meaning any website pages using data from the table will be updated.
  * See https://developers.hubspot.com/docs/api/cms/hubdb
  *
  * @method static $this resetDraft(int|string $tableIdOrName, array $requestBody) Replaces the data in the draft version of the table with values from the published version.
@@ -97,10 +97,10 @@ use LTL\Hubspot\Hubspot;
  * @method $this resetDraft(int|string $tableIdOrName, array $requestBody) Replaces the data in the draft version of the table with values from the published version.
  * See https://developers.hubspot.com/docs/api/cms/hubdb
  *
- * @method static $this unpublish(int|string $tableIdOrName, array $requestBody) Unpublishes the table, meaning any website pages using data from the table will not render any data.
+ * @method static $this unpublish(int|string $tableIdOrName) Unpublishes the table, meaning any website pages using data from the table will not render any data.
  * See https://developers.hubspot.com/docs/api/cms/hubdb
  *
- * @method $this unpublish(int|string $tableIdOrName, array $requestBody) Unpublishes the table, meaning any website pages using data from the table will not render any data.
+ * @method $this unpublish(int|string $tableIdOrName) Unpublishes the table, meaning any website pages using data from the table will not render any data.
  * See https://developers.hubspot.com/docs/api/cms/hubdb
  *
  * @method static $this getAllRows(int|string $tableIdOrName) Returns a set of rows in the published version of the specified table.

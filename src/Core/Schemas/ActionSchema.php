@@ -50,8 +50,9 @@ class ActionSchema extends Schema implements ActionSchemaInterface
         $this->description = @$actionSchema->description;
         $this->iterable = @$actionSchema->iterable;
         $this->after = @$actionSchema->after;
-        $this->hasBody = in_array($this->method, HubspotConfig::METHODS_WITH_BODY);
-
+        
+        $this->hasBody = (in_array($this->method, HubspotConfig::METHODS_WITH_BODY) && !@$actionSchema->noBody);
+       
         $this->baseQuery = $this->setBaseQuery($actionSchema);
         $this->baseHeader = $this->setBaseHeader($actionSchema);
         $this->baseUri = $this->setUri($schema, $actionSchema);

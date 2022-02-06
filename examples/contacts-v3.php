@@ -6,6 +6,7 @@ require_once __DIR__ .'/__init.php';
 use LTL\Hubspot\Resources\ContactHubspot;
 
 $hubspotCreate = ContactHubspot::create(['properties' => ['firstname' => 1]]);
+dump($hubspotCreate->toArray());
 
 if ($hubspotCreate->error()) {
     dd($hubspotCreate->toArray());

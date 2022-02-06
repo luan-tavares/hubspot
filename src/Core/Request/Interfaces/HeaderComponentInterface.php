@@ -7,6 +7,5 @@ use LTL\Hubspot\Services\PublicMethods\Interfaces\PublicMethodsListableInterface
 
 interface HeaderComponentInterface extends ComponentInterface, PublicMethodsListableInterface
 {
-    public function header(string $name, string|null $value): self;
     public function oAuth(string $oAuth): self;
 }

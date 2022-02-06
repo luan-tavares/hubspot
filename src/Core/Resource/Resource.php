@@ -4,13 +4,13 @@ namespace LTL\Hubspot\Core\Resource;
 
 use LTL\Hubspot\Containers\BuilderContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
-use LTL\Hubspot\Core\Exceptions\HubspotApiException;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 use LTL\Hubspot\Core\Resource\Traits\ResourceArrayable;
 use LTL\Hubspot\Core\Resource\Traits\ResourceCountable;
 use LTL\Hubspot\Core\Resource\Traits\ResourceEnumerable;
 use LTL\Hubspot\Core\Resource\Traits\ResourceIterable;
 use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
+use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Services\PublicMethods\Traits\PublicMethodsListable;
 
 abstract class Resource implements ResourceInterface
