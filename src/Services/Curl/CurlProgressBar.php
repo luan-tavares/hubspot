@@ -18,8 +18,6 @@ abstract class CurlProgressBar
                 self::progressBar($uploaded_size, $upload_size);
             }
         }
-
-        //sleep(1); // just to see effect
     }
 
     private static function progressBar($done, $total)

@@ -9,6 +9,7 @@ use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 use LTL\Hubspot\Core\Schemas\Base\Schema;
 use LTL\Hubspot\Core\Schemas\Interfaces\ActionSchemaInterface;
 use LTL\Hubspot\Core\Schemas\Interfaces\ResourceSchemaInterface;
+use LTL\Hubspot\Core\HubspotConfig;
 
 class ResourceSchema extends Schema implements Countable, Iterator, ResourceSchemaInterface
 {
@@ -28,7 +29,7 @@ class ResourceSchema extends Schema implements Countable, Iterator, ResourceSche
 
     public function __construct(ResourceInterface $resource)
     {
-        $schema = json_decode(file_get_contents(__ROOT__.'/src/schemas/'. (string) $resource .'.json'));
+        $schema = json_decode(file_get_contents(HubspotConfig::BASE_PATH .'/src/schemas/'. (string) $resource .'.json'));
 
         $this->actions = (array) $schema->actions;
         $this->class = $schema->class;

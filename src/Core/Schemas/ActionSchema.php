@@ -3,10 +3,10 @@
 namespace LTL\Hubspot\Core\Schemas;
 
 use Exception;
-use LTL\Hubspot\Core\Schemas\ActionConstants;
 use LTL\Hubspot\Core\Schemas\Base\Schema;
 use LTL\Hubspot\Core\Schemas\Interfaces\ActionSchemaInterface;
 use LTL\Hubspot\Core\Schemas\Interfaces\ResourceSchemaInterface;
+use LTL\Hubspot\Core\HubspotConfig;
 
 /**
  * @property-read string $baseUri
@@ -54,7 +54,7 @@ class ActionSchema extends Schema implements ActionSchemaInterface
         $this->iterable = @$actionSchema->iterable;
         $this->after = @$actionSchema->after;
         $this->accept = @$actionSchema->accept;
-        $this->hasBody = in_array($this->method, ActionConstants::METHODS_WITH_BODY);
+        $this->hasBody = in_array($this->method, HubspotConfig::METHODS_WITH_BODY);
 
         $this->baseQuery = $this->setBaseQuery($actionSchema);
         $this->contentType = $this->setContentType($actionSchema);
@@ -96,7 +96,7 @@ class ActionSchema extends Schema implements ActionSchemaInterface
 
     private function setUri(object $schema, object $actionSchema): string
     {
-        $uri = ActionConstants::BASE_URL;
+        $uri = HubspotConfig::BASE_URL;
         $uri .= (@$schema->resource)?('/'. $schema->resource):('');
         $uri .= (@$schema->version)?('/'. $schema->version):('');
 
@@ -125,6 +125,6 @@ class ActionSchema extends Schema implements ActionSchemaInterface
             return null;
         }
 
-        return $actionSchema->contentType ?? ActionConstants::DEFAULT_CONTENT_TYPE;
+        return $actionSchema->contentType ?? HubspotConfig::DEFAULT_CONTENT_TYPE;
     }
 }

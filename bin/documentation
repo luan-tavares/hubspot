@@ -25,6 +25,7 @@ use LTL\Hubspot\Core\Request\Interfaces\CurlComponentInterface;
 use LTL\Hubspot\Core\Request\Interfaces\HeaderComponentInterface;
 use LTL\Hubspot\Core\Request\Interfaces\QueryComponentInterface;
 use LTL\Hubspot\Hubspot;
+use LTL\Hubspot\Core\HubspotConfig;
 
 function generateDoc(string $class, string $title): string
 {
@@ -71,7 +72,7 @@ $doc .= generateDoc(HeaderComponentInterface::class, 'Uri Header Methods');
 $doc .= generateDoc(CurlComponentInterface::class, 'Uri Curl Methods');
 $doc .= '*/';
 
-$content = file_get_contents(__ROOT__ . '/src/Hubspot.php');
+$content = file_get_contents(HubspotConfig::BASE_PATH . '/src/Hubspot.php');
 
 $rc = new ReflectionClass(Hubspot::class);
 
@@ -83,6 +84,6 @@ if ($rc->getDocComment()) {
 }
 
 
-file_put_contents(__ROOT__ .'/src/Hubspot.php', $document);
+file_put_contents(HubspotConfig::BASE_PATH .'/src/Hubspot.php', $document);
 
 dump($doc);

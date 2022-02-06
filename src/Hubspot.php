@@ -8,8 +8,8 @@ use LTL\Hubspot\Core\Resource\Resource;
  *
  * Uri Query Methods
  *
- * @method $this query(string $name, array|string|int $value) Add a Query
- * @method static $this query(string $name, array|string|int $value) Add a Query
+ * @method $this query(string $name, array|string|int|null $value) Add a Query
+ * @method static $this query(string $name, array|string|int|null $value) Add a Query
  * @method $this byEmail() 
  * @method static $this byEmail() 
  * @method $this archived() 
@@ -47,8 +47,8 @@ use LTL\Hubspot\Core\Resource\Resource;
  *
  * Uri Header Methods
  *
- * @method $this header(string $name, string $value) 
- * @method static $this header(string $name, string $value) 
+ * @method $this header(string $name, ?string $value) 
+ * @method static $this header(string $name, ?string $value) 
  * @method $this oAuth(string $oAuth) 
  * @method static $this oAuth(string $oAuth) 
  * @method $this contentType(string $contentType) 

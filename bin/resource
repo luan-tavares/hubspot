@@ -1,6 +1,7 @@
 #!/usr/bin/env php
 <?php
 
+
 $dir = __DIR__.'/vendor';
 
 if (!file_exists($dir.'/autoload.php')) {
@@ -20,9 +21,13 @@ if (!file_exists($dir.'/autoload.php')) {
 require $dir.'/autoload.php';
 
 
-$template = file_get_contents(__ROOT__ . '/src/stubs/resource.stub');
+use LTL\Hubspot\Core\HubspotConfig;
 
-$files = glob(__ROOT__ .'/src/schemas/*.json');
+$basePath = HubspotConfig::BASE_PATH;
+
+$template = file_get_contents($basePath . '/src/stubs/resource.stub');
+
+$files = glob($basePath .'/src/schemas/*.json');
 
 $resources = array_map(function ($path) {
     preg_match('/schemas\/(.*?)\.json/', $path, $match);
@@ -30,24 +35,12 @@ $resources = array_map(function ($path) {
     return $match[1];
 }, $files);
 
-$methodsWithBody = [
-    'PUT',
-    'PATCH',
-    'POST'
-];
 
-$methods = [
-    'PUT',
-    'PATCH',
-    'POST',
-    'GET',
-    'DELETE'
-];
 $i = $j = 0;
 foreach ($resources as $resource) {
     $i++;
     $j = 0;
-    $document = json_decode(file_get_contents(__ROOT__ . "/src/schemas/{$resource}.json"));
+    $document = json_decode(file_get_contents($basePath . "/src/schemas/{$resource}.json"));
 
     $documentation = @$document->documentation;
 
@@ -63,7 +56,7 @@ foreach ($resources as $resource) {
     foreach ($document->actions as $action => $actionDefinition) {
         $j++;
 
-        if (!in_array($actionDefinition->method, $methods)) {
+        if (!in_array($actionDefinition->method, HubspotConfig::METHODS)) {
             dd("{$actionDefinition->method} not Allowed in {$resource}!");
         }
 
@@ -73,7 +66,7 @@ foreach ($resources as $resource) {
             return 'int|string $'. $item;
         }, $matches[1]);
 
-        if (in_array($actionDefinition->method, $methodsWithBody)) {
+        if (in_array($actionDefinition->method, HubspotConfig::METHODS_WITH_BODY)) {
             $params[] = 'array $requestBody';
         }
  
@@ -100,7 +93,7 @@ foreach ($resources as $resource) {
 
     $content = str_replace('{{docs}}', $doc, $content);
 
-    file_put_contents(__ROOT__ ."/src/Resources/{$document->class}.php", $content);
+    file_put_contents("{$basePath}/src/Resources/{$document->class}.php", $content);
 
     dump("{$i} - {$resource} created! - {$j} actions!");
 }

@@ -1,7 +1,10 @@
 <?php
 
+
 require_once __DIR__ .'/../vendor/autoload.php';
 
-define('ENV', envDefine(__ROOT__ .'/.env'));
+use LTL\Hubspot\Core\HubspotConfig;
 
-hubspotKey(ENV['HUBSPOT_API_TEST']);
+define('ENV', envDefine(HubspotConfig::BASE_PATH .'/.env'));
+
+hubspotKey(ENV['HUBSPOT_API_TROPICAL']);

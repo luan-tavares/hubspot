@@ -1,18 +1,10 @@
 <?php
 
-use LTL\Hubspot\Containers\ApikeyContainer;
-use LTL\Hubspot\Core\Container;
 
 if (!function_exists('hubspotKey')) {
-    /**
-     * Undocumented function
-     *
-     * @param string $apikey
-     * @return void
-     */
     function hubspotKey(string $apikey)
     {
-        ApikeyContainer::store($apikey);
+        \LTL\Hubspot\Containers\ApikeyContainer::store($apikey);
     }
 }
 

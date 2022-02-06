@@ -3,11 +3,12 @@
 
 require_once __DIR__ .'/__init.php';
 
+use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Resources\HubDbHubspot;
 
 //$hubDb = HubDbHubspot::exportDraft(5314890)->toJson();
 
-$file = new CURLFile(__ROOT__ .'/luan.csv', 'application/octet-stream');
+$file = new CURLFile(HubspotConfig::BASE_PATH .'/luan.csv', 'application/octet-stream');
 
 $settings =  [
     'skipRows' => 1,

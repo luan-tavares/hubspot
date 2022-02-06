@@ -16,7 +16,6 @@
             "LTL\\Hubspot\\": "src/"
         },
         "files": [
-            "src/config/config.php",
             "src/helpers/helpers.php"
         ]
     },
