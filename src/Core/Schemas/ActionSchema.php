@@ -19,6 +19,7 @@ use LTL\Hubspot\Core\Schemas\Interfaces\ResourceSchemaInterface;
  * @property-read string $method
  * @property-read array|null $baseQuery
  * @property-read array|null $baseHeader
+ * @property-read array|null $resourceClass
  */
 class ActionSchema extends Schema implements ActionSchemaInterface
 {
@@ -38,6 +39,8 @@ class ActionSchema extends Schema implements ActionSchemaInterface
 
     private array|null $baseHeader;
 
+    private string $resourceClass;
+
     private bool $hasBody;
 
     private string $method;
@@ -50,6 +53,7 @@ class ActionSchema extends Schema implements ActionSchemaInterface
         $this->description = @$actionSchema->description;
         $this->iterable = @$actionSchema->iterable;
         $this->after = @$actionSchema->after;
+        $this->resourceClass = $schema->class;
         
         $this->hasBody = (in_array($this->method, HubspotConfig::METHODS_WITH_BODY) && !@$actionSchema->noBody);
        

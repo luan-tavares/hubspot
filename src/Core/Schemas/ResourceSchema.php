@@ -5,11 +5,11 @@ namespace LTL\Hubspot\Core\Schemas;
 use Countable;
 use Exception;
 use Iterator;
+use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 use LTL\Hubspot\Core\Schemas\Base\Schema;
 use LTL\Hubspot\Core\Schemas\Interfaces\ActionSchemaInterface;
 use LTL\Hubspot\Core\Schemas\Interfaces\ResourceSchemaInterface;
-use LTL\Hubspot\Core\HubspotConfig;
 
 class ResourceSchema extends Schema implements Countable, Iterator, ResourceSchemaInterface
 {
@@ -32,7 +32,7 @@ class ResourceSchema extends Schema implements Countable, Iterator, ResourceSche
         $schema = json_decode(file_get_contents(HubspotConfig::BASE_PATH .'/src/schemas/'. (string) $resource .'.json'));
 
         $this->actions = (array) $schema->actions;
-        $this->class = $schema->class;
+        $this->class = $resource::class;
         $this->resource = @$schema->resource;
         $this->version = @$schema->version;
         $this->documentation = @$schema->documentation;

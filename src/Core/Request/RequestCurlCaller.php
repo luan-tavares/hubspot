@@ -1,12 +1,11 @@
 <?php
 
-namespace LTL\Hubspot\Core\Request\Services;
+namespace LTL\Hubspot\Core\Request;
 
-use LTL\Hubspot\Containers\RequestContainer;
-use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
+use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
 use LTL\Hubspot\Services\Curl\Curl;
 
-class CurlRequestService
+class RequestCurlCaller
 {
     private array $body;
 
@@ -18,10 +17,8 @@ class CurlRequestService
     
     private array $curlParams;
 
-    public function __construct(private ResourceInterface $resource, string $method)
+    public function __construct(RequestInterface $request, string $method)
     {
-        $request = RequestContainer::get($resource);
-
         $this->body = $request->getBody();
         $this->header = $request->getHeaders();
         $this->curlParams = $request->getCurlParams();

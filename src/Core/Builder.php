@@ -5,6 +5,7 @@ namespace LTL\Hubspot\Core;
 use LTL\Hubspot\Containers\RequestContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
+use LTL\Hubspot\Core\Request\RequestActionDefinition;
 use LTL\Hubspot\Core\Request\RequestDispatcher;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
@@ -70,8 +71,12 @@ class Builder
 
     private function makeResponse(string $method, array $arguments): ResponseInterface
     {
-        $curlConnection = RequestDispatcher::execute($this->resource, $method, $arguments);
+        $actionSchema = SchemaContainer::getAction($this->resource, $method);
 
-        return new Response($curlConnection, SchemaContainer::getAction($this->resource, $method));
+        $request = RequestContainer::get($this->resource);
+
+        $curlService = RequestActionDefinition::finish($request, $actionSchema, $arguments);
+
+        return new Response($curlService->connect(), SchemaContainer::getAction($this->resource, $method));
     }
 }
