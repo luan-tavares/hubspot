@@ -13,7 +13,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "LTL\\Hubspot\\": "src/"
+            "LTL\\Hubspot\\": ["src/", "deploy/"]
         },
         "files": [
             "src/helpers/helpers.php"
@@ -29,12 +29,8 @@
         "larapack/dd": "1.*"
     },
     "scripts": {
-        "deploy": [
-            "git add .",
-            "echo \"Commit description: (press ctrl + d)\" && cat > commit.txt",
-            "git commit -F commit.txt",
-            "rm commit.txt",
-            "git push"
+        "add-tag": [
+            "LTL\\Hubspot\\Deploy::withTag"
         ]
     }
 }
