@@ -31,6 +31,12 @@ class HubspotApiException extends Exception
         }
     }
 
+    public static function throwExceptionIf(bool $condition, string $message): void
+    {
+        if ($condition) {
+            throw new self($message);
+        }
+    }
 
     public function __toString()
     {

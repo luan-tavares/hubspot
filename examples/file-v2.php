@@ -20,7 +20,7 @@ $post_data = [
     'folderPath' => '/__luan'
 ];
 
-$files = FileV2Hubspot::progressBar()->upload($post_data);
+$files = FileV2Hubspot::withProgressBar()->upload($post_data);
 
 foreach ($files as $file) {
     dump($file);

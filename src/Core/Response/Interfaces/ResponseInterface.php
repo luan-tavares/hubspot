@@ -7,8 +7,8 @@ use LTL\Hubspot\Core\Response\ResponseObject;
 interface ResponseInterface
 {
     public function getStatus(): int;
-    public function get(): ?string;
-    public function getDocumentation(): ?string;
+    public function get(): string|null;
+    public function getDocumentation(): string|null;
+    public function getHeaders(): array|null;
     public function destroy(): void;
-    public function getObject(): ResponseObject;
 }

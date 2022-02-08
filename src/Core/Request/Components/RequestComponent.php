@@ -2,21 +2,20 @@
 
 namespace LTL\Hubspot\Core\Request\Components;
 
-use LTL\Hubspot\Containers\ApikeyContainer;
 use LTL\Hubspot\Containers\RequestContainer;
 use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
-use LTL\Hubspot\Services\ArrayObject\ArrayObjectService;
 use LTL\Hubspot\Services\Observer\Interfaces\SubjectInterface;
 use LTL\Hubspot\Services\Observer\Traits\SubjectTrait;
 
-abstract class RequestComponent extends ArrayObjectService implements SubjectInterface
+abstract class RequestComponent implements SubjectInterface
 {
     use SubjectTrait;
 
-    public function __construct(private ResourceInterface $resource, array $array = [])
+    private array $items = [];
+
+    public function __construct(private ResourceInterface $resource)
     {
-        parent::__construct($array);
     }
 
     public function getRequest(): RequestInterface
@@ -24,24 +23,36 @@ abstract class RequestComponent extends ArrayObjectService implements SubjectInt
         return RequestContainer::get($this->resource);
     }
 
-    public function addAll(array|null $array): self
+    public function all(): array
+    {
+        return $this->items;
+    }
+
+    public function delete(int|string $key): void
+    {
+        unset($this->items[$key]);
+    }
+
+    public function addArray(array|null $array): self
     {
         if (is_null($array)) {
             return $this;
         }
 
-        $this->addArray($array);
+        foreach ($array as $key => $value) {
+            $this->items[$key] = $value;
+        }
 
         return $this;
     }
- 
-    public function add(string $name, string|int|array|null $value): self
+  
+    public function add(string $name, string|int|array|bool|null $value): self
     {
         if (is_null($value)) {
             return $this;
         }
         
-        $this[$name] = $value;
+        $this->items[$name] = $value;
 
         return $this;
     }

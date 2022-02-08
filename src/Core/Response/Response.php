@@ -2,32 +2,32 @@
 
 namespace LTL\Hubspot\Core\Response;
 
+use Countable;
+use IteratorAggregate;
 use LTL\Hubspot\Containers\ResponseObjectContainer;
 use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
+use LTL\Hubspot\Core\Response\ResponseObject;
 use LTL\Hubspot\Core\Schemas\Interfaces\ActionSchemaInterface;
 use LTL\Hubspot\Services\Curl\Curl;
 
-class Response implements ResponseInterface
+class Response implements ResponseInterface, IteratorAggregate, Countable
 {
-    private int $status;
-
+    private array|null $headers;
+   
     private string|null $response;
 
-    private $header;
+    private int $status;
 
-    private $uri;
+    private string $uri;
 
     public function __construct(Curl $curl, private ActionSchemaInterface $actionSchema)
     {
         $this->status = $curl->getStatus();
         $this->response = $curl->getResponse();
         $this->uri = $this->hideApikey($curl->getUri());
+        $this->headers = $curl->getHeaders();
     }
 
-    public function __destruct()
-    {
-        $this->destroy();
-    }
 
     public function __get($property)
     {
@@ -42,7 +42,15 @@ class Response implements ResponseInterface
         return ResponseObjectContainer::get($this)->{$property};
     }
 
+    public function getIterator(): ResponseObject
+    {
+        return ResponseObjectContainer::get($this);
+    }
 
+    public function count(): int
+    {
+        return ResponseObjectContainer::get($this)->count();
+    }
 
     private function getIndex()
     {
@@ -83,11 +91,6 @@ class Response implements ResponseInterface
     {
         return $this->status;
     }
-
-    public function getObject(): ResponseObject
-    {
-        return ResponseObjectContainer::get($this);
-    }
     
     public function get(): ?string
     {
@@ -97,5 +100,10 @@ class Response implements ResponseInterface
     public function getDocumentation(): ?string
     {
         return $this->actionSchema->documentation;
+    }
+
+    public function getHeaders(): ?array
+    {
+        return $this->headers;
     }
 }

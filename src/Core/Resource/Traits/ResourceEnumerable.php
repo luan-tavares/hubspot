@@ -47,13 +47,7 @@ trait ResourceEnumerable
         return $result;
     }
 
-    /**
-     * Undocumented function
-     *
-     * @param callable $callback {@see close()}
-     * @param [type] $initial
-     * @return void
-     */
+   
     public function reduce(callable $callback, $initial = null)
     {
         $result = $initial;

@@ -17,7 +17,7 @@ abstract class Resource implements ResourceInterface
 {
     use PublicMethodsListable, ResourceIterable, ResourceArrayable, ResourceCountable, ResourceEnumerable;
 
-    protected ResponseInterface|null $response = null;
+    protected ResponseInterface $response;
     
     protected string $resource;
 
@@ -33,7 +33,7 @@ abstract class Resource implements ResourceInterface
 
     public function __destruct()
     {
-        if (!is_null($this->response)) {
+        if (isset($this->response)) {
             $this->response->destroy();
         }
     }
@@ -45,20 +45,20 @@ abstract class Resource implements ResourceInterface
 
     public function __get($property)
     {
-        if (is_null($this->response)) {
-            $schema = SchemaContainer::get($this);
-
-            $actions = $schema->mapWithActions(function ($action) {
-                return "{$action}()";
-            });
-
-           
-            throw new HubspotApiException(
-                'Property access in "'. get_class($this) ."\" must not be used before actions:\n\n[". implode(', ', $actions) .']'
-            );
+        if (isset($this->response)) {
+            return $this->response->{$property};
         }
 
-        return $this->response->{$property};
+        $schema = SchemaContainer::get($this);
+
+        $actions = $schema->mapWithActions(function ($action) {
+            return "{$action}()";
+        });
+
+           
+        throw new HubspotApiException(
+            'Property access in "'. get_class($this) ."\" must not be used before actions:\n\n[". implode(', ', $actions) .']'
+        );
     }
 
 
@@ -110,5 +110,15 @@ abstract class Resource implements ResourceInterface
     public function documentation(): ?string
     {
         return $this->response->getDocumentation();
+    }
+
+    /**
+     * Return the Response Header
+     *
+     * @return array|null
+     */
+    public function headers(): array|null
+    {
+        return $this->response->getHeaders();
     }
 }

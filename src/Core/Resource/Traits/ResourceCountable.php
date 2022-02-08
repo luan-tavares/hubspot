@@ -6,6 +6,6 @@ trait ResourceCountable
 {
     public function count(): int
     {
-        return $this->object->count();
+        return $this->response->count();
     }
 }

@@ -6,8 +6,8 @@ require_once __DIR__ .'/__init.php';
 use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Resources\HubDbHubspot;
 
-dump(HubDbHubspot::publish(5314890));
-dump(HubDbHubspot::exportDraftToCsv(5314890));
+dump(HubDbHubspot::withProgressBar()->exportDraftToCsv(5314890));
+dump(HubDbHubspot::withProgressBar()->publish(5314890));
 
 
 $file = new CURLFile(HubspotConfig::BASE_PATH .'/luan.csv', 'application/octet-stream');
@@ -32,7 +32,7 @@ $request = [
     'config' => json_encode($settings, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)
 ];
 
-dd(HubDbHubspot::progressBar()->importToDraft(5334546, $request));
+dd(HubDbHubspot::withProgressBar()->importToDraft(5334546, $request));
 //dd(HubDbHubspot::includeForeignIds()->get(5334546));
 
 //file_put_contents(__ROOT__ .'/luan.csv', $hubDb);

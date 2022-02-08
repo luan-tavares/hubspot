@@ -4,81 +4,50 @@ namespace LTL\Hubspot\Services\Curl;
 
 use CurlHandle;
 use LTL\Hubspot\Services\Curl\CurlConstants;
+use LTL\Hubspot\Services\Curl\CurlResponseHeader;
 
 class Curl
 {
     private array $params = [];
 
-    private array $headers = [];
+    private array $requestHeaders = [];
 
     private CurlHandle $curl;
+   
+    private CurlResponseHeader $responseHeader;
 
-    private ?string $response;
+    private string|null $responseBody;
 
     private int $status;
 
     public function __construct(private string $uri)
     {
-    }
-
-    public function header(string|array $haystack, int|string $value = null): self
-    {
-        if (is_array($haystack)) {
-            $this->headers = array_merge($this->headers, $haystack);
-
-            return $this;
+        foreach (CurlConstants::CURL_PARAMS as $index => $value) {
+            $this->params[$index] = $value;
         }
 
-        $this->headers[$haystack] = $value;
-
-        return $this;
+        $this->params[CURLOPT_URL] = $this->uri;
     }
 
-    public function get(): self
-    {
-        return $this->connect('GET');
-    }
 
-    public function delete(): self
-    {
-        return $this->connect('DELETE');
-    }
-
-    public function put(array $body): self
-    {
-        return $this->connect('PUT', $body);
-    }
-
-    public function patch(array $body): self
-    {
-        return $this->connect('PATCH', $body);
-    }
-
-    public function post(array $body): self
-    {
-        return $this->connect('POST', $body);
-    }
-
-    public function connect(string $method, ?array $body = null): self
+    public function connect(string $method, array|null $body = null): self
     {
         $this->curl = curl_init();
-
-        foreach (CurlConstants::CURL_PARAMS as $index => $value) {
-            curl_setopt($this->curl, $index, $value);
-        }
+     
         $this->resolveHeader()
             ->resolveBody($body)
-            ->resolveMethod($method)
-            ->resolveUri();
+            ->resolveMethod($method);
 
         foreach ($this->params as $index => $value) {
             curl_setopt($this->curl, $index, $value);
         }
+        
+        $fullResponse = curl_exec($this->curl);
 
-        $this->response = curl_exec($this->curl);
- 
         $this->status = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
-
+        $this->responseBody = $this->makeResponseBody($fullResponse);
+        $this->responseHeader = $this->makeResponseHeader($fullResponse);
+       
         curl_reset($this->curl);
 
         curl_close($this->curl);
@@ -86,23 +55,55 @@ class Curl
         return $this;
     }
 
-    public function withProgress(): self
+    public function addParams(array $params): self
     {
-        $this->params[CURLOPT_NOPROGRESS] = false;
-        $this->params[CURLOPT_PROGRESSFUNCTION] = CurlProgressBar::class .'::progress';
+        foreach ($params as $param => $value) {
+            $this->params[$param] = $value;
+        }
 
         return $this;
     }
 
-    private function resolveBody(?array $body): self
+    public function addHeaders(array $headers): self
     {
-        if (!$body) {
+        $this->requestHeaders = $headers;
+
+        return $this;
+    }
+
+    private function makeResponseBody(string $fullResponse): string
+    {
+        if (!@$this->params[CURLOPT_HEADER]) {
+            return $fullResponse;
+        }
+
+        $headerSize = curl_getinfo($this->curl, CURLINFO_HEADER_SIZE);
+
+        return substr($fullResponse, $headerSize);
+    }
+
+    private function makeResponseHeader(string $fullResponse): CurlResponseHeader
+    {
+        if (!@$this->params[CURLOPT_HEADER]) {
+            return new CurlResponseHeader;
+        }
+
+        $headerSize = curl_getinfo($this->curl, CURLINFO_HEADER_SIZE);
+
+        return new CurlResponseHeader(substr($fullResponse, 0, $headerSize));
+    }
+
+   
+
+    private function resolveBody(array|null $body): self
+    {
+        if (!$body || empty($body)) {
             unset($this->params[CURLOPT_POSTFIELDS]);
 
             return $this;
         }
 
-        if (@$this->headers['Content-Type'] !== 'multipart/form-data') {
+        if (@$this->requestHeaders['Content-Type'] !== 'multipart/form-data') {
             $body = json_encode($body, CurlConstants::JSON_ENCODE);
         }
 
@@ -113,15 +114,15 @@ class Curl
   
     private function resolveHeader(): self
     {
-        if (count($this->headers) === 0) {
+        if (empty($this->requestHeaders)) {
             return $this;
         }
 
-        $headers = [];
-        foreach ($this->headers as $name => $value) {
-            $headers[] = "{$name}: {$value}";
+        $requestHeaders = [];
+        foreach ($this->requestHeaders as $name => $value) {
+            $requestHeaders[] = "{$name}: {$value}";
         }
-        $this->params[CURLOPT_HTTPHEADER] = $headers;
+        $this->params[CURLOPT_HTTPHEADER] = $requestHeaders;
 
         return $this;
     }
@@ -133,24 +134,16 @@ class Curl
         return $this;
     }
 
-    private function resolveUri(): self
-    {
-        $this->params[CURLOPT_URL] = $this->uri;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of response
-     */
     public function getResponse(): string|null
     {
-        return (!empty($this->response)) ? $this->response : null;
+        return (!empty($this->responseBody)) ? $this->responseBody : null;
     }
 
-    /**
-     * Get the value of status
-     */
+    public function getHeaders(): array|null
+    {
+        return $this->responseHeader->get() ?? null;
+    }
+
     public function getStatus(): int
     {
         return $this->status;

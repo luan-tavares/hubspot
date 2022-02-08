@@ -4,10 +4,12 @@ namespace LTL\Hubspot\Core;
 
 use LTL\Hubspot\Containers\RequestContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
-use LTL\Hubspot\Core\BindResponseToResource;
-use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
+use LTL\Hubspot\Core\Request\RequestDispatcher;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
+use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
+use LTL\Hubspot\Core\Response\Response;
+use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\ResourceFactory;
 
 class Builder
@@ -31,7 +33,9 @@ class Builder
         }
 
         if (in_array($method, SchemaContainer::get($this->resource)->getActions())) {
-            return $this->doRequest($method, $arguments);
+            $response = $this->makeResponse($method, $arguments);
+
+            return ResourceFactory::build($this->resource, $response);
         }
 
         return $this->doBeforeRequest($method, $arguments);
@@ -41,8 +45,7 @@ class Builder
     {
         RequestContainer::destroy($this->resource);
     }
-
-
+ 
     private function doBeforeRequest(string $method, ?array $arguments): Builder
     {
         $this->request->{$method}(...$arguments);
@@ -52,7 +55,7 @@ class Builder
 
     private function doAfterRequest(string $method, ?array $arguments): mixed
     {
-        if ($this->request->dispatched()) {
+        if ($this->request->hasDispatched()) {
             return $this->resource->{$method}(...$arguments);
         }
 
@@ -65,10 +68,10 @@ class Builder
         );
     }
 
-    private function doRequest(string $method, array $arguments): ResourceInterface
+    private function makeResponse(string $method, array $arguments): ResponseInterface
     {
-        $response = $this->request->dispatch($method, $arguments);
+        $curlConnection = RequestDispatcher::execute($this->resource, $method, $arguments);
 
-        return ResourceFactory::build($this->resource, $response);
+        return new Response($curlConnection, SchemaContainer::getAction($this->resource, $method));
     }
 }

@@ -2,12 +2,12 @@
 
 namespace LTL\Hubspot\Core\Resource\Traits;
 
-use LTL\Hubspot\Core\Response\ResponseObject;
+use LTL\Hubspot\Core\Response\Response;
 
 trait ResourceIterable
 {
-    public function getIterator(): ResponseObject
+    public function getIterator(): Response
     {
-        return $this->response->getObject();
+        return $this->response;
     }
 }

@@ -7,5 +7,6 @@ use LTL\Hubspot\Services\PublicMethods\Interfaces\PublicMethodsListableInterface
 
 interface CurlComponentInterface extends ComponentInterface, PublicMethodsListableInterface
 {
-    public function progressBar(): self;
+    public function withProgressBar(): self;
+    public function withResponseHeaders(): self;
 }

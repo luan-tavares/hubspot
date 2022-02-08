@@ -3,8 +3,8 @@ namespace LTL\Hubspot\Core\Response;
 
 use Countable;
 use Iterator;
-use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
+use LTL\Hubspot\Exceptions\HubspotApiException;
 
 class ResponseObject implements Iterator, Countable
 {
@@ -17,13 +17,13 @@ class ResponseObject implements Iterator, Countable
 
     public function __get($property)
     {
-        if (!property_exists($this->object, $property)) {
-            $response = mb_strimwidth($this->response->get(), 0, 300, ' ...');
-
-            throw new HubspotApiException("Property \"{$property}\" not exists in response object first level:\n\n{$response}\n\n");
+        if (property_exists($this->object, $property)) {
+            return $this->object->{$property};
         }
 
-        return $this->object->{$property};
+        $response = mb_strimwidth($this->response->get(), 0, 300, ' ...');
+
+        throw new HubspotApiException("Property \"{$property}\" not exists in response object first level:\n\n{$response}\n\n");
     }
 
     public function __isset($property): bool

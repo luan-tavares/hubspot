@@ -1,16 +1,13 @@
 <?php
 namespace LTL\Hubspot\Core\Request;
 
-use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Request\Interfaces\BodyComponentInterface;
 use LTL\Hubspot\Core\Request\Interfaces\CurlComponentInterface;
 use LTL\Hubspot\Core\Request\Interfaces\HeaderComponentInterface;
 use LTL\Hubspot\Core\Request\Interfaces\QueryComponentInterface;
 use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
-use LTL\Hubspot\Core\Request\Services\MakeCurlServiceAction;
+use LTL\Hubspot\Core\Request\Interfaces\UriComponentInterface;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
-use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
-use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 
 class Request implements RequestInterface
@@ -24,6 +21,8 @@ class Request implements RequestInterface
     private BodyComponentInterface $body;
 
     private CurlComponentInterface $curl;
+
+    private UriComponentInterface $uri;
 
     private ResourceInterface $resource;
 
@@ -52,19 +51,12 @@ class Request implements RequestInterface
         throw new HubspotApiException('Method "'. $this->resource::class ."::{$method}()\" not exists");
     }
 
-
-    public function dispatch(string $action, array $arguments): ResponseInterface
+    public function changeDispatchToTrue(): void
     {
-        $actionSchema = SchemaContainer::getAction($this->resource, $action);
-        
-        $curlService = MakeCurlServiceAction::execute($this->resource, $actionSchema, $arguments);
-        
         $this->hasDispatched = true;
-     
-        return new Response($curlService->connect(), $actionSchema);
     }
 
-    public function dispatched(): bool
+    public function hasDispatched(): bool
     {
         return $this->hasDispatched;
     }
@@ -85,21 +77,28 @@ class Request implements RequestInterface
 
     public function addQueries(array|null $queries): self
     {
-        $this->query->addAll($queries);
+        $this->query->addArray($queries);
 
         return $this;
     }
  
     public function addBody(array|null $body): self
     {
-        $this->body->addAll($body);
+        $this->body->addArray($body);
 
         return $this;
     }
 
     public function addHeaders(array|null $headers): self
     {
-        $this->header->addAll($headers);
+        $this->header->addArray($headers);
+
+        return $this;
+    }
+
+    public function addUri(string $baseUri, array $associativeParams, array $queries): self
+    {
+        $this->uri->generate($baseUri, $associativeParams, $queries);
 
         return $this;
     }
@@ -111,11 +110,6 @@ class Request implements RequestInterface
         return $this->query->all();
     }
 
-    public function getBody(): ?array
-    {
-        return $this->body->get();
-    }
-
     public function getHeaders(): array
     {
         return $this->header->all();
@@ -124,5 +118,15 @@ class Request implements RequestInterface
     public function getCurlParams(): array
     {
         return $this->curl->all();
+    }
+
+    public function getBody(): array
+    {
+        return $this->body->all();
+    }
+
+    public function getUri(): string
+    {
+        return $this->uri->get();
     }
 }

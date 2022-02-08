@@ -37,10 +37,10 @@ $params = [
     'folderPath' => '/__luan'
 ];
 
-
-$file = FileHubspot::progressBar()->importFromUrl($params);
+dump(FileHubspot::withProgressBar()->withResponseHeaders()->upload($post_data));
+$file = FileHubspot::withProgressBar()->importFromUrl($params);
 $taskId = $file->id;
-dump(FileHubspot::progressBar()->upload($post_data));
+
 dump(FileHubspot::checkImport($taskId));
 
 FileHubspot::getAllFolders()->each(function ($folder) {

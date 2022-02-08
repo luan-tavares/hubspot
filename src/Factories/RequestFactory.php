@@ -2,12 +2,12 @@
 
 namespace LTL\Hubspot\Factories;
 
-use LTL\Hubspot\Containers\ObserverContainer;
 use LTL\Hubspot\Containers\SingletonContainer;
 use LTL\Hubspot\Core\Request\Components\BodyRequestComponent;
 use LTL\Hubspot\Core\Request\Components\CurlRequestComponent;
 use LTL\Hubspot\Core\Request\Components\HeaderRequestComponent;
 use LTL\Hubspot\Core\Request\Components\QueryRequestComponent;
+use LTL\Hubspot\Core\Request\Components\UriRequestComponent;
 use LTL\Hubspot\Core\Request\Interfaces\ComponentInterface;
 use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
 use LTL\Hubspot\Core\Request\Observers\ComponentObserver;
@@ -23,6 +23,7 @@ abstract class RequestFactory implements FactoryInterface
         'header' => HeaderRequestComponent::class,
         'body' => BodyRequestComponent::class,
         'curl' => CurlRequestComponent::class,
+        'uri' => UriRequestComponent::class
     ];
 
     public static function build(ResourceInterface $resource): RequestInterface
@@ -53,7 +54,7 @@ abstract class RequestFactory implements FactoryInterface
     {
         $component = new $componentClass($resource);
        
-        $component->attach(ObserverContainer::get(ComponentObserver::class));
+        $component->attach(SingletonContainer::get(ComponentObserver::class));
 
         return $component;
     }
