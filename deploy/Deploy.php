@@ -23,6 +23,7 @@ class Deploy
             print("\033[1;35mNothing to commit\033[0m".PHP_EOL);
             print("\033[1;35m". str_repeat('-', 30) ."\033[0m".PHP_EOL);
  
+            
             die();
         }
 
