@@ -20,6 +20,7 @@ use LTL\Hubspot\Resources\AssociationHubspot;
 //         ]
 //     )
 // );
+/*dasdsad*/
 
 // dump(AssociationHubspot::getDefinition('contacts', 'deals'));
 dump(AssociationHubspot::createDefinition('d', 'dsd', ['s' => 5]));
