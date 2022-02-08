@@ -41,7 +41,7 @@ class Deploy
         print("\033[0;34m". $repeat ."\033[0m".PHP_EOL);
         print(PHP_EOL);
 
-        print("\033[1;32m:: Sync Repository\033[0m".PHP_EOL);
+        print("\033[0;32m:: Sync Repository\033[0m".PHP_EOL);
         shell_exec('cd '. __DIR__);
         shell_exec('git status');
         shell_exec('git checkout -b temp-branch');
@@ -49,15 +49,13 @@ class Deploy
         shell_exec('git pull');
         shell_exec('git merge temp-branch');
         shell_exec('git branch -D temp-branch');
+        print(PHP_EOL);
         /**Finally */
-        print("\033[0;34m- Commit changes\033[0m".PHP_EOL);
+        print("\033[0;34m- Commit and push to main\033[0m".PHP_EOL);
         shell_exec('git commit -a -m "'. $message .'"');
-        
-        
-        print("\033[0;34m- Push main\033[0m".PHP_EOL);
         shell_exec('git push origin main');
+        print(PHP_EOL);
         
-
         print("\033[0;34m- Add tag\033[0m".PHP_EOL);
         shell_exec("git tag -a \"{$tag}\" -m \"{$message}\"");
         shell_exec('git push origin --tags');
