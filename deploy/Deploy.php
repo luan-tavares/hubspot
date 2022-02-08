@@ -43,6 +43,7 @@ class Deploy
         print("\033[0;34m". $repeat ."\033[0m".PHP_EOL);
         print(PHP_EOL);
 
+        print("\033[0;32m". str_repeat('-', 30) ."\033[0m".PHP_EOL);
         print("\033[0;32m\033[1mSync Repository\033[0m".PHP_EOL);
         print("\033[0;32m". str_repeat('-', 30) ."\033[0m".PHP_EOL);
         shell_exec('cd '. __DIR__);
@@ -52,21 +53,20 @@ class Deploy
         shell_exec('git pull');
         shell_exec('git merge temp-branch');
         shell_exec('git branch -D temp-branch');
-        print("\033[0;32m". str_repeat('-', 30) ."\033[0m".PHP_EOL);
         print(PHP_EOL);
-        /**Finally */
+     
+        print("\033[0;32m". str_repeat('-', 30) ."\033[0m".PHP_EOL);
         print("\033[0;32m\033[1mCommit and Push main branch\033[0m".PHP_EOL);
         print("\033[0;32m". str_repeat('-', 30) ."\033[0m".PHP_EOL);
         shell_exec('git commit -a -m "'. $message .'"');
         shell_exec('git push origin main');
-        print("\033[0;32m". str_repeat('-', 30) ."\033[0m".PHP_EOL);
         print(PHP_EOL);
-        
+      
+        print("\033[0;32m". str_repeat('-', 30) ."\033[0m".PHP_EOL);
         print("\033[0;32m\033[1mCreate and Push tag\033[0m".PHP_EOL);
         print("\033[0;32m". str_repeat('-', 30) ."\033[0m".PHP_EOL);
         shell_exec("git tag -a \"{$tag}\" -m \"{$message}\"");
         shell_exec('git push origin --tags');
-        print("\033[0;32m". str_repeat('-', 30) ."\033[0m".PHP_EOL);
     }
 
     private static function resolveArguments(array $arguments): array
