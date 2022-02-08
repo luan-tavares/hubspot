@@ -25,6 +25,12 @@ class Deploy
             $message .= ' - '. $arguments['m'];
         }
 
+        $diff = shell_exec('git diff');
+
+        print($diff == '');
+
+ 
+
         $repeat = str_repeat(':', 10 + (mb_strlen($tag)));
 
         print("\033[0;34m". $repeat ."\033[0m".PHP_EOL);
