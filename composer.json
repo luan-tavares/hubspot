@@ -29,8 +29,11 @@
         "larapack/dd": "1.*"
     },
     "scripts": {
-        "add-tag": [
-            "LTL\\Hubspot\\Deploy::withTag"
+        "deploy-tag": [
+            "LTL\\Hubspot\\DeployTag::execute"
+        ],
+        "deploy": [
+            "LTL\\Hubspot\\Deploy::execute"
         ]
     }
 }

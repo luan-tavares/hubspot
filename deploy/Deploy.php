@@ -2,27 +2,17 @@
 namespace LTL\Hubspot;
 
 use Composer\Script\Event;
-use DirectoryIterator;
-use SplMaxHeap;
 
 class Deploy
 {
-    public static function withTag(Event $event)
+    public static function execute(Event $event)
     {
         $arguments = self::resolveArguments($event->getArguments());
 
-        $baseTag = 'v';
-
-        if (isset($arguments['t'])) {
-            $baseTag .= $arguments['t'];
-        }
-
-        $tag = self::getLastTag($baseTag);
-
-        $message = "{$tag}";
+        $message = '';
         
         if (isset($arguments['m'])) {
-            $message .= ' - '. $arguments['m'];
+            $message = $arguments['m'];
         }
 
         $diff = shell_exec('git diff');
@@ -35,14 +25,6 @@ class Deploy
 
             die();
         }
-
-
-        $repeat = str_repeat(':', 10 + (mb_strlen($tag)));
-
-        print("\033[0;34m". $repeat ."\033[0m".PHP_EOL);
-        print("\033[0;34m:: Tag \033[1m{$tag}\033[0m \033[0;34m::\033[0m".PHP_EOL);
-        print("\033[0;34m". $repeat ."\033[0m".PHP_EOL);
-        print(PHP_EOL);
 
         print("\033[0;32m". str_repeat('-', 30) ."\033[0m".PHP_EOL);
         print("\033[0;32m\033[1mSync Repository\033[0m".PHP_EOL);
@@ -62,12 +44,6 @@ class Deploy
         shell_exec('git commit -a -m "'. $message .'"');
         shell_exec('git push origin main');
         print(PHP_EOL);
-      
-        print("\033[0;32m". str_repeat('-', 30) ."\033[0m".PHP_EOL);
-        print("\033[0;32m\033[1mCreate and Push tag\033[0m".PHP_EOL);
-        print("\033[0;32m". str_repeat('-', 30) ."\033[0m".PHP_EOL);
-        shell_exec("git tag -a \"{$tag}\" -m \"{$message}\"");
-        shell_exec('git push origin --tags');
     }
 
     private static function resolveArguments(array $arguments): array
@@ -84,42 +60,5 @@ class Deploy
         }
 
         return $result;
-    }
-
-    private static function getLastTag(string $filter)
-    {
-        $folder = new DirectoryIterator(__DIR__ .'/../.git/refs/tags');
-        $list = new SplMaxHeap;
-        $list->insert($filter);
-        foreach ($folder as $file) {
-            if ($file->isDot()) {
-                continue;
-            }
-
-            if ($filter !== 'v' && !str_contains($file->getFilename(), $filter)) {
-                continue;
-            }
-         
-            $list->insert($file->getFilename());
-        }
-
-        $last = (string) $list->top();
-
-        return self::addCountTag($last, $filter);
-    }
-
-    private static function addCountTag(string $last, string $filter)
-    {
-        if ($last === $filter) {
-            return "{$last}.0";
-        }
-
-        $list = explode('.', $last);
-
-        $lastnumber = (int) array_pop($list);
-
-        $list[] = ++$lastnumber;
-
-        return implode('.', $list);
     }
 }
