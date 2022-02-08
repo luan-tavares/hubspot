@@ -37,7 +37,7 @@ function generateDoc(string $class, string $title): string
     foreach ($reflectionMethods as $reflectionMethod) {
         if ($reflectionMethod->class !== $class) {
             continue;
-        }
+        }/**d */
         preg_match_all('/\-\ (.*?)\\n/', $reflectionMethod->getDocComment(), $matches, PREG_PATTERN_ORDER);
         $description = @$matches[1][0] ?? '';
         $name = $reflectionMethod->name;
