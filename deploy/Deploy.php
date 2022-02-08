@@ -25,7 +25,7 @@ class Deploy
             $message .= ' - '. $arguments['m'];
         }
 
-
+        echo "Add tag {$tag}";
         shell_exec('cd '. __DIR__);
         shell_exec('git status');
         shell_exec('git checkout -b temp-branch');
