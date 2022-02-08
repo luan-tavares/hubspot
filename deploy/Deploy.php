@@ -52,11 +52,12 @@ class Deploy
         
         
         print("\033[0;34m- Push main\033[0m".PHP_EOL);
-        shell_exec('git push origin --tags');
+        shell_exec('git push origin main');
+        
 
         print("\033[0;34m- Add tag\033[0m".PHP_EOL);
         shell_exec("git tag -a \"{$tag}\" -m \"{$message}\"");
-        shell_exec('git push origin main');
+        shell_exec('git push origin --tags');
     }
 
     private static function resolveArguments(array $arguments): array
