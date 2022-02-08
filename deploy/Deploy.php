@@ -41,7 +41,7 @@ class Deploy
         print("\033[0;34m". $repeat ."\033[0m".PHP_EOL);
         print(PHP_EOL);
 
-        print("\033[0;32mSync Repository\033[0m".PHP_EOL);
+        print("\033[0;32m\033[1mSync Repository\033[0m".PHP_EOL);
         print("\033[0;32m-----------\033[0m".PHP_EOL);
         shell_exec('cd '. __DIR__);
         shell_exec('git status');
