@@ -7,4 +7,4 @@ use LTL\Hubspot\Core\HubspotConfig;
 
 define('ENV', envDefine(HubspotConfig::BASE_PATH .'/.env'));
 
-hubspotKey(ENV['HUBSPOT_API_TROPICAL']);
+hubspotKey(ENV['HUBSPOT_API']);
