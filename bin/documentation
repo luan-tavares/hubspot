@@ -21,11 +21,11 @@ if (!file_exists($dir.'/autoload.php')) {
 
 require $dir.'/autoload.php';
 
+use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Request\Interfaces\CurlComponentInterface;
 use LTL\Hubspot\Core\Request\Interfaces\HeaderComponentInterface;
 use LTL\Hubspot\Core\Request\Interfaces\QueryComponentInterface;
 use LTL\Hubspot\Hubspot;
-use LTL\Hubspot\Core\HubspotConfig;
 
 function generateDoc(string $class, string $title): string
 {
