@@ -52,12 +52,14 @@ class Deploy
         shell_exec('git branch -D temp-branch');
         print(PHP_EOL);
         /**Finally */
-        print("\033[0;34m- Commit and push to main\033[0m".PHP_EOL);
+        print("\033[0;32m\033[1mCommit and Push main branch\033[0m".PHP_EOL);
+        print("\033[0;32m-----------\033[0m".PHP_EOL);
         shell_exec('git commit -a -m "'. $message .'"');
         shell_exec('git push origin main');
         print(PHP_EOL);
         
-        print("\033[0;34m- Add tag\033[0m".PHP_EOL);
+        print("\033[0;32m\033[1mCreate and Push tag\033[0m".PHP_EOL);
+        print("\033[0;32m-----------\033[0m".PHP_EOL);
         shell_exec("git tag -a \"{$tag}\" -m \"{$message}\"");
         shell_exec('git push origin --tags');
     }
