@@ -2,6 +2,8 @@
 namespace LTL\Hubspot;
 
 use Composer\Script\Event;
+use DirectoryIterator;
+use SplMaxHeap;
 
 class Deploy
 {
@@ -9,27 +11,29 @@ class Deploy
     {
         $arguments = self::resolveArguments($event->getArguments());
 
-        $message = '';
+        $message = 'Generic message';
         
         if (isset($arguments['m'])) {
             $message = $arguments['m'];
         }
 
-        $diff = shell_exec('git diff');
+        $untracking = shell_exec('git status');
+        $search = 'nothing to commit, working tree clean';
+  
 
-        if ($diff == '') {
+        if (str_contains($untracking, $search)) {
             print(PHP_EOL);
-            print("\033[1;35m". str_repeat('-', 30) ."\033[0m".PHP_EOL);
-            print("\033[1;35mNothing to commit\033[0m".PHP_EOL);
-            print("\033[1;35m". str_repeat('-', 30) ."\033[0m".PHP_EOL);
- 
-            
+            print("\033[0;33m". str_repeat('-', 35) ."\033[0m".PHP_EOL);
+            print("\033[0;33m Nothing to commit\033[0m".PHP_EOL);
+            print("\033[0;33m". str_repeat('-', 35) ."\033[0m".PHP_EOL);
+
             die();
         }
 
-        print("\033[0;32m". str_repeat('-', 30) ."\033[0m".PHP_EOL);
-        print("\033[0;32m\033[1mSync Repository\033[0m".PHP_EOL);
-        print("\033[0;32m". str_repeat('-', 30) ."\033[0m".PHP_EOL);
+
+        print("\033[0;32m". str_repeat('-', 35) ."\033[0m".PHP_EOL);
+        print("\033[0;32m\033[1m Sync Repository\033[0m".PHP_EOL);
+        print("\033[0;32m". str_repeat('-', 35) ."\033[0m".PHP_EOL);
         shell_exec('cd '. __DIR__);
         shell_exec('git status');
         shell_exec('git checkout -b temp-branch');
@@ -39,10 +43,11 @@ class Deploy
         shell_exec('git branch -D temp-branch');
         print(PHP_EOL);
      
-        print("\033[0;32m". str_repeat('-', 30) ."\033[0m".PHP_EOL);
-        print("\033[0;32m\033[1mCommit and Push main branch\033[0m".PHP_EOL);
-        print("\033[0;32m". str_repeat('-', 30) ."\033[0m".PHP_EOL);
-        shell_exec('git commit -a -m "'. $message .'"');
+        print("\033[0;32m". str_repeat('-', 35) ."\033[0m".PHP_EOL);
+        print("\033[0;32m\033[1m Commit and Push main branch\033[0m".PHP_EOL);
+        print("\033[0;32m". str_repeat('-', 35) ."\033[0m".PHP_EOL);
+        shell_exec('git add .');
+        shell_exec('git commit -m "'. $message .'"');
         shell_exec('git push origin main');
         print(PHP_EOL);
     }
