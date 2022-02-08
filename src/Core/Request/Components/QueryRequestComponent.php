@@ -12,9 +12,9 @@ class QueryRequestComponent extends RequestComponent implements QueryComponentIn
 {
     use PublicMethodsListable;
 
-    public function __construct(ResourceInterface $resource, array $array = [])
+    public function __construct(ResourceInterface $resource)
     {
-        parent::__construct($resource, $array);
+        parent::__construct($resource);
         $this->addArray(['hapikey' => ApikeyContainer::get()]);
     }
 

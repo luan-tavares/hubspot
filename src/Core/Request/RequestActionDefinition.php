@@ -5,10 +5,8 @@ namespace LTL\Hubspot\Core\Request;
 use LTL\Hubspot\Core\Request\Interfaces\RequestActionDefinitionInterface;
 use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
 use LTL\Hubspot\Core\Request\RequestCurlCaller;
-use LTL\Hubspot\Core\Request\Services\CurlRequestService;
 use LTL\Hubspot\Core\Schemas\Interfaces\ActionSchemaInterface;
 use LTL\Hubspot\Exceptions\HubspotApiException;
-use LTL\Hubspot\Services\Curl\Curl;
 
 abstract class RequestActionDefinition implements RequestActionDefinitionInterface
 {
