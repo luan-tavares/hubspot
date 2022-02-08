@@ -27,9 +27,10 @@ class Deploy
 
         $diff = shell_exec('git diff');
 
-        print($diff == '');
+        if ($diff == '') {
+            die();
+        }
 
- 
 
         $repeat = str_repeat(':', 10 + (mb_strlen($tag)));
 
