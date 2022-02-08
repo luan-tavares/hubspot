@@ -20,7 +20,7 @@ class Deploy
         $tag = self::getLastTag($baseTag);
 
         $message = "{$tag}";
-
+        //*//
         if (isset($arguments['m'])) {
             $message .= ' - '. $arguments['m'];
         }
