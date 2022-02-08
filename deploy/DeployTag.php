@@ -25,9 +25,11 @@ class DeployTag
             $message .= ' - '. $arguments['m'];
         }
 
-        $diff = shell_exec('git diff');
+        $untracking = shell_exec('git status');
+        $search = 'nothing to commit, working tree clean';
+  
 
-        if ($diff == '') {
+        if (str_contains($untracking, $search)) {
             print(PHP_EOL);
             print("\033[0;33m". str_repeat('-', 35) ."\033[0m".PHP_EOL);
             print("\033[0;33m Nothing to commit\033[0m".PHP_EOL);
