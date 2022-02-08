@@ -25,7 +25,15 @@ class Deploy
             $message .= ' - '. $arguments['m'];
         }
 
-        echo "Add tag {$tag}";
+        $repeat = str_repeat(':', 10 + (mb_strlen($tag)));
+
+        print("\033[0;34m". $repeat ."\033[0m".PHP_EOL);
+        print("\033[0;34m:: Tag \033[1m{$tag}\033[0m \033[0;34m::\033[0m".PHP_EOL);
+        print("\033[0;34m". $repeat ."\033[0m".PHP_EOL);
+        print(PHP_EOL);
+
+        print("\033[0;34m- Sync Repository\033[0m".PHP_EOL);
+
         shell_exec('cd '. __DIR__);
         shell_exec('git status');
         shell_exec('git checkout -b temp-branch');
@@ -34,9 +42,11 @@ class Deploy
         shell_exec('git merge temp-branch');
         shell_exec('git branch -D temp-branch');
         /**Finally */
-        shell_exec('git add .');
-        shell_exec('git commit -m "'. $message .'"');
+        print("\033[0;34m- Commit changes\033[0m".PHP_EOL);
+        shell_exec('git commit -a -m "'. $message .'"');
+        print("\033[0;34m- Add tag\033[0m".PHP_EOL);
         shell_exec("git tag -a \"{$tag}\" -m \"{$message}\"");
+        print("\033[0;34m- Finaly push\033[0m".PHP_EOL);
         shell_exec('git push origin --tags');
         shell_exec('git push origin main');
     }
