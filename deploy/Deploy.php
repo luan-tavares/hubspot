@@ -2,8 +2,6 @@
 namespace LTL\Hubspot;
 
 use Composer\Script\Event;
-use DirectoryIterator;
-use SplMaxHeap;
 
 class Deploy
 {
