@@ -24,9 +24,9 @@ if (!function_exists('envDefine')) {
 
             if (isset($explodeLine[1])) {
                 $a[$name] = trim($explodeLine[1]);
-            } else {
-                $a[$name] = null;
+                continue;
             }
+            $a[$name] = null;
         }
 
         fclose($env);

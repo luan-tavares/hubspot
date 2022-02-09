@@ -13,7 +13,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "LTL\\Hubspot\\": ["src/", "deploy/"]
+            "LTL\\Hubspot\\": ["src/"]
         },
         "files": [
             "src/helpers/helpers.php"
@@ -26,14 +26,15 @@
         "php": "^8.0"
     },
     "require-dev": {
-        "larapack/dd": "1.*"
+        "larapack/dd": "1.*",
+        "phpunit/phpunit": "^9.5"
     },
     "scripts": {
         "deploy-tag": [
-            "LTL\\Hubspot\\DeployTag::execute"
+            "LTL\\Hubspot\\Deploy\\DeployTag::execute"
         ],
         "deploy": [
-            "LTL\\Hubspot\\Deploy::execute"
+            "LTL\\Hubspot\\Deploy\\Deploy::execute"
         ]
     }
 }

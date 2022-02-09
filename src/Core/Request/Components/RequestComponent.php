@@ -40,7 +40,7 @@ abstract class RequestComponent implements SubjectInterface
         }
 
         foreach ($array as $key => $value) {
-            $this->items[$key] = $value;
+            $this->add($key, $value);
         }
 
         return $this;
