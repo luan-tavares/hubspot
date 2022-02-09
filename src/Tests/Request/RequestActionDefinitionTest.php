@@ -11,6 +11,7 @@ use LTL\Hubspot\Core\Resource\Resource;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Resources\ContactHubspot;
 use LTL\Hubspot\Resources\FileHubspot;
+use LTL\Hubspot\Resources\HubDbHubspot;
 use PHPUnit\Framework\TestCase;
 
 class RequestActionDefinitionTest extends TestCase
@@ -115,6 +116,22 @@ class RequestActionDefinitionTest extends TestCase
         
         $this->assertEquals($fileRequest->getHeaders(), [
             'Content-Type' => 'multipart/form-data'
+        ]);
+    }
+
+    public function testRequestHeaderHubDbExportToCsv()
+    {
+        $fileResource = $this->createMock(HubDbHubspot::class);
+        $fileResource->method('__toString')->willReturn('hub-db-v3');
+ 
+        $fileRequest = RequestContainer::get($fileResource);
+
+        $actionSchema = SchemaContainer::getAction($fileResource, 'exportToCsv');
+        
+        RequestActionDefinition::finish($fileRequest, $actionSchema, ['tableId']);
+        
+        $this->assertEquals($fileRequest->getHeaders(), [
+            'accept' => 'application/vnd.ms-excel'
         ]);
     }
 
