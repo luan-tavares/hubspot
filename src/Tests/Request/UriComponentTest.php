@@ -1,6 +1,6 @@
 <?php
 
-namespace LTL\Hubspot\Tests;
+namespace LTL\Hubspot\Tests\Request;
 
 use LTL\Hubspot\Core\Request\Components\UriRequestComponent;
 use LTL\Hubspot\Core\Resource\Resource;

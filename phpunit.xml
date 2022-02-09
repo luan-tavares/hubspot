@@ -5,10 +5,9 @@
          colors="true"
 >
     <testsuites>
-        <testsuite name="Unit Suit">
-            <directory >./src/Tests</directory>
-        </testsuite>
-      
+        <testsuite name="Request Suit">
+            <directory >./src/Tests/Request</directory>
+        </testsuite>     
     </testsuites>
 
 </phpunit>
