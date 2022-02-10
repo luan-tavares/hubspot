@@ -39,14 +39,12 @@ abstract class RequestComponent implements SubjectInterface
             return $this;
         }
 
-        foreach ($array as $key => $value) {
-            $this->add($key, $value);
-        }
+        $this->items = array_merge($this->items, $array);
 
         return $this;
     }
   
-    public function add(string $name, mixed $value): self
+    public function add(string $name, string|int|array|bool|null $value): self
     {
         if (is_null($value)) {
             return $this;

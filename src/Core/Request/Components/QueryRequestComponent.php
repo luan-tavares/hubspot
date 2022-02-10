@@ -15,7 +15,7 @@ class QueryRequestComponent extends RequestComponent implements QueryComponentIn
     public function __construct(ResourceInterface $resource)
     {
         parent::__construct($resource);
-        $this->addArray(['hapikey' => ApikeyContainer::get()]);
+        $this->add('hapikey', ApikeyContainer::get());
     }
 
     public function q(string $query): self
