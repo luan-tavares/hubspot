@@ -46,7 +46,7 @@ abstract class RequestComponent implements SubjectInterface
         return $this;
     }
   
-    public function add(string $name, string|int|array|bool|null $value): self
+    public function add(string $name, mixed $value): self
     {
         if (is_null($value)) {
             return $this;
