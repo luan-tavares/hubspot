@@ -7,12 +7,22 @@
         "completeCallback": {
             "path": "actions/callbacks/{callbackId}/complete",         
             "method": "POST",
-            "description": "Completes the given action callback."
+            "description": "Completes the given action callback using app oAuth."
         },
         "batchCompleteCallbacks": {
             "path": "actions/callbacks/complete",           
             "method": "POST",
-            "description": "Completes the given action callbacks."
+            "description": "Completes the given action callbacks using app oAuth."
+        },
+        "completeCallbackApp": {
+            "path": "actions/callbacks/{appId}/{callbackId}/complete",         
+            "method": "POST",
+            "description": "Completes the given action callback using account apikey."
+        },
+        "batchCompleteCallbacksApp": {
+            "path": "actions/callbacks/{appId}/complete",           
+            "method": "POST",
+            "description": "Completes the given action callbacks using account apikey."
         }
     }
 }
