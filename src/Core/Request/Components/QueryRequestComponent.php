@@ -18,6 +18,11 @@ class QueryRequestComponent extends RequestComponent implements QueryComponentIn
         $this->add('hapikey', ApikeyContainer::get());
     }
 
+    public function query(string $query, string|null $value): self
+    {
+        return $this->add($query, $value);
+    }
+
     public function q(string $query): self
     {
         return $this->add('q', $query);

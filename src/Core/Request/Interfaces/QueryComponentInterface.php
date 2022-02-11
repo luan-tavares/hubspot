@@ -7,6 +7,7 @@ use LTL\Hubspot\Services\PublicMethods\Interfaces\PublicMethodsListableInterface
 
 interface QueryComponentInterface extends ComponentInterface, PublicMethodsListableInterface
 {
+    public function query(string $query, string|null $value): self;
     public function byEmail(): self;
     public function q(string $query): self;
     public function archived(): self;

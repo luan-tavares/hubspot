@@ -39,7 +39,9 @@ abstract class RequestComponent implements SubjectInterface
             return $this;
         }
 
-        $this->items = array_merge($this->items, $array);
+        $this->items = array_filter(array_merge($this->items, $array), function ($item) {
+            return !is_null($item);
+        });
 
         return $this;
     }

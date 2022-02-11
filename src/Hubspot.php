@@ -8,6 +8,8 @@ use LTL\Hubspot\Core\Resource\Resource;
  *
  * Uri Query Methods
  *
+ * @method $this query(string $query, ?string $value) 
+ * @method static $this query(string $query, ?string $value) 
  * @method $this byEmail() 
  * @method static $this byEmail() 
  * @method $this q(string $query) 
