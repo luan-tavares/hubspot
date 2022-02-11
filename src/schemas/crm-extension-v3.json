@@ -1,0 +1,40 @@
+{
+    "resource": "crm",
+    "version": "v3",
+    "class": "CrmExtensionHubspot",
+    "documentation": "https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/extensions/cards",
+    "actions": {
+        "getAll": {
+            "path": "extensions/cards/{appId}",
+            "method": "GET",
+            "description": "Returns a list of cards for a given app.",
+            "iterable": "results",
+            "after": null
+        },
+        "get": {
+            "path": "extensions/cards/{appId}/{cardId}",
+            "method": "GET",
+            "description": "Returns the definition for a card with the given ID."
+        },
+        "create": {
+            "path": "extensions/cards/{appId}",
+            "method": "POST",
+            "description": "Defines a new card that will become active on an account when this app is installed."
+        },
+        "update": {
+            "path": "extensions/cards/{appId}/{cardId}",
+            "method": "PATCH",
+            "description": "Update a card definition with new details."
+        },
+        "delete": {
+            "path": "extensions/cards/{appId}/{cardId}",
+            "method": "DELETE",
+            "description": "Permanently deletes a card definition with the given ID."
+        },
+        "getSampleCard": {
+            "path": "extensions/cards/sample-response",
+            "method": "GET",
+            "description": "Returns an example card detail response."
+        }
+    }
+}
