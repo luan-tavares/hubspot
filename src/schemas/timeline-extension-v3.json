@@ -1,0 +1,89 @@
+{
+    "resource": "crm",
+    "version": "v3",
+    "class": "TimelineExtensionHubspot",
+    "documentation": "https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/timeline",
+    "actions": {
+        "getAll": {
+            "path": "timeline/{appId}/event-templates",
+            "method": "GET",
+            "description": "Use this to list all event templates owned by your app.",
+            "iterable": "results",
+            "after": null
+        },
+        "get": {
+            "path": "timeline/{appId}/event-templates/{eventTemplateId}",
+            "method": "GET",
+            "description": ""
+        },
+        "create": {
+            "path": "timeline/{appId}/event-templates",
+            "method": "POST",
+            "description": "Event templates define the general structure for a custom timeline event. "
+        },
+        "update": {
+            "path": "timeline/{appId}/event-templates/{eventTemplateId}",
+            "method": "PUT",
+            "description": "Updates an existing template and its tokens."
+        },
+        "delete": {
+            "path": "timeline/{appId}/event-templates/{eventTemplateId}",
+            "method": "DELETE",
+            "description": "This will delete the event template. All associated events will be removed from search results and the timeline UI."
+        },
+        "createToken": {
+            "path": "timeline/{appId}/event-templates/{eventTemplateId}/tokens",
+            "method": "POST",
+            "description": "Adds a token to an existing event template."
+        },
+        "updateToken": {
+            "path": "timeline/{appId}/event-templates/{eventTemplateId}/tokens/{tokenName}",
+            "method": "PUT",
+            "description": "This will update the existing token on an event template. Name and type can't be changed on existing tokens."
+        },
+        "deleteToken": {
+            "path": "timeline/{appId}/event-templates/{eventTemplateId}/tokens/{tokenName}",
+            "method": "DELETE",
+            "description": "This will remove the token from an existing template."
+        },
+        "createEvent": {
+            "path": "timeline/events",
+            "method": "POST",
+            "description": "Creates an instance of a timeline event based on an event template."
+        },
+        "batchCreateEvent": {
+            "path": "timeline/events/batch/create",
+            "method": "POST",
+            "description": "Creates multiple instances of timeline events based on an event template."
+        },
+        "getEvent": {
+            "path": "timeline/events/{eventTemplateId}/{eventId}",
+            "method": "GET",
+            "description": "This returns the previously created event. It contains all existing info for the event, but not necessarily the CRM object."
+        },
+        "getEventDetail": {
+            "path": "timeline/events/{eventTemplateId}/{eventId}/detail",
+            "method": "GET",
+            "description": "This will take the detailTemplate from the event template and return an object rendering the specified event."
+        },
+        "getEventHtmlHeader": {
+            "path": "timeline/events/{eventTemplateId}/{eventId}/render",
+            "method": "GET",
+            "description": "This will take either the headerTemplate from the event template and render for the specified event as HTML.",
+            "headers": {
+                "accept": "text/html"
+            }
+        },
+        "getEventHtmlDetail": {
+            "path": "timeline/events/{eventTemplateId}/{eventId}/render",
+            "method": "GET",
+            "description": "This will take either the detailTemplate from the event template and render for the specified event as HTML.",
+            "queries": {
+                "detail": "true"
+            },
+            "headers": {
+                "accept": "text/html"
+            }
+        }
+    }
+}

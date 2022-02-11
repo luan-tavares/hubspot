@@ -77,9 +77,9 @@ class Response implements ResponseInterface, IteratorAggregate, Countable
 
     private function hideApikey(string $uri): string
     {
-        preg_match('/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/', $uri, $uuid);
+        preg_match('/hapikey=\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/', $uri, $uuid);
 
-        return str_replace($uuid, 'xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx', $uri);
+        return str_replace($uuid, 'hapikey=xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx', $uri);
     }
 
     public function destroy(): void
