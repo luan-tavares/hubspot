@@ -1,0 +1,31 @@
+{
+    "resource": "oauth",
+    "version": "v1",
+    "class": "OAuthHubspot",
+    "documentation": "https://app.hubspot.com/developer-docs/api?spec=v1/apis/auth/v1/oauth",
+    "actions": {
+        "getAccessToken": {
+            "path": "access-tokens/{token}",
+            "method": "GET",
+            "description": "Get access-token info."
+        },
+        "getRefreshToken": {
+            "path": "refresh-tokens/{token}",
+            "method": "GET",
+            "description": "Get access-token info."
+        },
+        "deleteRefreshToken": {
+            "path": "refresh-tokens/{token}",
+            "method": "DELETE",
+            "description": "Delete refresh-token."
+        },
+        "createOrRefresh": {
+            "path": "token",
+            "method": "POST",
+            "description": "Install or Refresh App and create token.",
+            "headers": {
+                "Content-Type": "application/x-www-form-urlencoded"
+            }
+        }
+    }
+}

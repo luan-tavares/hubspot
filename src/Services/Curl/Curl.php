@@ -103,11 +103,19 @@ class Curl
             return $this;
         }
 
-        if (@$this->requestHeaders['Content-Type'] !== 'multipart/form-data') {
-            $body = json_encode($body, CurlConstants::JSON_ENCODE);
+        if (@$this->requestHeaders['Content-Type'] === 'multipart/form-data') {
+            $this->params[CURLOPT_POSTFIELDS] = $body;
+
+            return $this;
         }
 
-        $this->params[CURLOPT_POSTFIELDS] = $body;
+        if (@$this->requestHeaders['Content-Type'] === 'application/x-www-form-urlencoded') {
+            $this->params[CURLOPT_POSTFIELDS] = http_build_query($body);
+
+            return $this;
+        }
+
+        $this->params[CURLOPT_POSTFIELDS] = json_encode($body, CurlConstants::JSON_ENCODE);
 
         return $this;
     }

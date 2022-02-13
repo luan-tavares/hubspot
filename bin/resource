@@ -36,7 +36,7 @@ $resources = array_map(function ($path) {
 }, $files);
 
 
-$i = $j = 0;
+$i = $j = $totalActions = 0;
 foreach ($resources as $resource) {
     $i++;
     $j = 0;
@@ -55,6 +55,7 @@ foreach ($resources as $resource) {
     
     foreach ($document->actions as $action => $actionSchema) {
         $j++;
+        $totalActions++;
 
         if (!in_array($actionSchema->method, HubspotConfig::METHODS)) {
             dd("{$actionSchema->method} not Allowed in {$resource}!");
@@ -95,5 +96,14 @@ foreach ($resources as $resource) {
 
     file_put_contents("{$basePath}/src/Resources/{$document->class}.php", $content);
 
-    dump("{$i} - {$resource} created! - {$j} actions!");
+    $status = str_pad($i, 2, '0', STR_PAD_LEFT) ."▕ {$resource} ";
+
+    $size = mb_strlen($status);
+
+    dump($status . str_repeat('_', (40-$size)) .'  '. str_pad($j, 2, '0', STR_PAD_LEFT) .' actions');
 }
+
+
+$status = 'Total actions ';
+$size = mb_strlen($status);
+dump(str_repeat(' ', (40-$size)) . $status ." {$totalActions} actions");
