@@ -11,6 +11,9 @@
         <testsuite name="Service Suit">
             <directory >./src/Tests/Services</directory>
         </testsuite> 
+         <testsuite name="Schema Suit">
+            <directory >./src/Tests/Schema</directory>
+        </testsuite> 
     </testsuites>
 
 </phpunit>
