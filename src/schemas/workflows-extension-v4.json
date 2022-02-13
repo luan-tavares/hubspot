@@ -2,8 +2,84 @@
     "resource": "automation",
     "version": "v4",
     "class": "WorkflowExtensionHubspot",
-    "documentation": "https://developers.hubspot.com/docs/api/automation/custom-workflow-actions",
+    "documentation": "https://app.hubspot.com/developer-docs/api?spec=v1/apis/automation/v4/actions",
     "actions": {
+        "getAll": {
+            "path": "actions/{appId}",         
+            "method": "GET",
+            "description": "Returns a list of all custom workflow actions.",
+            "iterable": "results",
+            "after": "paging.next.after"
+        },
+        "get": {
+            "path": "actions/{appId}/{actionId}",         
+            "method": "GET",
+            "description": "Returns a single custom workflow action with the specified ID."
+        },
+        "create": {
+            "path": "actions/{appId}",         
+            "method": "POST",
+            "description": "Creates a new custom workflow action."
+        },
+        "update": {
+            "path": "actions/{appId}/{actionId}",         
+            "method": "PATCH",
+            "description": "Updates a custom workflow action with new values for the specified fields."
+        },
+        "delete": {
+            "path": "actions/{appId}/{actionId}",         
+            "method": "DELETE",
+            "description": "Archives a single custom workflow action with the specified ID."
+        },
+        "getAllFunctions": {
+            "path": "actions/{appId}/{actionId}/functions",         
+            "method": "GET",
+            "description": "Returns a list of all functions that are associated with the given custom workflow action.",
+            "iterable": "results",
+            "after": "paging.next.after"
+        },
+        "getFunction": {
+            "path": "actions/{appId}/{actionId}/functions/{functionType}",         
+            "method": "GET",
+            "description": "Returns the given function for a custom workflow action."
+        },
+        "createOrReplaceFunction": {
+            "path": "actions/{appId}/{actionId}/functions/{functionType}",         
+            "method": "PUT",
+            "description": "Creates or replaces a function for a custom workflow action."
+        },
+        "deleteFunction": {
+            "path": "actions/{appId}/{actionId}/functions/{functionType}",         
+            "method": "DELETE",
+            "description": "Delete a function for a custom workflow action. This will remove the function itself as well as removing the association between the function and the custom action."
+        },
+        "getFunctionAction": {
+            "path": "actions/{appId}/{actionId}/functions/{functionType}/{functionId}",         
+            "method": "GET",
+            "description": "Returns the given function for a custom workflow action."
+        },
+        "createOrReplaceFunctionAction": {
+            "path": "actions/{appId}/{actionId}/functions/{functionType}/{functionId}",         
+            "method": "PUT",
+            "description": "Creates or replaces a function for a custom workflow action."
+        },
+        "deleteFunctionAction": {
+            "path": "actions/{appId}/{actionId}/functions/{functionType}/{functionId}",         
+            "method": "DELETE",
+            "description": "Delete a function for a custom workflow action. This will remove the function itself as well as removing the association between the function and the custom action."
+        },
+        "getAllRevisions": {
+            "path": "actions/{appId}/{actionId}/revisions",         
+            "method": "GET",
+            "description": "Returns a list of revisions for a custom workflow action.",
+            "iterable": "results",
+            "after": "paging.next.after"
+        },
+        "getRevision": {
+            "path": "actions/{appId}/{actionId}/revisions/{revisionId}",         
+            "method": "GET",
+            "description": "Returns the given version of a custom workflow action."
+        },
         "completeCallback": {
             "path": "actions/callbacks/{callbackId}/complete",         
             "method": "POST",
@@ -13,16 +89,6 @@
             "path": "actions/callbacks/complete",           
             "method": "POST",
             "description": "Completes the given action callbacks using app oAuth."
-        },
-        "completeCallbackApp": {
-            "path": "actions/callbacks/{appId}/{callbackId}/complete",         
-            "method": "POST",
-            "description": "Completes the given action callback using account apikey."
-        },
-        "batchCompleteCallbacksApp": {
-            "path": "actions/callbacks/{appId}/complete",           
-            "method": "POST",
-            "description": "Completes the given action callbacks using account apikey."
         }
     }
 }
