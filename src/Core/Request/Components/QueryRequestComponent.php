@@ -117,4 +117,9 @@ class QueryRequestComponent extends RequestComponent implements QueryComponentIn
     {
         return $this->add('vid', func_get_args());
     }
+
+    public function formTypes($arguments): self
+    {
+        return $this->add('formTypes', func_get_args());
+    }
 }

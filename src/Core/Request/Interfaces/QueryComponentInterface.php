@@ -27,4 +27,5 @@ interface QueryComponentInterface extends ComponentInterface, PublicMethodsLista
     public function sort($arguments): self;
     public function listEmails($arguments): self;
     public function listVids($arguments): self;
+    public function formTypes($arguments): self;
 }

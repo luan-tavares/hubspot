@@ -1,0 +1,40 @@
+{
+    "resource": "marketing",
+    "version": "v3",
+    "class": "FormHubspot",
+    "documentation": "https://app.hubspot.com/developer-docs/api?spec=v1/apis/marketing/v3/forms",
+    "actions": {
+        "getAll": {
+            "path": "forms",
+            "method": "GET",
+            "description": "Returns a list of forms based on the search filters. By default, it returns the first 20 hubspot forms.",
+            "iterable": "results",
+            "after": "paging.next.after"
+        },
+        "get": {
+            "path": "forms/{formId}",
+            "method": "GET",
+            "description": "Returns a form based on the form ID provided."
+        },
+        "create": {
+            "path": "forms",
+            "method": "POST",
+            "description": "Add a new hubspot form."
+        },
+        "update": {
+            "path": "forms/{formId}",
+            "method": "PUT",
+            "description": "Update all fields of a hubspot form definition."
+        },
+        "partialUpdate": {
+            "path": "forms/{formId}",
+            "method": "PATCH",
+            "description": "Update some of the form definition components."
+        },
+        "delete": {
+            "path": "forms/{formId}",
+            "method": "DELETE",
+            "description": "Archive a form definition. New submissions will not be accepted and the form definition will be permanently deleted after 3 months."
+        }
+    }
+}

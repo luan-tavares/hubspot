@@ -48,6 +48,8 @@ use LTL\Hubspot\Core\Resource\Resource;
  * @method static $this listEmails(string ...$arguments) 
  * @method $this listVids(string ...$arguments) 
  * @method static $this listVids(string ...$arguments) 
+ * @method $this formTypes(string ...$arguments) 
+ * @method static $this formTypes(string ...$arguments) 
  *
  * Uri Header Methods
  *
