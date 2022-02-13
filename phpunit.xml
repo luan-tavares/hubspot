@@ -8,6 +8,9 @@
         <testsuite name="Request Suit">
             <directory >./src/Tests/Request</directory>
         </testsuite>     
+        <testsuite name="Service Suit">
+            <directory >./src/Tests/Services</directory>
+        </testsuite> 
     </testsuites>
 
 </phpunit>

@@ -128,7 +128,8 @@ class Curl
 
         $requestHeaders = [];
         foreach ($this->requestHeaders as $name => $value) {
-            $requestHeaders[] = "{$name}: {$value}";
+            $name = (is_int($name))?(''):("{$name}: ");
+            $requestHeaders[] = "{$name}{$value}";
         }
         $this->params[CURLOPT_HTTPHEADER] = $requestHeaders;
 
