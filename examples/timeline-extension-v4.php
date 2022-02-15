@@ -10,7 +10,7 @@ ApikeyContainer::store(ENV['HUBSPOT_API_DEVELOPER']);
 
 $timeline = TimelineExtensionHubspot::get(197428, 391519);
 
-dump($timeline);
+dump($timeline->toArray());
 
 $finalInsert = [
     'eventTemplateId' => '391519',

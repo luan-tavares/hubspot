@@ -7,7 +7,7 @@ use LTL\Hubspot\Services\Curl\CurlResponseHeader;
 use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
 
-class HeaderWithBodyTest extends TestCase
+class CurlTest extends TestCase
 {
     protected $curl;
 
