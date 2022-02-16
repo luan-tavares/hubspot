@@ -106,4 +106,9 @@ class Response implements ResponseInterface, IteratorAggregate, Countable
     {
         return $this->headers;
     }
+
+    public function hasError(): bool
+    {
+        return ($this->status < 200 || $this->status > 299);
+    }
 }

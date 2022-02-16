@@ -158,6 +158,11 @@ class Curl
         return $this->status;
     }
 
+    public function hasError(): int
+    {
+        return ($this->status < 200 || $this->status > 299);
+    }
+
     public function getUri(): string
     {
         return $this->uri;

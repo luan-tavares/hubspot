@@ -99,7 +99,7 @@ abstract class Resource implements ResourceInterface
      */
     public function error(): bool
     {
-        return !($this->response->getStatus() >= 200 && $this->response->getStatus() <= 299);
+        return $this->response->hasError();
     }
  
     /**
