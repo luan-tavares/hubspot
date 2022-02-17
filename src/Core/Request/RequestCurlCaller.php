@@ -4,6 +4,7 @@ namespace LTL\Hubspot\Core\Request;
 
 use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
 use LTL\Hubspot\Services\Curl\Curl;
+use LTL\Hubspot\Services\Curl\CurlInterface;
 
 class RequestCurlCaller
 {
@@ -26,7 +27,7 @@ class RequestCurlCaller
         $this->method = $method;
     }
 
-    public function connect(): Curl
+    public function connect(): CurlInterface
     {
         return (new Curl($this->uri))
             ->addHeaders($this->header)

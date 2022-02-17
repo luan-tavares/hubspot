@@ -8,7 +8,7 @@ use LTL\Hubspot\Containers\ResponseObjectContainer;
 use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
 use LTL\Hubspot\Core\Response\ResponseObject;
 use LTL\Hubspot\Core\Schemas\Interfaces\ActionSchemaInterface;
-use LTL\Hubspot\Services\Curl\Curl;
+use LTL\Hubspot\Services\Curl\CurlInterface;
 
 class Response implements ResponseInterface, IteratorAggregate, Countable
 {
@@ -20,7 +20,7 @@ class Response implements ResponseInterface, IteratorAggregate, Countable
 
     private string $uri;
 
-    public function __construct(Curl $curl, private ActionSchemaInterface $actionSchema)
+    public function __construct(CurlInterface $curl, private ActionSchemaInterface $actionSchema)
     {
         $this->status = $curl->getStatus();
         $this->response = $curl->getResponse();

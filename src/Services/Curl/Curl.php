@@ -4,9 +4,10 @@ namespace LTL\Hubspot\Services\Curl;
 
 use CurlHandle;
 use LTL\Hubspot\Services\Curl\CurlConstants;
+use LTL\Hubspot\Services\Curl\CurlInterface;
 use LTL\Hubspot\Services\Curl\CurlResponseHeader;
 
-class Curl
+class Curl implements CurlInterface
 {
     private array $params = [];
 
@@ -27,6 +28,31 @@ class Curl
         }
 
         $this->params[CURLOPT_URL] = $this->uri;
+    }
+
+    public function get(): self
+    {
+        return $this->connect('GET');
+    }
+
+    public function post(array|null $body = null): self
+    {
+        return $this->connect('POST', $body);
+    }
+
+    public function put(array|null $body = null): self
+    {
+        return $this->connect('PUT', $body);
+    }
+
+    public function patch(array|null $body = null): self
+    {
+        return $this->connect('PATCH', $body);
+    }
+
+    public function delete(): self
+    {
+        return $this->connect('DELETE');
     }
 
 
