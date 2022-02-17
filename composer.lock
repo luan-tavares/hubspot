@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ef47c9849894a5a4adf012ab8c6d34c4",
+    "content-hash": "4b8270a22bd1172f7666b65d1c1b3db1",
     "packages": [
         {
             "name": "luan-tavares/list-methods",
@@ -60,6 +60,57 @@
                 "source": "https://github.com/luan-tavares/list-methods/tree/v1.0.2"
             },
             "time": "2022-02-17T22:21:13+00:00"
+        },
+        {
+            "name": "luan-tavares/mini-curl",
+            "version": "v1.0.01",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/luan-tavares/mini-curl.git",
+                "reference": "492f14c3b1485845968b11d73e1f1fa04b3ebf1a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/luan-tavares/mini-curl/zipball/492f14c3b1485845968b11d73e1f1fa04b3ebf1a",
+                "reference": "492f14c3b1485845968b11d73e1f1fa04b3ebf1a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "larapack/dd": "1.*",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "LTL\\Curl\\": [
+                        "src/"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Luan Tavares Lourenço",
+                    "email": "luan.tavares.lourenco@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Simple Curl without leak",
+            "keywords": [
+                "api",
+                "integration"
+            ],
+            "support": {
+                "issues": "https://github.com/luan-tavares/mini-curl/issues",
+                "source": "https://github.com/luan-tavares/mini-curl/tree/v1.0.01"
+            },
+            "time": "2022-02-17T23:22:05+00:00"
         }
     ],
     "packages-dev": [

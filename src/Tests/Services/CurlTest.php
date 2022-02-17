@@ -2,8 +2,8 @@
 
 namespace LTL\Hubspot\Tests\Services;
 
-use LTL\Hubspot\Services\Curl\Curl;
-use LTL\Hubspot\Services\Curl\CurlResponseHeader;
+use LTL\Curl\Curl;
+use LTL\Curl\CurlResponseHeader;
 use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
 

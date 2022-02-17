@@ -4,11 +4,11 @@ namespace LTL\Hubspot\Core\Response;
 
 use Countable;
 use IteratorAggregate;
+use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Containers\ResponseObjectContainer;
 use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
 use LTL\Hubspot\Core\Response\ResponseObject;
 use LTL\Hubspot\Core\Schemas\Interfaces\ActionSchemaInterface;
-use LTL\Hubspot\Services\Curl\CurlInterface;
 
 class Response implements ResponseInterface, IteratorAggregate, Countable
 {

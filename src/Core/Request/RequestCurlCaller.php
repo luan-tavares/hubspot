@@ -2,9 +2,9 @@
 
 namespace LTL\Hubspot\Core\Request;
 
+use LTL\Curl\Curl;
+use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
-use LTL\Hubspot\Services\Curl\Curl;
-use LTL\Hubspot\Services\Curl\CurlInterface;
 
 class RequestCurlCaller
 {

@@ -99,7 +99,7 @@ class RequestTest extends TestCase
         
         $this->assertEquals($this->object->getCurlParams(), [
             CURLOPT_NOPROGRESS => false,
-            CURLOPT_PROGRESSFUNCTION => "LTL\Hubspot\Services\Curl\CurlProgressBar::progress"
+            CURLOPT_PROGRESSFUNCTION => \LTL\Curl\CurlProgressBar::class .'::progress'
         ]);
     }
 
