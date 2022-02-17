@@ -2,3 +2,4 @@
 .env
 /examples/o-auth-v1.php
 .phpunit.result.cache
+composer.lock
