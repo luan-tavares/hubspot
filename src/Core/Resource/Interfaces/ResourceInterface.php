@@ -5,7 +5,7 @@ namespace LTL\Hubspot\Core\Resource\Interfaces;
 use ArrayAccess;
 use Countable;
 use IteratorAggregate;
-use LTL\Hubspot\Services\PublicMethods\Interfaces\PublicMethodsListableInterface;
+use LTL\ListMethods\PublicMethods\Interfaces\PublicMethodsListableInterface;
 
 interface ResourceInterface extends PublicMethodsListableInterface, Countable, IteratorAggregate, ArrayAccess
 {

@@ -11,7 +11,7 @@ use LTL\Hubspot\Core\Resource\Traits\ResourceEnumerable;
 use LTL\Hubspot\Core\Resource\Traits\ResourceIterable;
 use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
 use LTL\Hubspot\Exceptions\HubspotApiException;
-use LTL\Hubspot\Services\PublicMethods\Traits\PublicMethodsListable;
+use LTL\ListMethods\PublicMethods\Traits\PublicMethodsListable;
 
 abstract class Resource implements ResourceInterface
 {

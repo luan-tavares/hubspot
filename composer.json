@@ -23,7 +23,8 @@
         "bin/resource"
     ],
     "require": {
-        "php": "^8.0"
+        "php": "^8.0",
+        "luan-tavares/list-methods": "^1.0"
     },
     "require-dev": {
         "larapack/dd": "1.*",

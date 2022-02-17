@@ -4,8 +4,64 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1c5a72ebb67d7384d2bed96ba2480677",
-    "packages": [],
+    "content-hash": "ef47c9849894a5a4adf012ab8c6d34c4",
+    "packages": [
+        {
+            "name": "luan-tavares/list-methods",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/luan-tavares/list-methods.git",
+                "reference": "a1f0946dcf7f4c9a9d9d9562036f66808957bbe1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/luan-tavares/list-methods/zipball/a1f0946dcf7f4c9a9d9d9562036f66808957bbe1",
+                "reference": "a1f0946dcf7f4c9a9d9d9562036f66808957bbe1",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "larapack/dd": "1.*",
+                "phpunit/phpunit": "^9.5"
+            },
+            "bin": [
+                "bin/resource"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "LTL\\ListMethods\\": [
+                        "src/"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Luan Tavares Lourenço",
+                    "email": "luan.tavares.lourenco@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Simple List Methods",
+            "keywords": [
+                "api",
+                "hubspot",
+                "integration"
+            ],
+            "support": {
+                "issues": "https://github.com/luan-tavares/list-methods/issues",
+                "source": "https://github.com/luan-tavares/list-methods/tree/v1.0.2"
+            },
+            "time": "2022-02-17T22:21:13+00:00"
+        }
+    ],
     "packages-dev": [
         {
             "name": "doctrine/instantiator",

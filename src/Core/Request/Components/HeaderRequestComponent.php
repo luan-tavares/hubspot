@@ -4,7 +4,7 @@ namespace LTL\Hubspot\Core\Request\Components;
 
 use LTL\Hubspot\Core\Request\Components\RequestComponent;
 use LTL\Hubspot\Core\Request\Interfaces\HeaderComponentInterface;
-use LTL\Hubspot\Services\PublicMethods\Traits\PublicMethodsListable;
+use LTL\ListMethods\PublicMethods\Traits\PublicMethodsListable;
 
 class HeaderRequestComponent extends RequestComponent implements HeaderComponentInterface
 {

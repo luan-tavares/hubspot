@@ -6,7 +6,7 @@ use LTL\Hubspot\Containers\ApikeyContainer;
 use LTL\Hubspot\Core\Request\Components\RequestComponent;
 use LTL\Hubspot\Core\Request\Interfaces\QueryComponentInterface;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
-use LTL\Hubspot\Services\PublicMethods\Traits\PublicMethodsListable;
+use LTL\ListMethods\PublicMethods\Traits\PublicMethodsListable;
 
 class QueryRequestComponent extends RequestComponent implements QueryComponentInterface
 {

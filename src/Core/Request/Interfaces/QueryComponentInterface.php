@@ -3,7 +3,7 @@
 namespace LTL\Hubspot\Core\Request\Interfaces;
 
 use LTL\Hubspot\Core\Request\Interfaces\ComponentInterface;
-use LTL\Hubspot\Services\PublicMethods\Interfaces\PublicMethodsListableInterface;
+use LTL\ListMethods\PublicMethods\Interfaces\PublicMethodsListableInterface;
 
 interface QueryComponentInterface extends ComponentInterface, PublicMethodsListableInterface
 {
