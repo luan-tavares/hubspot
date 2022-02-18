@@ -6,13 +6,13 @@
 >
     <testsuites>
         <testsuite name="Request Suit">
-            <directory >./src/Tests/Request</directory>
+            <directory >./tests/Tests/Request</directory>
         </testsuite>     
          <testsuite name="Schema Suit">
-            <directory >./src/Tests/Schema</directory>
+            <directory >./tests/Tests/Schema</directory>
         </testsuite> 
         <testsuite name="Resource Suit">
-            <directory >./src/Tests/Resource</directory>
+            <directory >./tests/Tests/Resource</directory>
         </testsuite> 
     </testsuites>
 

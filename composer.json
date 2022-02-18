@@ -13,7 +13,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "LTL\\Hubspot\\": ["src/"]
+            "LTL\\Hubspot\\": ["src/", "tests/"]
         },
         "files": [
             "src/helpers/helpers.php"
@@ -26,7 +26,8 @@
         "php": "^8.0",
         "luan-tavares/list-methods": "^1.0",
         "luan-tavares/simple-observer": "^1.0",
-        "luan-tavares/simple-curl": "^1.0"
+        "luan-tavares/simple-curl": "^1.0",
+        "luan-tavares/simple-deploy": "^1.0"
     },
     "require-dev": {
         "larapack/dd": "1.*",
@@ -34,10 +35,10 @@
     },
     "scripts": {
         "deploy-tag": [
-            "LTL\\Hubspot\\Deploy\\DeployTag::execute"
+            "LTL\\Deploy\\DeployTag::execute"
         ],
         "deploy": [
-            "LTL\\Hubspot\\Deploy\\Deploy::execute"
+            "LTL\\Deploy\\Deploy::execute"
         ]
     }
 }
