@@ -5,8 +5,8 @@ namespace LTL\Hubspot\Core\Request\Components;
 use LTL\Hubspot\Containers\RequestContainer;
 use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
-use LTL\Hubspot\Services\Observer\Interfaces\SubjectInterface;
-use LTL\Hubspot\Services\Observer\Traits\SubjectTrait;
+use LTL\Observer\Interfaces\SubjectInterface;
+use LTL\Observer\Traits\SubjectTrait;
 
 abstract class RequestComponent implements SubjectInterface
 {
