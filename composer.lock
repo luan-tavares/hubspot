@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3d81b64c3cc59ae47600a6ab90030158",
+    "content-hash": "758c80f2d758428e6f1b49dd3ef0809c",
     "packages": [
         {
             "name": "luan-tavares/list-methods",
@@ -59,17 +59,17 @@
             "time": "2022-02-17T23:43:51+00:00"
         },
         {
-            "name": "luan-tavares/mini-curl",
+            "name": "luan-tavares/simple-curl",
             "version": "v1.0.01",
             "source": {
                 "type": "git",
-                "url": "https://github.com/luan-tavares/mini-curl.git",
-                "reference": "492f14c3b1485845968b11d73e1f1fa04b3ebf1a"
+                "url": "https://github.com/luan-tavares/simple-curl.git",
+                "reference": "e0d5f7b3944f0e6ad75fc82c59e08e7f262e4a1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/luan-tavares/mini-curl/zipball/492f14c3b1485845968b11d73e1f1fa04b3ebf1a",
-                "reference": "492f14c3b1485845968b11d73e1f1fa04b3ebf1a",
+                "url": "https://api.github.com/repos/luan-tavares/simple-curl/zipball/e0d5f7b3944f0e6ad75fc82c59e08e7f262e4a1e",
+                "reference": "e0d5f7b3944f0e6ad75fc82c59e08e7f262e4a1e",
                 "shasum": ""
             },
             "require": {
@@ -104,10 +104,10 @@
                 "integration"
             ],
             "support": {
-                "issues": "https://github.com/luan-tavares/mini-curl/issues",
-                "source": "https://github.com/luan-tavares/mini-curl/tree/v1.0.01"
+                "issues": "https://github.com/luan-tavares/simple-curl/issues",
+                "source": "https://github.com/luan-tavares/simple-curl/tree/v1.0.01"
             },
-            "time": "2022-02-17T23:22:05+00:00"
+            "time": "2022-02-18T01:56:42+00:00"
         },
         {
             "name": "luan-tavares/simple-observer",
