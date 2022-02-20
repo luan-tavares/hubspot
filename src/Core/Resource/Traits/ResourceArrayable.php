@@ -6,20 +6,20 @@ use LTL\Hubspot\Exceptions\HubspotApiException;
 
 trait ResourceArrayable
 {
-    public function offsetSet($offset, $value)
+    public function offsetSet(mixed $offset, mixed $value): void
     {
     }
 
-    public function offsetExists($offset)
+    public function offsetExists(mixed $offset): bool
     {
         return isset($this->toArray()[$offset]);
     }
 
-    public function offsetUnset($offset)
+    public function offsetUnset(mixed $offset):void
     {
     }
 
-    public function offsetGet($offset)
+    public function offsetGet(mixed $offset): mixed
     {
         if (array_key_exists($offset, $this->toArray())) {
             return $this->toArray()[$offset];

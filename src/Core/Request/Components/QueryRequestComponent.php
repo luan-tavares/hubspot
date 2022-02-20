@@ -73,14 +73,19 @@ class QueryRequestComponent extends RequestComponent implements QueryComponentIn
         return $this->add('timeOffset', $hubspotId);
     }
 
-    public function properties(string $properties): self
+    public function properties(string $propertiesWithComma): self
     {
-        return $this->add('properties', $properties);
+        return $this->add('properties', $propertiesWithComma);
     }
 
-    public function associations(string $associations): self
+    public function propertiesWithHistory(string $propertiesWithComma): self
     {
-        return $this->add('associations', $associations);
+        return $this->add('propertiesWithHistory', $propertiesWithComma);
+    }
+
+    public function associations(string $associationsWithComma): self
+    {
+        return $this->add('associations', $associationsWithComma);
     }
 
     public function after(string $after): self
