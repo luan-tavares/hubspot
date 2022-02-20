@@ -111,16 +111,16 @@
         },
         {
             "name": "luan-tavares/simple-deploy",
-            "version": "v1.0.2",
+            "version": "v1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/luan-tavares/simple-deploy.git",
-                "reference": "b830d44d2155fc2db8155d33e44da325638ca517"
+                "reference": "170bc369dca79cc1c68bf9405263631aed845b04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/luan-tavares/simple-deploy/zipball/b830d44d2155fc2db8155d33e44da325638ca517",
-                "reference": "b830d44d2155fc2db8155d33e44da325638ca517",
+                "url": "https://api.github.com/repos/luan-tavares/simple-deploy/zipball/170bc369dca79cc1c68bf9405263631aed845b04",
+                "reference": "170bc369dca79cc1c68bf9405263631aed845b04",
                 "shasum": ""
             },
             "require": {
@@ -156,9 +156,9 @@
             ],
             "support": {
                 "issues": "https://github.com/luan-tavares/simple-deploy/issues",
-                "source": "https://github.com/luan-tavares/simple-deploy/tree/v1.0.2"
+                "source": "https://github.com/luan-tavares/simple-deploy/tree/v1.0.3"
             },
-            "time": "2022-02-18T15:14:47+00:00"
+            "time": "2022-02-20T15:41:51+00:00"
         },
         {
             "name": "luan-tavares/simple-observer",
