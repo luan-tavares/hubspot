@@ -2,20 +2,30 @@
 
 namespace LTL\Hubspot\Core\Resource;
 
+use ArrayAccess;
+use Countable;
+use IteratorAggregate;
+use JsonSerializable;
 use LTL\Hubspot\Containers\BuilderContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
-use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
-use LTL\Hubspot\Core\Resource\Traits\ResourceArrayable;
+use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
+use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
+use LTL\Hubspot\Core\Resource\Traits\ResourceArrayAccess;
 use LTL\Hubspot\Core\Resource\Traits\ResourceCountable;
 use LTL\Hubspot\Core\Resource\Traits\ResourceEnumerable;
 use LTL\Hubspot\Core\Resource\Traits\ResourceIterable;
-use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
+use LTL\Hubspot\Core\Resource\Traits\ResourceJsonSerializable;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\ListMethods\PublicMethods\Traits\PublicMethodsListable;
 
-abstract class Resource implements ResourceInterface
+abstract class Resource implements ResourceInterface, ArrayAccess, JsonSerializable, IteratorAggregate, Countable
 {
-    use PublicMethodsListable, ResourceIterable, ResourceArrayable, ResourceCountable, ResourceEnumerable;
+    use PublicMethodsListable,
+        ResourceIterable,
+        ResourceArrayAccess,
+        ResourceCountable,
+        ResourceEnumerable,
+        ResourceJsonSerializable;
 
     protected ResponseInterface $response;
     
@@ -69,7 +79,7 @@ abstract class Resource implements ResourceInterface
      */
     public function toArray(): array
     {
-        return json_decode($this->response->get(), true) ?? [];
+        return $this->response->toArray();
     }
   
     /**
@@ -79,7 +89,7 @@ abstract class Resource implements ResourceInterface
      */
     public function toJson(): string|null
     {
-        return $this->response->get();
+        return $this->response->toJson();
     }
   
     /**

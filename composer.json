@@ -13,11 +13,16 @@
     ],
     "autoload": {
         "psr-4": {
-            "LTL\\Hubspot\\": ["src/", "tests/"]
+            "LTL\\Hubspot\\": "src/"
         },
         "files": [
             "src/helpers/helpers.php"
         ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LTL\\Hubspot\\Tests\\": "tests/"
+        }
     },
     "bin": [
         "bin/resource"

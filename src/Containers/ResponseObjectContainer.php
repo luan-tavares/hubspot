@@ -2,7 +2,7 @@
 
 namespace LTL\Hubspot\Containers;
 
-use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
+use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
 use LTL\Hubspot\Core\Response\ResponseObject;
 
 abstract class ResponseObjectContainer

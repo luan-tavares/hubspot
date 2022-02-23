@@ -2,10 +2,10 @@
 
 namespace LTL\Hubspot\Containers;
 
-use LTL\Hubspot\Containers\Interfaces\ContainerByResourceInterface;
-use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
-use LTL\Hubspot\Core\Schemas\Interfaces\ActionSchemaInterface;
-use LTL\Hubspot\Core\Schemas\Interfaces\ResourceSchemaInterface;
+use LTL\Hubspot\Interfaces\ContainerByResourceInterface;
+use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
+use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
+use LTL\Hubspot\Core\Interfaces\Schemas\ResourceSchemaInterface;
 use LTL\Hubspot\Core\Schemas\ResourceSchema;
 
 abstract class SchemaContainer implements ContainerByResourceInterface

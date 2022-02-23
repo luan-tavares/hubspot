@@ -6,12 +6,11 @@ use Countable;
 use Exception;
 use Iterator;
 use LTL\Hubspot\Core\HubspotConfig;
-use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
-use LTL\Hubspot\Core\Schemas\Base\Schema;
-use LTL\Hubspot\Core\Schemas\Interfaces\ActionSchemaInterface;
-use LTL\Hubspot\Core\Schemas\Interfaces\ResourceSchemaInterface;
+use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
+use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
+use LTL\Hubspot\Core\Interfaces\Schemas\ResourceSchemaInterface;
 
-class ResourceSchema extends Schema implements Countable, Iterator, ResourceSchemaInterface
+class ResourceSchema implements Countable, Iterator, ResourceSchemaInterface
 {
     private array $actions;
 

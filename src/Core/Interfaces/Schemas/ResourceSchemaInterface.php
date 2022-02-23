@@ -1,8 +1,8 @@
 <?php
 
-namespace LTL\Hubspot\Core\Schemas\Interfaces;
+namespace LTL\Hubspot\Core\Interfaces\Schemas;
 
-use LTL\Hubspot\Core\Schemas\Interfaces\ActionSchemaInterface;
+use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
 
 interface ResourceSchemaInterface
 {

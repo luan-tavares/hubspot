@@ -3,8 +3,8 @@
 namespace LTL\Hubspot\Core\Request\Components;
 
 use LTL\Hubspot\Containers\RequestContainer;
-use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
-use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
+use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
+use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 use LTL\Observer\Interfaces\SubjectInterface;
 use LTL\Observer\Traits\SubjectTrait;
 

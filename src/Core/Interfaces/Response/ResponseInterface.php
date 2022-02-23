@@ -1,14 +1,14 @@
 <?php
 
-namespace LTL\Hubspot\Core\Response\Interfaces;
+namespace LTL\Hubspot\Core\Interfaces\Response;
 
-use LTL\Hubspot\Core\Response\ResponseObject;
+use LTL\Hubspot\Interfaces\ArrayableInterface;
+use LTL\Hubspot\Interfaces\JsonableInterface;
 
-interface ResponseInterface
+interface ResponseInterface extends ArrayableInterface, JsonableInterface
 {
     public function getStatus(): int;
     public function hasError(): bool;
-    public function get(): string|null;
     public function getDocumentation(): string|null;
     public function getHeaders(): array|null;
     public function destroy(): void;

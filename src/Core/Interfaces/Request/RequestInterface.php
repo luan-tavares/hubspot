@@ -1,8 +1,6 @@
 <?php
  
-namespace LTL\Hubspot\Core\Request\Interfaces;
-
-use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
+namespace LTL\Hubspot\Core\Interfaces\Request;
 
 interface RequestInterface
 {

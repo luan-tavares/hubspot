@@ -1,9 +1,9 @@
 <?php
 
-namespace LTL\Hubspot\Core\Request\Interfaces;
+namespace LTL\Hubspot\Core\Interfaces\Request;
 
+use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
 use LTL\Hubspot\Core\Request\Components\RequestComponent;
-use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
 
 interface ComponentInterface
 {

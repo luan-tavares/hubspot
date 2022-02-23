@@ -2,9 +2,9 @@
 
 namespace LTL\Hubspot\Containers;
 
-use LTL\Hubspot\Containers\Interfaces\ContainerByResourceInterface;
+use LTL\Hubspot\Interfaces\ContainerByResourceInterface;
 use LTL\Hubspot\Core\Builder;
-use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
+use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 use LTL\Hubspot\Factories\BuilderFactory;
 
 abstract class BuilderContainer implements ContainerByResourceInterface

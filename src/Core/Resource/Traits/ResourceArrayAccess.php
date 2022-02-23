@@ -4,7 +4,7 @@ namespace LTL\Hubspot\Core\Resource\Traits;
 
 use LTL\Hubspot\Exceptions\HubspotApiException;
 
-trait ResourceArrayable
+trait ResourceArrayAccess
 {
     public function offsetSet(mixed $offset, mixed $value): void
     {

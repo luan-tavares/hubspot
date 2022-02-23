@@ -1,8 +1,8 @@
 <?php
 
-namespace LTL\Hubspot\Containers\Interfaces;
+namespace LTL\Hubspot\Interfaces;
 
-use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
+use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 
 interface ContainerByResourceInterface
 {

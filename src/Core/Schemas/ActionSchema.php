@@ -4,9 +4,8 @@ namespace LTL\Hubspot\Core\Schemas;
 
 use Exception;
 use LTL\Hubspot\Core\HubspotConfig;
-use LTL\Hubspot\Core\Schemas\Base\Schema;
-use LTL\Hubspot\Core\Schemas\Interfaces\ActionSchemaInterface;
-use LTL\Hubspot\Core\Schemas\Interfaces\ResourceSchemaInterface;
+use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
+use LTL\Hubspot\Core\Interfaces\Schemas\ResourceSchemaInterface;
 
 /**
  * @property-read string $baseUri
@@ -21,7 +20,7 @@ use LTL\Hubspot\Core\Schemas\Interfaces\ResourceSchemaInterface;
  * @property-read array|null $baseHeader
  * @property-read array|null $resourceClass
  */
-class ActionSchema extends Schema implements ActionSchemaInterface
+class ActionSchema implements ActionSchemaInterface
 {
     private string $baseUri;
 

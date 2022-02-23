@@ -1,10 +1,10 @@
 <?php
  
-namespace LTL\Hubspot\Core\Request\Interfaces;
+namespace LTL\Hubspot\Core\Interfaces\Request;
 
-use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
+use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
 use LTL\Hubspot\Core\Request\RequestCurlCaller;
-use LTL\Hubspot\Core\Schemas\Interfaces\ActionSchemaInterface;
+use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
 
 interface RequestActionDefinitionInterface
 {

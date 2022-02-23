@@ -6,9 +6,9 @@ use Countable;
 use IteratorAggregate;
 use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Containers\ResponseObjectContainer;
-use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
+use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
 use LTL\Hubspot\Core\Response\ResponseObject;
-use LTL\Hubspot\Core\Schemas\Interfaces\ActionSchemaInterface;
+use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
 
 class Response implements ResponseInterface, IteratorAggregate, Countable
 {
@@ -42,6 +42,16 @@ class Response implements ResponseInterface, IteratorAggregate, Countable
         return ResponseObjectContainer::get($this)->{$property};
     }
 
+    public function toArray(): array
+    {
+        return ResponseObjectContainer::get($this)->toArray();
+    }
+
+    public function toJson(): string|null
+    {
+        return $this->response;
+    }
+
     public function getIterator(): ResponseObject
     {
         return ResponseObjectContainer::get($this);
@@ -49,7 +59,7 @@ class Response implements ResponseInterface, IteratorAggregate, Countable
 
     public function count(): int
     {
-        return ResponseObjectContainer::get($this)->count();
+        return count(ResponseObjectContainer::get($this));
     }
 
     private function getIndex()
@@ -90,11 +100,6 @@ class Response implements ResponseInterface, IteratorAggregate, Countable
     public function getStatus(): int
     {
         return $this->status;
-    }
-    
-    public function get(): ?string
-    {
-        return $this->response;
     }
 
     public function getDocumentation(): ?string

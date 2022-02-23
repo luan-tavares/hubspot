@@ -1,13 +1,13 @@
 <?php
 namespace LTL\Hubspot\Core\Request;
 
-use LTL\Hubspot\Core\Request\Interfaces\BodyComponentInterface;
-use LTL\Hubspot\Core\Request\Interfaces\CurlComponentInterface;
-use LTL\Hubspot\Core\Request\Interfaces\HeaderComponentInterface;
-use LTL\Hubspot\Core\Request\Interfaces\QueryComponentInterface;
-use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
-use LTL\Hubspot\Core\Request\Interfaces\UriComponentInterface;
-use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
+use LTL\Hubspot\Core\Interfaces\Request\BodyComponentInterface;
+use LTL\Hubspot\Core\Interfaces\Request\CurlComponentInterface;
+use LTL\Hubspot\Core\Interfaces\Request\HeaderComponentInterface;
+use LTL\Hubspot\Core\Interfaces\Request\QueryComponentInterface;
+use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
+use LTL\Hubspot\Core\Interfaces\Request\UriComponentInterface;
+use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 
 class Request implements RequestInterface
