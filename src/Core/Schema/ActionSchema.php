@@ -1,6 +1,6 @@
 <?php
 
-namespace LTL\Hubspot\Core\Schemas;
+namespace LTL\Hubspot\Core\Schema;
 
 use Exception;
 use LTL\Hubspot\Core\HubspotConfig;

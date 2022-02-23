@@ -6,7 +6,7 @@ use LTL\Hubspot\Interfaces\ContainerByResourceInterface;
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
 use LTL\Hubspot\Core\Interfaces\Schemas\ResourceSchemaInterface;
-use LTL\Hubspot\Core\Schemas\ResourceSchema;
+use LTL\Hubspot\Core\Schema\ResourceSchema;
 
 abstract class SchemaContainer implements ContainerByResourceInterface
 {
