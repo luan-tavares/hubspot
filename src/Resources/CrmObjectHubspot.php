@@ -73,10 +73,10 @@ use LTL\Hubspot\Hubspot;
  * @method $this getAssociations(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType) List associations of an object by type.
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
- * @method static $this createAssociation(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType, int|string $toObjectId, int|string $associationType, array $requestBody) Associate an object with another object.
+ * @method static $this createAssociation(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType, int|string $toObjectId, int|string $associationType) Associate an object with another object.
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
- * @method $this createAssociation(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType, int|string $toObjectId, int|string $associationType, array $requestBody) Associate an object with another object.
+ * @method $this createAssociation(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType, int|string $toObjectId, int|string $associationType) Associate an object with another object.
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
  * @method static $this removeAssociation(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType, int|string $toObjectId, int|string $associationType) Remove an association between two objects.

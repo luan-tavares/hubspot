@@ -66,6 +66,7 @@
         "createAssociation": {
             "path": "objects/{fromObjectType}/{fromObjectId}/associations/{toObjectType}/{toObjectId}/{associationType}",
             "method": "PUT",
+            "noBody": true,
             "description": "Associate an object with another object."
         },
         "removeAssociation": {

@@ -10,9 +10,9 @@ use LTL\ListMethods\PublicMethods\Interfaces\PublicMethodsListableInterface;
 interface ResourceInterface extends PublicMethodsListableInterface, Countable, IteratorAggregate, ArrayAccess
 {
     public function toArray(): array;
-    public function toJson(): ?string;
-    public function status(): ?int;
-    public function documentation(): ?string;
+    public function toJson(): string|null;
+    public function status(): int|null;
+    public function documentation(): string|null;
     public function headers(): array|null;
 
     public function each(callable $callback): void;

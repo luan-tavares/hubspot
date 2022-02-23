@@ -5,16 +5,19 @@ require_once __DIR__ .'/__init.php';
 
 use LTL\Hubspot\Resources\DealHubspot;
 
-$hubspot = DealHubspot::limit(100)->getAll();
+$deals = DealHubspot::limit(100)->getAll();
 
-$deal = DealHubspot::get(7796009271)->toArray();
+//$deals = DealHubspot::propertiesWithHistory('dealstage')->getAll();
 
-dd(json_encode($deal));
+$deals->each(function ($deal) {
+    dump($deal->id);
+});
 
-dump($hubspot->map(function ($item) {
+
+dump($deals->map(function ($item) {
     return (float) $item->properties->amount;
 }));
 
-dump($hubspot->reduce(function ($before, $item) {
+dump($deals->reduce(function ($before, $item) {
     return $before + (float) $item->properties->amount;
 }, 0));

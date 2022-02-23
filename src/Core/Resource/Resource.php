@@ -75,9 +75,9 @@ abstract class Resource implements ResourceInterface
     /**
      * Return Json Response
      *
-     * @return array|null
+     * @return string|null
      */
-    public function toJson(): ?string
+    public function toJson(): string|null
     {
         return $this->response->get();
     }
@@ -85,7 +85,7 @@ abstract class Resource implements ResourceInterface
     /**
      * Return Status Response
      *
-     * @return array|null
+     * @return int
      */
     public function status(): int
     {
@@ -107,7 +107,7 @@ abstract class Resource implements ResourceInterface
      *
      * @return string|null
      */
-    public function documentation(): ?string
+    public function documentation(): string|null
     {
         return $this->response->getDocumentation();
     }
