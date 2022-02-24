@@ -13,7 +13,7 @@ use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
 use LTL\Hubspot\Core\Resource\Traits\ResourceArrayAccess;
 use LTL\Hubspot\Core\Resource\Traits\ResourceCountable;
 use LTL\Hubspot\Core\Resource\Traits\ResourceEnumerable;
-use LTL\Hubspot\Core\Resource\Traits\ResourceIterable;
+use LTL\Hubspot\Core\Resource\Traits\ResourceIteratorAggregate;
 use LTL\Hubspot\Core\Resource\Traits\ResourceJsonSerializable;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\ListMethods\PublicMethods\Traits\PublicMethodsListable;
@@ -21,7 +21,7 @@ use LTL\ListMethods\PublicMethods\Traits\PublicMethodsListable;
 abstract class Resource implements ResourceInterface, ArrayAccess, JsonSerializable, IteratorAggregate, Countable
 {
     use PublicMethodsListable,
-        ResourceIterable,
+        ResourceIteratorAggregate,
         ResourceArrayAccess,
         ResourceCountable,
         ResourceEnumerable,

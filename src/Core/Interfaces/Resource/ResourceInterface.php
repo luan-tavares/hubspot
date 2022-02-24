@@ -12,4 +12,5 @@ interface ResourceInterface extends PublicMethodsListableInterface, ArrayableInt
     public function status(): int|null;
     public function documentation(): string|null;
     public function headers(): array|null;
+    public function error(): bool;
 }

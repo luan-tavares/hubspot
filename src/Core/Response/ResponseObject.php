@@ -7,8 +7,9 @@ use JsonSerializable;
 use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Interfaces\ArrayableInterface;
+use LTL\Hubspot\Interfaces\JsonableInterface;
 
-class ResponseObject implements Iterator, Countable, JsonSerializable, ArrayableInterface
+class ResponseObject implements Iterator, Countable, JsonSerializable, ArrayableInterface, JsonableInterface
 {
     private object|null $object;
 

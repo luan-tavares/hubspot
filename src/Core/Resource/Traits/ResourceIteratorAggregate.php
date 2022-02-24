@@ -4,7 +4,7 @@ namespace LTL\Hubspot\Core\Resource\Traits;
 
 use LTL\Hubspot\Core\Response\Response;
 
-trait ResourceIterable
+trait ResourceIteratorAggregate
 {
     public function getIterator(): Response
     {

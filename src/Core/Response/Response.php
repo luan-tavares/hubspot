@@ -7,8 +7,8 @@ use IteratorAggregate;
 use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Containers\ResponseObjectContainer;
 use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
-use LTL\Hubspot\Core\Response\ResponseObject;
 use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
+use LTL\Hubspot\Core\Response\ResponseObject;
 
 class Response implements ResponseInterface, IteratorAggregate, Countable
 {
