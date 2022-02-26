@@ -6,9 +6,11 @@ use Exception;
 
 class HubspotApiException extends Exception
 {
-    public function __construct(string $message, private string|null $resourceClass = null)
+    public function __construct(string $message, string|null $resourceClass = null)
     {
-        parent::__construct($message);
+        $this->message = $this->replaceMessageClass($message, $resourceClass);
+    
+        parent::__construct($this->message);
     
         foreach ($this->getTrace() as $trace) {
             $file = @$trace['file'];
@@ -40,17 +42,15 @@ class HubspotApiException extends Exception
 
     public function __toString()
     {
-        $message = $this->message;
-
-        if ($this->resourceClass) {
-            $message = $this->replaceMessageClass($message, $this->resourceClass);
-        }
-
-        return __CLASS__ .": {$message} in {$this->file} on line {$this->line}";
+        return __CLASS__ .": {$this->message} in {$this->file} on line {$this->line}";
     }
 
     private function replaceMessageClass(string $message, string $resourceClass): string
     {
+        if (!$resourceClass) {
+            return $message;
+        }
+
         preg_match_all('/LTL\\\Hubspot(.*?)::/', $message, $matches, PREG_PATTERN_ORDER);
         foreach ($matches[0] as $match) {
             $message = str_replace($match, $resourceClass .'::', $message);
