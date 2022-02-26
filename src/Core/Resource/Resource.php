@@ -18,6 +18,7 @@ use LTL\Hubspot\Core\Resource\Traits\ResourceIteratorAggregate;
 use LTL\Hubspot\Core\Resource\Traits\ResourceJsonSerializable;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\ListMethods\PublicMethods\Traits\PublicMethodsListable;
+use TypeError;
 
 abstract class Resource implements ResourceInterface, ArrayAccess, JsonSerializable, IteratorAggregate, Countable
 {
@@ -36,8 +37,8 @@ abstract class Resource implements ResourceInterface, ArrayAccess, JsonSerializa
     {
         try {
             return BuilderContainer::get($this)->{$name}(...$arguments);
-        } catch (Error $exception) {
-            throw new HubspotApiException($exception->getMessage());
+        } catch (TypeError $exception) {
+            throw new HubspotApiException($exception->getMessage(), static::class);
         }
     }
 

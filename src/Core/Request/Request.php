@@ -48,7 +48,7 @@ class Request implements RequestInterface
             return $this->curl->{$method}(...$arguments);
         }
 
-        throw new HubspotApiException('Method "'. $this->resource::class ."::{$method}()\" not exists");
+        throw new HubspotApiException($this->resource::class ."::{$method}() not exists");
     }
 
     public function changeDispatchToTrue(): void
