@@ -45,9 +45,9 @@ class HubspotApiException extends Exception
         return __CLASS__ .": {$this->message} in {$this->file} on line {$this->line}";
     }
 
-    private function replaceMessageClass(string $message, string $resourceClass): string
+    private function replaceMessageClass(string $message, string|null $resourceClass): string
     {
-        if (!$resourceClass) {
+        if (is_null($resourceClass)) {
             return $message;
         }
 
