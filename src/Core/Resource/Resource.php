@@ -7,6 +7,7 @@ use Countable;
 use Error;
 use IteratorAggregate;
 use JsonSerializable;
+use LTL\Hubspot\Containers\ApikeyContainer;
 use LTL\Hubspot\Containers\BuilderContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
@@ -136,5 +137,10 @@ abstract class Resource implements ResourceInterface, ArrayAccess, JsonSerializa
     public function headers(): array|null
     {
         return $this->response->getHeaders();
+    }
+
+    public static function setGlobalApikey(string $apikey): void
+    {
+        ApikeyContainer::store($apikey);
     }
 }

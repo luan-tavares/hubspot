@@ -13,4 +13,5 @@ interface ResourceInterface extends PublicMethodsListableInterface, ArrayableInt
     public function documentation(): string|null;
     public function headers(): array|null;
     public function error(): bool;
+    public static function setGlobalApikey(string $apikey): void;
 }

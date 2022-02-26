@@ -9,7 +9,7 @@ use LTL\Hubspot\Resources\CompanyHubspot;
 // $id = $hubspotCreate->id;
 // $hubspotDelete = CompanyHubspot::delete($id);
 
-dd(CompanyHubspot::limit());
+
 
 
 $after = $i = $memory = 0;

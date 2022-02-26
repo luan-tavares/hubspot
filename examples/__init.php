@@ -5,7 +5,8 @@ require_once __DIR__ .'/../vendor/autoload.php';
 
 use LTL\Hubspot\Containers\ApikeyContainer;
 use LTL\Hubspot\Core\HubspotConfig;
+use LTL\Hubspot\Hubspot;
 
 define('ENV', envDefine(HubspotConfig::BASE_PATH .'/.env'));
 
-ApikeyContainer::store(ENV['HUBSPOT_API']);
+Hubspot::setGlobalApikey(ENV['HUBSPOT_API']);
