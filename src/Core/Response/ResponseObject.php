@@ -15,11 +15,19 @@ class ResponseObject implements Iterator, Countable, JsonSerializable, Arrayable
 
     private array $array;
 
+    private array|null $iteratorObject = null;
+
     public function __construct(private ResponseInterface $response)
     {
         $this->object = json_decode($this->response->toJson());
 
         $this->array = json_decode($this->response->toJson(), true) ?? [];
+
+        if (is_null(@$this->object->{@$this->response->index})) {
+            return;
+        }
+
+        $this->iteratorObject = (array) @$this->object->{@$this->response->index};
     }
 
     public function __get($property)
@@ -40,47 +48,49 @@ class ResponseObject implements Iterator, Countable, JsonSerializable, Arrayable
 
     private function verifyIterable(): void
     {
-        if (is_null($this->response->index) || !property_exists($this->object, $this->response->index)) {
-            $response = mb_strimwidth($this->response->toJson(), 0, 300, ' ...');
-
-            throw new HubspotApiException(
-                "Resource response is not iterable or countable:\n\n{$response}\n\n"
-            );
+        if (!is_null($this->iteratorObject)) {
+            return;
         }
+
+        $response = mb_strimwidth($this->response->toJson(), 0, 300, ' ...');
+
+        throw new HubspotApiException(
+            "Resource response is not iterable or countable:\n\n{$response}\n\n"
+        );
     }
 
     public function count(): int
     {
         $this->verifyIterable();
 
-        return count($this->object->{$this->response->index});
+        return count($this->iteratorObject);
     }
 
     public function rewind(): void
     {
         $this->verifyIterable();
 
-        reset($this->object->{$this->response->index});
+        reset($this->iteratorObject);
     }
     
     public function current(): mixed
     {
-        return current($this->object->{$this->response->index});
+        return current($this->iteratorObject);
     }
     
     public function key(): mixed
     {
-        return key($this->object->{$this->response->index});
+        return key($this->iteratorObject);
     }
     
     public function next(): void
     {
-        next($this->object->{$this->response->index});
+        next($this->iteratorObject);
     }
     
     public function valid(): bool
     {
-        return !is_null(key($this->object->{$this->response->index}));
+        return !is_null(key($this->iteratorObject));
     }
 
     public function toArray(): array

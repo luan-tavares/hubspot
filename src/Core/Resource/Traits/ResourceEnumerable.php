@@ -14,8 +14,25 @@ trait ResourceEnumerable
     public function map(callable $callback): array
     {
         $result = [];
+
         foreach ($this as $key => $item) {
             $result[] = $callback($item, $key);
+        }
+
+        return $result;
+    }
+
+    public function mapAndFilter(callable $callback): array
+    {
+        $result = [];
+        foreach ($this as $key => $item) {
+            $return  = $callback($item, $key);
+
+            if ($return === null) {
+                continue;
+            }
+
+            $result[] = $return;
         }
 
         return $result;
@@ -26,8 +43,26 @@ trait ResourceEnumerable
         $result = [];
         
         foreach ($this as $key => $item) {
-            $row = $callback($item, $key);
-            foreach ($row as $key => $value) {
+            $return = $callback($item, $key);
+            foreach ($return as $key => $value) {
+                $result[$key] = $value;
+            }
+        }
+
+        return $result;
+    }
+
+    public function mapWithKeysAndFilter(callable $callback): array
+    {
+        $result = [];
+        
+        foreach ($this as $key => $item) {
+            $return  = $callback($item, $key);
+
+            if ($return === null) {
+                continue;
+            }
+            foreach ($return as $key => $value) {
                 $result[$key] = $value;
             }
         }
@@ -40,7 +75,7 @@ trait ResourceEnumerable
         $result = [];
         foreach ($this as $key => $item) {
             if ($callback($item, $key)) {
-                $result[] = $item;
+                $result[$key] = $item;
             }
         }
 
@@ -48,7 +83,7 @@ trait ResourceEnumerable
     }
 
    
-    public function reduce(callable $callback, $initial = null)
+    public function reduce(callable $callback, $initial = null): mixed
     {
         $result = $initial;
 

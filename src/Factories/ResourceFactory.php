@@ -16,11 +16,11 @@ abstract class ResourceFactory implements FactoryInterface
             return new ReflectionClass($class);
         });
 
-        $object = $reflectionClass->newInstance();
+        $newResource = $reflectionClass->newInstance();
 
         $reflectionProperty = $reflectionClass->getProperty('response');
-        $reflectionProperty->setValue($object, $response);
+        $reflectionProperty->setValue($newResource, $response);
    
-        return $object;
+        return $newResource;
     }
 }

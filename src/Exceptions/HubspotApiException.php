@@ -17,13 +17,13 @@ class HubspotApiException extends Exception
                 continue;
             }
 
-            if (!str_contains($file, 'luan-tavares/hubspot/') && !str_contains($file, '/app/hub_api/')) {
+            if (!str_contains($file, 'luan-tavares/hubspot/') && !str_contains($file, '/luan/app/')) {
                 $this->line = $trace['line'];
                 $this->file = $trace['file'];
                 break;
             }
 
-            if (str_contains($file, '/examples/') && str_contains($file, '/app/hub_api/')) {
+            if (str_contains($file, '/examples/') && str_contains($file, '/luan/app/')) {
                 $this->line = $trace['line'];
                 $this->file = $trace['file'];
                 break;

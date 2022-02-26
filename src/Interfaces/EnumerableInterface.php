@@ -7,6 +7,8 @@ interface EnumerableInterface
     public function each(callable $callback): void;
     public function map(callable $callback): array;
     public function filter(callable $callback): array;
+    public function mapAndFilter(callable $callback): array;
     public function mapWithKeys(callable $callback): array;
-    public function reduce(callable $callback, $initial = null);
+    public function mapWithKeysAndFilter(callable $callback): array;
+    public function reduce(callable $callback, $initial = null): mixed;
 }

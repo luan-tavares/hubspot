@@ -4,6 +4,7 @@ namespace LTL\Hubspot\Core\Resource;
 
 use ArrayAccess;
 use Countable;
+use Error;
 use IteratorAggregate;
 use JsonSerializable;
 use LTL\Hubspot\Containers\BuilderContainer;
@@ -33,7 +34,11 @@ abstract class Resource implements ResourceInterface, ArrayAccess, JsonSerializa
 
     public function __call($name, $arguments)
     {
-        return BuilderContainer::get($this)->{$name}(...$arguments);
+        try {
+            return BuilderContainer::get($this)->{$name}(...$arguments);
+        } catch (Error $exception) {
+            throw new HubspotApiException($exception->getMessage());
+        }
     }
 
     public static function __callStatic($name, $arguments)

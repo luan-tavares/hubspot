@@ -14,6 +14,9 @@
         <testsuite name="Resource Suit">
             <directory >./tests/Resource</directory>
         </testsuite> 
+        <testsuite name="Enumerable Suit">
+            <directory >./tests/Enumerable</directory>
+        </testsuite>
     </testsuites>
 
 </phpunit>

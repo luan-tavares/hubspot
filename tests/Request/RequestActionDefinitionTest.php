@@ -60,7 +60,10 @@ class RequestActionDefinitionTest extends TestCase
         
         RequestActionDefinition::finish($this->contactRequest, $actionSchema, $this->getContactArguments);
         
-        $this->assertEquals($this->contactRequest->getUri(), 'https://api.hubapi.com/crm/v3/objects/contacts/idOrEmail?hapikey=123456');
+        $this->assertEquals(
+            $this->contactRequest->getUri(),
+            'https://api.hubapi.com/crm/v3/objects/contacts/idOrEmail?hapikey=123456'
+        );
     }
 
     public function testBaseQueriesAddPropertiesIsCorrect()

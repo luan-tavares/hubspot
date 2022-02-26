@@ -14,7 +14,7 @@ class Response implements ResponseInterface, IteratorAggregate, Countable
 {
     private array|null $headers;
    
-    private string|null $response;
+    private string|null $rawResponse;
 
     private int $status;
 
@@ -23,7 +23,7 @@ class Response implements ResponseInterface, IteratorAggregate, Countable
     public function __construct(CurlInterface $curl, private ActionSchemaInterface $actionSchema)
     {
         $this->status = $curl->getStatus();
-        $this->response = $curl->getResponse();
+        $this->rawResponse = $curl->getResponse();
         $this->uri = $this->hideApikey($curl->getUri());
         $this->headers = $curl->getHeaders();
     }
@@ -49,7 +49,7 @@ class Response implements ResponseInterface, IteratorAggregate, Countable
 
     public function toJson(): string|null
     {
-        return $this->response;
+        return $this->rawResponse;
     }
 
     public function getIterator(): ResponseObject
