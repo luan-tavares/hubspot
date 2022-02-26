@@ -55,6 +55,11 @@ class HubspotApiException extends Exception
         foreach ($matches[0] as $match) {
             $message = str_replace($match, $resourceClass .'::', $message);
         }
+        
+        preg_match_all('/\ in\ (.*?)\ on\ line\ \d*/', $message, $matches, PREG_PATTERN_ORDER);
+        foreach ($matches[0] as $match) {
+            $message = str_replace($match, '', $message);
+        }
 
         return $message;
     }
