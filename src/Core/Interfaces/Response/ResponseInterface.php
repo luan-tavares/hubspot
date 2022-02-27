@@ -12,7 +12,6 @@ interface ResponseInterface extends ArrayableInterface, JsonableInterface
     public function hasErrors(): bool;
     public function getDocumentation(): string|null;
     public function getHeaders(): array|null;
-    public function destroyObject(): void;
     public function getAfterIndex(): string|null;
     public function getIteratorIndex(): string|null;
 }

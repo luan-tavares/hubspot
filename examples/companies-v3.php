@@ -8,8 +8,15 @@ use LTL\Hubspot\Resources\CompanyHubspot;
 // $hubspotCreate = CompanyHubspot::create(['properties' => ['name' => 1]]);
 // $id = $hubspotCreate->id;
 // $hubspotDelete = CompanyHubspot::delete($id);
+$a = 0;
+while ($a < 10) {
+    $a++;
+    CompanyHubspot::limit(10)->getAll();
+}
 
-dd(CompanyHubspot::limit(10)->getAll());
+
+
+dd('a');
 
 
 $after = $i = $memory = 0;

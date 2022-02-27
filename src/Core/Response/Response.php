@@ -35,6 +35,7 @@ class Response implements ResponseInterface, IteratorAggregate, Countable
 
     public function __destruct()
     {
+        dump('destroy Response and Response Object');
         ResponseObjectContainer::destroy($this);
     }
 
@@ -62,11 +63,6 @@ class Response implements ResponseInterface, IteratorAggregate, Countable
     public function toJson(): string|null
     {
         return $this->rawResponse;
-    }
-
-    public function destroyObject(): void
-    {
-        ResponseObjectContainer::destroy($this);
     }
 
     public function getStatus(): int

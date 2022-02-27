@@ -50,7 +50,6 @@ abstract class Resource implements ResourceInterface, ArrayAccess, JsonSerializa
     public function __destruct()
     {
         if (isset($this->response)) {
-            $this->response->destroyObject();
         }
     }
 

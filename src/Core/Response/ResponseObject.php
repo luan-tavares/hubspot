@@ -40,6 +40,22 @@ class ResponseObject implements Iterator, Countable, JsonSerializable, Arrayable
         $this->after = $this->getAfter($response->getAfterIndex());
     }
 
+    private function getAfter(string $afterIndex): int|string|null
+    {
+        $map = explode('.', $afterIndex);
+    
+        $after = $this->object;
+       
+        foreach ($map as $current) {
+            if (!isset($after->{$current})) {
+                return null;
+            }
+            $after = @$after->{$current};
+        }
+       
+        return $after;
+    }
+
 
     public function __isset($property): bool
     {
@@ -61,21 +77,7 @@ class ResponseObject implements Iterator, Countable, JsonSerializable, Arrayable
         throw new HubspotApiException("Property \"{$property}\" not exists in response object first level:\n\n{$response}\n\n");
     }
 
-    private function getAfter(string $afterIndex): int|string|null
-    {
-        $map = explode('.', $afterIndex);
-    
-        $after = $this->object;
-       
-        foreach ($map as $current) {
-            if (!isset($after->{$current})) {
-                return null;
-            }
-            $after = @$after->{$current};
-        }
-       
-        return $after;
-    }
+
 
 
     private function verifyIterable(): void
