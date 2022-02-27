@@ -2,8 +2,8 @@
 
 namespace LTL\Hubspot\Factories;
 
-use LTL\Hubspot\Containers\ApikeyContainer;
 use LTL\Hubspot\Containers\SingletonContainer;
+use LTL\Hubspot\Core\HubspotApikey;
 use LTL\Hubspot\Core\Interfaces\Request\ComponentInterface;
 use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
@@ -33,7 +33,7 @@ abstract class RequestFactory implements FactoryInterface
             return new ReflectionClass($class);
         });
 
-        return self::makeRequest($reflectionClass, $resource)->addApikeyWithoutObserver(ApikeyContainer::get());
+        return self::makeRequest($reflectionClass, $resource)->addApikeyWithoutObserver(HubspotApikey::get());
     }
 
     private static function makeRequest(ReflectionClass $reflectionClass, ResourceInterface $resource): RequestInterface

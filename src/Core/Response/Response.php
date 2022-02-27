@@ -6,10 +6,15 @@ use Countable;
 use IteratorAggregate;
 use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Containers\ResponseObjectContainer;
+use LTL\Hubspot\Core\HubspotApikey;
 use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
 use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
 use LTL\Hubspot\Core\Response\ResponseObject;
 
+/**
+ * @property-read string|int $index
+ * @property-read string|int $after
+ */
 class Response implements ResponseInterface, IteratorAggregate, Countable
 {
     private array|null $headers;
@@ -24,22 +29,29 @@ class Response implements ResponseInterface, IteratorAggregate, Countable
     {
         $this->status = $curl->getStatus();
         $this->rawResponse = $curl->getResponse();
-        $this->uri = $this->hideApikey($curl->getUri());
+        $this->uri = HubspotApikey::uriMask($curl->getUri());
         $this->headers = $curl->getHeaders();
+    }
+
+    public function __destruct()
+    {
+        ResponseObjectContainer::destroy($this);
     }
 
 
     public function __get($property)
     {
-        if ($property === 'index') {
-            return $this->getIndex();
-        }
-
-        if ($property === 'after') {
-            return $this->getAfter();
-        }
-
         return ResponseObjectContainer::get($this)->{$property};
+    }
+
+    public function getAfterIndex(): string|null
+    {
+        return $this->actionSchema->afterIndex;
+    }
+
+    public function getIteratorIndex(): string|null
+    {
+        return $this->actionSchema->iteratorIndex;
     }
 
     public function toArray(): array
@@ -52,47 +64,7 @@ class Response implements ResponseInterface, IteratorAggregate, Countable
         return $this->rawResponse;
     }
 
-    public function getIterator(): ResponseObject
-    {
-        return ResponseObjectContainer::get($this);
-    }
-
-    public function count(): int
-    {
-        return count(ResponseObjectContainer::get($this));
-    }
-
-    private function getIndex()
-    {
-        return $this->actionSchema->iterable;
-    }
-
-    private function getAfter(): int|string|null
-    {
-        $map = explode('.', $this->actionSchema->after);
-     
-        $after = ResponseObjectContainer::get($this);
-
-        
-        foreach ($map as $current) {
-            if (!isset($after->{$current})) {
-                return null;
-            }
-            $after = @$after->{$current};
-        }
-       
-
-        return $after;
-    }
-
-    private function hideApikey(string $uri): string
-    {
-        preg_match('/hapikey=\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/', $uri, $uuid);
-
-        return str_replace($uuid, 'hapikey=xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx', $uri);
-    }
-
-    public function destroy(): void
+    public function destroyObject(): void
     {
         ResponseObjectContainer::destroy($this);
     }
@@ -102,18 +74,33 @@ class Response implements ResponseInterface, IteratorAggregate, Countable
         return $this->status;
     }
 
-    public function getDocumentation(): ?string
+    public function getUri(): string
+    {
+        return $this->uri;
+    }
+
+    public function getDocumentation(): string|null
     {
         return $this->actionSchema->documentation;
     }
 
-    public function getHeaders(): ?array
+    public function getHeaders(): array|null
     {
         return $this->headers;
     }
 
-    public function hasError(): bool
+    public function hasErrors(): bool
     {
         return ($this->status < 200 || $this->status > 299);
+    }
+
+    public function getIterator(): ResponseObject
+    {
+        return ResponseObjectContainer::get($this);
+    }
+
+    public function count(): int
+    {
+        return count(ResponseObjectContainer::get($this));
     }
 }

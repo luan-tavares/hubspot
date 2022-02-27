@@ -3,10 +3,10 @@
 
 require_once __DIR__ .'/__init.php';
 
-use LTL\Hubspot\Containers\ApikeyContainer;
+use LTL\Hubspot\Core\HubspotApikey;
 use LTL\Hubspot\Resources\TimelineExtensionHubspot;
 
-ApikeyContainer::store(ENV['HUBSPOT_API_DEVELOPER']);
+HubspotApikey::store(ENV['HUBSPOT_API_DEVELOPER']);
 
 $timeline = TimelineExtensionHubspot::get(197428, 391519);
 

@@ -5,11 +5,11 @@
     "documentation": "https://developers.hubspot.com/docs/api/crm/companies",
     "actions": {
         "getAll": {
-            "path": "objects/companies",           
+            "path": "objects/companies",
             "method": "GET",
             "description": "Read a page of companies. Control what is returned via the properties query param.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         },
         "get": {
             "path": "objects/companies/{companyId}",
@@ -35,8 +35,8 @@
             "path": "objects/companies/{companyId}/associations/{toObjectType}",
             "method": "GET",
             "description": "List associations of a company by type.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         },
         "createAssociation": {
             "path": "objects/companies/{companyId}/associations/{toObjectType}/{toObjectId}/{associationType}",
@@ -57,29 +57,29 @@
             "path": "objects/companies/batch/create",
             "method": "POST",
             "description": "Create a batch of companies.",
-            "iterable": "results",
-            "after": null
+            "iteratorIndex": "results",
+            "afterIndex": null
         },
         "batchRead": {
             "path": "objects/companies/batch/read",
             "method": "POST",
             "description": "Read a batch of companies by internal ID, or unique property values.",
-            "iterable": "results",
-            "after": null
+            "iteratorIndex": "results",
+            "afterIndex": null
         },
         "batchUpdate": {
             "path": "objects/companies/batch/update",
             "method": "POST",
             "description": "Update a batch of companies.",
-            "iterable": "results",
-            "after": null
+            "iteratorIndex": "results",
+            "afterIndex": null
         },
         "search": {
             "path": "objects/companies/search",
             "method": "POST",
             "description": "Search companies.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         }
     }
 }

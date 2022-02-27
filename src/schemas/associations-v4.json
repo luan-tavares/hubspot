@@ -8,7 +8,7 @@
             "path": "associations/{fromObjectType}/{toObjectType}/labels",
             "method": "GET",
             "description": "Returns all association types between two object types.",
-            "iterable": "results"
+            "iteratorIndex": "results"
         },
         "createDefinition": {
             "path": "associations/{fromObjectType}/{toObjectType}/labels",
@@ -39,13 +39,13 @@
             "path": "associations/{fromObjectType}/{toObjectType}/batch/read",
             "method": "POST",
             "description": "Batch read associations for objects to specific object type.",
-            "iterable": "results"
+            "iteratorIndex": "results"
         },
         "get": {
             "path": "objects/{fromObjectType}/{fromObjectId}/associations/{toObjectType}",
             "method": "GET",
             "description": "List all associations of an object by object type. Limit 1000 per call.",
-            "iterable": "results"
+            "iteratorIndex": "results"
         },
         "create": {
             "path": "objects/{fromObjectType}/{fromObjectId}/associations/{toObjectType}/{toObjectId}",

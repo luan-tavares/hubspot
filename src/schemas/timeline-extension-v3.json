@@ -8,8 +8,8 @@
             "path": "timeline/{appId}/event-templates",
             "method": "GET",
             "description": "Use this to list all event templates owned by your app.",
-            "iterable": "results",
-            "after": null
+            "iteratorIndex": "results",
+            "afterIndex": null
         },
         "get": {
             "path": "timeline/{appId}/event-templates/{eventTemplateId}",

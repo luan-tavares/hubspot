@@ -5,11 +5,11 @@
     "documentation": "https://developers.hubspot.com/docs/api/settings/user-provisioning",
     "actions": {
         "getAll": {
-            "path": "users",           
+            "path": "users",
             "method": "GET",
             "description": "Read a page of users.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         },
         "get": {
             "path": "users/{userId}",
@@ -35,15 +35,15 @@
             "path": "users/roles",
             "method": "GET",
             "description": "Retrieves the roles on an account.",
-            "iterable": "results",
-            "after": null
+            "iteratorIndex": "results",
+            "afterIndex": null
         },
         "getTeams": {
             "path": "users/teams",
             "method": "GET",
             "description": "See details about this account's teams.",
-            "iterable": "results",
-            "after": null
+            "iteratorIndex": "results",
+            "afterIndex": null
         }
     }
 }

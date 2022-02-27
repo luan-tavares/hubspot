@@ -5,18 +5,18 @@
     "documentation": "https://app.hubspot.com/developer-docs/api?spec=v1/apis/cms/v3/site-search",
     "actions": {
         "getIndexes": {
-            "path": "site-search/indexed-data/{contentId}",           
+            "path": "site-search/indexed-data/{contentId}",
             "method": "GET",
             "description": "For a given account and document ID (page ID, blog post ID, HubDB row ID, etc.), return all indexed data for that document.",
-            "iterable": "fields",
-            "after": "paging.next.after"
+            "iteratorIndex": "fields",
+            "afterIndex": "paging.next.after"
         },
         "search": {
-            "path": "site-search/search",           
+            "path": "site-search/search",
             "method": "GET",
             "description": "Returns any website content matching the given search criteria for a given HubSpot account.",
-            "iterable": "results",
-            "after": "offset"
+            "iteratorIndex": "results",
+            "afterIndex": "offset"
         }
     }
 }

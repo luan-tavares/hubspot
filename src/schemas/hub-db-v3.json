@@ -8,8 +8,8 @@
             "path": "hubdb/tables",
             "method": "GET",
             "description": "Returns the details for the published version of each table defined in an account, including column definitions.",
-            "iterable": "results",
-            "after": "paging.next.after",
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after",
             "queries": {
                 "includeForeignIds": "false"
             }
@@ -18,8 +18,8 @@
             "path": "hubdb/tables/draft",
             "method": "GET",
             "description": "Returns the details for each draft table defined in the specified account, including column definitions.",
-            "iterable": "results",
-            "after": "paging.next.after",
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after",
             "queries": {
                 "includeForeignIds": "false"
             }
@@ -142,15 +142,15 @@
             "path": "hubdb/tables/{tableIdOrName}/rows",
             "method": "GET",
             "description": "Returns a set of rows in the published version of the specified table.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         },
         "getAllRowsDraft": {
             "path": "hubdb/tables/{tableIdOrName}/rows/draft",
             "method": "GET",
             "description": "Returns rows in the draft version of the specified table. Row results can be filtered and sorted.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         },
         "getRow": {
             "path": "hubdb/tables/{tableIdOrName}/rows/{rowId}",
@@ -191,29 +191,29 @@
             "path": "hubdb/tables/{tableIdOrName}/rows/batch/read",
             "method": "POST",
             "description": "Returns rows in the published version of the specified table, given a set of row ids.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         },
         "batchReadRowsDraft": {
             "path": "hubdb/tables/{tableIdOrName}/rows/draft/batch/read",
             "method": "POST",
             "description": "Returns rows in the draft version of the specified table, given a set of row ids.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         },
         "batchCloneRows": {
             "path": "hubdb/tables/{tableIdOrName}/rows/draft/batch/clone",
             "method": "POST",
             "description": "Clones rows in the draft version of the specified table, given a set of row ids.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         },
         "batchCreateRows": {
             "path": "hubdb/tables/{tableIdOrName}/rows/draft/batch/create",
             "method": "POST",
             "description": "Creates rows in the draft version of the specified table, given an array of row objects.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         },
         "batchDeleteRows": {
             "path": "hubdb/tables/{tableIdOrName}/rows/draft/batch/purge",
@@ -224,15 +224,15 @@
             "path": "hubdb/tables/{tableIdOrName}/rows/draft/batch/replace",
             "method": "POST",
             "description": "Replaces multiple rows as a batch in the draft version of the table.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         },
         "batchUpdateRows": {
             "path": "hubdb/tables/{tableIdOrName}/rows/draft/batch/update",
             "method": "POST",
             "description": "Updates multiple rows as a batch in the draft version of the table.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         }
     }
 }

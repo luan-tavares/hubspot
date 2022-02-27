@@ -5,11 +5,11 @@
     "documentation": "https://developers.hubspot.com/docs/api/crm/tickets",
     "actions": {
         "getAll": {
-            "path": "objects/tickets",           
+            "path": "objects/tickets",
             "method": "GET",
             "description": "Read a page of tickets. Control what is returned via the properties query param.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         },
         "get": {
             "path": "objects/tickets/{ticketId}",
@@ -35,8 +35,8 @@
             "path": "objects/tickets/{ticketId}/associations/{toObjectType}",
             "method": "GET",
             "description": "List associations of a ticket by type.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         },
         "createAssociation": {
             "path": "objects/tickets/{ticketId}/associations/{toObjectType}/{toObjectId}/{associationType}",
@@ -57,29 +57,29 @@
             "path": "objects/tickets/batch/create",
             "method": "POST",
             "description": "Create a batch of tickets.",
-            "iterable": "results",
-            "after": null
+            "iteratorIndex": "results",
+            "afterIndex": null
         },
         "batchRead": {
             "path": "objects/tickets/batch/read",
             "method": "POST",
             "description": "Read a batch of tickets by internal ID, or unique property values.",
-            "iterable": "results",
-            "after": null
+            "iteratorIndex": "results",
+            "afterIndex": null
         },
         "batchUpdate": {
             "path": "objects/tickets/batch/update",
             "method": "POST",
             "description": "Update a batch of tickets.",
-            "iterable": "results",
-            "after": null
+            "iteratorIndex": "results",
+            "afterIndex": null
         },
         "search": {
             "path": "objects/tickets/search",
             "method": "POST",
             "description": "Search tickets.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         }
     }
 }

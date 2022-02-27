@@ -5,11 +5,11 @@
     "documentation": "https://developers.hubspot.com/docs/api/crm/products",
     "actions": {
         "getAll": {
-            "path": "objects/products",           
+            "path": "objects/products",
             "method": "GET",
             "description": "Read a page of products. Control what is returned via the properties query param.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         },
         "get": {
             "path": "objects/products/{productId}",
@@ -35,8 +35,8 @@
             "path": "objects/products/{productId}/associations/{toObjectType}",
             "method": "GET",
             "description": "List associations of a product by type.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         },
         "createAssociation": {
             "path": "objects/products/{productId}/associations/{toObjectType}/{toObjectId}/{associationType}",
@@ -57,29 +57,29 @@
             "path": "objects/products/batch/create",
             "method": "POST",
             "description": "Create a batch of products.",
-            "iterable": "results",
-            "after": null
+            "iteratorIndex": "results",
+            "afterIndex": null
         },
         "batchRead": {
             "path": "objects/products/batch/read",
             "method": "POST",
             "description": "Read a batch of products by internal ID, or unique property values.",
-            "iterable": "results",
-            "after": null
+            "iteratorIndex": "results",
+            "afterIndex": null
         },
         "batchUpdate": {
             "path": "objects/products/batch/update",
             "method": "POST",
             "description": "Update a batch of products.",
-            "iterable": "results",
-            "after": null
+            "iteratorIndex": "results",
+            "afterIndex": null
         },
         "search": {
             "path": "objects/products/search",
             "method": "POST",
             "description": "Search products.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         }
     }
 }

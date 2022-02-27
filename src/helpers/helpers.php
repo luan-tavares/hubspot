@@ -4,7 +4,7 @@
 if (!function_exists('hubspotKey')) {
     function hubspotKey(string $apikey)
     {
-        \LTL\Hubspot\Containers\ApikeyContainer::store($apikey);
+        \LTL\Hubspot\Hubspot::setGlobalApikey($apikey);
     }
 }
 

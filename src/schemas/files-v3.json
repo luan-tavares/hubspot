@@ -26,8 +26,8 @@
             "path": "files/search",
             "method": "GET",
             "description": "Search through files in the file manager. Does not display hidden or archived files.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         },
         "get": {
             "path": "files/{fileId}",
@@ -71,8 +71,8 @@
             "path": "folders/search",
             "method": "GET",
             "description": "Search for folders. Does not contain hidden or archived folders.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         },
         "updateFolder": {
             "path": "folders/update/async",

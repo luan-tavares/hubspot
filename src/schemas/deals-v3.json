@@ -5,11 +5,11 @@
     "documentation": "https://developers.hubspot.com/docs/api/crm/deals",
     "actions": {
         "getAll": {
-            "path": "objects/deals",           
+            "path": "objects/deals",
             "method": "GET",
             "description": "Read a page of deals. Control what is returned via the properties query param.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         },
         "get": {
             "path": "objects/deals/{dealId}",
@@ -35,8 +35,8 @@
             "path": "objects/deals/{dealId}/associations/{toObjectType}",
             "method": "GET",
             "description": "List associations of a deal by type.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         },
         "createAssociation": {
             "path": "objects/deals/{dealId}/associations/{toObjectType}/{toObjectId}/{associationType}",
@@ -57,29 +57,29 @@
             "path": "objects/deals/batch/create",
             "method": "POST",
             "description": "Create a batch of deals.",
-            "iterable": "results",
-            "after": null
+            "iteratorIndex": "results",
+            "afterIndex": null
         },
         "batchRead": {
             "path": "objects/deals/batch/read",
             "method": "POST",
             "description": "Read a batch of deals by internal ID, or unique property values.",
-            "iterable": "results",
-            "after": null
+            "iteratorIndex": "results",
+            "afterIndex": null
         },
         "batchUpdate": {
             "path": "objects/deals/batch/update",
             "method": "POST",
             "description": "Update a batch of deals.",
-            "iterable": "results",
-            "after": null
+            "iteratorIndex": "results",
+            "afterIndex": null
         },
         "search": {
             "path": "objects/deals/search",
             "method": "POST",
             "description": "Search deals.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         }
     }
 }

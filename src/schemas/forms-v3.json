@@ -8,8 +8,8 @@
             "path": "forms",
             "method": "GET",
             "description": "Returns a list of forms based on the search filters. By default, it returns the first 20 hubspot forms.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         },
         "get": {
             "path": "forms/{formId}",

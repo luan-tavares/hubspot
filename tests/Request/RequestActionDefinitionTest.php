@@ -2,12 +2,11 @@
 
 namespace LTL\Hubspot\Tests\Request;
 
-use LTL\Hubspot\Containers\ApikeyContainer;
 use LTL\Hubspot\Containers\RequestContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
+use LTL\Hubspot\Core\HubspotApikey;
 use LTL\Hubspot\Core\Request\RequestActionDefinition;
 use LTL\Hubspot\Core\Request\RequestCurlCaller;
-use LTL\Hubspot\Core\Resource\Resource;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Resources\ContactHubspot;
 use LTL\Hubspot\Resources\FileHubspot;
@@ -30,7 +29,7 @@ class RequestActionDefinitionTest extends TestCase
 
         $this->contactResource->method('__toString')->willReturn('contacts-v3');
 
-        ApikeyContainer::store('123456');
+        HubspotApikey::store('123456');
 
         $this->contactRequest = RequestContainer::get($this->contactResource);
         

@@ -2,8 +2,8 @@
 
 namespace LTL\Hubspot\Tests\Request;
 
-use LTL\Hubspot\Containers\ApikeyContainer;
 use LTL\Hubspot\Containers\RequestContainer;
+use LTL\Hubspot\Core\HubspotApikey;
 use LTL\Hubspot\Core\Resource\Resource;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use PHPUnit\Framework\TestCase;
@@ -18,7 +18,7 @@ class RequestTest extends TestCase
     {
         $stub = $this->getMockBuilder(Resource::class)->disableOriginalConstructor()->getMock();
 
-        ApikeyContainer::store('123456');
+        HubspotApikey::store('123456');
 
         $this->object = RequestContainer::get($stub);
 

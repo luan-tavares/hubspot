@@ -3,7 +3,6 @@
 namespace LTL\Hubspot\Tests\Enumerable;
 
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
-use LTL\Hubspot\Core\Resource\Resource;
 use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Core\Response\ResponseObject;
 use LTL\Hubspot\Factories\ResourceFactory;
@@ -17,7 +16,7 @@ class EnumerableTest extends TestCase
     protected function setUp(): void
     {
         $items = [
-            'index' => [
+            'results' => [
                 'a' => 4,
                 'b' => 5,
                 'c' => null,
@@ -29,7 +28,7 @@ class EnumerableTest extends TestCase
         $response = $this->getMockBuilder(Response::class)->disableOriginalConstructor()->getMock();
         $response->rawResponse = json_encode($items);
         $response->method('toJson')->willReturn($response->rawResponse);
-        $response->index = 'index';
+        $response->method('getIteratorIndex')->willReturn('results');
         
         $responseObject = new ResponseObject($response);
 

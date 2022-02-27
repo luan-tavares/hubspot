@@ -2,7 +2,6 @@
 
 namespace LTL\Hubspot\Core\Request;
 
-use LTL\Hubspot\Containers\ApikeyContainer;
 use LTL\Hubspot\Core\Interfaces\Request\RequestActionDefinitionInterface;
 use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
 use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;

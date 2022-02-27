@@ -26,4 +26,9 @@ abstract class ResponseObjectContainer
 
         unset(self::$objects[$hash]);
     }
+
+    public static function count(): int
+    {
+        return count(self::$objects);
+    }
 }

@@ -8,8 +8,8 @@
             "path": "extensions/cards/{appId}",
             "method": "GET",
             "description": "Returns a list of cards for a given app.",
-            "iterable": "results",
-            "after": null
+            "iteratorIndex": "results",
+            "afterIndex": null
         },
         "get": {
             "path": "extensions/cards/{appId}/{cardId}",

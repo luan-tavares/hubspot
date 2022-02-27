@@ -5,11 +5,11 @@
     "documentation": "https://developers.hubspot.com/docs/api/crm/line-items",
     "actions": {
         "getAll": {
-            "path": "objects/line_items",           
+            "path": "objects/line_items",
             "method": "GET",
             "description": "Read a page of line items. Control what is returned via the properties query param.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         },
         "get": {
             "path": "objects/line_items/{lineItemId}",
@@ -35,8 +35,8 @@
             "path": "objects/line_items/{lineItemId}/associations/{toObjectType}",
             "method": "GET",
             "description": "List associations of a line item by type.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         },
         "createAssociation": {
             "path": "objects/line_items/{lineItemId}/associations/{toObjectType}/{toObjectId}/{associationType}",
@@ -57,29 +57,29 @@
             "path": "objects/line_items/batch/create",
             "method": "POST",
             "description": "Create a batch of line items.",
-            "iterable": "results",
-            "after": null
+            "iteratorIndex": "results",
+            "afterIndex": null
         },
         "batchRead": {
             "path": "objects/line_items/batch/read",
             "method": "POST",
             "description": "Read a batch of line items by internal ID, or unique property values.",
-            "iterable": "results",
-            "after": null
+            "iteratorIndex": "results",
+            "afterIndex": null
         },
         "batchUpdate": {
             "path": "objects/line_items/batch/update",
             "method": "POST",
             "description": "Update a batch of line items.",
-            "iterable": "results",
-            "after": null
+            "iteratorIndex": "results",
+            "afterIndex": null
         },
         "search": {
             "path": "objects/line_items/search",
             "method": "POST",
             "description": "Search line items.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         }
     }
 }

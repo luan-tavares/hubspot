@@ -4,12 +4,11 @@ namespace LTL\Hubspot\Core\Resource;
 
 use ArrayAccess;
 use Countable;
-use Error;
 use IteratorAggregate;
 use JsonSerializable;
-use LTL\Hubspot\Containers\ApikeyContainer;
 use LTL\Hubspot\Containers\BuilderContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
+use LTL\Hubspot\Core\HubspotApikey;
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
 use LTL\Hubspot\Core\Resource\Traits\ResourceArrayAccess;
@@ -51,7 +50,7 @@ abstract class Resource implements ResourceInterface, ArrayAccess, JsonSerializa
     public function __destruct()
     {
         if (isset($this->response)) {
-            $this->response->destroy();
+            $this->response->destroyObject();
         }
     }
 
@@ -116,7 +115,7 @@ abstract class Resource implements ResourceInterface, ArrayAccess, JsonSerializa
      */
     public function error(): bool
     {
-        return $this->response->hasError();
+        return $this->response->hasErrors();
     }
  
     /**
@@ -141,6 +140,6 @@ abstract class Resource implements ResourceInterface, ArrayAccess, JsonSerializa
 
     public static function setGlobalApikey(string $apikey): void
     {
-        ApikeyContainer::store($apikey);
+        HubspotApikey::store($apikey);
     }
 }

@@ -5,17 +5,16 @@
     "documentation": "https://developers.hubspot.com/docs/api/crm/owners",
     "actions": {
         "getAll": {
-            "path": "objects/owners",           
+            "path": "objects/owners",
             "method": "GET",
             "description": "Read a page of owners.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         },
         "get": {
             "path": "objects/owners/{ownerId}",
             "method": "GET",
             "description": "Read an owner identified by {ownerId}."
         }
-        
     }
 }

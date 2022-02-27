@@ -1,0 +1,158 @@
+<?php
+
+namespace LTL\Hubspot\Tests\Response;
+
+use LTL\Curl\Curl;
+use LTL\Curl\Interfaces\CurlInterface;
+use LTL\Hubspot\Containers\ResponseObjectContainer;
+use LTL\Hubspot\Containers\SchemaContainer;
+use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
+use LTL\Hubspot\Core\Response\Response;
+use LTL\Hubspot\Exceptions\HubspotApiException;
+use LTL\Hubspot\Resources\HubDbHubspot;
+use PHPUnit\Framework\TestCase;
+
+class ResponseIterableTest extends TestCase
+{
+    private CurlInterface $curl;
+
+    private ActionSchemaInterface $actionSchema;
+
+    private array $items;
+
+    protected function setUp(): void
+    {
+        $this->items = [
+            'results' => [
+                'a' => 4,
+                'b' => 5,
+                'c' => null,
+                'd' => ['a' => 5],
+                'e' => false
+            ],
+            'paging' => [
+                'next' => [
+                    'after' => 100
+                ]
+            ]
+        ];
+
+        $this->curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
+        $this->curl->method('getStatus')->willReturn(400);
+        $this->curl->method('getResponse')->willReturn(json_encode($this->items));
+        $this->curl->method('getUri')
+            ->willReturn('https://test.com/api?hapikey=12345678-1234-1234-1234-abcde1234567');
+        $this->curl->method('getHeaders')->willReturn(['Content-Type' => 'application/json;charset=utf-8']);
+
+        $contactResource = $this->createMock(HubDbHubspot::class);
+        $contactResource->method('__toString')->willReturn('hub-db-v3');
+        $this->actionSchema = SchemaContainer::getAction($contactResource, 'getAll');
+    }
+
+
+    public function testIfIterableIsCorrect()
+    {
+        $response = new Response($this->curl, $this->actionSchema);
+
+        foreach ($response as $value) {
+            $return[] = $value;
+        }
+      
+        $this->assertEquals($return, [
+            4,
+            5,
+            null,
+            (object) [ 'a' => 5 ],
+            false
+        ]);
+    }
+
+    public function testIfContableIsCorrect()
+    {
+        $response = new Response($this->curl, $this->actionSchema);
+      
+        $this->assertEquals(count($response), count($this->items['results']));
+    }
+
+    public function testIfGetMagicCatchAfterIsCorrect()
+    {
+        $response = new Response($this->curl, $this->actionSchema);
+
+        $this->assertEquals($response->after, 100);
+    }
+
+
+    public function testIfGetMagicThrowException()
+    {
+        $response = new Response($this->curl, $this->actionSchema);
+
+        $this->expectException(HubspotApiException::class);
+
+        $var = $response->unknowProperty;
+    }
+
+    public function testIftoArrayMethodIsCorrect()
+    {
+        $response = new Response($this->curl, $this->actionSchema);
+
+        $this->assertEquals($response->toArray(), $this->items);
+    }
+
+    public function testIfDestroyResponseObjectIsCorrect()
+    {
+        $response = new Response($this->curl, $this->actionSchema);
+        $response->toArray(); /*The container is inicialized after call a method*/
+
+        unset($response);
+
+        $this->assertEquals(ResponseObjectContainer::count(), 0);
+    }
+
+    public function testIfGetUrlAndHideApiMethodIsCorrect()
+    {
+        $response = new Response($this->curl, $this->actionSchema);
+
+        $this->assertEquals(
+            $response->getUri(),
+            'https://test.com/api?hapikey=xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+        );
+    }
+
+    public function testIfGetStatusMethodIsCorrect()
+    {
+        $response = new Response($this->curl, $this->actionSchema);
+
+        $this->assertEquals(
+            $response->getStatus(),
+            400
+        );
+    }
+
+    public function testIfGetDocumentationMethodIsCorrect()
+    {
+        $response = new Response($this->curl, $this->actionSchema);
+
+        $this->assertEquals(
+            $response->getDocumentation(),
+            'https://developers.hubspot.com/docs/api/cms/hubdb'
+        );
+    }
+
+    public function testIfGetHeadersMethodIsCorrect()
+    {
+        $response = new Response($this->curl, $this->actionSchema);
+        $this->assertEquals(
+            $response->getHeaders(),
+            ['Content-Type' => 'application/json;charset=utf-8']
+        );
+    }
+
+    public function testIfHasErrorsMethodIsCorrect()
+    {
+        $response = new Response($this->curl, $this->actionSchema);
+        $this->assertEquals(
+            $response->hasErrors(),
+            true
+        );
+    }
+}

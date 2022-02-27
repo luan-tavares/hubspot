@@ -14,45 +14,77 @@ class ResponseObject implements Iterator, Countable, JsonSerializable, Arrayable
     private object|null $object;
 
     private array $array;
+   
+    private string|null $json;
 
-    private array|null $iteratorObject = null;
+    private array|null $iterator = null;
 
-    public function __construct(private ResponseInterface $response)
+    private string|int|null $after = null;
+
+    public function __construct(ResponseInterface $response)
     {
-        $this->object = json_decode($this->response->toJson());
+        $this->json = $response->toJson();
 
-        $this->array = json_decode($this->response->toJson(), true) ?? [];
+        $this->object = json_decode($response->toJson());
 
-        if (is_null(@$this->object->{@$this->response->index})) {
+        $this->array = json_decode($response->toJson(), true) ?? [];
+
+        if (is_null(@$this->object->{$response->getIteratorIndex()})) {
             return;
         }
+        $this->iterator = (array) @$this->object->{$response->getIteratorIndex()};
 
-        $this->iteratorObject = (array) @$this->object->{@$this->response->index};
-    }
-
-    public function __get($property)
-    {
-        if (property_exists($this->object, $property)) {
-            return $this->object->{$property};
+        if (is_null($response->getAfterIndex())) {
+            return;
         }
-
-        $response = mb_strimwidth($this->response->toJson(), 0, 300, ' ...');
-
-        throw new HubspotApiException("Property \"{$property}\" not exists in response object first level:\n\n{$response}\n\n");
+        $this->after = $this->getAfter($response->getAfterIndex());
     }
+
 
     public function __isset($property): bool
     {
         return property_exists($this->object, $property);
     }
 
+    public function __get($property)
+    {
+        if ($property === 'after') {
+            return $this->after;
+        }
+
+        if (property_exists($this->object, $property)) {
+            return $this->object->{$property};
+        }
+
+        $response = mb_strimwidth($this->json, 0, 300, ' ...');
+
+        throw new HubspotApiException("Property \"{$property}\" not exists in response object first level:\n\n{$response}\n\n");
+    }
+
+    private function getAfter(string $afterIndex): int|string|null
+    {
+        $map = explode('.', $afterIndex);
+    
+        $after = $this->object;
+       
+        foreach ($map as $current) {
+            if (!isset($after->{$current})) {
+                return null;
+            }
+            $after = @$after->{$current};
+        }
+       
+        return $after;
+    }
+
+
     private function verifyIterable(): void
     {
-        if (!is_null($this->iteratorObject)) {
+        if (!is_null($this->iterator)) {
             return;
         }
 
-        $response = mb_strimwidth($this->response->toJson(), 0, 300, ' ...');
+        $response = mb_strimwidth($this->json, 0, 300, ' ...');
 
         throw new HubspotApiException(
             "Resource response is not iterable or countable:\n\n{$response}\n\n"
@@ -63,34 +95,34 @@ class ResponseObject implements Iterator, Countable, JsonSerializable, Arrayable
     {
         $this->verifyIterable();
 
-        return count($this->iteratorObject);
+        return count($this->iterator);
     }
 
     public function rewind(): void
     {
         $this->verifyIterable();
 
-        reset($this->iteratorObject);
+        reset($this->iterator);
     }
     
     public function current(): mixed
     {
-        return current($this->iteratorObject);
+        return current($this->iterator);
     }
     
     public function key(): mixed
     {
-        return key($this->iteratorObject);
+        return key($this->iterator);
     }
     
     public function next(): void
     {
-        next($this->iteratorObject);
+        next($this->iterator);
     }
     
     public function valid(): bool
     {
-        return !is_null(key($this->iteratorObject));
+        return !is_null(key($this->iterator));
     }
 
     public function toArray(): array
@@ -100,7 +132,7 @@ class ResponseObject implements Iterator, Countable, JsonSerializable, Arrayable
 
     public function toJson(): string|null
     {
-        return $this->response->toJson();
+        return $this->json;
     }
 
     public function jsonSerialize(): mixed

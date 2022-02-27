@@ -6,8 +6,8 @@
             "documentation": "https://legacydocs.hubspot.com/docs/methods/engagements/get-recent-engagements",
             "method": "GET",
             "description": "Get recent engagements.",
-            "iterable": "results",
-            "after": "offset"
+            "iteratorIndex": "results",
+            "afterIndex": "offset"
         },
         "create": {
             "path": "engagements/v1/engagements",
@@ -32,8 +32,8 @@
             "documentation": "https://legacydocs.hubspot.com/docs/methods/engagements/get-all-engagements",
             "method": "GET",
             "description": "Get all engagements.",
-            "iterable": "results",
-            "after": "offset"
+            "iteratorIndex": "results",
+            "afterIndex": "offset"
         },
         "delete": {
             "path": "engagements/v1/engagements/{engagementId}",

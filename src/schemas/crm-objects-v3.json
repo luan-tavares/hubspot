@@ -5,11 +5,11 @@
     "documentation": "https://developers.hubspot.com/docs/api/crm/crm-custom-objects",
     "actions": {
         "getAll": {
-            "path": "objects/{objectType}",           
+            "path": "objects/{objectType}",
             "method": "GET",
             "description": "Read a page of objects. Control what is returned via the properties query param.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         },
         "get": {
             "path": "objects/{objectType}/{objectId}",
@@ -60,8 +60,8 @@
             "path": "objects/{fromObjectType}/{fromObjectId}/associations/{toObjectType}",
             "method": "GET",
             "description": "List associations of an object by type.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         },
         "createAssociation": {
             "path": "objects/{fromObjectType}/{fromObjectId}/associations/{toObjectType}/{toObjectId}/{associationType}",
@@ -79,8 +79,8 @@
             "method": "POST",
             "description": "Search objects by {objectType}.",
             "documentation": "https://developers.hubspot.com/docs/api/crm/search",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         }
     }
 }

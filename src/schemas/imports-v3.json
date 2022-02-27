@@ -8,8 +8,8 @@
             "path": "imports",
             "method": "GET",
             "description": "Returns a paged list of active imports for this account.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         },
         "get": {
             "path": "imports/{importId}",

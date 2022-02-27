@@ -5,7 +5,7 @@
     "documentation": "https://developers.hubspot.com/docs/api/webhooks",
     "actions": {
         "getSettings": {
-            "path": "v3/{appId}/settings",           
+            "path": "v3/{appId}/settings",
             "method": "GET",
             "description": "Returns the current state of webhook settings for the given app. These settings include the app's configured target URL and max concurrency limit."
         },
@@ -23,8 +23,8 @@
             "path": "{appId}/subscriptions",
             "method": "GET",
             "description": "Returns full details for all existing subscriptions for the given app.",
-            "iterable": "results",
-            "after": null
+            "iteratorIndex": "results",
+            "afterIndex": null
         },
         "create": {
             "path": "{appId}/subscriptions",
@@ -35,8 +35,8 @@
             "path": "{appId}/subscriptions/batch/update",
             "method": "POST",
             "description": "Activates or deactivates target app subscriptions.",
-            "iterable": "results",
-            "after": null
+            "iteratorIndex": "results",
+            "afterIndex": null
         },
         "get": {
             "path": "{appId}/subscriptions/{subscriptionId}",

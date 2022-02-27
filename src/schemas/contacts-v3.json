@@ -8,8 +8,8 @@
             "path": "objects/contacts",
             "method": "GET",
             "description": "Read a page of contacts. Control what is returned via the properties query param.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         },
         "get": {
             "path": "objects/contacts/{contactIdOrEmail}",
@@ -48,8 +48,8 @@
             "path": "objects/contacts/{contactId}/associations/{toObjectType}",
             "method": "GET",
             "description": "List associations of a contact by type.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         },
         "createAssociation": {
             "path": "objects/contacts/{contactId}/associations/{toObjectType}/{toObjectId}/{associationType}",
@@ -70,29 +70,29 @@
             "path": "objects/contacts/batch/create",
             "method": "POST",
             "description": "Create a batch of contacts.",
-            "iterable": "results",
-            "after": null
+            "iteratorIndex": "results",
+            "afterIndex": null
         },
         "batchRead": {
             "path": "objects/contacts/batch/read",
             "method": "POST",
             "description": "Read a batch of contacts by internal ID, or unique property values.",
-            "iterable": "results",
-            "after": null
+            "iteratorIndex": "results",
+            "afterIndex": null
         },
         "batchUpdate": {
             "path": "objects/contacts/batch/update",
             "method": "POST",
             "description": "Update a batch of contacts.",
-            "iterable": "results",
-            "after": null
+            "iteratorIndex": "results",
+            "afterIndex": null
         },
         "search": {
             "path": "objects/contacts/search",
             "method": "POST",
             "description": "Search contacts.",
-            "iterable": "results",
-            "after": "paging.next.after"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         }
     }
 }
