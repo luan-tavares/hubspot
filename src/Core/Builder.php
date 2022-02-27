@@ -6,9 +6,10 @@ use LTL\Hubspot\Containers\RequestContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
+use LTL\Hubspot\Core\Request\RequestActionDefinition;
+use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\ResourceFactory;
-use LTL\Hubspot\Factories\ResponseFactory;
 
 class Builder
 {
@@ -44,7 +45,11 @@ class Builder
 
     private function doRequest(string $method, array $arguments): ResourceInterface
     {
-        $response = ResponseFactory::build($this->resource, $method, $arguments);
+        $actionSchema = SchemaContainer::getAction($this->resource, $method);
+
+        $curlService = RequestActionDefinition::finish($this->request, $actionSchema, $arguments)->connect();
+
+        $response =  new Response($curlService, $actionSchema);
 
         return ResourceFactory::build($this->resource, $response);
     }

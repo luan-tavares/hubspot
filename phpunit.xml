@@ -17,6 +17,9 @@
         <testsuite name="Enumerable Suit">
             <directory >./tests/Enumerable</directory>
         </testsuite>
+        <testsuite name="Response Suit">
+            <directory >./tests/Response</directory>
+        </testsuite>
     </testsuites>
 
 </phpunit>
