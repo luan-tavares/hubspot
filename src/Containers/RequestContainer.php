@@ -2,10 +2,10 @@
 
 namespace LTL\Hubspot\Containers;
 
-use LTL\Hubspot\Interfaces\ContainerByResourceInterface;
 use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 use LTL\Hubspot\Factories\RequestFactory;
+use LTL\Hubspot\Interfaces\ContainerByResourceInterface;
 
 abstract class RequestContainer implements ContainerByResourceInterface
 {
@@ -18,8 +18,7 @@ abstract class RequestContainer implements ContainerByResourceInterface
         if (!array_key_exists($hash, self::$objects)) {
             self::$objects[$hash] = RequestFactory::build($resource);
         }
-
-        
+       
         return self::$objects[$hash];
     }
 

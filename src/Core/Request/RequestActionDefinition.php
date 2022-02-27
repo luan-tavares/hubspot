@@ -2,10 +2,11 @@
 
 namespace LTL\Hubspot\Core\Request;
 
+use LTL\Hubspot\Containers\ApikeyContainer;
 use LTL\Hubspot\Core\Interfaces\Request\RequestActionDefinitionInterface;
 use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
-use LTL\Hubspot\Core\Request\RequestCurlCaller;
 use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
+use LTL\Hubspot\Core\Request\RequestCurlCaller;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 
 abstract class RequestActionDefinition implements RequestActionDefinitionInterface
@@ -39,10 +40,16 @@ abstract class RequestActionDefinition implements RequestActionDefinitionInterfa
             $request->addBody($requestBody);
             array_pop($params);
         }
+
+       
       
         $request->addHeaders($actionSchema->baseHeader);
         
         $request->addQueries($actionSchema->baseQuery);
+
+        if (!$actionSchema->authentication) {
+            $request->removeApikey();
+        }
 
         $request->addUri($actionSchema->baseUri, array_combine($params, $arguments), $request->getQueries());
 

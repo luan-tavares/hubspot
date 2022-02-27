@@ -9,6 +9,11 @@ class ComponentObserver extends Observer
 {
     protected function oAuthInserted(ComponentInterface $subject): void
     {
-        $subject->getRequest()->removeQuery('hapikey');
+        $subject->getRequest()->removeApikey();
+    }
+
+    protected function apikeyInserted(ComponentInterface $subject): void
+    {
+        $subject->getRequest()->removeOAuth();
     }
 }

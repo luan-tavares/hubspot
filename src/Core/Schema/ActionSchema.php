@@ -40,6 +40,8 @@ class ActionSchema implements ActionSchemaInterface
 
     private string $resourceClass;
 
+    private bool $authentication;
+
     private bool $hasBody;
 
     private string $method;
@@ -61,6 +63,12 @@ class ActionSchema implements ActionSchemaInterface
         $this->baseUri = $this->setUri($schema, $actionSchema);
         $this->documentation = $this->setDocumentation($schema, $actionSchema);
         $this->params = $this->setParams($actionSchema);
+
+        $this->authentication = $schema->authentication;
+
+        if (isset($actionSchema->authentication)) {
+            $this->authentication = $actionSchema->authentication;
+        }
     }
 
     public function __get($property)
@@ -70,6 +78,11 @@ class ActionSchema implements ActionSchemaInterface
         }
         
         throw new Exception("Property {$property} not exists in ". __CLASS__);
+    }
+
+    public function __isset($property)
+    {
+        return isset($this->{$property});
     }
 
     public function __toString()

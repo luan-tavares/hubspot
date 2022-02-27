@@ -2,17 +2,18 @@
 
 namespace LTL\Hubspot\Factories;
 
+use LTL\Hubspot\Containers\ApikeyContainer;
 use LTL\Hubspot\Containers\SingletonContainer;
+use LTL\Hubspot\Core\Interfaces\Request\ComponentInterface;
+use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
+use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 use LTL\Hubspot\Core\Request\Components\BodyRequestComponent;
 use LTL\Hubspot\Core\Request\Components\CurlRequestComponent;
 use LTL\Hubspot\Core\Request\Components\HeaderRequestComponent;
 use LTL\Hubspot\Core\Request\Components\QueryRequestComponent;
 use LTL\Hubspot\Core\Request\Components\UriRequestComponent;
-use LTL\Hubspot\Core\Interfaces\Request\ComponentInterface;
-use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
 use LTL\Hubspot\Core\Request\Observers\ComponentObserver;
 use LTL\Hubspot\Core\Request\Request;
-use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 use LTL\Hubspot\Interfaces\FactoryInterface;
 use ReflectionClass;
 
@@ -31,8 +32,8 @@ abstract class RequestFactory implements FactoryInterface
         $reflectionClass = SingletonContainer::get(Request::class, function ($class) {
             return new ReflectionClass($class);
         });
-   
-        return self::makeRequest($reflectionClass, $resource);
+
+        return self::makeRequest($reflectionClass, $resource)->addApikeyWithoutObserver(ApikeyContainer::get());
     }
 
     private static function makeRequest(ReflectionClass $reflectionClass, ResourceInterface $resource): RequestInterface

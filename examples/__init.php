@@ -3,7 +3,6 @@
 
 require_once __DIR__ .'/../vendor/autoload.php';
 
-use LTL\Hubspot\Containers\ApikeyContainer;
 use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Hubspot;
 

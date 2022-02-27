@@ -118,4 +118,39 @@ class RequestTest extends TestCase
         
         $this->assertTrue($this->object->hasDispatched());
     }
+
+    public function testAddApiKey()
+    {
+        $this->object->addApikeyWithoutObserver('5552');
+      
+        $this->assertEquals($this->object->getQueries(), [
+            'hapikey' => '5552'
+        ]);
+    }
+
+    public function testAddOAuth()
+    {
+        $this->object->addOAuthWithoutObserver('123456789');
+
+      
+        $this->assertEquals($this->object->getHeaders(), [
+            'Authorization' => 'Bearer 123456789'
+        ]);
+    }
+
+    public function testObserverRemoveOauth()
+    {
+        $this->object->addOAuthWithoutObserver('123456789');
+        $this->object->apikey('5552');
+     
+        $this->assertEquals($this->object->getHeaders(), []);
+    }
+
+    public function testObserverRemoveApikey()
+    {
+        $this->object->apikey('5552');
+        $this->object->oAuth('123456789');
+     
+        $this->assertEquals($this->object->getQueries(), []);
+    }
 }

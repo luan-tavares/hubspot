@@ -26,6 +26,8 @@ class ResourceSchema implements Countable, Iterator, ResourceSchemaInterface
 
     private object $schema;
 
+    private bool $authentication = true;
+
     public function __construct(ResourceInterface $resource)
     {
         $schema = json_decode(file_get_contents(HubspotConfig::BASE_PATH .'/src/schemas/'. (string) $resource .'.json'));
@@ -35,6 +37,10 @@ class ResourceSchema implements Countable, Iterator, ResourceSchemaInterface
         $this->resource = @$schema->resource;
         $this->version = @$schema->version;
         $this->documentation = @$schema->documentation;
+
+        if (isset($schema->authentication)) {
+            $this->authentication = $schema->authentication;
+        }
     }
 
     public function __get($property)
@@ -45,6 +51,7 @@ class ResourceSchema implements Countable, Iterator, ResourceSchemaInterface
 
         throw new Exception("Property {$property} not exists in ". __CLASS__);
     }
+
 
     public function getActions(): array
     {

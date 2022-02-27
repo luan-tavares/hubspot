@@ -103,6 +103,34 @@ class Request implements RequestInterface
         return $this;
     }
  
+    public function addApikeyWithoutObserver(string|null $apikey): self
+    {
+        $this->query->add('hapikey', $apikey);
+
+        return $this;
+    }
+
+    public function removeApikey(): self
+    {
+        $this->query->delete('hapikey');
+
+        return $this;
+    }
+
+    public function addOAuthWithoutObserver(string $oAuth): self
+    {
+        $this->header->add('Authorization', "Bearer {$oAuth}");
+
+        return $this;
+    }
+    
+    public function removeOAuth(): self
+    {
+        $this->header->delete('Authorization');
+
+        return $this;
+    }
+ 
     /**Items for Curl Request */
 
     public function getQueries(): array

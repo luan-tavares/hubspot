@@ -179,7 +179,7 @@ class RequestActionDefinitionTest extends TestCase
         );
     }
 
-    public function testchangeDispatchToTrueIsTrue()
+    public function testChangeDispatchToTrueIsTrue()
     {
         $actionSchema = SchemaContainer::getAction($this->contactResource, 'create');
         

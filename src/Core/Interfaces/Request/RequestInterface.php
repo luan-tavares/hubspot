@@ -17,6 +17,12 @@ interface RequestInterface
     public function addHeaders(array|null $headers): self;
     public function addUri(string $baseUri, array $associativeParams, array $queries): self;
 
+    public function addApikeyWithoutObserver(string|null $apikey): self;
+    public function removeApikey(): self;
+
+    public function addOAuthWithoutObserver(string $oAuth): self;
+    public function removeOAuth(): self;
+
     public function hasDispatched(): bool;
     public function changeDispatchToTrue(): void;
 }

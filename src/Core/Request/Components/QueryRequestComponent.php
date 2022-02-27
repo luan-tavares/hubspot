@@ -2,21 +2,13 @@
 
 namespace LTL\Hubspot\Core\Request\Components;
 
-use LTL\Hubspot\Containers\ApikeyContainer;
-use LTL\Hubspot\Core\Request\Components\RequestComponent;
 use LTL\Hubspot\Core\Interfaces\Request\QueryComponentInterface;
-use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
+use LTL\Hubspot\Core\Request\Components\RequestComponent;
 use LTL\ListMethods\PublicMethods\Traits\PublicMethodsListable;
 
 class QueryRequestComponent extends RequestComponent implements QueryComponentInterface
 {
     use PublicMethodsListable;
-
-    public function __construct(ResourceInterface $resource)
-    {
-        parent::__construct($resource);
-        $this->add('hapikey', ApikeyContainer::get());
-    }
 
     public function query(string $query, string|null $value): self
     {
@@ -100,6 +92,8 @@ class QueryRequestComponent extends RequestComponent implements QueryComponentIn
 
     public function apikey(string $apikey): self
     {
+        $this->notify('apikeyInserted');
+
         return $this->add('hapikey', $apikey);
     }
 
