@@ -5,6 +5,8 @@ require_once __DIR__ .'/__init.php';
 
 use LTL\Hubspot\Resources\CompanyHubspot;
 
+(new CompanyHubspot)->toArray(10);
+
 // $hubspotCreate = CompanyHubspot::create(['properties' => ['name' => 1]]);
 // $id = $hubspotCreate->id;
 // $hubspotDelete = CompanyHubspot::delete($id);

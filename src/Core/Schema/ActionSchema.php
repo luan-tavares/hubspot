@@ -54,7 +54,7 @@ class ActionSchema implements ActionSchemaInterface
         $this->description = @$actionSchema->description;
         $this->iteratorIndex = @$actionSchema->iteratorIndex;
         $this->afterIndex = @$actionSchema->afterIndex;
-        $this->resourceClass = $schema->class;
+        $this->resourceClass = $schema->resourceClass;
         
         $this->hasBody = (in_array($this->method, HubspotConfig::METHODS_WITH_BODY) && !@$actionSchema->noBody);
        

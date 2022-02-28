@@ -98,16 +98,6 @@ class ResourceIterableTest extends TestCase
       
         $this->assertEquals($resource->results->a, 4);
     }
-    
-
-    public function testIfGetMagicMethodThrowsException()
-    {
-        $resource = ResourceFactory::build($this->baseResource, $this->response);
-
-        $this->expectException(HubspotApiException::class);
-      
-        $resource->unknow;
-    }
 
     public function testToArrayMethodIsCorrect()
     {
@@ -195,8 +185,17 @@ class ResourceIterableTest extends TestCase
 
     public function testIfCallToArrayBeforeRequestCallThrowsException()
     {
-        $this->expectException(HubspotApiException::class);
+        $this->expectExceptionMessage(get_class($this->baseResource) ."::toArray() must not be used before actions:\n\n". SchemaContainer::get($this->baseResource));
       
-        $resourceBuilder = DealHubspot::limit(10)->toArray();
+        $this->baseResource->toArray();
+    }
+
+    public function testIfGetMagicMethodBeforeRequestThrowsException()
+    {
+        $this->expectExceptionMessage(
+            "Property access must not be used before actions:\n\n". SchemaContainer::get($this->baseResource)
+        );
+      
+        $this->baseResource->unknow;
     }
 }

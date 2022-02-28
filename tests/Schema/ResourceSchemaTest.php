@@ -3,7 +3,6 @@
 namespace LTL\Hubspot\Tests\Schema;
 
 use LTL\Hubspot\Containers\SchemaContainer;
-use LTL\Hubspot\Core\Resource\Resource;
 use LTL\Hubspot\Resources\ContactHubspot;
 use LTL\Hubspot\Resources\HubDbHubspot;
 use LTL\Hubspot\Resources\OwnerHubspot;
@@ -13,22 +12,14 @@ class ResourceSchemaTest extends TestCase
 {
     public function testIfCountableSchemaIsCorrect()
     {
-        $resourceStub = $this->getMockBuilder(HubDbHubspot::class)->disableOriginalConstructor()->getMock();
-
-        $resourceStub->method('__toString')->willReturn('hub-db-v3');
-
-        $object = SchemaContainer::get($resourceStub);
+        $object = SchemaContainer::get(new HubDbHubspot);
 
         $this->assertEquals(count($object), 32);
     }
 
     public function testIfIteratorSchemaIsCorrect()
     {
-        $resourceStub = $this->getMockBuilder(OwnerHubspot::class)->disableOriginalConstructor()->getMock();
-
-        $resourceStub->method('__toString')->willReturn('owners-v3');
-
-        $object = SchemaContainer::get($resourceStub);
+        $object = SchemaContainer::get(new OwnerHubspot);
 
         $result = [];
         foreach ($object as $action => $definition) {
@@ -40,34 +31,25 @@ class ResourceSchemaTest extends TestCase
 
     public function testIfDocumentationIsCorrect()
     {
-        $resourceStub = $this->getMockBuilder(Resource::class)->disableOriginalConstructor()->getMock();
-
-        $resourceStub->method('__toString')->willReturn('contacts-v3');
-
-        $object = SchemaContainer::get($resourceStub);
+        $object = SchemaContainer::get(new ContactHubspot);
 
         $this->assertEquals($object->documentation, 'https://developers.hubspot.com/docs/api/crm/contacts');
     }
 
     public function testIfToStringMagicMethodIsCorrect()
     {
-        $resourceStub = $this->createMock(Resource::class);
+        $object = SchemaContainer::get(new OwnerHubspot);
 
-        $resourceStub->method('__toString')->willReturn('owners-v3');
-
-        $object = SchemaContainer::get($resourceStub);
-
-        $this->assertEquals((string) $object, '[getAll(), get()]');
+        $this->assertEquals(
+            (string) $object,
+            '- '. OwnerHubspot::class ."::getAll()\n- ". OwnerHubspot::class ."::get()\n\n"
+        );
     }
 
     public function testIfGetActionDefinitionIsCorrect()
     {
-        $resourceStub = $this->createMock(ContactHubspot::class);
+        $object = SchemaContainer::get(new ContactHubspot);
 
-        $resourceStub->method('__toString')->willReturn('contacts-v3');
-
-        $object = SchemaContainer::get($resourceStub);
-
-        $this->assertEquals((string) $object->getActionDefinition('getAll'), 'getAll');
+        $this->assertEquals($object->getActionDefinition('getAll')->resourceClass, ContactHubspot::class);
     }
 }

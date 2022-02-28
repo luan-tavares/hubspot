@@ -16,7 +16,7 @@ class ResourceSchema implements Countable, Iterator, ResourceSchemaInterface
 
     private array $actionSchemas = [];
     
-    private string $class;
+    private string $resourceClass;
   
     private ?string $resource;
 
@@ -33,7 +33,7 @@ class ResourceSchema implements Countable, Iterator, ResourceSchemaInterface
         $schema = json_decode(file_get_contents(HubspotConfig::BASE_PATH .'/src/schemas/'. (string) $resource .'.json'));
 
         $this->actions = (array) $schema->actions;
-        $this->class = $resource::class;
+        $this->resourceClass = $resource::class;
         $this->resource = @$schema->resource;
         $this->version = @$schema->version;
         $this->documentation = @$schema->documentation;
@@ -55,10 +55,10 @@ class ResourceSchema implements Countable, Iterator, ResourceSchemaInterface
     public function __toString()
     {
         $actions = array_map(function ($action) {
-            return "{$action}()";
+            return "- {$this->resourceClass}::{$action}()\n";
         }, $this->getActions());
 
-        return '['. implode(', ', $actions) .']';
+        return implode('', $actions) ."\n";
     }
 
     public function getActions(): array

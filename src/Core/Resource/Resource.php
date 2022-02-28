@@ -54,19 +54,25 @@ abstract class Resource implements ResourceInterface, ArrayAccess, JsonSerializa
 
     public function __get($property)
     {
+        $this->verifyIfResponseExists();
+
+        return $this->response->{$property};
+    }
+
+    private function verifyIfResponseExists(string|null $method = null): void
+    {
         if (isset($this->response)) {
-            return $this->response->{$property};
+            return;
         }
 
-        $schema = SchemaContainer::get($this);
+        $case = 'Property access';
 
-        $actions = $schema->mapWithActions(function ($action) {
-            return "{$action}()";
-        });
+        if (!is_null($method)) {
+            $case = static::class ."::{$method}()";
+        }
 
-           
         throw new HubspotApiException(
-            'Property access in "'. get_class($this) ."\" must not be used before actions:\n\n[". implode(', ', $actions) .']'
+            "{$case} must not be used before actions:\n\n". SchemaContainer::get($this)
         );
     }
 
@@ -78,6 +84,8 @@ abstract class Resource implements ResourceInterface, ArrayAccess, JsonSerializa
      */
     public function toArray(): array
     {
+        $this->verifyIfResponseExists(__FUNCTION__);
+
         return $this->response->toArray();
     }
   
@@ -88,6 +96,8 @@ abstract class Resource implements ResourceInterface, ArrayAccess, JsonSerializa
      */
     public function toJson(): string|null
     {
+        $this->verifyIfResponseExists(__FUNCTION__);
+
         return $this->response->toJson();
     }
   
@@ -98,6 +108,8 @@ abstract class Resource implements ResourceInterface, ArrayAccess, JsonSerializa
      */
     public function status(): int
     {
+        $this->verifyIfResponseExists(__FUNCTION__);
+
         return $this->response->getStatus();
     }
 
@@ -108,6 +120,8 @@ abstract class Resource implements ResourceInterface, ArrayAccess, JsonSerializa
      */
     public function error(): bool
     {
+        $this->verifyIfResponseExists(__FUNCTION__);
+
         return $this->response->hasErrors();
     }
  
@@ -118,6 +132,8 @@ abstract class Resource implements ResourceInterface, ArrayAccess, JsonSerializa
      */
     public function documentation(): string|null
     {
+        $this->verifyIfResponseExists(__FUNCTION__);
+
         return $this->response->getDocumentation();
     }
 
@@ -128,6 +144,8 @@ abstract class Resource implements ResourceInterface, ArrayAccess, JsonSerializa
      */
     public function headers(): array|null
     {
+        $this->verifyIfResponseExists(__FUNCTION__);
+
         return $this->response->getHeaders();
     }
 
