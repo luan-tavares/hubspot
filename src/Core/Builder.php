@@ -4,6 +4,7 @@ namespace LTL\Hubspot\Core;
 
 use LTL\Hubspot\Containers\RequestContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
+use LTL\Hubspot\Core\Interfaces\BuilderInterface;
 use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 use LTL\Hubspot\Core\Request\RequestActionDefinition;
@@ -11,7 +12,7 @@ use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\ResourceFactory;
 
-class Builder
+class Builder implements BuilderInterface
 {
     private RequestInterface $request;
 
@@ -43,6 +44,11 @@ class Builder
         RequestContainer::destroy($this->resource);
     }
 
+    public function resource(): ResourceInterface
+    {
+        return $this->resource;
+    }
+
     private function doRequest(string $method, array $arguments): ResourceInterface
     {
         $actionSchema = SchemaContainer::getAction($this->resource, $method);
@@ -54,7 +60,7 @@ class Builder
         return ResourceFactory::build($this->resource, $response);
     }
  
-    private function doBeforeRequest(string $method, array $arguments): Builder
+    private function doBeforeRequest(string $method, array $arguments): BuilderInterface
     {
         $this->request->{$method}(...$arguments);
 

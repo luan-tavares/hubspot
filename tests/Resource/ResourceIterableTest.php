@@ -4,16 +4,17 @@ namespace LTL\Hubspot\Tests\Response;
 
 use LTL\Curl\Curl;
 use LTL\Hubspot\Containers\RequestContainer;
-use LTL\Hubspot\Containers\ResponseObjectContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\HubspotApikey;
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
 use LTL\Hubspot\Core\Response\Response;
+use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\ResourceFactory;
 use LTL\Hubspot\Hubspot;
 use LTL\Hubspot\Resources\AssociationHubspot;
 use LTL\Hubspot\Resources\ContactHubspot;
+use LTL\Hubspot\Resources\DealHubspot;
 use PHPUnit\Framework\TestCase;
 
 class ResourceIterableTest extends TestCase
@@ -91,6 +92,23 @@ class ResourceIterableTest extends TestCase
         $this->assertEquals(json_encode($resource), json_encode($this->result));
     }
 
+    public function testIfGetMagicMethodIsCorrect()
+    {
+        $resource = ResourceFactory::build($this->baseResource, $this->response);
+      
+        $this->assertEquals($resource->results->a, 4);
+    }
+    
+
+    public function testIfGetMagicMethodThrowsException()
+    {
+        $resource = ResourceFactory::build($this->baseResource, $this->response);
+
+        $this->expectException(HubspotApiException::class);
+      
+        $resource->unknow;
+    }
+
     public function testToArrayMethodIsCorrect()
     {
         $resource = ResourceFactory::build($this->baseResource, $this->response);
@@ -144,13 +162,34 @@ class ResourceIterableTest extends TestCase
     {
         $resource = new ContactHubspot;
 
-        $resource->limit(55);
+        $resourceBuilder = $resource->limit(55);
 
-        $request = RequestContainer::get($resource);
+        $request = RequestContainer::get($resourceBuilder->resource());
       
         $this->assertEquals($request->getQueries(), [
             'hapikey' => '123456',
             'limit' => 55
         ]);
+    }
+
+    public function testIfCallStaticMagicMethodIsCorrect()
+    {
+        $resourceBuilder = ContactHubspot::limit(10);
+
+        $request = RequestContainer::get($resourceBuilder->resource());
+      
+        $this->assertEquals($request->getQueries(), [
+            'hapikey' => '123456',
+            'limit' => 10
+        ]);
+    }
+
+    public function testIfToStringMagicMethodIsCorrect()
+    {
+        $resourceBuilder = DealHubspot::limit(10);
+
+        $request = RequestContainer::get($resourceBuilder->resource());
+      
+        $this->assertEquals((string) $resourceBuilder->resource(), 'deals-v3');
     }
 }
