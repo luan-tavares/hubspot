@@ -2,9 +2,7 @@
 
 namespace LTL\Hubspot\Core\Request\Components;
 
-use LTL\Hubspot\Containers\RequestContainer;
 use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
-use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 use LTL\Observer\Interfaces\SubjectInterface;
 use LTL\Observer\Traits\SubjectTrait;
 
@@ -14,13 +12,17 @@ abstract class RequestComponent implements SubjectInterface
 
     private array $items = [];
 
-    public function __construct(private ResourceInterface $resource)
+    public function __construct(protected RequestInterface $request)
     {
     }
 
-    public function getRequest(): RequestInterface
+    private function __clone()
     {
-        return RequestContainer::get($this->resource);
+    }
+
+    public function request(): RequestInterface
+    {
+        return $this->request;
     }
 
     public function all(): array

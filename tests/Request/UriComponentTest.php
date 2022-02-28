@@ -3,7 +3,7 @@
 namespace LTL\Hubspot\Tests\Request;
 
 use LTL\Hubspot\Core\Request\Components\UriRequestComponent;
-use LTL\Hubspot\Core\Resource\Resource;
+use LTL\Hubspot\Core\Request\Request;
 use PHPUnit\Framework\TestCase;
 
 class UriComponentTest extends TestCase
@@ -12,7 +12,7 @@ class UriComponentTest extends TestCase
 
     protected function setUp(): void
     {
-        $stub = $this->getMockBuilder(Resource::class)->disableOriginalConstructor()->getMock();
+        $stub = $this->getMockBuilder(Request::class)->disableOriginalConstructor()->getMock();
 
         $this->object = new UriRequestComponent($stub);
     }

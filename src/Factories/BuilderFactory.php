@@ -2,17 +2,17 @@
 
 namespace LTL\Hubspot\Factories;
 
-use LTL\Hubspot\Containers\RequestContainer;
 use LTL\Hubspot\Containers\SingletonContainer;
 use LTL\Hubspot\Core\Builder;
 use LTL\Hubspot\Core\Interfaces\BuilderInterface;
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
+use LTL\Hubspot\Factories\RequestFactory;
 use LTL\Hubspot\Interfaces\FactoryInterface;
 use ReflectionClass;
 
 abstract class BuilderFactory implements FactoryInterface
 {
-    public static function build(ResourceInterface $resource): BuilderInterface
+    public static function build(ResourceInterface $baseResource): BuilderInterface
     {
         $reflectionClass = SingletonContainer::get(Builder::class, function ($class) {
             return new ReflectionClass($class);
@@ -21,10 +21,10 @@ abstract class BuilderFactory implements FactoryInterface
         $object = $reflectionClass->newInstanceWithoutConstructor();
 
         $reflectionProperty = $reflectionClass->getProperty('baseResource');
-        $reflectionProperty->setValue($object, $resource);
+        $reflectionProperty->setValue($object, $baseResource);
 
         $reflectionProperty = $reflectionClass->getProperty('request');
-        $reflectionProperty->setValue($object, RequestContainer::get($resource));
+        $reflectionProperty->setValue($object, RequestFactory::build($baseResource));
    
         return $object;
     }

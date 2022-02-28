@@ -2,21 +2,20 @@
 
 namespace LTL\Hubspot\Tests\Request;
 
+use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
 use LTL\Hubspot\Core\Request\Components\UriRequestComponent;
-use LTL\Hubspot\Core\Resource\Resource;
+use LTL\Hubspot\Core\Request\Request;
 use PHPUnit\Framework\TestCase;
 
 class ComponentRequestTest extends TestCase
 {
-    protected $object;
+    protected RequestInterface $request;
 
     private $items;
 
     protected function setUp(): void
     {
-        $stub = $this->getMockBuilder(Resource::class)->disableOriginalConstructor()->getMock();
-
-        $this->object = new UriRequestComponent($stub);
+        $this->request =  $this->getMockBuilder(Request::class)->disableOriginalConstructor()->getMock();
 
         $this->result = [
             'a' => 4,
@@ -27,9 +26,11 @@ class ComponentRequestTest extends TestCase
 
     public function testAddArrayIsCorrect()
     {
-        $this->object->addArray($this->result);
+        $requestComponent = new UriRequestComponent($this->request);
+
+        $requestComponent->addArray($this->result);
         
-        $this->assertEquals($this->object->all(), [
+        $this->assertEquals($requestComponent->all(), [
             'a' => 4,
             'b' => 5
         ]);
@@ -37,20 +38,24 @@ class ComponentRequestTest extends TestCase
 
     public function testDeleteItemIsCorrect()
     {
-        $this->object->addArray($this->result);
-        $this->object->delete('a');
+        $requestComponent = new UriRequestComponent($this->request);
 
-        $this->assertEquals($this->object->all(), [
+        $requestComponent->addArray($this->result);
+        $requestComponent->delete('a');
+
+        $this->assertEquals($requestComponent->all(), [
             'b' => 5
         ]);
     }
 
     public function testAddItemIsCorrect()
     {
-        $this->object->add('a', 5);
-        $this->object->add('b', [10]);
+        $requestComponent = new UriRequestComponent($this->request);
+        
+        $requestComponent->add('a', 5);
+        $requestComponent->add('b', [10]);
 
-        $this->assertEquals($this->object->all(), [
+        $this->assertEquals($requestComponent->all(), [
             'a' => 5,
             'b' => [10]
         ]);

@@ -2,11 +2,11 @@
 
 namespace LTL\Hubspot\Containers;
 
-use LTL\Hubspot\Interfaces\ContainerByResourceInterface;
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
 use LTL\Hubspot\Core\Interfaces\Schemas\ResourceSchemaInterface;
 use LTL\Hubspot\Core\Schema\ResourceSchema;
+use LTL\Hubspot\Interfaces\ContainerByResourceInterface;
 
 abstract class SchemaContainer implements ContainerByResourceInterface
 {
@@ -27,5 +27,10 @@ abstract class SchemaContainer implements ContainerByResourceInterface
     public static function getAction(ResourceInterface $resource, string $action): ActionSchemaInterface
     {
         return self::get($resource)->getActionDefinition($action);
+    }
+
+    public static function count(): int
+    {
+        return count(self::$objects);
     }
 }

@@ -27,33 +27,40 @@ abstract class RequestFactory implements FactoryInterface
         'uri' => UriRequestComponent::class
     ];
 
-    public static function build(ResourceInterface $resource): RequestInterface
+    public static function build(ResourceInterface $baseResource): RequestInterface
     {
         $reflectionClass = SingletonContainer::get(Request::class, function ($class) {
             return new ReflectionClass($class);
         });
 
-        return self::makeRequest($reflectionClass, $resource)->addApikeyWithoutObserver(HubspotApikey::get());
+        return self::makeRequest($reflectionClass, $baseResource)->addApikeyWithoutObserver(HubspotApikey::get());
     }
 
-    private static function makeRequest(ReflectionClass $reflectionClass, ResourceInterface $resource): RequestInterface
+    private static function makeRequest(ReflectionClass $reflectionClass, ResourceInterface $baseResource): RequestInterface
     {
         $request = $reflectionClass->newInstanceWithoutConstructor();
 
         $reflectionProperty = $reflectionClass->getProperty('resource');
-        $reflectionProperty->setValue($request, $resource);
+        $reflectionProperty->setValue($request, $baseResource);
         
         foreach (self::COMPONENTS as $property => $componentClass) {
             $reflectionProperty = $reflectionClass->getProperty($property);
-            $reflectionProperty->setValue($request, self::instanciateComponent($componentClass, $resource));
+            $reflectionProperty->setValue($request, self::instanciateComponent($componentClass, $request));
         }
 
         return $request;
     }
 
-    private static function instanciateComponent(string $componentClass, ResourceInterface $resource): ComponentInterface
+    private static function instanciateComponent(string $componentClass, RequestInterface $request): ComponentInterface
     {
-        $component = new $componentClass($resource);
+        $reflectionClass = SingletonContainer::get($componentClass, function ($class) {
+            return new ReflectionClass($class);
+        });
+
+        $component = $reflectionClass->newInstanceWithoutConstructor();
+
+        $reflectionProperty = $reflectionClass->getProperty('request');
+        $reflectionProperty->setValue($component, $request);
        
         $component->attach(SingletonContainer::get(ComponentObserver::class));
 

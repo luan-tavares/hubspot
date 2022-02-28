@@ -2,6 +2,7 @@
 
 namespace LTL\Hubspot\Tests\Request;
 
+use LTL\Hubspot\Containers\BuilderContainer;
 use LTL\Hubspot\Containers\RequestContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\HubspotApikey;
@@ -15,9 +16,9 @@ use PHPUnit\Framework\TestCase;
 
 class RequestActionDefinitionTest extends TestCase
 {
-    protected $contactResource;
+    protected $resource;
 
-    protected $contactRequest;
+    protected $request;
 
     private $getContactArguments;
 
@@ -25,13 +26,13 @@ class RequestActionDefinitionTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->contactResource = $this->createMock(ContactHubspot::class);
+        $this->resource = $this->createMock(ContactHubspot::class);
 
-        $this->contactResource->method('__toString')->willReturn('contacts-v3');
+        $this->resource->method('__toString')->willReturn('contacts-v3');
 
         HubspotApikey::store('123456');
 
-        $this->contactRequest = RequestContainer::get($this->contactResource);
+        $this->request = BuilderContainer::get($this->resource)->request();
         
         $this->getContactArguments = [
             'idOrEmail',
@@ -55,95 +56,93 @@ class RequestActionDefinitionTest extends TestCase
 
     public function testRequestUriIsCorrect()
     {
-        $actionSchema = SchemaContainer::getAction($this->contactResource, 'get');
+        $actionSchema = SchemaContainer::getAction($this->resource, 'get');
         
-        RequestActionDefinition::finish($this->contactRequest, $actionSchema, $this->getContactArguments);
+        RequestActionDefinition::finish($this->request, $actionSchema, $this->getContactArguments);
         
         $this->assertEquals(
-            $this->contactRequest->getUri(),
+            $this->request->getUri(),
             'https://api.hubapi.com/crm/v3/objects/contacts/idOrEmail?hapikey=123456'
         );
     }
 
     public function testBaseQueriesAddPropertiesIsCorrect()
     {
-        $actionSchema = SchemaContainer::getAction($this->contactResource, 'getByEmail');
+        $actionSchema = SchemaContainer::getAction($this->resource, 'getByEmail');
         
-        RequestActionDefinition::finish($this->contactRequest, $actionSchema, $this->getContactArguments);
+        RequestActionDefinition::finish($this->request, $actionSchema, $this->getContactArguments);
         
-        $this->assertEquals($this->contactRequest->getQueries(), ['hapikey' => '123456', 'idProperty' => 'email']);
+        $this->assertEquals($this->request->getQueries(), ['hapikey' => '123456', 'idProperty' => 'email']);
     }
 
 
     public function testRequestBodyGetMethodIsCorrect()
     {
-        $actionSchema = SchemaContainer::getAction($this->contactResource, 'get');
+        $actionSchema = SchemaContainer::getAction($this->resource, 'get');
         
-        RequestActionDefinition::finish($this->contactRequest, $actionSchema, $this->getContactArguments);
+        RequestActionDefinition::finish($this->request, $actionSchema, $this->getContactArguments);
         
-        $this->assertEquals($this->contactRequest->getBody(), []);
+        $this->assertEquals($this->request->getBody(), []);
     }
 
     public function testRequestHeaderGetMethodIsCorrect()
     {
-        $actionSchema = SchemaContainer::getAction($this->contactResource, 'get');
+        $actionSchema = SchemaContainer::getAction($this->resource, 'get');
         
-        RequestActionDefinition::finish($this->contactRequest, $actionSchema, $this->getContactArguments);
+        RequestActionDefinition::finish($this->request, $actionSchema, $this->getContactArguments);
         
-        $this->assertEquals($this->contactRequest->getHeaders(), []);
+        $this->assertEquals($this->request->getHeaders(), []);
     }
 
 
     public function testRequestHeaderPostMethodIsCorrect()
     {
-        $actionSchema = SchemaContainer::getAction($this->contactResource, 'create');
+        $actionSchema = SchemaContainer::getAction($this->resource, 'create');
         
-        RequestActionDefinition::finish($this->contactRequest, $actionSchema, $this->createContactArguments);
+        RequestActionDefinition::finish($this->request, $actionSchema, $this->createContactArguments);
         
-        $this->assertEquals($this->contactRequest->getHeaders(), [
+        $this->assertEquals($this->request->getHeaders(), [
             'Content-Type' => 'application/json'
         ]);
     }
 
     public function testRequestHeaderUploadFileIsCorrect()
     {
-        $fileResource = $this->createMock(FileHubspot::class);
-        $fileResource->method('__toString')->willReturn('files-v3');
+        $builder = BuilderContainer::get(new FileHubspot);
  
-        $fileRequest = RequestContainer::get($fileResource);
+        $request = $builder->request();
 
-        $actionSchema = SchemaContainer::getAction($fileResource, 'upload');
+        $actionSchema = SchemaContainer::getAction($builder->baseResource(), 'upload');
         
-        RequestActionDefinition::finish($fileRequest, $actionSchema, $this->createContactArguments);
+        RequestActionDefinition::finish($request, $actionSchema, $this->createContactArguments);
         
-        $this->assertEquals($fileRequest->getHeaders(), [
+        $this->assertEquals($request->getHeaders(), [
             'Content-Type' => 'multipart/form-data'
         ]);
     }
 
     public function testRequestHeaderHubDbExportToCsv()
     {
-        $fileResource = $this->createMock(HubDbHubspot::class);
-        $fileResource->method('__toString')->willReturn('hub-db-v3');
+        $builder = BuilderContainer::get(new HubDbHubspot);
  
-        $fileRequest = RequestContainer::get($fileResource);
+        $request = $builder->request();
 
-        $actionSchema = SchemaContainer::getAction($fileResource, 'exportToCsv');
+        $actionSchema = SchemaContainer::getAction($builder->baseResource(), 'exportToCsv');
         
-        RequestActionDefinition::finish($fileRequest, $actionSchema, ['tableId']);
+        RequestActionDefinition::finish($request, $actionSchema, ['tableId']);
         
-        $this->assertEquals($fileRequest->getHeaders(), [
+        $this->assertEquals($request->getHeaders(), [
             'accept' => 'application/vnd.ms-excel'
         ]);
     }
 
     public function testRequestBodyPostMethodIsCorrect()
     {
-        $actionSchema = SchemaContainer::getAction($this->contactResource, 'create');
+        $actionSchema = SchemaContainer::getAction($this->resource, 'create');
         
-        RequestActionDefinition::finish($this->contactRequest, $actionSchema, $this->createContactArguments);
+        RequestActionDefinition::finish($this->request, $actionSchema, $this->createContactArguments);
         
-        $this->assertEquals($this->contactRequest->getBody(), [
+        $this->assertEquals($this->request->getBody(), [
             'id' => 123456789,
             'results' => []
         ]);
@@ -152,38 +151,38 @@ class RequestActionDefinitionTest extends TestCase
 
     public function testExceptionIfParamsIsNotCorrect()
     {
-        $actionSchema = SchemaContainer::getAction($this->contactResource, 'create');
+        $actionSchema = SchemaContainer::getAction($this->resource, 'create');
 
         $this->expectException(HubspotApiException::class);
         
-        RequestActionDefinition::finish($this->contactRequest, $actionSchema, $this->updateContactArguments);
+        RequestActionDefinition::finish($this->request, $actionSchema, $this->updateContactArguments);
     }
 
     public function testExceptionIfBodyIsNotArray()
     {
-        $actionSchema = SchemaContainer::getAction($this->contactResource, 'create');
+        $actionSchema = SchemaContainer::getAction($this->resource, 'create');
 
         $this->expectException(HubspotApiException::class);
         
-        RequestActionDefinition::finish($this->contactRequest, $actionSchema, $this->getContactArguments);
+        RequestActionDefinition::finish($this->request, $actionSchema, $this->getContactArguments);
     }
 
     public function testFinishReturnIsRequestCurlCaller()
     {
-        $actionSchema = SchemaContainer::getAction($this->contactResource, 'get');
+        $actionSchema = SchemaContainer::getAction($this->resource, 'get');
 
         $this->assertInstanceOf(
             RequestCurlCaller::class,
-            RequestActionDefinition::finish($this->contactRequest, $actionSchema, $this->getContactArguments)
+            RequestActionDefinition::finish($this->request, $actionSchema, $this->getContactArguments)
         );
     }
 
     public function testChangeDispatchToTrueIsTrue()
     {
-        $actionSchema = SchemaContainer::getAction($this->contactResource, 'create');
+        $actionSchema = SchemaContainer::getAction($this->resource, 'create');
         
-        RequestActionDefinition::finish($this->contactRequest, $actionSchema, $this->createContactArguments);
+        RequestActionDefinition::finish($this->request, $actionSchema, $this->createContactArguments);
         
-        $this->assertTrue($this->contactRequest->hasDispatched());
+        $this->assertTrue($this->request->hasDispatched());
     }
 }

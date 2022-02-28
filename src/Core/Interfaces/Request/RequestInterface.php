@@ -4,6 +4,8 @@ namespace LTL\Hubspot\Core\Interfaces\Request;
 
 interface RequestInterface
 {
+    public function destroyComponents(): void;
+
     public function getHeaders(): array;
     public function getQueries(): array;
     public function getCurlParams(): array;

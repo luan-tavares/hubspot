@@ -8,6 +8,6 @@ use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 interface BuilderInterface
 {
     public function __call($method, $arguments);
-    public function resource(): ResourceInterface;
+    public function baseResource(): ResourceInterface;
     public function request(): RequestInterface;
 }

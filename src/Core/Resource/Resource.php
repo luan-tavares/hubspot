@@ -16,18 +16,20 @@ use LTL\Hubspot\Core\Resource\Traits\ResourceCountable;
 use LTL\Hubspot\Core\Resource\Traits\ResourceEnumerable;
 use LTL\Hubspot\Core\Resource\Traits\ResourceIteratorAggregate;
 use LTL\Hubspot\Core\Resource\Traits\ResourceJsonSerializable;
+use LTL\Hubspot\Core\Resource\Traits\ResourceResponse;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\ListMethods\PublicMethods\Traits\PublicMethodsListable;
 use TypeError;
 
-abstract class Resource implements ResourceInterface, ArrayAccess, JsonSerializable, IteratorAggregate, Countable
+abstract class Resource implements ResourceInterface
 {
     use PublicMethodsListable,
         ResourceIteratorAggregate,
         ResourceArrayAccess,
         ResourceCountable,
         ResourceEnumerable,
-        ResourceJsonSerializable;
+        ResourceJsonSerializable,
+        ResourceResponse;
 
     protected ResponseInterface $response;
     
@@ -74,79 +76,6 @@ abstract class Resource implements ResourceInterface, ArrayAccess, JsonSerializa
         throw new HubspotApiException(
             "{$case} must not be used before actions:\n\n". SchemaContainer::get($this)
         );
-    }
-
-
-    /**
-     * Return Array Response
-     *
-     * @return array|null
-     */
-    public function toArray(): array
-    {
-        $this->verifyIfResponseExists(__FUNCTION__);
-
-        return $this->response->toArray();
-    }
-  
-    /**
-     * Return Json Response
-     *
-     * @return string|null
-     */
-    public function toJson(): string|null
-    {
-        $this->verifyIfResponseExists(__FUNCTION__);
-
-        return $this->response->toJson();
-    }
-  
-    /**
-     * Return Status Response
-     *
-     * @return int
-     */
-    public function status(): int
-    {
-        $this->verifyIfResponseExists(__FUNCTION__);
-
-        return $this->response->getStatus();
-    }
-
-    /**
-     * Return true if has response error
-     *
-     * @return boolean
-     */
-    public function error(): bool
-    {
-        $this->verifyIfResponseExists(__FUNCTION__);
-
-        return $this->response->hasErrors();
-    }
- 
-    /**
-     * Return the Documentation
-     *
-     * @return string|null
-     */
-    public function documentation(): string|null
-    {
-        $this->verifyIfResponseExists(__FUNCTION__);
-
-        return $this->response->getDocumentation();
-    }
-
-    /**
-     * Return the Response Header
-     *
-     * @return array|null
-     */
-    public function headers(): array|null
-    {
-        $this->verifyIfResponseExists(__FUNCTION__);
-
-        return $this->response->getHeaders();
     }
 
     public static function setGlobalApikey(string $apikey): void

@@ -34,6 +34,11 @@ class Request implements RequestInterface
     {
     }
 
+    public function destroyComponents(): void
+    {
+        unset($this->query, $this->header, $this->body, $this->curl, $this->uri);
+    }
+
     public function __call($method, $arguments)
     {
         if (in_array($method, $this->query->getMethods())) {

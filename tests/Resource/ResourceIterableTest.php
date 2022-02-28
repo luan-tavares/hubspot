@@ -8,6 +8,7 @@ use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\HubspotApikey;
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
+use LTL\Hubspot\Core\Request\Request;
 use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\ResourceFactory;
@@ -150,13 +151,9 @@ class ResourceIterableTest extends TestCase
 
     public function testIfCallMagicMethodIsCorrect()
     {
-        $resource = new ContactHubspot;
-
-        $resourceBuilder = $resource->limit(55);
-
-        $request = RequestContainer::get($resourceBuilder->resource());
+        $builder = (new ContactHubspot)->limit(55);
       
-        $this->assertEquals($request->getQueries(), [
+        $this->assertEquals($builder->request()->getQueries(), [
             'hapikey' => '123456',
             'limit' => 55
         ]);
@@ -164,23 +161,19 @@ class ResourceIterableTest extends TestCase
 
     public function testIfCallStaticMagicMethodIsCorrect()
     {
-        $resourceBuilder = ContactHubspot::limit(10);
-
-        $request = RequestContainer::get($resourceBuilder->resource());
+        $builder = (new ContactHubspot)->listProperties('a', 'b', 'c');
       
-        $this->assertEquals($request->getQueries(), [
+        $this->assertEquals($builder->request()->getQueries(), [
             'hapikey' => '123456',
-            'limit' => 10
+            'property' => ['a', 'b', 'c']
         ]);
     }
 
     public function testIfToStringMagicMethodIsCorrect()
     {
-        $resourceBuilder = DealHubspot::limit(10);
-
-        $request = RequestContainer::get($resourceBuilder->resource());
-      
-        $this->assertEquals((string) $resourceBuilder->resource(), 'deals-v3');
+        $builder = (new DealHubspot)->properties('a,b,c');
+   
+        $this->assertEquals((string) $builder->baseResource(), 'deals-v3');
     }
 
     public function testIfCallToArrayBeforeRequestCallThrowsException()
