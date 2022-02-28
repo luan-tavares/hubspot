@@ -18,11 +18,11 @@ class ResponseIterableTest extends TestCase
 
     private ActionSchemaInterface $actionSchema;
 
-    private array $items;
+    private array $result;
 
     protected function setUp(): void
     {
-        $this->items = [
+        $this->result = [
             'results' => [
                 'a' => 4,
                 'b' => 5,
@@ -39,7 +39,7 @@ class ResponseIterableTest extends TestCase
 
         $this->curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
         $this->curl->method('getStatus')->willReturn(400);
-        $this->curl->method('getResponse')->willReturn(json_encode($this->items));
+        $this->curl->method('getResponse')->willReturn(json_encode($this->result));
         $this->curl->method('getUri')
             ->willReturn('https://test.com/api?hapikey=12345678-1234-1234-1234-abcde1234567');
         $this->curl->method('getHeaders')->willReturn(['Content-Type' => 'application/json;charset=utf-8']);
@@ -71,7 +71,7 @@ class ResponseIterableTest extends TestCase
     {
         $response = new Response($this->curl, $this->actionSchema);
       
-        $this->assertEquals(count($response), count($this->items['results']));
+        $this->assertEquals(count($response), count($this->result['results']));
     }
 
     public function testIfGetMagicCatchAfterIsCorrect()
@@ -95,17 +95,17 @@ class ResponseIterableTest extends TestCase
     {
         $response = new Response($this->curl, $this->actionSchema);
 
-        $this->assertEquals($response->toArray(), $this->items);
+        $this->assertEquals($response->toArray(), $this->result);
     }
 
     public function testIfDestroyResponseObjectIsCorrect()
     {
         $response = new Response($this->curl, $this->actionSchema);
         $response->toArray(); /*The container is inicialized after call a method*/
-
+        $initCount = ResponseObjectContainer::count();
         unset($response);
-
-        $this->assertEquals(ResponseObjectContainer::count(), 0);
+        $finalCount = ResponseObjectContainer::count();
+        $this->assertEquals($initCount - $finalCount, 1);
     }
 
     public function testIfGetUrlAndHideApiMethodIsCorrect()

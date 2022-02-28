@@ -1,6 +1,6 @@
 <?php
 
-namespace LTL\Hubspot\Tests\Enumerable;
+namespace LTL\Hubspot\Tests\Resource;
 
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 use LTL\Hubspot\Core\Response\Response;

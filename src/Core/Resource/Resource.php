@@ -47,12 +47,6 @@ abstract class Resource implements ResourceInterface, ArrayAccess, JsonSerializa
         return call_user_func_array([(new static), $name], $arguments);
     }
 
-    public function __destruct()
-    {
-        if (isset($this->response)) {
-        }
-    }
-
     public function __toString()
     {
         return $this->resource;

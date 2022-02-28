@@ -18,7 +18,7 @@ class ComponentRequestTest extends TestCase
 
         $this->object = new UriRequestComponent($stub);
 
-        $this->items = [
+        $this->result = [
             'a' => 4,
             'b' => 5,
             'c' => null
@@ -27,7 +27,7 @@ class ComponentRequestTest extends TestCase
 
     public function testAddArrayIsCorrect()
     {
-        $this->object->addArray($this->items);
+        $this->object->addArray($this->result);
         
         $this->assertEquals($this->object->all(), [
             'a' => 4,
@@ -37,7 +37,7 @@ class ComponentRequestTest extends TestCase
 
     public function testDeleteItemIsCorrect()
     {
-        $this->object->addArray($this->items);
+        $this->object->addArray($this->result);
         $this->object->delete('a');
 
         $this->assertEquals($this->object->all(), [

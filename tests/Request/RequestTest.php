@@ -22,7 +22,7 @@ class RequestTest extends TestCase
 
         $this->object = RequestContainer::get($stub);
 
-        $this->items = [
+        $this->result = [
             'a' => 4,
             'b' => 5,
             'c' => null
@@ -45,7 +45,7 @@ class RequestTest extends TestCase
 
     public function testRemoveHeaderRequestIsCorrect()
     {
-        $this->object->addHeaders($this->items);
+        $this->object->addHeaders($this->result);
 
         $this->object->removeHeader('a');
       
@@ -61,7 +61,7 @@ class RequestTest extends TestCase
 
     public function testAddBodyToRequestIsCorrect()
     {
-        $this->object->addBody($this->items);
+        $this->object->addBody($this->result);
         
         $this->assertEquals($this->object->getBody(), [
             'a' => 4,
@@ -71,7 +71,7 @@ class RequestTest extends TestCase
 
     public function testAddQueriesToRequestIsCorrect()
     {
-        $this->object->addQueries($this->items);
+        $this->object->addQueries($this->result);
         
         $this->assertEquals($this->object->getQueries(), [
             'a' => 4,
@@ -82,7 +82,7 @@ class RequestTest extends TestCase
 
     public function testRemoveQueryRequestIsCorrect()
     {
-        $this->object->addQueries($this->items);
+        $this->object->addQueries($this->result);
 
         $this->object->removeQuery('a');
       

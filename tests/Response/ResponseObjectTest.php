@@ -11,11 +11,11 @@ class ResponseObjectTest extends TestCase
 {
     private Response $response;
 
-    private array $items;
+    private array $result;
 
     protected function setUp(): void
     {
-        $this->items = [
+        $this->result = [
             'results' => [
                 'a' => 4,
                 'b' => 5,
@@ -31,7 +31,7 @@ class ResponseObjectTest extends TestCase
         ];
 
         $this->response = $this->getMockBuilder(Response::class)->disableOriginalConstructor()->getMock();
-        $this->response->method('toJson')->willReturn(json_encode($this->items));
+        $this->response->method('toJson')->willReturn(json_encode($this->result));
     }
 
 
@@ -40,8 +40,6 @@ class ResponseObjectTest extends TestCase
         $this->response->method('getIteratorIndex')->willReturn('results');
         
         $return = [];
-
-        $this->response->index = 'results';
         
         $responseObject = new ResponseObject($this->response);
 
@@ -73,7 +71,7 @@ class ResponseObjectTest extends TestCase
 
         $this->assertEquals(
             json_encode($responseObject),
-            json_encode($this->items)
+            json_encode($this->result)
         );
     }
 
@@ -83,7 +81,7 @@ class ResponseObjectTest extends TestCase
 
         $this->assertEquals(
             $responseObject->toArray(),
-            $this->items
+            $this->result
         );
     }
 
@@ -93,7 +91,7 @@ class ResponseObjectTest extends TestCase
 
         $this->assertEquals(
             $responseObject->toJson(),
-            json_encode($this->items)
+            json_encode($this->result)
         );
     }
 
