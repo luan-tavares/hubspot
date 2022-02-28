@@ -29,7 +29,9 @@ class Builder implements BuilderInterface
     public function __call($method, $arguments)
     {
         if (in_array($method, $this->baseResource->getMethods())) {
-            return $this->doAfterRequest($method, $arguments);
+            throw new HubspotApiException(
+                get_class($this->baseResource) ."::{$method}() must not be used before actions:\n\n". SchemaContainer::get($this->baseResource)
+            );
         }
 
         if (in_array($method, SchemaContainer::get($this->baseResource)->getActions())) {
@@ -49,6 +51,11 @@ class Builder implements BuilderInterface
         return $this->baseResource;
     }
 
+    public function request(): RequestInterface
+    {
+        return $this->request;
+    }
+
     private function doRequest(string $method, array $arguments): ResourceInterface
     {
         $actionSchema = SchemaContainer::getAction($this->baseResource, $method);
@@ -65,20 +72,5 @@ class Builder implements BuilderInterface
         $this->request->{$method}(...$arguments);
 
         return $this;
-    }
-
-    private function doAfterRequest(string $method, array $arguments): mixed
-    {
-        if ($this->request->hasDispatched()) {
-            return $this->baseResource->{$method}(...$arguments);
-        }
-
-        $actions = SchemaContainer::get($this->baseResource)->mapWithActions(function ($action) {
-            return "{$action}()";
-        });
-
-        throw new HubspotApiException(
-            get_class($this->baseResource) ."::{$method}() must not be used before actions:\n\n[". implode(', ', $actions) .']'
-        );
     }
 }

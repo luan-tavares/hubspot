@@ -192,4 +192,11 @@ class ResourceIterableTest extends TestCase
       
         $this->assertEquals((string) $resourceBuilder->resource(), 'deals-v3');
     }
+
+    public function testIfCallToArrayBeforeRequestCallThrowsException()
+    {
+        $this->expectException(HubspotApiException::class);
+      
+        $resourceBuilder = DealHubspot::limit(10)->toArray();
+    }
 }

@@ -49,7 +49,7 @@ class ResourceSchemaTest extends TestCase
         $this->assertEquals($object->documentation, 'https://developers.hubspot.com/docs/api/crm/contacts');
     }
 
-    public function testIfMapWithActionsIsCorrect()
+    public function testIfToStringMagicMethodIsCorrect()
     {
         $resourceStub = $this->createMock(Resource::class);
 
@@ -57,9 +57,7 @@ class ResourceSchemaTest extends TestCase
 
         $object = SchemaContainer::get($resourceStub);
 
-        $this->assertEquals($object->mapWithActions(function ($action) {
-            return $action .'()';
-        }), [ 'getAll()', 'get()']);
+        $this->assertEquals((string) $object, '[getAll(), get()]');
     }
 
     public function testIfGetActionDefinitionIsCorrect()

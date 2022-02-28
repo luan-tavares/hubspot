@@ -52,15 +52,18 @@ class ResourceSchema implements Countable, Iterator, ResourceSchemaInterface
         throw new Exception("Property {$property} not exists in ". __CLASS__);
     }
 
+    public function __toString()
+    {
+        $actions = array_map(function ($action) {
+            return "{$action}()";
+        }, $this->getActions());
+
+        return '['. implode(', ', $actions) .']';
+    }
 
     public function getActions(): array
     {
         return array_keys($this->actions);
-    }
-
-    public function mapWithActions(callable $callback): array
-    {
-        return array_map($callback, $this->getActions());
     }
 
     public function getActionDefinition(string $action): ActionSchemaInterface

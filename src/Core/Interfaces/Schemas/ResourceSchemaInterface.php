@@ -8,5 +8,4 @@ interface ResourceSchemaInterface
 {
     public function getActionDefinition(string $action): ActionSchemaInterface;
     public function getActions(): array;
-    public function mapWithActions(callable $callback): array;
 }
