@@ -35,7 +35,6 @@ class Response implements ResponseInterface, IteratorAggregate, Countable
 
     public function __destruct()
     {
-        dump('destroy Response and Response Object');
         ResponseObjectContainer::destroy($this);
     }
 
