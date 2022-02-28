@@ -16,7 +16,7 @@ class Builder implements BuilderInterface
 {
     private RequestInterface $request;
 
-    private ResourceInterface $resource;
+    private ResourceInterface $baseResource;
     
     private function __construct()
     {
@@ -28,11 +28,11 @@ class Builder implements BuilderInterface
 
     public function __call($method, $arguments)
     {
-        if (in_array($method, $this->resource->getMethods())) {
+        if (in_array($method, $this->baseResource->getMethods())) {
             return $this->doAfterRequest($method, $arguments);
         }
 
-        if (in_array($method, SchemaContainer::get($this->resource)->getActions())) {
+        if (in_array($method, SchemaContainer::get($this->baseResource)->getActions())) {
             return $this->doRequest($method, $arguments);
         }
 
@@ -41,23 +41,23 @@ class Builder implements BuilderInterface
 
     public function __destruct()
     {
-        RequestContainer::destroy($this->resource);
+        RequestContainer::destroy($this->baseResource);
     }
 
     public function resource(): ResourceInterface
     {
-        return $this->resource;
+        return $this->baseResource;
     }
 
     private function doRequest(string $method, array $arguments): ResourceInterface
     {
-        $actionSchema = SchemaContainer::getAction($this->resource, $method);
+        $actionSchema = SchemaContainer::getAction($this->baseResource, $method);
 
         $curlService = RequestActionDefinition::finish($this->request, $actionSchema, $arguments)->connect();
 
         $response =  new Response($curlService, $actionSchema);
 
-        return ResourceFactory::build($this->resource, $response);
+        return ResourceFactory::build($this->baseResource, $response);
     }
  
     private function doBeforeRequest(string $method, array $arguments): BuilderInterface
@@ -70,15 +70,15 @@ class Builder implements BuilderInterface
     private function doAfterRequest(string $method, array $arguments): mixed
     {
         if ($this->request->hasDispatched()) {
-            return $this->resource->{$method}(...$arguments);
+            return $this->baseResource->{$method}(...$arguments);
         }
 
-        $actions = SchemaContainer::get($this->resource)->mapWithActions(function ($action) {
+        $actions = SchemaContainer::get($this->baseResource)->mapWithActions(function ($action) {
             return "{$action}()";
         });
 
         throw new HubspotApiException(
-            get_class($this->resource) ."::{$method}() must not be used before actions:\n\n[". implode(', ', $actions) .']'
+            get_class($this->baseResource) ."::{$method}() must not be used before actions:\n\n[". implode(', ', $actions) .']'
         );
     }
 }

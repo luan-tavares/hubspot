@@ -20,7 +20,7 @@ abstract class BuilderFactory implements FactoryInterface
 
         $object = $reflectionClass->newInstanceWithoutConstructor();
 
-        $reflectionProperty = $reflectionClass->getProperty('resource');
+        $reflectionProperty = $reflectionClass->getProperty('baseResource');
         $reflectionProperty->setValue($object, $resource);
 
         $reflectionProperty = $reflectionClass->getProperty('request');
