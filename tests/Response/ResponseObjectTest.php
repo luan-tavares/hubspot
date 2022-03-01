@@ -160,4 +160,27 @@ class ResponseObjectTest extends TestCase
 
         $count = count($responseObject);
     }
+
+    public function testIfArrayResponseTranformInObject()
+    {
+        $items =[
+            ['a' => 1],
+            ['a' => 2]
+        ];
+
+        $response = $this->getMockBuilder(Response::class)->disableOriginalConstructor()->getMock();
+        $response->method('toJson')->willReturn(json_encode($items));
+
+        $responseObject = new ResponseObject($response);
+
+        $result = [];
+        foreach ($responseObject as $value) {
+            $result[] = $value->a;
+        }
+       
+        $this->assertEquals(
+            $result,
+            [1, 2]
+        );
+    }
 }

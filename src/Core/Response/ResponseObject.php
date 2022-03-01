@@ -11,7 +11,7 @@ use LTL\Hubspot\Interfaces\JsonableInterface;
 
 class ResponseObject implements Iterator, Countable, JsonSerializable, ArrayableInterface, JsonableInterface
 {
-    private object|null $object;
+    private object|array|null $object;
 
     private array $array;
    
@@ -29,14 +29,22 @@ class ResponseObject implements Iterator, Countable, JsonSerializable, Arrayable
 
         $this->array = json_decode($response->toJson(), true) ?? [];
 
+        if (is_array($this->object)) {
+            $this->iterator = $this->object;
+
+            return;
+        }
+
         if (is_null(@$this->object->{$response->getIteratorIndex()})) {
             return;
         }
+
         $this->iterator = (array) @$this->object->{$response->getIteratorIndex()};
 
         if (is_null($response->getAfterIndex())) {
             return;
         }
+
         $this->after = $this->getAfter($response->getAfterIndex());
     }
 
