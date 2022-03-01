@@ -2,6 +2,7 @@
 
 namespace LTL\Hubspot\Core;
 
+use LTL\Hubspot\Containers\BuilderContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Interfaces\BuilderInterface;
 use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
@@ -43,6 +44,7 @@ class Builder implements BuilderInterface
     public function __destruct()
     {
         $this->request->destroyComponents();
+        BuilderContainer::destroy($this->baseResource);
     }
 
     public function baseResource(): ResourceInterface

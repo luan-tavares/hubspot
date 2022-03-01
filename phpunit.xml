@@ -17,6 +17,9 @@
         <testsuite name="Response Suit">
             <directory >./tests/Response</directory>
         </testsuite>
+        <testsuite name="Builder Suit">
+            <directory >./tests/Builder</directory>
+        </testsuite>
     </testsuites>
 
 </phpunit>

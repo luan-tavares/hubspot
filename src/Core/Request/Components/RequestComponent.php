@@ -12,7 +12,9 @@ abstract class RequestComponent implements SubjectInterface
 
     private array $items = [];
 
-    public function __construct(protected RequestInterface $request)
+    protected RequestInterface $request;
+
+    public function __construct()
     {
     }
 
@@ -20,8 +22,12 @@ abstract class RequestComponent implements SubjectInterface
     {
     }
 
-    public function request(): RequestInterface
+    public function request(): RequestInterface|null
     {
+        if (!isset($this->request)) {
+            return null;
+        }
+
         return $this->request;
     }
 

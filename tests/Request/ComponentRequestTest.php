@@ -2,21 +2,15 @@
 
 namespace LTL\Hubspot\Tests\Request;
 
-use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
 use LTL\Hubspot\Core\Request\Components\UriRequestComponent;
-use LTL\Hubspot\Core\Request\Request;
 use PHPUnit\Framework\TestCase;
 
 class ComponentRequestTest extends TestCase
 {
-    protected RequestInterface $request;
-
-    private $items;
+    private $result;
 
     protected function setUp(): void
     {
-        $this->request =  $this->getMockBuilder(Request::class)->disableOriginalConstructor()->getMock();
-
         $this->result = [
             'a' => 4,
             'b' => 5,
@@ -26,7 +20,7 @@ class ComponentRequestTest extends TestCase
 
     public function testAddArrayIsCorrect()
     {
-        $requestComponent = new UriRequestComponent($this->request);
+        $requestComponent = new UriRequestComponent;
 
         $requestComponent->addArray($this->result);
         
@@ -38,7 +32,7 @@ class ComponentRequestTest extends TestCase
 
     public function testDeleteItemIsCorrect()
     {
-        $requestComponent = new UriRequestComponent($this->request);
+        $requestComponent = new UriRequestComponent;
 
         $requestComponent->addArray($this->result);
         $requestComponent->delete('a');
@@ -50,7 +44,7 @@ class ComponentRequestTest extends TestCase
 
     public function testAddItemIsCorrect()
     {
-        $requestComponent = new UriRequestComponent($this->request);
+        $requestComponent = new UriRequestComponent;
         
         $requestComponent->add('a', 5);
         $requestComponent->add('b', [10]);
@@ -59,5 +53,10 @@ class ComponentRequestTest extends TestCase
             'a' => 5,
             'b' => [10]
         ]);
+    }
+
+    public function testIfRequestReturnNull()
+    {
+        $this->assertNull((new UriRequestComponent)->request());
     }
 }
