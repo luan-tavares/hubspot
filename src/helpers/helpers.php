@@ -10,8 +10,8 @@ if (!function_exists('hubspotKey')) {
 
 
 
-if (!function_exists('envDefine')) {
-    function envDefine($file)
+if (!function_exists('hubspotEnv')) {
+    function hubspotEnv($file)
     {
         $env = fopen($file, 'r');
 
