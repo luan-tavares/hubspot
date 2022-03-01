@@ -10,6 +10,18 @@ use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
 use LTL\Hubspot\Core\Interfaces\Schemas\ResourceSchemaInterface;
 
+/**
+ *
+ * @property array|null $authentication
+ * @property array $actions
+ * @property array $resourceClass
+ * @property  array $actionSchemas
+ * @property string $resourceClass
+ * @property string|null $resource
+ * @property string|null $version
+ * @property string|null $documentation
+ * @property object $schema
+ */
 class ResourceSchema implements Countable, Iterator, ResourceSchemaInterface
 {
     private array $actions;
@@ -18,11 +30,11 @@ class ResourceSchema implements Countable, Iterator, ResourceSchemaInterface
     
     private string $resourceClass;
   
-    private ?string $resource;
+    private string|null $resource;
 
-    private ?string $version;
+    private string|null $version;
 
-    private ?string $documentation;
+    private string|null $documentation;
 
     private object $schema;
 

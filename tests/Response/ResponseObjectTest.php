@@ -85,12 +85,12 @@ class ResponseObjectTest extends TestCase
         );
     }
 
-    public function testIftoJsonResponseObjectIsCorrect()
+    public function testIftoJsonSerializableIsCorrect()
     {
         $responseObject = new ResponseObject($this->response);
 
         $this->assertEquals(
-            $responseObject->toJson(),
+            json_encode($responseObject),
             json_encode($this->result)
         );
     }
@@ -104,7 +104,7 @@ class ResponseObjectTest extends TestCase
 
         $this->assertEquals(
             $responseObject->after,
-            123456
+            $this->result['after']['paging']['next']
         );
     }
 
@@ -143,7 +143,6 @@ class ResponseObjectTest extends TestCase
         
         $responseObject = new ResponseObject($this->response);
 
-
         $this->expectException(HubspotApiException::class);
 
         foreach ($responseObject as $value) {
@@ -161,7 +160,7 @@ class ResponseObjectTest extends TestCase
         $count = count($responseObject);
     }
 
-    public function testIfArrayResponseTranformInObject()
+    public function testIfArrayResponseTransformInObject()
     {
         $items =[
             ['a' => 1],
@@ -182,5 +181,15 @@ class ResponseObjectTest extends TestCase
             $result,
             [1, 2]
         );
+    }
+
+    public function testIfCommomStringTransformEmptyArray()
+    {
+        $response = $this->getMockBuilder(Response::class)->disableOriginalConstructor()->getMock();
+        $response->method('toJson')->willReturn('<h1>Error 404</h1>');
+
+        $responseObject = new ResponseObject($response);
+       
+        $this->assertEquals($responseObject->toArray(), []);
     }
 }

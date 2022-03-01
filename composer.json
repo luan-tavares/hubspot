@@ -36,7 +36,8 @@
     },
     "require-dev": {
         "larapack/dd": "1.*",
-        "phpunit/phpunit": "^9.5"
+        "phpunit/phpunit": "^9.5",
+        "illuminate/collections": "^9.2"
     },
     "scripts": {
         "deploy-tag": [

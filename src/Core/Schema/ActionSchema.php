@@ -8,17 +8,18 @@ use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
 use LTL\Hubspot\Core\Interfaces\Schemas\ResourceSchemaInterface;
 
 /**
- * @property-read string $baseUri
- * @property-read string|null $description
- * @property-read string|null $iteratorIndex
- * @property-read string|null $afterIndex
- * @property-read string|null $documentation
- * @property-read array|null $params
- * @property-read bool $hasBody
- * @property-read string $method
- * @property-read array|null $baseQuery
- * @property-read array|null $baseHeader
- * @property-read array|null $resourceClass
+ * @property string $baseUri
+ * @property string|null $description
+ * @property string|null $iteratorIndex
+ * @property string|null $afterIndex
+ * @property string|null $documentation
+ * @property array|null $params
+ * @property bool $hasBody
+ * @property string $method
+ * @property array|null $baseQuery
+ * @property array|null $baseHeader
+ * @property array|null $resourceClass
+ * @property array|null $authentication
  */
 class ActionSchema implements ActionSchemaInterface
 {

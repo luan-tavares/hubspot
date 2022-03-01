@@ -2,10 +2,6 @@
 
 namespace LTL\Hubspot\Core\Resource;
 
-use ArrayAccess;
-use Countable;
-use IteratorAggregate;
-use JsonSerializable;
 use LTL\Hubspot\Containers\BuilderContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\HubspotApikey;
@@ -15,7 +11,6 @@ use LTL\Hubspot\Core\Resource\Traits\ResourceArrayAccess;
 use LTL\Hubspot\Core\Resource\Traits\ResourceCountable;
 use LTL\Hubspot\Core\Resource\Traits\ResourceEnumerable;
 use LTL\Hubspot\Core\Resource\Traits\ResourceIteratorAggregate;
-use LTL\Hubspot\Core\Resource\Traits\ResourceJsonSerializable;
 use LTL\Hubspot\Core\Resource\Traits\ResourceResponse;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\ListMethods\PublicMethods\Traits\PublicMethodsListable;
@@ -28,7 +23,6 @@ abstract class Resource implements ResourceInterface
         ResourceArrayAccess,
         ResourceCountable,
         ResourceEnumerable,
-        ResourceJsonSerializable,
         ResourceResponse;
 
     protected ResponseInterface $response;

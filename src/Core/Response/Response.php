@@ -12,8 +12,7 @@ use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
 use LTL\Hubspot\Core\Response\ResponseObject;
 
 /**
- * @property-read string|int $index
- * @property-read string|int $after
+ * @property string|int $after
  */
 class Response implements ResponseInterface, IteratorAggregate, Countable
 {
@@ -37,7 +36,6 @@ class Response implements ResponseInterface, IteratorAggregate, Countable
     {
         ResponseObjectContainer::destroy($this);
     }
-
 
     public function __get($property)
     {

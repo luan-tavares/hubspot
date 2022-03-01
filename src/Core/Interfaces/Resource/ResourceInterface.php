@@ -5,7 +5,6 @@ namespace LTL\Hubspot\Core\Interfaces\Resource;
 use ArrayAccess;
 use Countable;
 use IteratorAggregate;
-use JsonSerializable;
 use LTL\Hubspot\Interfaces\ArrayableInterface;
 use LTL\Hubspot\Interfaces\EnumerableInterface;
 use LTL\Hubspot\Interfaces\JsonableInterface;
@@ -17,7 +16,6 @@ interface ResourceInterface extends
     JsonableInterface,
     EnumerableInterface,
     ArrayAccess,
-    JsonSerializable,
     IteratorAggregate,
     Countable
 {

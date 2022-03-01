@@ -86,13 +86,6 @@ class ResourceIterableTest extends TestCase
         $this->assertEquals($resource['results'], $this->result['results']);
     }
 
-    public function testIfJsonSerializableIsCorrect()
-    {
-        $resource = ResourceFactory::build($this->baseResource, $this->response);
-      
-        $this->assertEquals(json_encode($resource), json_encode($this->result));
-    }
-
     public function testIfGetMagicMethodIsCorrect()
     {
         $resource = ResourceFactory::build($this->baseResource, $this->response);
