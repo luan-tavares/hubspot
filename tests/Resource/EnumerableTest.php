@@ -4,8 +4,9 @@ namespace LTL\Hubspot\Tests\Resource;
 
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 use LTL\Hubspot\Core\Response\Response;
-use LTL\Hubspot\Core\Response\ResponseObject;
+use LTL\Hubspot\Core\Response\ResponseRepository;
 use LTL\Hubspot\Factories\ResourceFactory;
+use LTL\Hubspot\Factories\ResponseRepositoryFactory;
 use LTL\Hubspot\Resources\ContactHubspot;
 use PHPUnit\Framework\TestCase;
 
@@ -30,9 +31,9 @@ class EnumerableTest extends TestCase
         $response->method('toJson')->willReturn($response->rawResponse);
         $response->method('getIteratorIndex')->willReturn('results');
         
-        $responseObject = new ResponseObject($response);
+        $ResponseRepository = ResponseRepositoryFactory::build($response);
 
-        $response->method('getIterator')->willReturn($responseObject);
+        $response->method('getIterator')->willReturn($ResponseRepository);
 
         $this->resource = ResourceFactory::build((new ContactHubspot), $response);
     }

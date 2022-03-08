@@ -21,6 +21,6 @@ while (true) {
     $memory = memory_get_peak_usage();
 
     if (!$after) {
-        //break;
+        break;
     }
 }

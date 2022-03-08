@@ -4,7 +4,7 @@ namespace LTL\Hubspot\Tests\Response;
 
 use LTL\Curl\Curl;
 use LTL\Curl\Interfaces\CurlInterface;
-use LTL\Hubspot\Containers\ResponseObjectContainer;
+use LTL\Hubspot\Containers\ResponseRepositoryContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
 use LTL\Hubspot\Core\Response\Response;

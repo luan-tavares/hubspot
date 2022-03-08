@@ -1,13 +1,14 @@
 <?php
 
-namespace LTL\Hubspot\Tests\Request;
+namespace LTL\Hubspot\Tests\Response;
 
 use LTL\Hubspot\Core\Response\Response;
-use LTL\Hubspot\Core\Response\ResponseObject;
+use LTL\Hubspot\Core\Response\ResponseRepository;
 use LTL\Hubspot\Exceptions\HubspotApiException;
+use LTL\Hubspot\Factories\ResponseRepositoryFactory;
 use PHPUnit\Framework\TestCase;
 
-class ResponseObjectTest extends TestCase
+class ResponseRepositoryTest extends TestCase
 {
     private Response $response;
 
@@ -41,9 +42,9 @@ class ResponseObjectTest extends TestCase
         
         $return = [];
         
-        $responseObject = new ResponseObject($this->response);
+        $ResponseRepository = ResponseRepositoryFactory::build($this->response);
 
-        foreach ($responseObject as $value) {
+        foreach ($ResponseRepository as $value) {
             $return[] = $value;
         }
       
@@ -60,37 +61,37 @@ class ResponseObjectTest extends TestCase
     {
         $this->response->method('getIteratorIndex')->willReturn('results');
         
-        $responseObject = new ResponseObject($this->response);
+        $ResponseRepository = ResponseRepositoryFactory::build($this->response);
 
-        $this->assertEquals(count($responseObject), 5);
+        $this->assertEquals(count($ResponseRepository), 5);
     }
 
-    public function testIfJsonSerializableResponseObjectIsCorrect()
+    public function testIfJsonSerializableResponseRepositoryIsCorrect()
     {
-        $responseObject = new ResponseObject($this->response);
+        $ResponseRepository = ResponseRepositoryFactory::build($this->response);
 
         $this->assertEquals(
-            json_encode($responseObject),
+            json_encode($ResponseRepository),
             json_encode($this->result)
         );
     }
 
-    public function testIftoArrayResponseObjectIsCorrect()
+    public function testIftoArrayResponseRepositoryIsCorrect()
     {
-        $responseObject = new ResponseObject($this->response);
+        $ResponseRepository = ResponseRepositoryFactory::build($this->response);
 
         $this->assertEquals(
-            $responseObject->toArray(),
+            $ResponseRepository->toArray(),
             $this->result
         );
     }
 
     public function testIftoJsonSerializableIsCorrect()
     {
-        $responseObject = new ResponseObject($this->response);
+        $ResponseRepository = ResponseRepositoryFactory::build($this->response);
 
         $this->assertEquals(
-            json_encode($responseObject),
+            json_encode($ResponseRepository),
             json_encode($this->result)
         );
     }
@@ -100,64 +101,64 @@ class ResponseObjectTest extends TestCase
         $this->response->method('getIteratorIndex')->willReturn('results');
         $this->response->method('getAfterIndex')->willReturn('after.paging.next');
 
-        $responseObject = new ResponseObject($this->response);
+        $ResponseRepository = ResponseRepositoryFactory::build($this->response);
 
         $this->assertEquals(
-            $responseObject->after,
+            $ResponseRepository->after,
             $this->result['after']['paging']['next']
         );
     }
 
-    public function testIfGetMagicMethodResponseObjectIsCorrect()
+    public function testIfGetMagicMethodResponseRepositoryIsCorrect()
     {
-        $responseObject = new ResponseObject($this->response);
+        $ResponseRepository = ResponseRepositoryFactory::build($this->response);
        
         $this->assertEquals(
-            $responseObject->results->a,
+            $ResponseRepository->results->a,
             4
         );
     }
 
-    public function testIfGetMagicMethodResponseObjectThrowException()
+    public function testIfGetMagicMethodResponseRepositoryThrowException()
     {
-        $responseObject = new ResponseObject($this->response);
+        $ResponseRepository = ResponseRepositoryFactory::build($this->response);
 
         $this->expectException(HubspotApiException::class);
         
-        $property = $responseObject->unknow;
+        $property = $ResponseRepository->unknow;
     }
 
-    public function testIfIssetMagicMethodResponseObjectIsCorrect()
+    public function testIfIssetMagicMethodResponseRepositoryIsCorrect()
     {
-        $responseObject = new ResponseObject($this->response);
+        $ResponseRepository = ResponseRepositoryFactory::build($this->response);
        
         $this->assertEquals(
-            isset($responseObject->results),
+            isset($ResponseRepository->results),
             true
         );
     }
 
-    public function testIfNotIterableResponseObjectThrowException()
+    public function testIfNotIterableResponseRepositoryThrowException()
     {
         $this->response->method('getIteratorIndex')->willReturn(null);
         
-        $responseObject = new ResponseObject($this->response);
+        $ResponseRepository = ResponseRepositoryFactory::build($this->response);
 
         $this->expectException(HubspotApiException::class);
 
-        foreach ($responseObject as $value) {
+        foreach ($ResponseRepository as $value) {
         }
     }
 
-    public function testIfNotCountableResponseObjectThrowException()
+    public function testIfNotCountableResponseRepositoryThrowException()
     {
         $this->response->method('getIteratorIndex')->willReturn(null);
 
-        $responseObject = new ResponseObject($this->response);
+        $ResponseRepository = ResponseRepositoryFactory::build($this->response);
 
         $this->expectException(HubspotApiException::class);
 
-        $count = count($responseObject);
+        $count = count($ResponseRepository);
     }
 
     public function testIfArrayResponseTransformInObject()
@@ -170,10 +171,10 @@ class ResponseObjectTest extends TestCase
         $response = $this->getMockBuilder(Response::class)->disableOriginalConstructor()->getMock();
         $response->method('toJson')->willReturn(json_encode($items));
 
-        $responseObject = new ResponseObject($response);
+        $ResponseRepository = ResponseRepositoryFactory::build($response);
 
         $result = [];
-        foreach ($responseObject as $value) {
+        foreach ($ResponseRepository as $value) {
             $result[] = $value->a;
         }
        
@@ -188,8 +189,8 @@ class ResponseObjectTest extends TestCase
         $response = $this->getMockBuilder(Response::class)->disableOriginalConstructor()->getMock();
         $response->method('toJson')->willReturn('<h1>Error 404</h1>');
 
-        $responseObject = new ResponseObject($response);
+        $ResponseRepository = ResponseRepositoryFactory::build($response);
        
-        $this->assertEquals($responseObject->toArray(), []);
+        $this->assertEquals($ResponseRepository->toArray(), []);
     }
 }

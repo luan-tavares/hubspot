@@ -5,11 +5,11 @@ namespace LTL\Hubspot\Core\Response;
 use Countable;
 use IteratorAggregate;
 use LTL\Curl\Interfaces\CurlInterface;
-use LTL\Hubspot\Containers\ResponseObjectContainer;
+use LTL\Hubspot\Containers\ResponseRepositoryContainer;
 use LTL\Hubspot\Core\HubspotApikey;
 use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
 use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
-use LTL\Hubspot\Core\Response\ResponseObject;
+use LTL\Hubspot\Core\Response\ResponseRepository;
 
 /**
  * @property string|int $after
@@ -34,12 +34,12 @@ class Response implements ResponseInterface, IteratorAggregate, Countable
 
     public function __destruct()
     {
-        ResponseObjectContainer::destroy($this);
+        ResponseRepositoryContainer::destroy($this);
     }
 
     public function __get($property)
     {
-        return ResponseObjectContainer::get($this)->{$property};
+        return ResponseRepositoryContainer::get($this)->{$property};
     }
 
     public function getAfterIndex(): string|null
@@ -54,7 +54,7 @@ class Response implements ResponseInterface, IteratorAggregate, Countable
 
     public function toArray(): array
     {
-        return ResponseObjectContainer::get($this)->toArray();
+        return ResponseRepositoryContainer::get($this)->toArray();
     }
 
     public function toJson(): string|null
@@ -87,13 +87,13 @@ class Response implements ResponseInterface, IteratorAggregate, Countable
         return ($this->status < 200 || $this->status > 299);
     }
 
-    public function getIterator(): ResponseObject
+    public function getIterator(): ResponseRepository
     {
-        return ResponseObjectContainer::get($this);
+        return ResponseRepositoryContainer::get($this);
     }
 
     public function count(): int
     {
-        return count(ResponseObjectContainer::get($this));
+        return count(ResponseRepositoryContainer::get($this));
     }
 }

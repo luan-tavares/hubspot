@@ -4,7 +4,7 @@ namespace LTL\Hubspot\Tests\Response;
 
 use LTL\Curl\Curl;
 use LTL\Curl\Interfaces\CurlInterface;
-use LTL\Hubspot\Containers\ResponseObjectContainer;
+use LTL\Hubspot\Containers\ResponseRepositoryContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
 use LTL\Hubspot\Core\Response\Response;
@@ -98,13 +98,13 @@ class ResponseIterableTest extends TestCase
         $this->assertEquals($response->toArray(), $this->result);
     }
 
-    public function testIfDestroyResponseObjectIsCorrect()
+    public function testIfDestroyResponseRepositoryIsCorrect()
     {
         $response = new Response($this->curl, $this->actionSchema);
         $response->toArray(); /*The container is inicialized after call a method*/
-        $initCount = ResponseObjectContainer::count();
+        $initCount = ResponseRepositoryContainer::count();
         unset($response);
-        $finalCount = ResponseObjectContainer::count();
+        $finalCount = ResponseRepositoryContainer::count();
         $this->assertEquals($initCount - $finalCount, 1);
     }
 
