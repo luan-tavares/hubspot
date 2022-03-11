@@ -47,6 +47,7 @@ foreach ($resources as $resource) {
     $content = $template;
     $content = str_replace('{{class}}', $document->class, $content);
     $content = str_replace('{{name}}', $resource, $content);
+
     $doc = '';
 
     if ($documentation) {
@@ -93,6 +94,7 @@ foreach ($resources as $resource) {
     }
 
     $content = str_replace('{{docs}}', $doc, $content);
+
 
     file_put_contents("{$basePath}/src/Resources/{$document->class}.php", $content);
 

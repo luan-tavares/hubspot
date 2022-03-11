@@ -9,4 +9,5 @@ use LTL\Hubspot\Interfaces\ArrayableInterface;
 
 interface ResponseRepositoryInterface extends Iterator, Countable, JsonSerializable, ArrayableInterface
 {
+    public function after(): string|int|null;
 }

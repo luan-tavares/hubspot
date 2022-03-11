@@ -43,7 +43,9 @@ class ResponseRepository implements ResponseRepositoryInterface
 
         $response = mb_strimwidth(json_encode($this), 0, 300, ' ...');
 
-        throw new HubspotApiException("Property \"{$property}\" not exists in response object first level:\n\n{$response}\n\n");
+        throw new HubspotApiException(
+            "Property \"{$property}\" not exists in response object first level:\n\n{$response}\n\n"
+        );
     }
 
     private function verifyIterable(): void
@@ -57,6 +59,11 @@ class ResponseRepository implements ResponseRepositoryInterface
         throw new HubspotApiException(
             "Resource response is not iterable or countable:\n\n{$response}\n\n"
         );
+    }
+
+    public function after(): string|int|null
+    {
+        return $this->after;
     }
 
     public function toArray(): array
