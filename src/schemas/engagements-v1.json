@@ -1,8 +1,11 @@
 {
-    "class": "EngagementV1Hubspot",
+    "class": "EngagementHubspot",
+    "resource": "engagements",
+    "version": 1,
+    "latest": true,
     "actions": {
         "getRecents": {
-            "path": "engagements/v1/engagements/recent/modified",
+            "path": "engagements/recent/modified",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/engagements/get-recent-engagements",
             "method": "GET",
             "description": "Get recent engagements.",
@@ -10,25 +13,25 @@
             "afterIndex": "offset"
         },
         "create": {
-            "path": "engagements/v1/engagements",
+            "path": "engagements",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/engagements/create_engagement",
             "method": "POST",
             "description": "Create an engagement."
         },
         "update": {
-            "path": "engagements/v1/engagements/{engagementId}",
+            "path": "engagements/{engagementId}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/engagements/update_engagement-patch",
             "method": "PATCH",
             "description": "Update an Engagement."
         },
         "get": {
-            "path": "engagements/v1/engagements/{engagementId}",
+            "path": "engagements/{engagementId}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/engagements/get_engagement",
             "method": "GET",
             "description": "Get an engagement."
         },
         "getAll": {
-            "path": "engagements/v1/engagements/paged",
+            "path": "engagements/paged",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/engagements/get-all-engagements",
             "method": "GET",
             "description": "Get all engagements.",
@@ -36,7 +39,7 @@
             "afterIndex": "offset"
         },
         "delete": {
-            "path": "engagements/v1/engagements/{engagementId}",
+            "path": "engagements/{engagementId}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/engagements/delete-engagement",
             "method": "DELETE",
             "description": "DELETE an Engagement."

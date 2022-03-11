@@ -1,7 +1,7 @@
 {
     "resource": "crm-objects",
-    "version": "v1",
-    "class": "LineItemV1Hubspot",
+    "class": "LineItemHubspot",
+    "version": 1,
     "actions": {
         "getAll": {
             "path": "objects/line_items/paged",

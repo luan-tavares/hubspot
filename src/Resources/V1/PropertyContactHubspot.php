@@ -1,6 +1,6 @@
 <?php
 
-namespace LTL\Hubspot\Resources;
+namespace LTL\Hubspot\Resources\V1;
 
 use LTL\Hubspot\Hubspot;
 
@@ -48,7 +48,9 @@ use LTL\Hubspot\Hubspot;
  * See https://legacydocs.hubspot.com/docs/methods/contacts/v2/update_contact_property_group
  *
  */
-class PropertyContactV1Hubspot extends Hubspot
+class PropertyContactHubspot extends Hubspot
 {
     protected string $resource = "properties-contacts-v1";
+
+    protected int $version = 1;
 }

@@ -1,7 +1,7 @@
 {
     "resource": "crm-pipelines",
-    "version": "v1",
-    "class": "PipelineV1Hubspot",
+    "class": "PipelineHubspot",
+    "version": 1,
     "actions": {
         "getAll": {
             "path": "pipelines/{object_type}",

@@ -1,6 +1,6 @@
 <?php
 
-namespace LTL\Hubspot\Resources;
+namespace LTL\Hubspot\Resources\V1;
 
 use LTL\Hubspot\Hubspot;
 
@@ -34,7 +34,9 @@ use LTL\Hubspot\Hubspot;
  * See https://legacydocs.hubspot.com/docs/methods/pipelines/delete_pipeline
  *
  */
-class PipelineV1Hubspot extends Hubspot
+class PipelineHubspot extends Hubspot
 {
     protected string $resource = "pipelines-v1";
+
+    protected int $version = 1;
 }

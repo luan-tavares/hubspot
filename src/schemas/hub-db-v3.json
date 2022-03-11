@@ -1,8 +1,9 @@
 {
     "resource": "cms",
-    "version": "v3",
     "class": "HubDbHubspot",
     "documentation": "https://developers.hubspot.com/docs/api/cms/hubdb",
+    "version": 3,
+    "latest": true,
     "actions": {
         "getAll": {
             "path": "hubdb/tables",

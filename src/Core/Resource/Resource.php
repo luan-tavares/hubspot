@@ -29,7 +29,7 @@ abstract class Resource implements ResourceInterface
     
     protected string $resource;
 
-    protected string $version;
+    protected int $version;
 
     public function __call($name, $arguments)
     {

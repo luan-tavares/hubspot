@@ -1,6 +1,6 @@
 <?php
 
-namespace LTL\Hubspot\Resources;
+namespace LTL\Hubspot\Resources\V3;
 
 use LTL\Hubspot\Hubspot;
 
@@ -18,7 +18,9 @@ use LTL\Hubspot\Hubspot;
  * See https://legacydocs.hubspot.com/docs/methods/workflows/v3/get_workflow
  *
  */
-class WorkflowV3Hubspot extends Hubspot
+class WorkflowHubspot extends Hubspot
 {
     protected string $resource = "workflows-v3";
+
+    protected int $version = 3;
 }

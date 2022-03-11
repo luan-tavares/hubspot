@@ -1,8 +1,8 @@
 {
     "resource": "crm",
-    "version": "v3",
-    "class": "AssociationV3Hubspot",
+    "class": "AssociationHubspot",
     "documentation": "https://developers.hubspot.com/docs/api/crm/associations",
+    "version": 3,
     "actions": {
         "batchGet": {
             "path": "associations/{fromObjectType}/{toObjectType}/batch/read",

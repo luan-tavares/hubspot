@@ -1,8 +1,9 @@
 {
     "resource": "cms",
-    "version": "v3",
     "class": "CmsDomainHubspot",
     "documentation": "https://app.hubspot.com/developer-docs/api?spec=v1/apis/cms/v3/domains",
+    "version": 3,
+    "latest": true,
     "actions": {
         "getAll": {
             "path": "domains",

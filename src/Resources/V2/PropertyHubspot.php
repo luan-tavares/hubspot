@@ -1,6 +1,6 @@
 <?php
 
-namespace LTL\Hubspot\Resources;
+namespace LTL\Hubspot\Resources\V2;
 
 use LTL\Hubspot\Hubspot;
 
@@ -54,7 +54,9 @@ use LTL\Hubspot\Hubspot;
  * See https://legacydocs.hubspot.com/docs/methods/crm-properties/delete-property-group
  *
  */
-class PropertyV2Hubspot extends Hubspot
+class PropertyHubspot extends Hubspot
 {
     protected string $resource = "properties-v2";
+
+    protected int $version = 2;
 }

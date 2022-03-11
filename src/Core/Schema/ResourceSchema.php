@@ -19,6 +19,7 @@ use LTL\Hubspot\Core\Interfaces\Schemas\ResourceSchemaInterface;
  * @property string $resourceClass
  * @property string|null $resource
  * @property string|null $version
+ * @property bool $latest
  * @property string|null $documentation
  * @property object $schema
  */
@@ -32,7 +33,9 @@ class ResourceSchema implements Countable, Iterator, ResourceSchemaInterface
   
     private string|null $resource;
 
-    private string|null $version;
+    private int|null $version;
+
+    private bool $latest = false;
 
     private string|null $documentation;
 
@@ -50,6 +53,10 @@ class ResourceSchema implements Countable, Iterator, ResourceSchemaInterface
         $this->version = @$schema->version;
         $this->documentation = @$schema->documentation;
 
+        if (isset($schema->latest)) {
+            $this->latest = $schema->latest;
+        }
+       
         if (isset($schema->authentication)) {
             $this->authentication = $schema->authentication;
         }

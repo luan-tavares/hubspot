@@ -1,6 +1,6 @@
 <?php
 
-namespace LTL\Hubspot\Resources;
+namespace LTL\Hubspot\Resources\V3;
 
 use LTL\Hubspot\Hubspot;
 
@@ -26,7 +26,9 @@ use LTL\Hubspot\Hubspot;
  * See https://developers.hubspot.com/docs/api/crm/associations
  *
  */
-class AssociationV3Hubspot extends Hubspot
+class AssociationHubspot extends Hubspot
 {
     protected string $resource = "associations-v3";
+
+    protected int $version = 3;
 }

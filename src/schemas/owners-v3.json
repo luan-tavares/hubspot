@@ -1,8 +1,9 @@
 {
     "resource": "crm",
-    "version": "v3",
     "class": "OwnerHubspot",
     "documentation": "https://developers.hubspot.com/docs/api/crm/owners",
+    "version": 3,
+    "latest": true,
     "actions": {
         "getAll": {
             "path": "objects/owners",

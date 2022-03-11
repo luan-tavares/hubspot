@@ -1,7 +1,7 @@
 {
     "resource": "automation",
-    "version": "v3",
-    "class": "WorkflowV3Hubspot",
+    "class": "WorkflowHubspot",
+    "version": 3,
     "actions": {
         "getAll": {
             "path": "workflows",

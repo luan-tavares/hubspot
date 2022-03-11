@@ -1,6 +1,6 @@
 <?php
 
-namespace LTL\Hubspot\Resources;
+namespace LTL\Hubspot\Resources\V1;
 
 use LTL\Hubspot\Hubspot;
 
@@ -54,7 +54,9 @@ use LTL\Hubspot\Hubspot;
  * See https://legacydocs.hubspot.com/docs/methods/deals/batch-update-deals
  *
  */
-class DealV1Hubspot extends Hubspot
+class DealHubspot extends Hubspot
 {
     protected string $resource = "deals-v1";
+
+    protected int $version = 1;
 }

@@ -49,7 +49,7 @@ abstract class RequestActionDefinition implements RequestActionDefinitionInterfa
         if (!$actionSchema->authentication) {
             $request->removeApikey();
         }
-
+        
         $request->addUri($actionSchema->baseUri, array_combine($params, $arguments), $request->getQueries());
 
         $request->changeDispatchToTrue();

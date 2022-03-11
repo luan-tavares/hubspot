@@ -1,8 +1,9 @@
 {
     "resource": "crm",
-    "version": "v3",
     "class": "ContactHubspot",
     "documentation": "https://developers.hubspot.com/docs/api/crm/contacts",
+    "version": 3,
+    "latest": true,
     "actions": {
         "getAll": {
             "path": "objects/contacts",

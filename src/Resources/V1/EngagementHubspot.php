@@ -1,6 +1,6 @@
 <?php
 
-namespace LTL\Hubspot\Resources;
+namespace LTL\Hubspot\Resources\V1;
 
 use LTL\Hubspot\Hubspot;
 
@@ -48,7 +48,9 @@ use LTL\Hubspot\Hubspot;
  * See https://legacydocs.hubspot.com/docs/methods/engagements/get-call-dispositions
  *
  */
-class EngagementV1Hubspot extends Hubspot
+class EngagementHubspot extends Hubspot
 {
     protected string $resource = "engagements-v1";
+
+    protected int $version = 1;
 }

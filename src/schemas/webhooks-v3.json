@@ -1,8 +1,9 @@
 {
     "resource": "webhooks",
-    "version": "v3",
     "class": "WebhookHubspot",
     "documentation": "https://developers.hubspot.com/docs/api/webhooks",
+    "version": 3,
+    "latest": true,
     "actions": {
         "getSettings": {
             "path": "v3/{appId}/settings",

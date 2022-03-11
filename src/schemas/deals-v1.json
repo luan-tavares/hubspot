@@ -1,7 +1,7 @@
 {
     "resource": "deals",
-    "version": "v1",
-    "class": "DealV1Hubspot",
+    "class": "DealHubspot",
+    "version": 1,
     "actions": {
         "get": {
             "path": "deal/{dealId}",

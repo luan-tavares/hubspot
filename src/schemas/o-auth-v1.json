@@ -1,9 +1,10 @@
 {
     "resource": "oauth",
-    "version": "v1",
     "class": "OAuthHubspot",
     "documentation": "https://app.hubspot.com/developer-docs/api?spec=v1/apis/auth/v1/oauth",
     "authentication": false,
+    "version": 1,
+    "latest": true,
     "actions": {
         "getAccessToken": {
             "path": "access-tokens/{token}",

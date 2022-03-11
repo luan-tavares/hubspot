@@ -1,7 +1,7 @@
 {
     "resource": "properties",
-    "version": "v1",
-    "class": "PropertyDealV1Hubspot",
+    "class": "PropertyDealHubspot",
+    "version": 1,
     "actions": {
         "getAll": {
             "path": "deals/properties",

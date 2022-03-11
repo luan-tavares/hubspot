@@ -1,8 +1,9 @@
 {
     "resource": "cms",
-    "version": "v3",
     "class": "SiteSearchHubspot",
     "documentation": "https://app.hubspot.com/developer-docs/api?spec=v1/apis/cms/v3/site-search",
+    "version": 3,
+    "latest": true,
     "actions": {
         "getIndexes": {
             "path": "site-search/indexed-data/{contentId}",

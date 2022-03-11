@@ -1,6 +1,6 @@
 <?php
 
-namespace LTL\Hubspot\Resources;
+namespace LTL\Hubspot\Resources\V2;
 
 use LTL\Hubspot\Hubspot;
 
@@ -84,7 +84,9 @@ use LTL\Hubspot\Hubspot;
  * See https://legacydocs.hubspot.com/docs/methods/files/delete_folders_folder_id
  *
  */
-class FileV2Hubspot extends Hubspot
+class FileHubspot extends Hubspot
 {
     protected string $resource = "files-v2";
+
+    protected int $version = 2;
 }

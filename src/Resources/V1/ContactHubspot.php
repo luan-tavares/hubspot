@@ -1,6 +1,6 @@
 <?php
 
-namespace LTL\Hubspot\Resources;
+namespace LTL\Hubspot\Resources\V1;
 
 use LTL\Hubspot\Hubspot;
 
@@ -90,7 +90,9 @@ use LTL\Hubspot\Hubspot;
  * See https://legacydocs.hubspot.com/docs/methods/contacts/merge-contacts
  *
  */
-class ContactV1Hubspot extends Hubspot
+class ContactHubspot extends Hubspot
 {
     protected string $resource = "contacts-v1";
+
+    protected int $version = 1;
 }

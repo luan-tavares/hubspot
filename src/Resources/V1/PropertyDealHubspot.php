@@ -1,6 +1,6 @@
 <?php
 
-namespace LTL\Hubspot\Resources;
+namespace LTL\Hubspot\Resources\V1;
 
 use LTL\Hubspot\Hubspot;
 
@@ -66,7 +66,9 @@ use LTL\Hubspot\Hubspot;
  * See https://legacydocs.hubspot.com/docs/methods/deals/delete_deal_property_group
  *
  */
-class PropertyDealV1Hubspot extends Hubspot
+class PropertyDealHubspot extends Hubspot
 {
     protected string $resource = "properties-deals-v1";
+
+    protected int $version = 1;
 }

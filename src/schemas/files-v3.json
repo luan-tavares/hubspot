@@ -1,8 +1,9 @@
 {
     "resource": "files",
-    "version": "v3",
     "class": "FileHubspot",
     "documentation": "https://developers.hubspot.com/docs/api/files/files",
+    "version": 3,
+    "latest": true,
     "actions": {
         "upload": {
             "path": "files",

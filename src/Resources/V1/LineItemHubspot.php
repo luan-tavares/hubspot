@@ -1,6 +1,6 @@
 <?php
 
-namespace LTL\Hubspot\Resources;
+namespace LTL\Hubspot\Resources\V1;
 
 use LTL\Hubspot\Hubspot;
 
@@ -60,7 +60,9 @@ use LTL\Hubspot\Hubspot;
  * See https://legacydocs.hubspot.com/docs/methods/line-items/batch-delete-line-items
  *
  */
-class LineItemV1Hubspot extends Hubspot
+class LineItemHubspot extends Hubspot
 {
     protected string $resource = "line-items-v1";
+
+    protected int $version = 1;
 }

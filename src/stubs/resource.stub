@@ -1,6 +1,6 @@
 <?php
 
-namespace LTL\Hubspot\Resources;
+namespace LTL\Hubspot\Resources\V{{version}};
 
 use LTL\Hubspot\Hubspot;
 
@@ -9,4 +9,6 @@ use LTL\Hubspot\Hubspot;
 class {{class}} extends Hubspot
 {
     protected string $resource = "{{name}}";
+
+    protected int $version = {{version}};
 }

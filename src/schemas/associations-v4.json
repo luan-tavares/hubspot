@@ -1,8 +1,9 @@
 {
     "resource": "crm",
-    "version": "v4",
     "class": "AssociationHubspot",
     "documentation": "https://developers.hubspot.com/docs/api/crm/associations/v4",
+    "version": 4,
+    "latest": true,
     "actions": {
         "getDefinition": {
             "path": "associations/{fromObjectType}/{toObjectType}/labels",

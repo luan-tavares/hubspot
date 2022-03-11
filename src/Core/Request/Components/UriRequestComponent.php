@@ -3,8 +3,8 @@
 namespace LTL\Hubspot\Core\Request\Components;
 
 use LTL\Hubspot\Core\HubspotConfig;
-use LTL\Hubspot\Core\Request\Components\RequestComponent;
 use LTL\Hubspot\Core\Interfaces\Request\UriComponentInterface;
+use LTL\Hubspot\Core\Request\Components\RequestComponent;
 
 class UriRequestComponent extends RequestComponent implements UriComponentInterface
 {

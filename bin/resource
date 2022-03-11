@@ -27,6 +27,8 @@ $basePath = HubspotConfig::BASE_PATH;
 
 $template = file_get_contents($basePath . '/src/stubs/resource.stub');
 
+$latestTemplate = file_get_contents($basePath . '/src/stubs/latestResource.stub');
+
 $files = glob($basePath .'/src/schemas/*.json');
 
 $resources = array_map(function ($path) {
@@ -44,9 +46,12 @@ foreach ($resources as $resource) {
 
     $documentation = @$document->documentation;
 
+    $resourcePath = "{$basePath}/src/Resources";
+
     $content = $template;
     $content = str_replace('{{class}}', $document->class, $content);
     $content = str_replace('{{name}}', $resource, $content);
+    $content = str_replace('{{version}}', $document->version, $content);
 
     $doc = '';
 
@@ -95,8 +100,19 @@ foreach ($resources as $resource) {
 
     $content = str_replace('{{docs}}', $doc, $content);
 
+    if (!is_dir("{$resourcePath}/V{$document->version}")) {
+        mkdir("{$resourcePath}/V{$document->version}", 0775);
+    }
 
-    file_put_contents("{$basePath}/src/Resources/{$document->class}.php", $content);
+
+    file_put_contents("{$resourcePath}/V{$document->version}/{$document->class}.php", $content);
+
+    if (@$document->latest) {
+        $latestContent = $latestTemplate;
+        $latestContent = str_replace('{{class}}', $document->class, $latestContent);
+        $latestContent = str_replace('{{version}}', $document->version, $latestContent);
+        file_put_contents("{$resourcePath}/{$document->class}.php", $latestContent);
+    }
 
     $status = str_pad($i, 2, '0', STR_PAD_LEFT) ."▕ {$resource} ";
 

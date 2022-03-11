@@ -1,8 +1,9 @@
 {
     "resource": "crm",
-    "version": "v3",
     "class": "ImportHubspot",
     "documentation": "https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/imports",
+    "version": 3,
+    "latest": true,
     "actions": {
         "getAll": {
             "path": "imports",

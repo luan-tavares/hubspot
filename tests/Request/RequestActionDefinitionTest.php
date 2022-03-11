@@ -3,7 +3,6 @@
 namespace LTL\Hubspot\Tests\Request;
 
 use LTL\Hubspot\Containers\BuilderContainer;
-use LTL\Hubspot\Containers\RequestContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\HubspotApikey;
 use LTL\Hubspot\Core\Request\RequestActionDefinition;
@@ -54,7 +53,7 @@ class RequestActionDefinitionTest extends TestCase
         ];
     }
 
-    public function testRequestUriIsCorrect()
+    public function testRequestUriIsCorrectWithRelativePath()
     {
         $actionSchema = SchemaContainer::getAction($this->resource, 'get');
         
@@ -63,6 +62,24 @@ class RequestActionDefinitionTest extends TestCase
         $this->assertEquals(
             $this->request->getUri(),
             'https://api.hubapi.com/crm/v3/objects/contacts/idOrEmail?hapikey=123456'
+        );
+    }
+
+    public function testRequestUriIsCorrectWithAbsolutePath()
+    {
+        $fileV2Resource = $this->createMock(\LTL\Hubspot\Resources\V2\FileHubspot::class);
+
+        $fileV2Resource->method('__toString')->willReturn('files-v2');
+
+        $actionSchema = SchemaContainer::getAction($fileV2Resource, 'upload');
+
+        $request = BuilderContainer::get($fileV2Resource)->request();
+        
+        RequestActionDefinition::finish($request, $actionSchema, [['files' => []]]);
+        
+        $this->assertEquals(
+            $request->getUri(),
+            'https://api.hubapi.com/filemanager/api/v3/files/upload?hapikey=123456'
         );
     }
 

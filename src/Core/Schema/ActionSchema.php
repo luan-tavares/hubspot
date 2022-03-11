@@ -56,6 +56,7 @@ class ActionSchema implements ActionSchemaInterface
         $this->iteratorIndex = @$actionSchema->iteratorIndex;
         $this->afterIndex = @$actionSchema->afterIndex;
         $this->resourceClass = $schema->resourceClass;
+        $this->absoluteUrl =
         
         $this->hasBody = (in_array($this->method, HubspotConfig::METHODS_WITH_BODY) && !@$actionSchema->noBody);
        
@@ -125,8 +126,11 @@ class ActionSchema implements ActionSchemaInterface
     private function setUri(object $schema, object $actionSchema): string
     {
         $uri = HubspotConfig::BASE_URL;
-        $uri .= (@$schema->resource)?('/'. $schema->resource):('');
-        $uri .= (@$schema->version)?('/'. $schema->version):('');
+
+        if (!@$actionSchema->absolutePath) {
+            $uri .= (@$schema->resource)?("/{$schema->resource}"):('');
+            $uri .= (@$schema->version)?("/v{$schema->version}"):('');
+        }
 
         return "{$uri}/{$actionSchema->path}";
     }

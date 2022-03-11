@@ -1,62 +1,67 @@
 {
-    "class": "FormV2Hubspot",
+    "resource": "forms",
+    "class": "FormHubspot",
+    "version": 2,
     "actions": {
         "submit": {
+            "absolutePath": true,
             "path": "submissions/v3/integration/submit/{portalId}/{formGuid}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/forms/submit_form",
             "method": "POST",
             "description": "Submit data to a form"
         },
         "getSubmissions": {
+            "absolutePath": true,
             "path": "form-integrations/v1/submissions/forms/{formGuid}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/forms/get-submissions-for-a-form",
             "method": "GET",
             "description": "Get submissions for a form"
         },
         "getFileUploaded": {
+            "absolutePath": true,
             "path": "form-integrations/v1/uploaded-files/signed-url-redirect/{fileId}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/form-integrations/v1/uploaded-files/signed-url-redirect",
             "method": "GET",
             "description": "Get a file uploaded via form"
         },
         "create": {
-            "path": "forms/v2/forms",
+            "path": "forms",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/forms/v2/create_form",
             "method": "POST",
             "description": "Create a new form"
         },
         "update": {
-            "path": "forms/v2/forms/{form_guid}",
+            "path": "forms/{form_guid}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/forms/v2/update_form",
             "method": "PUT",
             "description": "Update an existing form"
         },
         "get": {
-            "path": "forms/v2/forms/{form_guid}",
+            "path": "forms/{form_guid}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/forms/v2/get_form",
             "method": "GET",
             "description": "Get a form by its unique ID"
         },
         "getFields": {
-            "path": "forms/v2/fields/{form_guid}",
+            "path": "fields/{form_guid}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/forms/v2/get_fields",
             "method": "GET",
             "description": "Get all fields from a form"
         },
         "getField": {
-            "path": "forms/v2/fields/{form_guid}/{field_name}",
+            "path": "fields/{form_guid}/{field_name}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/forms/v2/get_field",
             "method": "GET",
             "description": "Get a single field from a form"
         },
         "getAll": {
-            "path": "forms/v2/forms",
+            "path": "forms",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/forms/v2/get_forms",
             "method": "GET",
             "description": "Get all forms from an account"
         },
         "delete": {
-            "path": "forms/v2/forms/{form_guid}",
+            "path": "forms/{form_guid}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/forms/v2/delete_form",
             "method": "DELETE",
             "description": "Delete an existing form"

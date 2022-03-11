@@ -1,0 +1,14 @@
+{
+    "class": "DispositionHubspot",
+    "resource": "calling",
+    "version": 1,
+    "latest": true,
+    "actions": {
+        "getAll": {
+            "path": "dispositions",
+            "documentation": "https://legacydocs.hubspot.com/docs/methods/engagements/get-call-dispositions",
+            "method": "GET",
+            "description": "Get call engagement dispositions."
+        }
+    }
+}

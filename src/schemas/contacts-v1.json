@@ -1,7 +1,7 @@
 {
     "resource": "contacts",
-    "version": "v1",
-    "class": "ContactV1Hubspot",
+    "class": "ContactHubspot",
+    "version": 1,
     "actions": {
         "getAll": {
             "path": "lists/all/contacts/all",

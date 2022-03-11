@@ -1,7 +1,10 @@
 {
-    "class": "FileV2Hubspot",
+    "resource": "filemanager/api",
+    "class": "FileHubspot",
+    "version": 2,
     "actions": {
         "upload": {
+            "absolutePath": true,
             "path": "filemanager/api/v3/files/upload",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/files/v3/upload_new_file",
             "method": "POST",
@@ -11,62 +14,65 @@
             }
         },
         "replace": {
+            "absolutePath": true,
             "path": "filemanager/api/v3/files/{file_id}/replace",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/files/v3/upload_replacement_file",
             "method": "POST"
         },
         "getAll": {
-            "path": "filemanager/api/v2/files",
+            "path": "files",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/files/get_files",
             "method": "GET"
         },
         "get": {
-            "path": "filemanager/api/v2/files/{file_id}",
+            "path": "files/{file_id}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/files/get_files_file_id",
             "method": "GET"
         },
         "changeAccess": {
+            "absolutePath": true,
             "path": "filemanager/api/v3/files/set-access/batch",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/files/update_file_access",
             "method": "POST"
         },
         "delete": {
-            "path": "filemanager/api/v2/files/{file_id}/full-delete",
+            "path": "files/{file_id}/full-delete",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/files/hard_delete_file_and_associated_objects",
             "method": "POST"
         },
         "getPublicUrl": {
+            "absolutePath": true,
             "path": "files/v3/files/{fileId}/signed-url",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/files/get-signed-url-private-file",
             "method": "GET"
         },
         "move": {
-            "path": "filemanager/api/v2/files/{file_id}/move-file",
+            "path": "files/{file_id}/move-file",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/files/post_files_file_id_move_file",
             "method": "POST"
         },
         "getAllFolders": {
-            "path": "filemanager/api/v2/folders",
+            "path": "folders",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/files/get_folders",
             "method": "GET"
         },
         "getFolder": {
-            "path": "filemanager/api/v2/folders/{folder_id}",
+            "path": "folders/{folder_id}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/files/get_folders_folder_id",
             "method": "GET"
         },
         "createFolder": {
-            "path": "filemanager/api/v2/folders",
+            "path": "folders",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/files/post_folders",
             "method": "POST"
         },
         "moveFolder": {
-            "path": "filemanager/api/v2/folders/{folder_id}/move-folder",
+            "path": "folders/{folder_id}/move-folder",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/files/post_folders_folder_id_move_folder",
             "method": "POST"
         },
         "deleteFolder": {
-            "path": "filemanager/api/v2/folders/{folder_id}",
+            "path": "folders/{folder_id}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/files/delete_folders_folder_id",
             "method": "DELETE"
         }

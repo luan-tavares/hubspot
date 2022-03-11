@@ -1,6 +1,6 @@
 <?php
 
-namespace LTL\Hubspot\Resources;
+namespace LTL\Hubspot\Resources\V2;
 
 use LTL\Hubspot\Hubspot;
 
@@ -66,7 +66,9 @@ use LTL\Hubspot\Hubspot;
  * See https://legacydocs.hubspot.com/docs/methods/forms/v2/delete_form
  *
  */
-class FormV2Hubspot extends Hubspot
+class FormHubspot extends Hubspot
 {
     protected string $resource = "forms-v2";
+
+    protected int $version = 2;
 }
