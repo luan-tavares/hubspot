@@ -21,61 +21,61 @@ use LTL\Hubspot\Core\Schema\ActionProperties\ParamsActionProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\ResourceClassActionProperty;
 
 /**
- * @property string $baseUri
+ * @property array|null $params
+ * @property array|null $baseQuery
+ * @property array|null $baseHeader
+ * @property bool $authentication
+ * @property bool $hasBody
  * @property string|null $description
  * @property string|null $iteratorIndex
  * @property string|null $afterIndex
  * @property string|null $documentation
- * @property array|null $params
- * @property bool $hasBody
+ * @property string $resourceClass
+ * @property string $baseUri
  * @property string $method
- * @property array|null $baseQuery
- * @property array|null $baseHeader
- * @property array|null $resourceClass
- * @property array|null $authentication
  */
 class ActionSchema implements ActionSchemaInterface
 {
-    private DescriptionActionProperty $description;
+    private array|null $params;
+    
+    private array|null $baseQuery;
+    
+    private array|null $baseHeader;
+    
+    private bool $authentication;
+    
+    private bool $hasBody;
+        
+    private string|null $description;
 
-    private IteratorIndexActionProperty $iteratorIndex;
+    private string|null $iteratorIndex;
 
-    private AfterIndexActionProperty $afterIndex;
+    private string|null $afterIndex;
 
-    private ResourceClassActionProperty $resourceClass;
+    private string|null $documentation;
+    
+    private string $resourceClass;
 
-    private MethodActionProperty $method;
-
-    private BaseUriActionProperty $baseUri;
-
-    private DocumentationActionProperty $documentation;
-  
-    private ParamsActionProperty $params;
-
-    private BaseQueryActionProperty $baseQuery;
-
-    private BaseHeaderActionProperty $baseHeader;
-
-    private AuthenticationActionProperty $authentication;
-
-    private HasBodyActionProperty $hasBody;
+    private string $baseUri;
+    
+    private string $method;
 
     public function __construct(private string $action, ResourceSchemaInterface $schema)
     {
         $actionPropertyConstructor = new ActionPropertyConstructor($schema->actions[$action], $schema);
   
-        $this->method = $actionPropertyConstructor->build(MethodActionProperty::class);
-        $this->description = $actionPropertyConstructor->build(DescriptionActionProperty::class);
-        $this->iteratorIndex = $actionPropertyConstructor->build(IteratorIndexActionProperty::class);
-        $this->afterIndex = $actionPropertyConstructor->build(AfterIndexActionProperty::class);
-        $this->resourceClass = $actionPropertyConstructor->build(ResourceClassActionProperty::class);
-        $this->hasBody = $actionPropertyConstructor->build(HasBodyActionProperty::class);
-        $this->authentication = $actionPropertyConstructor->build(AuthenticationActionProperty::class);
-        $this->baseQuery = $actionPropertyConstructor->build(BaseQueryActionProperty::class);
-        $this->baseHeader = $actionPropertyConstructor->build(BaseHeaderActionProperty::class);
-        $this->baseUri = $actionPropertyConstructor->build(BaseUriActionProperty::class);
-        $this->documentation = $actionPropertyConstructor->build(DocumentationActionProperty::class);
-        $this->params = $actionPropertyConstructor->build(ParamsActionProperty::class);
+        $this->method = $actionPropertyConstructor->build(MethodActionProperty::class)->get();
+        $this->description = $actionPropertyConstructor->build(DescriptionActionProperty::class)->get();
+        $this->iteratorIndex = $actionPropertyConstructor->build(IteratorIndexActionProperty::class)->get();
+        $this->afterIndex = $actionPropertyConstructor->build(AfterIndexActionProperty::class)->get();
+        $this->resourceClass = $actionPropertyConstructor->build(ResourceClassActionProperty::class)->get();
+        $this->hasBody = $actionPropertyConstructor->build(HasBodyActionProperty::class)->get();
+        $this->authentication = $actionPropertyConstructor->build(AuthenticationActionProperty::class)->get();
+        $this->baseQuery = $actionPropertyConstructor->build(BaseQueryActionProperty::class)->get();
+        $this->baseHeader = $actionPropertyConstructor->build(BaseHeaderActionProperty::class)->get();
+        $this->baseUri = $actionPropertyConstructor->build(BaseUriActionProperty::class)->get();
+        $this->documentation = $actionPropertyConstructor->build(DocumentationActionProperty::class)->get();
+        $this->params = $actionPropertyConstructor->build(ParamsActionProperty::class)->get();
     }
 
     public function __get($property)
@@ -84,13 +84,7 @@ class ActionSchema implements ActionSchemaInterface
             throw new Exception("Property {$property} not exists in ". __CLASS__);
         }
 
-        $value = $this->{$property};
-
-        if ($value instanceof ActionProperty) {
-            return $value->get();
-        }
-
-        return $value;
+        return $this->{$property};
     }
 
     public function __isset($property)
