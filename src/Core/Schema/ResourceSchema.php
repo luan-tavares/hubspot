@@ -12,60 +12,51 @@ use LTL\Hubspot\Core\Interfaces\Schemas\ResourceSchemaInterface;
 
 /**
  *
- * @property array|null $authentication
+ * @property bool $authentication
  * @property array $actions
- * @property array $resourceClass
- * @property  array $actionSchemas
  * @property string $resourceClass
- * @property string|null $resource
- * @property string|null $version
+ * @property string $resource
+ * @property int $version
  * @property bool $latest
  * @property string|null $documentation
- * @property object $schema
  */
-class ResourceSchema implements Countable, Iterator, ResourceSchemaInterface
+class ResourceSchema implements ResourceSchemaInterface
 {
-    private array $actions;
+    private array $data = [
+        'actions' => [],
+        'resourceClass' => '',
+        'resource' => '',
+        'documentation' => null,
+        'version' => 0,
+        'latest' => false,
+        'authentication' => true,
+    ];
 
     private array $actionSchemas = [];
     
-    private string $resourceClass;
-  
-    private string|null $resource;
-
-    private int|null $version;
-
-    private bool $latest = false;
-
-    private string|null $documentation;
-
-    private object $schema;
-
-    private bool $authentication = true;
-
     public function __construct(ResourceInterface $resource)
     {
         $schema = json_decode(file_get_contents(HubspotConfig::BASE_PATH .'/src/schemas/'. (string) $resource .'.json'));
 
-        $this->actions = (array) $schema->actions;
-        $this->resourceClass = $resource::class;
-        $this->resource = @$schema->resource;
-        $this->version = @$schema->version;
-        $this->documentation = @$schema->documentation;
+        $this->data['actions'] = (array) $schema->actions;
+        $this->data['resourceClass'] = $resource::class;
+        $this->data['resource'] = @$schema->resource;
+        $this->data['version'] = @$schema->version;
+        $this->data['documentation'] = @$schema->documentation;
 
         if (isset($schema->latest)) {
-            $this->latest = $schema->latest;
+            $this->data['latest'] = $schema->latest;
         }
-       
+    
         if (isset($schema->authentication)) {
-            $this->authentication = $schema->authentication;
+            $this->data['authentication'] = $schema->authentication;
         }
     }
 
     public function __get($property)
     {
-        if (array_key_exists($property, get_object_vars($this))) {
-            return $this->{$property};
+        if (array_key_exists($property, $this->data)) {
+            return $this->data[$property];
         }
 
         throw new Exception("Property {$property} not exists in ". __CLASS__);
@@ -92,39 +83,5 @@ class ResourceSchema implements Countable, Iterator, ResourceSchemaInterface
         }
 
         return $this->actionSchemas[$action];
-    }
-
-    /***Countable */
-
-    public function count(): int
-    {
-        return count($this->actions);
-    }
-
-    /**Iterator */
-
-    public function rewind(): void
-    {
-        reset($this->actions);
-    }
-    
-    public function current(): mixed
-    {
-        return current($this->actions);
-    }
-    
-    public function key(): mixed
-    {
-        return key($this->actions);
-    }
-    
-    public function next(): void
-    {
-        next($this->actions);
-    }
-    
-    public function valid(): bool
-    {
-        return key($this->actions) !== null;
     }
 }

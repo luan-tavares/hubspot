@@ -10,28 +10,11 @@ use PHPUnit\Framework\TestCase;
 
 class ResourceSchemaTest extends TestCase
 {
-    public function testIfCountableSchemaIsCorrect()
-    {
-        $object = SchemaContainer::get(new HubDbHubspot);
-
-        $this->assertEquals(count($object), 32);
-    }
-
-    public function testIfIteratorSchemaIsCorrect()
-    {
-        $object = SchemaContainer::get(new OwnerHubspot);
-
-        $result = [];
-        foreach ($object as $action => $definition) {
-            $result[] = $action;
-        }
-
-        $this->assertEquals($result, ['getAll', 'get']);
-    }
-
     public function testIfDocumentationIsCorrect()
     {
         $object = SchemaContainer::get(new ContactHubspot);
+
+
 
         $this->assertEquals($object->documentation, 'https://developers.hubspot.com/docs/api/crm/contacts');
     }

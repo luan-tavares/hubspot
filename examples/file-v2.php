@@ -2,7 +2,7 @@
 
 require_once __DIR__ .'/__init.php';
 
-use LTL\Hubspot\Resources\FileV2Hubspot;
+use LTL\Hubspot\Resources\V2\FileHubspot;
 
 $upload_file = new CURLFile(__DIR__ .'/teste.xlsx', 'application/octet-stream');
 
@@ -20,7 +20,7 @@ $post_data = [
     'folderPath' => '/__luan'
 ];
 
-$files = FileV2Hubspot::withProgressBar()->upload($post_data);
+$files = FileHubspot::withProgressBar()->upload($post_data);
 
 foreach ($files as $file) {
     dump($file);
