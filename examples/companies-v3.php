@@ -5,8 +5,10 @@
 require_once __DIR__ .'/__init.php';
 
 use LTL\Hubspot\Resources\CompanyHubspot;
+use LTL\Hubspot\Resources\V3 as V3;
 
 $after = $i = $memory = 0;
+dd(V3\CompanyHubspot::withResponseHeaders()->getAll());
 while (true) {
     $companies = CompanyHubspot::after($after)->limit(100)->getAll();
     

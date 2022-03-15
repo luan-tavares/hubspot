@@ -17,23 +17,25 @@ abstract class ResponseRepositoryFactory implements FactoryInterface
             return new ReflectionClass($class);
         });
 
-        $ResponseRepository = $reflectionClass->newInstanceWithoutConstructor();
+        $responseRepository = $reflectionClass->newInstanceWithoutConstructor();
 
-        $object = json_decode($response->toJson());
+        $rawResponse = $response->toJson() ?? '';
+
+        $object = json_decode($rawResponse);
 
         $reflectionProperty = $reflectionClass->getProperty('object');
-        $reflectionProperty->setValue($ResponseRepository, $object);
+        $reflectionProperty->setValue($responseRepository, $object);
 
         $reflectionProperty = $reflectionClass->getProperty('array');
-        $reflectionProperty->setValue($ResponseRepository, json_decode($response->toJson(), true) ?? []);
+        $reflectionProperty->setValue($responseRepository, json_decode($rawResponse, true) ?? []);
 
         $reflectionProperty = $reflectionClass->getProperty('iterator');
-        $reflectionProperty->setValue($ResponseRepository, self::setIterator($response, $object));
+        $reflectionProperty->setValue($responseRepository, self::setIterator($response, $object));
 
         $reflectionProperty = $reflectionClass->getProperty('after');
-        $reflectionProperty->setValue($ResponseRepository, self::setAfter($response, $object));
+        $reflectionProperty->setValue($responseRepository, self::setAfter($response, $object));
 
-        return $ResponseRepository;
+        return $responseRepository;
     }
 
     private static function setIterator(ResponseInterface $response, object|array|null $object): array|null

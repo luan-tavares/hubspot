@@ -5,7 +5,6 @@ namespace LTL\Hubspot\Core\Schema;
 use Exception;
 use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
 use LTL\Hubspot\Core\Interfaces\Schemas\ResourceSchemaInterface;
-use LTL\Hubspot\Core\Schema\ActionProperties\ActionProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\ActionPropertyConstructor;
 use LTL\Hubspot\Core\Schema\ActionProperties\AfterIndexActionProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\AuthenticationActionProperty;
@@ -36,46 +35,53 @@ use LTL\Hubspot\Core\Schema\ActionProperties\ResourceClassActionProperty;
  */
 class ActionSchema implements ActionSchemaInterface
 {
+    #[ParamsActionProperty]
     private array|null $params;
     
+    #[BaseQueryActionProperty]
     private array|null $baseQuery;
     
+    #[BaseHeaderActionProperty]
     private array|null $baseHeader;
     
+    #[AuthenticationActionProperty]
     private bool $authentication;
     
+    #[HasBodyActionProperty]
     private bool $hasBody;
-        
+     
+    #[DescriptionActionProperty]
     private string|null $description;
 
+    #[IteratorIndexActionProperty]
     private string|null $iteratorIndex;
 
+    #[AfterIndexActionProperty]
     private string|null $afterIndex;
 
+    #[DocumentationActionProperty]
     private string|null $documentation;
     
+    #[ResourceClassActionProperty]
     private string $resourceClass;
 
+    #[BaseUriActionProperty]
     private string $baseUri;
     
+    #[MethodActionProperty]
     private string $method;
 
-    public function __construct(private string $action, ResourceSchemaInterface $schema)
+    protected string $action;
+
+    /**
+     * \LTL\Hubspot\Factories\ActionSchemaFactory
+     */
+    private function __construct()
     {
-        $actionPropertyConstructor = new ActionPropertyConstructor($schema->actions[$action], $schema);
-  
-        $this->method = $actionPropertyConstructor->build(MethodActionProperty::class)->get();
-        $this->description = $actionPropertyConstructor->build(DescriptionActionProperty::class)->get();
-        $this->iteratorIndex = $actionPropertyConstructor->build(IteratorIndexActionProperty::class)->get();
-        $this->afterIndex = $actionPropertyConstructor->build(AfterIndexActionProperty::class)->get();
-        $this->resourceClass = $actionPropertyConstructor->build(ResourceClassActionProperty::class)->get();
-        $this->hasBody = $actionPropertyConstructor->build(HasBodyActionProperty::class)->get();
-        $this->authentication = $actionPropertyConstructor->build(AuthenticationActionProperty::class)->get();
-        $this->baseQuery = $actionPropertyConstructor->build(BaseQueryActionProperty::class)->get();
-        $this->baseHeader = $actionPropertyConstructor->build(BaseHeaderActionProperty::class)->get();
-        $this->baseUri = $actionPropertyConstructor->build(BaseUriActionProperty::class)->get();
-        $this->documentation = $actionPropertyConstructor->build(DocumentationActionProperty::class)->get();
-        $this->params = $actionPropertyConstructor->build(ParamsActionProperty::class)->get();
+    }
+
+    private function __clone()
+    {
     }
 
     public function __get($property)

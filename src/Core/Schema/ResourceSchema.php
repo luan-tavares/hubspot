@@ -2,13 +2,12 @@
 
 namespace LTL\Hubspot\Core\Schema;
 
-use Countable;
 use Exception;
-use Iterator;
 use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
 use LTL\Hubspot\Core\Interfaces\Schemas\ResourceSchemaInterface;
+use LTL\Hubspot\Factories\ActionSchemaFactory;
 
 /**
  *
@@ -79,7 +78,7 @@ class ResourceSchema implements ResourceSchemaInterface
     public function getActionDefinition(string $action): ActionSchemaInterface
     {
         if (!array_key_exists($action, $this->actionSchemas)) {
-            $this->actionSchemas[$action] = new ActionSchema($action, $this);
+            $this->actionSchemas[$action] = ActionSchemaFactory::build($action, $this);
         }
 
         return $this->actionSchemas[$action];

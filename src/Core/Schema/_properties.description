@@ -1,7 +1,0 @@
-$authentication (boolean): If Action needs api or oAuth
-$actions (array): Action Json parameters
-$resourceClass (string): Class of resource
-$resource (string): name of resource
-$version (integer): versions of resource
-$latest (boolean): if resource is the last version (nothing is no)
-$documentation (string|null): link of documentation
