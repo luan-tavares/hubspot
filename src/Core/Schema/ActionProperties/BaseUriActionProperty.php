@@ -3,17 +3,16 @@
 namespace LTL\Hubspot\Core\Schema\ActionProperties;
 
 use LTL\Hubspot\Core\HubspotConfig;
-use LTL\Hubspot\Core\Interfaces\Schemas\ResourceSchemaInterface;
 use LTL\Hubspot\Core\Schema\ActionProperties\ActionProperty;
 
 class BaseUriActionProperty extends ActionProperty
 {
-    protected function parse(object $actionSchema, ResourceSchemaInterface|null $schema = null): string
+    protected function parse(object $actionSchema): string
     {
-        $uri = HubspotConfig::BASE_URL;
+        $uri = HubspotConfig::BASE_URL ?? 'https://api.hubspot.com';
 
-        if (!@$actionSchema->absolutePath) {
-            $uri .= "/{$schema->resource}/v{$schema->version}";
+        if (!isset($actionSchema->absolutePath)) {
+            $uri .= "/{$actionSchema->resource}/v{$actionSchema->version}";
         }
 
         return "{$uri}/{$actionSchema->path}";

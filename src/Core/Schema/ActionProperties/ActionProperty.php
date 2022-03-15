@@ -2,18 +2,16 @@
 
 namespace LTL\Hubspot\Core\Schema\ActionProperties;
 
-use LTL\Hubspot\Core\Interfaces\Schemas\ResourceSchemaInterface;
-
 abstract class ActionProperty
 {
     protected mixed $value = null;
 
-    public function __construct(object $actionSchema, ResourceSchemaInterface|null $schema = null)
+    public function __construct(object $actionSchema)
     {
-        $this->value = $this->parse($actionSchema, $schema);
+        $this->value = $this->parse($actionSchema);
     }
 
-    protected function parse(object $actionSchema, ResourceSchemaInterface|null $schema): mixed
+    protected function parse(object $actionSchema): mixed
     {
         /**Parse */
     }

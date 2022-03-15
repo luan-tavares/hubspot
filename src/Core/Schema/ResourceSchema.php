@@ -2,72 +2,56 @@
 
 namespace LTL\Hubspot\Core\Schema;
 
-use Exception;
 use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
 use LTL\Hubspot\Core\Interfaces\Schemas\ResourceSchemaInterface;
+use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\ActionSchemaFactory;
+use RuntimeException;
 
-/**
- *
- * @property bool $authentication
- * @property array $actions
- * @property string $resourceClass
- * @property string $resource
- * @property int $version
- * @property bool $latest
- * @property string|null $documentation
- */
 class ResourceSchema implements ResourceSchemaInterface
 {
-    private array $data = [
-        'actions' => [],
-        'resourceClass' => '',
-        'resource' => '',
-        'documentation' => null,
-        'version' => 0,
-        'latest' => false,
-        'authentication' => true,
-    ];
-
     private array $actionSchemas = [];
+
+    private array $actions = [];
     
     public function __construct(ResourceInterface $resource)
     {
-        $schema = json_decode(file_get_contents(HubspotConfig::BASE_PATH .'/src/schemas/'. (string) $resource .'.json'));
+        $schemaPath = HubspotConfig::BASE_PATH ."/src/schemas/{$resource}.json";
 
-        $this->data['actions'] = (array) $schema->actions;
-        $this->data['resourceClass'] = $resource::class;
-        $this->data['resource'] = @$schema->resource;
-        $this->data['version'] = @$schema->version;
-        $this->data['documentation'] = @$schema->documentation;
+        $schema = json_decode(file_get_contents($schemaPath));
 
-        if (isset($schema->latest)) {
-            $this->data['latest'] = $schema->latest;
+        $this->actions = (array) $schema->actions;
+        $this->resourceClass = $resource::class;
+
+        foreach ($this->actions as $action => $actionDefinition) {
+            $this->actions[$action]->action = $action;
+            $this->actions[$action]->resourceClass = $this->resourceClass;
+            $this->actions[$action]->resource = $schema->resource;
+            $this->actions[$action]->version = $schema->version;
+            $this->actions[$action]->isLatestVersion = $schema->latest ?? false;
+            $this->actions[$action]->schemaHasAuthentication = $schema->authentication ?? true;
+            $this->actions[$action]->schemaDocumentation = $schema->documentation ?? '';
         }
-    
-        if (isset($schema->authentication)) {
-            $this->data['authentication'] = $schema->authentication;
-        }
-    }
-
-    public function __get($property)
-    {
-        if (array_key_exists($property, $this->data)) {
-            return $this->data[$property];
-        }
-
-        throw new Exception("Property {$property} not exists in ". __CLASS__);
     }
 
     public function __toString()
     {
         $actions = array_map(function ($action) {
-            return "- {$this->resourceClass}::{$action}()\n";
+            return '- '. $this->resourceClass ."::{$action}()\n";
         }, $this->getActions());
 
         return implode('', $actions) ."\n";
+    }
+
+    public function getAction(string $action): object
+    {
+        try {
+            return $this->actions[$action];
+        } catch (RuntimeException $error) {
+            throw new HubspotApiException($this->resourceClass ."::{$action}() not exists");
+        }
     }
 
     public function getActions(): array
@@ -78,7 +62,7 @@ class ResourceSchema implements ResourceSchemaInterface
     public function getActionDefinition(string $action): ActionSchemaInterface
     {
         if (!array_key_exists($action, $this->actionSchemas)) {
-            $this->actionSchemas[$action] = ActionSchemaFactory::build($action, $this);
+            $this->actionSchemas[$action] = ActionSchemaFactory::build($this, $action);
         }
 
         return $this->actionSchemas[$action];

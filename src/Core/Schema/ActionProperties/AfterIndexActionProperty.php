@@ -7,8 +7,8 @@ use LTL\Hubspot\Core\Schema\ActionProperties\ActionProperty;
 
 class AfterIndexActionProperty extends ActionProperty
 {
-    protected function parse(object $actionSchema, ResourceSchemaInterface|null $schema = null): string|null
+    protected function parse(object $actionSchema): string|null
     {
-        return @$actionSchema->afterIndex;
+        return $actionSchema->afterIndex ?? null;
     }
 }

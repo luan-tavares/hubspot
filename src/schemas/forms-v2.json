@@ -8,7 +8,8 @@
             "path": "submissions/v3/integration/submit/{portalId}/{formGuid}",
             "documentation": "https://legacydocs.hubspot.com/docs/methods/forms/submit_form",
             "method": "POST",
-            "description": "Submit data to a form"
+            "description": "Submit data to a form",
+            "authentication": false
         },
         "getSubmissions": {
             "absolutePath": true,

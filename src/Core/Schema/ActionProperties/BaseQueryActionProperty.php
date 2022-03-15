@@ -7,7 +7,7 @@ use LTL\Hubspot\Core\Schema\ActionProperties\ActionProperty;
 
 class BaseQueryActionProperty extends ActionProperty
 {
-    protected function parse(object $actionSchema, ResourceSchemaInterface|null $schema = null): mixed
+    protected function parse(object $actionSchema): mixed
     {
         if (!isset($actionSchema->queries)) {
             return null;

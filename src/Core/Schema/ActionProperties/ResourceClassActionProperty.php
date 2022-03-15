@@ -2,13 +2,12 @@
 
 namespace LTL\Hubspot\Core\Schema\ActionProperties;
 
-use LTL\Hubspot\Core\Interfaces\Schemas\ResourceSchemaInterface;
 use LTL\Hubspot\Core\Schema\ActionProperties\ActionProperty;
 
 class ResourceClassActionProperty extends ActionProperty
 {
-    protected function parse(object $actionSchema, ResourceSchemaInterface|null $schema = null): string
+    protected function parse(object $actionSchema): string
     {
-        return $schema->resourceClass;
+        return $actionSchema->resourceClass;
     }
 }

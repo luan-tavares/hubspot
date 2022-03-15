@@ -4,10 +4,10 @@ namespace LTL\Hubspot\Core\Schema\ActionProperties;
 
 use LTL\Hubspot\Core\Schema\ActionProperties\ActionProperty;
 
-class MethodActionProperty extends ActionProperty
+class ActionMethodActionProperty extends ActionProperty
 {
     protected function parse(object $actionSchema): string
     {
-        return $actionSchema->method;
+        return $actionSchema->action;
     }
 }

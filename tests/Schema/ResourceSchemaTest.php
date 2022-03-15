@@ -4,21 +4,11 @@ namespace LTL\Hubspot\Tests\Schema;
 
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Resources\ContactHubspot;
-use LTL\Hubspot\Resources\HubDbHubspot;
 use LTL\Hubspot\Resources\OwnerHubspot;
 use PHPUnit\Framework\TestCase;
 
 class ResourceSchemaTest extends TestCase
 {
-    public function testIfDocumentationIsCorrect()
-    {
-        $object = SchemaContainer::get(new ContactHubspot);
-
-
-
-        $this->assertEquals($object->documentation, 'https://developers.hubspot.com/docs/api/crm/contacts');
-    }
-
     public function testIfToStringMagicMethodIsCorrect()
     {
         $object = SchemaContainer::get(new OwnerHubspot);

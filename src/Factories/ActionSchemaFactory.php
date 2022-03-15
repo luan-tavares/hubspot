@@ -5,6 +5,7 @@ namespace LTL\Hubspot\Factories;
 use LTL\Hubspot\Containers\SingletonContainer;
 use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
 use LTL\Hubspot\Core\Interfaces\Schemas\ResourceSchemaInterface;
+use LTL\Hubspot\Core\Schema\ActionProperties\ActionProperty;
 use LTL\Hubspot\Core\Schema\ActionSchema;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use ReflectionClass;
@@ -13,13 +14,9 @@ use RuntimeException;
 
 abstract class ActionSchemaFactory
 {
-    public static function build(string $action, ResourceSchemaInterface $schema): ActionSchemaInterface
+    public static function build(ResourceSchemaInterface $resourceSchema, string $action): ActionSchemaInterface
     {
-        try {
-            $actionSchema = $schema->actions[$action];
-        } catch (RuntimeException $error) {
-            throw new HubspotApiException("{$schema->resourceClass}::{$action}() not exists");
-        }
+        $actionObject = $resourceSchema->getAction($action);
 
         $reflectionClass = SingletonContainer::get(ActionSchema::class, function ($class) {
             return new ReflectionClass($class);
@@ -27,25 +24,19 @@ abstract class ActionSchemaFactory
 
         $object = $reflectionClass->newInstanceWithoutConstructor();
 
-        $reflectionClass->getProperty('action')->setValue($object, $action);
-
         $reflectionPropertyList = $reflectionClass->getProperties(ReflectionProperty::IS_PRIVATE);
 
         foreach ($reflectionPropertyList as $reflectionProperty) {
-            $value = self::castProperty($actionSchema, $schema, $reflectionProperty);
-           
-            $reflectionProperty->setValue($object, $value);
+            $reflectionProperty->setValue($object, self::castProperty($actionObject, $reflectionProperty)->get());
         }
 
         return $object;
     }
 
-    private static function castProperty(object $actionSchema, ResourceSchemaInterface $schema, ReflectionProperty $reflectionProperty): mixed
+    private static function castProperty(object $actionObject, ReflectionProperty $reflectionProperty): ActionProperty
     {
-        $reflectionAttributeList = $reflectionProperty->getAttributes();
+        $cast = $reflectionProperty->getAttributes()[0]->getName();
 
-        $class = $reflectionAttributeList[0]->getName();
-
-        return (new $class($actionSchema, $schema))->get();
+        return (new $cast($actionObject));
     }
 }
