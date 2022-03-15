@@ -2,34 +2,25 @@
 
 namespace LTL\Hubspot\Tests\Schema;
 
+use Error;
 use LTL\Hubspot\Containers\SchemaContainer;
-use LTL\Hubspot\Resources\ContactHubspot;
-use LTL\Hubspot\Resources\OwnerHubspot;
+use LTL\Hubspot\Core\Schema\ActionSchema;
+use LTL\Hubspot\Resources\V3\ContactHubspot;
 use PHPUnit\Framework\TestCase;
 
 class ResourceSchemaTest extends TestCase
 {
-    public function testIfToStringMagicMethodIsCorrect()
+    public function testIfActionSchemaCanNotBeIntanciable()
     {
-        $object = SchemaContainer::get(new OwnerHubspot);
+        $this->expectException(Error::class);
 
-        $this->assertEquals(
-            (string) $object,
-            '- '. OwnerHubspot::class ."::getAll()\n- ". OwnerHubspot::class ."::get()\n\n"
-        );
+        $object = new ActionSchema;
     }
 
-    public function testIfGetActionDefinitionIsCorrect()
+    public function testIfMAgicMEthodGetIsCorrect()
     {
-        $object = SchemaContainer::get(new ContactHubspot);
+        $object = SchemaContainer::getAction(new ContactHubspot, 'getAll');
 
-        $this->assertEquals($object->getActionDefinition('getAll')->resourceClass, ContactHubspot::class);
-    }
-
-    public function testIfGetActionsIsCorrect()
-    {
-        $object = SchemaContainer::get(new ContactHubspot);
-
-        $this->assertEquals($object->getActions(), []);
+        $this->assertEquals($object->resourceClass, ContactHubspot::class);
     }
 }

@@ -4,9 +4,7 @@ namespace LTL\Hubspot\Core\Schema;
 
 use Exception;
 use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
-use LTL\Hubspot\Core\Interfaces\Schemas\ResourceSchemaInterface;
 use LTL\Hubspot\Core\Schema\ActionProperties\ActionMethodActionProperty;
-use LTL\Hubspot\Core\Schema\ActionProperties\ActionPropertyConstructor;
 use LTL\Hubspot\Core\Schema\ActionProperties\AfterIndexActionProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\AuthenticationActionProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\BaseHeaderActionProperty;

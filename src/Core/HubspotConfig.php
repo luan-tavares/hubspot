@@ -6,6 +6,8 @@ abstract class HubspotConfig
 {
     public const BASE_PATH = __DIR__ .'/../..';
 
+    public const SCHEMA_PATH = __DIR__ .'/../../src/schemas';
+
     public const BASE_URL = 'https://api.hubapi.com';
 
     public const DEFAULT_CONTENT_TYPE = 'application/json';
