@@ -25,4 +25,11 @@ class ResourceSchemaTest extends TestCase
 
         $this->assertEquals($object->getActionDefinition('getAll')->resourceClass, ContactHubspot::class);
     }
+
+    public function testIfGetActionsIsCorrect()
+    {
+        $object = SchemaContainer::get(new ContactHubspot);
+
+        $this->assertEquals($object->getActions(), []);
+    }
 }
