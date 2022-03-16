@@ -82,13 +82,11 @@ class ResponseIterableTest extends TestCase
     }
 
 
-    public function testIfGetMagicThrowException()
+    public function testIfGetMagicUnknowPropertyIsNull()
     {
         $response = new Response($this->curl, $this->actionSchema);
 
-        $this->expectException(HubspotApiException::class);
-
-        $var = $response->unknowProperty;
+        $this->assertNull($response->unknowProperty);
     }
 
     public function testIftoArrayMethodIsCorrect()

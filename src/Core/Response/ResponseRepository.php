@@ -28,6 +28,10 @@ class ResponseRepository implements ResponseRepositoryInterface
 
     public function __isset($property): bool
     {
+        if (!is_object($this->object)) {
+            return false;
+        }
+
         return property_exists($this->object, $property);
     }
 
@@ -37,15 +41,11 @@ class ResponseRepository implements ResponseRepositoryInterface
             return $this->after;
         }
 
-        if (property_exists($this->object, $property)) {
+        if (isset($this->{$property})) {
             return $this->object->{$property};
         }
 
-        $response = mb_strimwidth(json_encode($this), 0, 300, ' ...');
-
-        throw new HubspotApiException(
-            "Property \"{$property}\" not exists in response object first level:\n\n{$response}\n\n"
-        );
+        return null;
     }
 
     private function verifyIterable(): void
