@@ -7,10 +7,8 @@ use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
 use LTL\Hubspot\Core\Interfaces\Schemas\ResourceSchemaInterface;
 use LTL\Hubspot\Core\Schema\ActionProperties\ActionProperty;
 use LTL\Hubspot\Core\Schema\ActionSchema;
-use LTL\Hubspot\Exceptions\HubspotApiException;
 use ReflectionClass;
 use ReflectionProperty;
-use RuntimeException;
 
 abstract class ActionSchemaFactory
 {

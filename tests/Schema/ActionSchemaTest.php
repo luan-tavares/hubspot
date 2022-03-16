@@ -4,6 +4,7 @@ namespace LTL\Hubspot\Tests\Schema;
 
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Exceptions\HubspotApiException;
+use LTL\Hubspot\Factories\ActionSchemaFactory;
 use LTL\Hubspot\Resources\ContactHubspot;
 use LTL\Hubspot\Resources\OwnerHubspot;
 use PHPUnit\Framework\TestCase;
@@ -64,5 +65,14 @@ class ActionSchemaTest extends TestCase
         $this->expectException(HubspotApiException::class);
 
         $object->getAction('unknowAction');
+    }
+
+    public function testIfActionFactoryIsCorrect()
+    {
+        $resourceSchema = SchemaContainer::get(new ContactHubspot);
+
+        $actionSchema = ActionSchemaFactory::build($resourceSchema, 'get');
+
+        $this->assertEquals($actionSchema->resourceClass, ContactHubspot::class);
     }
 }

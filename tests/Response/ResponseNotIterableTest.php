@@ -38,7 +38,7 @@ class ResponseNotIterableTest extends TestCase
         $this->curl->method('getHeaders')->willReturn(['Content-Type' => 'application/json;charset=utf-8']);
 
         $contactResource = $this->createMock(ContactHubspot::class);
-        $contactResource->method('__toString')->willReturn('contact-v3');
+        $contactResource->method('__toString')->willReturn('contacts-v3');
         $this->actionSchema = SchemaContainer::getAction($contactResource, 'get');
     }
 
