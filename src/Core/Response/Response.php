@@ -87,6 +87,11 @@ class Response implements ResponseInterface, IteratorAggregate, Countable
         return ($this->status < 200 || $this->status > 299);
     }
 
+    public function isMultiStatus(): bool
+    {
+        return $this->status === 207;
+    }
+
     public function getIterator(): ResponseRepository
     {
         return ResponseRepositoryContainer::get($this);

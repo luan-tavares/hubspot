@@ -5,6 +5,9 @@ require_once __DIR__ .'/__init.php';
 
 use LTL\Hubspot\Resources\ContactHubspot;
 
+$contacts = ContactHubspot::get(55);
+dd($contacts->toJson());
+
 $after = $i = $memory = 0;
 while (true) {
     $resources = ContactHubspot::limit(100)->after($after)->getAll();
