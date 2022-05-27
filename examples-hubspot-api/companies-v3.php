@@ -9,19 +9,7 @@ use LTL\Hubspot\Resources\V3\CompanyHubspot;
 
 $after = $i = $memory = 0;
 
-// try {
-//     CompanyHubspot::after(10)->toArray();
-// } catch (HubspotApiException $exception) {
-//     dump($exception->getMessage());
-// }
 
-// try {
-//     (new CompanyHubspot)->toArray();
-// } catch (HubspotApiException $exception) {
-//     dump($exception->getMessage());
-// }
-
-// dd('');
 while (true) {
     $companies = CompanyHubspot::after($after)->limit(100)->getAll();
     
