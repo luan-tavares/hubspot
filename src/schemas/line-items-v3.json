@@ -81,6 +81,11 @@
             "description": "Search line items.",
             "iteratorIndex": "results",
             "afterIndex": "paging.next.after"
+        },
+        "merge": {
+            "path": "objects/line_items/merge",
+            "method": "POST",
+            "description": "Merge two line items with same type."
         }
     }
 }

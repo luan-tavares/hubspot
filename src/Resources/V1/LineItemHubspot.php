@@ -3,6 +3,7 @@
 namespace LTL\Hubspot\Resources\V1;
 
 use LTL\Hubspot\Hubspot;
+use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
 
 /**
  * @method static $this getAll() 
@@ -17,16 +18,16 @@ use LTL\Hubspot\Hubspot;
  * @method $this get(int|string $id) 
  * See https://legacydocs.hubspot.com/docs/methods/line-items/get_line_item_by_id
  *
- * @method static $this create(array $requestBody) 
+ * @method static $this create(BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/line-items/create-line-item
  *
- * @method $this create(array $requestBody) 
+ * @method $this create(BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/line-items/create-line-item
  *
- * @method static $this update(int|string $id, array $requestBody) 
+ * @method static $this update(int|string $id, BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/line-items/update-line-item
  *
- * @method $this update(int|string $id, array $requestBody) 
+ * @method $this update(int|string $id, BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/line-items/update-line-item
  *
  * @method static $this delete(int|string $id) 
@@ -35,28 +36,28 @@ use LTL\Hubspot\Hubspot;
  * @method $this delete(int|string $id) 
  * See https://legacydocs.hubspot.com/docs/methods/line-items/delete-line-item
  *
- * @method static $this getGroup(array $requestBody) 
+ * @method static $this getGroup(BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/line-items/batch-get-line-items
  *
- * @method $this getGroup(array $requestBody) 
+ * @method $this getGroup(BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/line-items/batch-get-line-items
  *
- * @method static $this batchCreate(array $requestBody) 
+ * @method static $this batchCreate(BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/line-items/batch-create-line-items
  *
- * @method $this batchCreate(array $requestBody) 
+ * @method $this batchCreate(BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/line-items/batch-create-line-items
  *
- * @method static $this batchUpdate(array $requestBody) 
+ * @method static $this batchUpdate(BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/line-items/batch-update-line-items
  *
- * @method $this batchUpdate(array $requestBody) 
+ * @method $this batchUpdate(BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/line-items/batch-update-line-items
  *
- * @method static $this batchDelete(array $requestBody) 
+ * @method static $this batchDelete(BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/line-items/batch-delete-line-items
  *
- * @method $this batchDelete(array $requestBody) 
+ * @method $this batchDelete(BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/line-items/batch-delete-line-items
  *
  */

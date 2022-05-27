@@ -1,0 +1,90 @@
+{
+    "class": "ContactListHubspot",
+    "resource": "contacts",
+    "version": 1,
+    "latest": true,
+    "actions": {
+        "getAll": {
+            "path": "lists",
+            "documentation": "https://legacydocs.hubspot.com/docs/methods/lists/get_lists",
+            "method": "GET",
+            "description": "Get all contact lists.",
+            "iteratorIndex": "lists",
+            "afterIndex": "offset"
+        },
+        "create": {
+            "path": "lists",
+            "documentation": "https://legacydocs.hubspot.com/docs/methods/lists/create_list",
+            "method": "POST",
+            "description": "Create a new contact list."
+        },
+        "update": {
+            "path": "lists/{listId}",
+            "documentation": "https://legacydocs.hubspot.com/docs/methods/lists/update_list",
+            "method": "POST",
+            "description": "Update a contact list."
+        },
+        "get": {
+            "path": "lists/{listId}",
+            "documentation": "https://legacydocs.hubspot.com/docs/methods/lists/get_list",
+            "method": "GET",
+            "description": "Get a contact list by its unique ID."
+        },
+        "delete": {
+            "path": "lists/{listId}",
+            "documentation": "https://legacydocs.hubspot.com/docs/methods/lists/delete_list",
+            "method": "DELETE",
+            "description": "Delete a contact list."
+        },
+        "batchRead": {
+            "path": "lists/batch",
+            "documentation": "https://legacydocs.hubspot.com/docs/methods/lists/get_batch_lists",
+            "method": "GET",
+            "description": "Get a group of contact lists."
+        },
+        "getAllStatic": {
+            "path": "lists/static",
+            "documentation": "https://legacydocs.hubspot.com/docs/methods/lists/get_static_lists",
+            "method": "GET",
+            "description": "Get static contact lists.",
+            "iteratorIndex": "lists",
+            "afterIndex": "offset"
+        },
+        "getAllDynamic": {
+            "path": "lists/dynamic",
+            "documentation": "https://legacydocs.hubspot.com/docs/methods/lists/get_dynamic_lists",
+            "method": "GET",
+            "description": "Get dynamic contact lists (active lists).",
+            "iteratorIndex": "lists",
+            "afterIndex": "offset"
+        },
+        "getContacts": {
+            "path": "lists/{listId}/contacts/all",
+            "documentation": "https://legacydocs.hubspot.com/docs/methods/lists/get_list_contacts",
+            "method": "GET",
+            "description": "Get contacts in a list.",
+            "iteratorIndex": "contacts",
+            "afterIndex": "vid-offset"
+        },
+        "getRecentlyContacts": {
+            "path": "lists/{listId}/contacts/recent",
+            "documentation": "https://legacydocs.hubspot.com/docs/methods/lists/get_list_contacts_recent",
+            "method": "GET",
+            "description": "Get recently added contacts from a list.",
+            "iteratorIndex": "contacts",
+            "afterIndex": "vid-offset"
+        },
+        "addContacts": {
+            "path": "lists/{listId}/add",
+            "documentation": "https://legacydocs.hubspot.com/docs/methods/lists/get_list_contacts_recent",
+            "method": "POST",
+            "description": "Add existing contacts to a list."
+        },
+        "removeContacts": {
+            "path": "lists/{listId}/remove",
+            "documentation": "https://legacydocs.hubspot.com/docs/methods/lists/remove_contact_from_list",
+            "method": "POST",
+            "description": "Remove an existing contact from a list."
+        }
+    }
+}

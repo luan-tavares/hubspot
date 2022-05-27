@@ -13,6 +13,8 @@ class ActionPropertyDocumentationTest extends TestCase
     {
         $object = SchemaContainer::getAction(new PropertyDealHubspot, 'get');
 
+      
+
         $this->assertEquals(
             $object->documentation,
             'https://legacydocs.hubspot.com/docs/methods/deals/get_deal_property'

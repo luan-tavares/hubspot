@@ -81,6 +81,11 @@
             "description": "Search companies.",
             "iteratorIndex": "results",
             "afterIndex": "paging.next.after"
+        },
+        "merge": {
+            "path": "objects/companies/merge",
+            "method": "POST",
+            "description": "Merge two companies with same type."
         }
     }
 }

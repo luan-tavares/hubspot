@@ -3,6 +3,7 @@
 namespace LTL\Hubspot\Resources\V3;
 
 use LTL\Hubspot\Hubspot;
+use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
 
 /**
  * @link https://developers.hubspot.com/docs/api/settings/user-provisioning
@@ -19,16 +20,16 @@ use LTL\Hubspot\Hubspot;
  * @method $this get(int|string $userId) Read an user identified by {userId}.
  * See https://developers.hubspot.com/docs/api/settings/user-provisioning
  *
- * @method static $this create(array $requestBody) Create a user with the given properties and return a copy of the object, including the ID.
+ * @method static $this create(BaseBodyBuilder|array $requestBody) Create a user with the given properties and return a copy of the object, including the ID.
  * See https://developers.hubspot.com/docs/api/settings/user-provisioning
  *
- * @method $this create(array $requestBody) Create a user with the given properties and return a copy of the object, including the ID.
+ * @method $this create(BaseBodyBuilder|array $requestBody) Create a user with the given properties and return a copy of the object, including the ID.
  * See https://developers.hubspot.com/docs/api/settings/user-provisioning
  *
- * @method static $this update(int|string $userId, array $requestBody) Perform a update in a user identified by {userId}.
+ * @method static $this update(int|string $userId, BaseBodyBuilder|array $requestBody) Perform a update in a user identified by {userId}.
  * See https://developers.hubspot.com/docs/api/settings/user-provisioning
  *
- * @method $this update(int|string $userId, array $requestBody) Perform a update in a user identified by {userId}.
+ * @method $this update(int|string $userId, BaseBodyBuilder|array $requestBody) Perform a update in a user identified by {userId}.
  * See https://developers.hubspot.com/docs/api/settings/user-provisioning
  *
  * @method static $this delete(int|string $userId) Move an user identified by {userId} to the recycling bin.

@@ -1,21 +1,29 @@
 {
     "resource": "crm",
-    "class": "NoteHubspot",
-    "documentation": "https://developers.hubspot.com/docs/api/crm/notes",
+    "class": "EngagementNoteHubspot",
+    "documentation": "https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/notes",
     "version": 3,
     "latest": true,
+    "defaultProperties": [
+        "hs_timestamp",
+        "hs_note_body",
+        "hubspot_owner_id",
+        "hs_attachment_ids"
+    ],
     "actions": {
         "getAll": {
             "path": "objects/notes",
             "method": "GET",
             "description": "Read a page of notes. Control what is returned via the properties query param.",
             "iteratorIndex": "results",
-            "afterIndex": "paging.next.after"
+            "afterIndex": "paging.next.after",
+            "withDefaultProperties": true
         },
         "get": {
             "path": "objects/notes/{noteId}",
             "method": "GET",
-            "description": "Read an note identified by {noteId}."
+            "description": "Read an note identified by {noteId}.",
+            "withDefaultProperties": true
         },
         "create": {
             "path": "objects/notes",
@@ -42,6 +50,7 @@
         "createAssociation": {
             "path": "objects/notes/{noteId}/associations/{toObjectType}/{toObjectId}/{associationType}",
             "method": "PUT",
+            "hasBody": false,
             "description": "Associate a note with another object."
         },
         "removeAssociation": {
@@ -81,6 +90,11 @@
             "description": "Search notes.",
             "iteratorIndex": "results",
             "afterIndex": "paging.next.after"
+        },
+        "merge": {
+            "path": "objects/notes/merge",
+            "method": "POST",
+            "description": "Merge two notes with same type"
         }
     }
 }

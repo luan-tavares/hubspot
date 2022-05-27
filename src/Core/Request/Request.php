@@ -1,24 +1,27 @@
 <?php
 namespace LTL\Hubspot\Core\Request;
 
+use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Core\Interfaces\Request\BodyComponentInterface;
 use LTL\Hubspot\Core\Interfaces\Request\CurlComponentInterface;
 use LTL\Hubspot\Core\Interfaces\Request\HeaderComponentInterface;
+use LTL\Hubspot\Core\Interfaces\Request\MethodComponentInterface;
 use LTL\Hubspot\Core\Interfaces\Request\QueryComponentInterface;
 use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
 use LTL\Hubspot\Core\Interfaces\Request\UriComponentInterface;
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
+use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 
 class Request implements RequestInterface
 {
-    private bool $hasDispatched = false;
-
     private QueryComponentInterface $query;
 
     private HeaderComponentInterface $header;
 
     private BodyComponentInterface $body;
+
+    private MethodComponentInterface $method;
 
     private CurlComponentInterface $curl;
 
@@ -26,6 +29,7 @@ class Request implements RequestInterface
 
     private ResourceInterface $resource;
 
+    /**Factory \LTL\Hubspot\Factories\RequestFactory */
     private function __construct()
     {
     }
@@ -36,7 +40,7 @@ class Request implements RequestInterface
 
     public function destroyComponents(): void
     {
-        unset($this->query, $this->header, $this->body, $this->curl, $this->uri);
+        unset($this->query, $this->header, $this->body, $this->curl, $this->uri, $this->method);
     }
 
     public function __call($method, $arguments)
@@ -44,7 +48,7 @@ class Request implements RequestInterface
         if (in_array($method, $this->query->getMethods())) {
             return $this->query->{$method}(...$arguments);
         }
-
+ 
         if (in_array($method, $this->header->getMethods())) {
             return $this->header->{$method}(...$arguments);
         }
@@ -56,14 +60,9 @@ class Request implements RequestInterface
         throw new HubspotApiException($this->resource::class ."::{$method}() not exists");
     }
 
-    public function changeDispatchToTrue(): void
+    public function connect(ActionSchemaInterface $actionSchema, array $arguments): CurlInterface
     {
-        $this->hasDispatched = true;
-    }
-
-    public function hasDispatched(): bool
-    {
-        return $this->hasDispatched;
+        return (new RequestDefinition($this, $actionSchema, $arguments))->connect();
     }
 
     public function removeHeader(string $header): self
@@ -80,37 +79,51 @@ class Request implements RequestInterface
         return $this;
     }
 
-    public function addQueries(array|null $queries): self
+    public function addQueriesAfter(array|null $queries): self
     {
-        $this->query->addArray($queries);
+        $this->query->addArrayAfter($queries);
+
+        return $this;
+    }
+
+    public function addQueriesBefore(array|null $queries): self
+    {
+        $this->query->addArrayBefore($queries);
 
         return $this;
     }
  
-    public function addBody(array|null $body): self
+    public function addBody(ActionSchemaInterface $actionSchema, array $arguments): self
     {
-        $this->body->addArray($body);
+        $this->body->create($actionSchema, $arguments);
 
         return $this;
     }
 
-    public function addHeaders(array|null $headers): self
+    public function addHeadersBefore(array|null $headers): self
     {
-        $this->header->addArray($headers);
+        $this->header->addArrayBefore($headers);
 
         return $this;
     }
 
-    public function addUri(string $baseUri, array $associativeParams, array $queries): self
+    public function addUri(ActionSchemaInterface $actionSchema, array $arguments): self
     {
-        $this->uri->generate($baseUri, $associativeParams, $queries);
+        $this->uri->create($actionSchema, $arguments);
+
+        return $this;
+    }
+
+    public function addMethod(string $method): self
+    {
+        $this->method->set($method);
 
         return $this;
     }
  
     public function addApikeyWithoutObserver(string|null $apikey): self
     {
-        $this->query->add('hapikey', $apikey);
+        $this->query->addNotNull('hapikey', $apikey);
 
         return $this;
     }
@@ -124,7 +137,7 @@ class Request implements RequestInterface
 
     public function addOAuthWithoutObserver(string $oAuth): self
     {
-        $this->header->add('Authorization', "Bearer {$oAuth}");
+        $this->header->addNotNull('Authorization', "Bearer {$oAuth}");
 
         return $this;
     }
@@ -161,5 +174,10 @@ class Request implements RequestInterface
     public function getUri(): string
     {
         return $this->uri->get();
+    }
+
+    public function getMethod(): string
+    {
+        return $this->method->get();
     }
 }

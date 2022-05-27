@@ -8,6 +8,10 @@ class DocumentationActionProperty extends ActionProperty
 {
     protected function parse(object $actionSchema): string
     {
-        return $actionSchema->documentation ?? $actionSchema->schemaDocumentation;
+        if (isset($actionSchema->documentation)) {
+            return $actionSchema->documentation;
+        }
+
+        return $actionSchema->schemaDocumentation;
     }
 }

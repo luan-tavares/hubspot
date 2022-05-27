@@ -2,7 +2,6 @@
 
 namespace LTL\Hubspot\Core\Schema;
 
-use Exception;
 use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
 use LTL\Hubspot\Core\Schema\ActionProperties\ActionMethodActionProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\AfterIndexActionProperty;
@@ -17,6 +16,7 @@ use LTL\Hubspot\Core\Schema\ActionProperties\IteratorIndexActionProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\MethodActionProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\ParamsActionProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\ResourceClassActionProperty;
+use LTL\Hubspot\Exceptions\HubspotApiException;
 
 /**
  * @property array|null $params
@@ -87,7 +87,7 @@ class ActionSchema implements ActionSchemaInterface
     public function __get($property)
     {
         if (!array_key_exists($property, get_object_vars($this))) {
-            throw new Exception("Property {$property} not exists in ". __CLASS__);
+            throw new HubspotApiException("Property {$property} not exists in ". __CLASS__);
         }
 
         return $this->{$property};

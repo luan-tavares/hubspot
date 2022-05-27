@@ -3,6 +3,7 @@
 namespace LTL\Hubspot\Resources\V3;
 
 use LTL\Hubspot\Hubspot;
+use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
 
 /**
  * @link https://developers.hubspot.com/docs/api/crm/companies
@@ -19,16 +20,16 @@ use LTL\Hubspot\Hubspot;
  * @method $this get(int|string $companyId) Read an company identified by {companyId}.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method static $this create(array $requestBody) Create a company with the given properties and return a copy of the object, including the ID.
+ * @method static $this create(BaseBodyBuilder|array $requestBody) Create a company with the given properties and return a copy of the object, including the ID.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method $this create(array $requestBody) Create a company with the given properties and return a copy of the object, including the ID.
+ * @method $this create(BaseBodyBuilder|array $requestBody) Create a company with the given properties and return a copy of the object, including the ID.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method static $this update(int|string $companyId, array $requestBody) Perform a partial update of an company identified by {companyId}.
+ * @method static $this update(int|string $companyId, BaseBodyBuilder|array $requestBody) Perform a partial update of an company identified by {companyId}.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method $this update(int|string $companyId, array $requestBody) Perform a partial update of an company identified by {companyId}.
+ * @method $this update(int|string $companyId, BaseBodyBuilder|array $requestBody) Perform a partial update of an company identified by {companyId}.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
  * @method static $this delete(int|string $companyId) Move an company identified by {companyId} to the recycling bin.
@@ -43,10 +44,10 @@ use LTL\Hubspot\Hubspot;
  * @method $this getAssociations(int|string $companyId, int|string $toObjectType) List associations of a company by type.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method static $this createAssociation(int|string $companyId, int|string $toObjectType, int|string $toObjectId, int|string $associationType, array $requestBody) Associate a company with another object.
+ * @method static $this createAssociation(int|string $companyId, int|string $toObjectType, int|string $toObjectId, int|string $associationType, BaseBodyBuilder|array $requestBody) Associate a company with another object.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method $this createAssociation(int|string $companyId, int|string $toObjectType, int|string $toObjectId, int|string $associationType, array $requestBody) Associate a company with another object.
+ * @method $this createAssociation(int|string $companyId, int|string $toObjectType, int|string $toObjectId, int|string $associationType, BaseBodyBuilder|array $requestBody) Associate a company with another object.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
  * @method static $this removeAssociation(int|string $companyId, int|string $toObjectType, int|string $toObjectId, int|string $associationType) Remove an association between a company and an object.
@@ -55,34 +56,40 @@ use LTL\Hubspot\Hubspot;
  * @method $this removeAssociation(int|string $companyId, int|string $toObjectType, int|string $toObjectId, int|string $associationType) Remove an association between a company and an object.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method static $this batchDelete(array $requestBody) Archive a batch of companies by ID.
+ * @method static $this batchDelete(BaseBodyBuilder|array $requestBody) Archive a batch of companies by ID.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method $this batchDelete(array $requestBody) Archive a batch of companies by ID.
+ * @method $this batchDelete(BaseBodyBuilder|array $requestBody) Archive a batch of companies by ID.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method static $this batchCreate(array $requestBody) Create a batch of companies.
+ * @method static $this batchCreate(BaseBodyBuilder|array $requestBody) Create a batch of companies.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method $this batchCreate(array $requestBody) Create a batch of companies.
+ * @method $this batchCreate(BaseBodyBuilder|array $requestBody) Create a batch of companies.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method static $this batchRead(array $requestBody) Read a batch of companies by internal ID, or unique property values.
+ * @method static $this batchRead(BaseBodyBuilder|array $requestBody) Read a batch of companies by internal ID, or unique property values.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method $this batchRead(array $requestBody) Read a batch of companies by internal ID, or unique property values.
+ * @method $this batchRead(BaseBodyBuilder|array $requestBody) Read a batch of companies by internal ID, or unique property values.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method static $this batchUpdate(array $requestBody) Update a batch of companies.
+ * @method static $this batchUpdate(BaseBodyBuilder|array $requestBody) Update a batch of companies.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method $this batchUpdate(array $requestBody) Update a batch of companies.
+ * @method $this batchUpdate(BaseBodyBuilder|array $requestBody) Update a batch of companies.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method static $this search(array $requestBody) Search companies.
+ * @method static $this search(BaseBodyBuilder|array $requestBody) Search companies.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method $this search(array $requestBody) Search companies.
+ * @method $this search(BaseBodyBuilder|array $requestBody) Search companies.
+ * See https://developers.hubspot.com/docs/api/crm/companies
+ *
+ * @method static $this merge(BaseBodyBuilder|array $requestBody) Merge two companies with same type.
+ * See https://developers.hubspot.com/docs/api/crm/companies
+ *
+ * @method $this merge(BaseBodyBuilder|array $requestBody) Merge two companies with same type.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
  */

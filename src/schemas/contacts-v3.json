@@ -94,6 +94,11 @@
             "description": "Search contacts.",
             "iteratorIndex": "results",
             "afterIndex": "paging.next.after"
+        },
+        "merge": {
+            "path": "objects/contacts/merge",
+            "method": "POST",
+            "description": "Merge two contacts with same type."
         }
     }
 }

@@ -3,6 +3,7 @@
 namespace LTL\Hubspot\Resources\V3;
 
 use LTL\Hubspot\Hubspot;
+use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
 
 /**
  * @link https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/extensions/cards
@@ -19,16 +20,16 @@ use LTL\Hubspot\Hubspot;
  * @method $this get(int|string $appId, int|string $cardId) Returns the definition for a card with the given ID.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/extensions/cards
  *
- * @method static $this create(int|string $appId, array $requestBody) Defines a new card that will become active on an account when this app is installed.
+ * @method static $this create(int|string $appId, BaseBodyBuilder|array $requestBody) Defines a new card that will become active on an account when this app is installed.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/extensions/cards
  *
- * @method $this create(int|string $appId, array $requestBody) Defines a new card that will become active on an account when this app is installed.
+ * @method $this create(int|string $appId, BaseBodyBuilder|array $requestBody) Defines a new card that will become active on an account when this app is installed.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/extensions/cards
  *
- * @method static $this update(int|string $appId, int|string $cardId, array $requestBody) Update a card definition with new details.
+ * @method static $this update(int|string $appId, int|string $cardId, BaseBodyBuilder|array $requestBody) Update a card definition with new details.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/extensions/cards
  *
- * @method $this update(int|string $appId, int|string $cardId, array $requestBody) Update a card definition with new details.
+ * @method $this update(int|string $appId, int|string $cardId, BaseBodyBuilder|array $requestBody) Update a card definition with new details.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/extensions/cards
  *
  * @method static $this delete(int|string $appId, int|string $cardId) Permanently deletes a card definition with the given ID.

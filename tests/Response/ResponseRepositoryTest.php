@@ -16,12 +16,15 @@ class ResponseRepositoryTest extends TestCase
     protected function setUp(): void
     {
         $this->result = [
+            'a' => 'b',
             'results' => [
                 'a' => 4,
                 'b' => 5,
                 'c' => null,
-                'd' => ['a' => 5],
-                'e' => false
+                'd' => [5],
+                'e' => false,
+                'f' => 'lorem ipusum asset mode',
+                'more' => array_fill(0, 100, 'a')
             ],
             'after' => [
                 'paging' => [
@@ -47,13 +50,7 @@ class ResponseRepositoryTest extends TestCase
             $return[] = $value;
         }
       
-        $this->assertEquals($return, [
-            4,
-            5,
-            null,
-            (object) [ 'a' => 5 ],
-            false
-        ]);
+        $this->assertEquals($return, array_values($this->result['results']));
     }
 
     public function testIfCountableObjectIsCorrect()
@@ -62,7 +59,7 @@ class ResponseRepositoryTest extends TestCase
         
         $responseRepository = ResponseRepositoryFactory::build($this->response);
 
-        $this->assertEquals(count($responseRepository), 5);
+        $this->assertEquals(count($responseRepository), count($this->result['results']));
     }
 
     public function testIfJsonSerializableResponseRepositoryIsCorrect()
@@ -134,13 +131,17 @@ class ResponseRepositoryTest extends TestCase
         
         $responseRepository = ResponseRepositoryFactory::build($this->response);
 
-        $this->expectException(HubspotApiException::class);
+        $response = mb_strimwidth(json_encode($this->result), 0, 150, ' ...');
+
+        $this->expectExceptionMessage(
+            "Resource response is not iterable or countable:\n\n{$response}\n\n"
+        );
 
         foreach ($responseRepository as $value) {
         }
     }
 
-    public function testIfNotCountableResponseRepositoryThrowException()
+    public function testIfNotCountableResponseRepositoryThrowHubspotApiException()
     {
         $this->response->method('getIteratorIndex')->willReturn(null);
 
@@ -148,7 +149,22 @@ class ResponseRepositoryTest extends TestCase
 
         $this->expectException(HubspotApiException::class);
 
-        $count = count($responseRepository);
+        count($responseRepository);
+    }
+
+    public function testIfNotCountableResponseRepositoryThrowExceptionMessage()
+    {
+        $this->response->method('getIteratorIndex')->willReturn(null);
+
+        $responseRepository = ResponseRepositoryFactory::build($this->response);
+
+        $responseSlice = mb_strimwidth(json_encode($this->result), 0, 150, ' ...');
+
+        $this->expectExceptionMessage(
+            "Resource response is not iterable or countable:\n\n{$responseSlice}\n\n"
+        );
+
+        count($responseRepository);
     }
 
     public function testIfArrayResponseTransformInObject()

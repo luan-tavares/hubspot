@@ -3,6 +3,7 @@
 namespace LTL\Hubspot\Resources\V3;
 
 use LTL\Hubspot\Hubspot;
+use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
 
 /**
  * @link https://app.hubspot.com/developer-docs/api?spec=v1/apis/cms/v3/site-search

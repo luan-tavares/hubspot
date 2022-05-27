@@ -3,6 +3,7 @@
 namespace LTL\Hubspot\Resources\V1;
 
 use LTL\Hubspot\Hubspot;
+use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
 
 /**
  * @method static $this getAll() 
@@ -47,34 +48,34 @@ use LTL\Hubspot\Hubspot;
  * @method $this getBatchByEmail() 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/get_batch_by_email
  *
- * @method static $this create(array $requestBody) 
+ * @method static $this create(BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/create_contact
  *
- * @method $this create(array $requestBody) 
+ * @method $this create(BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/create_contact
  *
- * @method static $this updateById(int|string $vid, array $requestBody) 
+ * @method static $this updateById(int|string $vid, BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/update_contact
  *
- * @method $this updateById(int|string $vid, array $requestBody) 
+ * @method $this updateById(int|string $vid, BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/update_contact
  *
- * @method static $this updateByEmail(int|string $email, array $requestBody) 
+ * @method static $this updateByEmail(int|string $email, BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/update_contact-by-email
  *
- * @method $this updateByEmail(int|string $email, array $requestBody) 
+ * @method $this updateByEmail(int|string $email, BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/update_contact-by-email
  *
- * @method static $this createOrUpdate(int|string $email, array $requestBody) 
+ * @method static $this createOrUpdate(int|string $email, BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/create_or_update
  *
- * @method $this createOrUpdate(int|string $email, array $requestBody) 
+ * @method $this createOrUpdate(int|string $email, BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/create_or_update
  *
- * @method static $this batchCreateOrUpdate(array $requestBody) 
+ * @method static $this batchCreateOrUpdate(BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/batch_create_or_update
  *
- * @method $this batchCreateOrUpdate(array $requestBody) 
+ * @method $this batchCreateOrUpdate(BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/batch_create_or_update
  *
  * @method static $this delete(int|string $vid) 
@@ -83,10 +84,10 @@ use LTL\Hubspot\Hubspot;
  * @method $this delete(int|string $vid) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/delete_contact
  *
- * @method static $this merge(int|string $vId, array $requestBody) 
+ * @method static $this merge(int|string $vId, BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/merge-contacts
  *
- * @method $this merge(int|string $vId, array $requestBody) 
+ * @method $this merge(int|string $vId, BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/merge-contacts
  *
  */

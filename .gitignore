@@ -1,4 +1,5 @@
 /vendor
 .env
-/examples/o-auth-v1.php
 .phpunit.result.cache
+infection.log
+/.phpunit.cache

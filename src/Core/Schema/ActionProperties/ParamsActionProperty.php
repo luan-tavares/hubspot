@@ -12,7 +12,7 @@ class ParamsActionProperty extends ActionProperty
         preg_match_all('/{(.*?)}/', $actionSchema->path, $matches, PREG_PATTERN_ORDER);
         $arguments = $matches[0];
 
-        $hasBody = $actionSchema->hasBody ?? true;
+        $hasBody = (isset($actionSchema->hasBody))?($actionSchema->hasBody):(true);
 
         if (!in_array($actionSchema->method, HubspotConfig::METHODS_WITH_BODY)) {
             $hasBody = false;

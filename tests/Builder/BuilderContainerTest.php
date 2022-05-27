@@ -1,14 +1,14 @@
 <?php
 
-namespace LTL\Hubspot\Tests\Response;
+namespace LTL\Hubspot\Tests\Builder;
 
 use LTL\Hubspot\Containers\BuilderContainer;
 use LTL\Hubspot\Core\HubspotApikey;
 use LTL\Hubspot\Core\Request\Request;
 use LTL\Hubspot\Factories\BuilderFactory;
 use LTL\Hubspot\Resources\AssociationHubspot;
-use LTL\Hubspot\Resources\CompanyHubspot;
-use LTL\Hubspot\Resources\ContactHubspot;
+use LTL\Hubspot\Resources\V3\CompanyHubspot;
+use LTL\Hubspot\Resources\V3\ContactHubspot;
 use PHPUnit\Framework\TestCase;
 
 class BuilderContainerTest extends TestCase
@@ -24,8 +24,8 @@ class BuilderContainerTest extends TestCase
     {
         $builder = ContactHubspot::limit(10);
         $builder = CompanyHubspot::offset(0);
-        $builder2 = (new ContactHubspot)->listProperties('a', 'b');
-        $builder2 = (new CompanyHubspot)->listProperties('a', 'b');
+        $builder2 = (new ContactHubspot)->withProperties('a', 'b');
+        $builder2 = (new CompanyHubspot)->withProperties('a', 'b');
 
         $this->assertEquals(BuilderContainer::count(), 4);
     }
@@ -34,8 +34,8 @@ class BuilderContainerTest extends TestCase
     {
         $builder = ContactHubspot::limit(10);
         $builder = CompanyHubspot::offset(0);
-        $builder2 = (new ContactHubspot)->listProperties('a', 'b');
-        $builder2 = (new CompanyHubspot)->listProperties('a', 'b');
+        $builder2 = (new ContactHubspot)->withProperties('a', 'b');
+        $builder2 = (new CompanyHubspot)->withProperties('a', 'b');
 
         BuilderContainer::destroyAll();
         $this->assertEquals(BuilderContainer::count(), 0);
@@ -45,8 +45,8 @@ class BuilderContainerTest extends TestCase
     {
         $builder = ContactHubspot::limit(10);
         $builder = CompanyHubspot::offset(0);
-        $builder2 = (new ContactHubspot)->listProperties('a', 'b');
-        $builder2 = (new CompanyHubspot)->listProperties('a', 'b');
+        $builder2 = (new ContactHubspot)->withProperties('a', 'b');
+        $builder2 = (new CompanyHubspot)->withProperties('a', 'b');
 
         BuilderContainer::destroyAll();
         $this->assertEquals(BuilderContainer::count(), 0);
@@ -96,5 +96,17 @@ class BuilderContainerTest extends TestCase
             ->method('destroyComponents');
 
         BuilderFactory::build(new AssociationHubspot, $request);
+    }
+
+    public function testIfBuilderContainerDestroyMethodRemoveBuilderPointer()
+    {
+        $resource = new ContactHubspot;
+
+        $builderOne = BuilderContainer::get($resource);
+        $builderTwo = CompanyHubspot::limit(10);
+
+        BuilderContainer::destroy($resource);
+
+        $this->assertEquals(1, BuilderContainer::count());
     }
 }

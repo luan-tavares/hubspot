@@ -54,7 +54,7 @@ class ResponseRepository implements ResponseRepositoryInterface
             return;
         }
 
-        $response = mb_strimwidth(json_encode($this), 0, 300, ' ...');
+        $response = mb_strimwidth(json_encode($this), 0, 150, ' ...');
 
         throw new HubspotApiException(
             "Resource response is not iterable or countable:\n\n{$response}\n\n"

@@ -6,34 +6,44 @@ use Exception;
 
 class HubspotApiException extends Exception
 {
+    private const APP_VENDOR_RELATIVE_DIR = '/luan-tavares/hubspot/';
+
+    private const APP_EXAMPLES_RELATIVE_DIR = '/examples-hubspot-api/';
+
     public function __construct(string $message, string|null $resourceClass = null)
     {
         $this->message = $this->replaceMessageClass($message, $resourceClass);
-    
-        parent::__construct($this->message);
+
+        $root = explode('/Exceptions/', __FILE__)[0];
     
         foreach ($this->getTrace() as $trace) {
-            $file = @$trace['file'];
-
-            if (is_null($file)) {
+            if (!array_key_exists('file', $trace)) {
                 continue;
             }
 
-            if (!str_contains($file, 'luan-tavares/hubspot/') && !str_contains($file, '/luan/app/')) {
-                $this->line = $trace['line'];
-                $this->file = $trace['file'];
-                break;
+            $file = $trace['file'];
+
+            $isNotInExampleApiPath = !str_contains($file, self::APP_EXAMPLES_RELATIVE_DIR);
+
+            $isInVendorPath = str_contains($file, self::APP_VENDOR_RELATIVE_DIR);
+
+            if ($isInVendorPath && $isNotInExampleApiPath) {
+                continue;
             }
 
-            if (str_contains($file, '/examples/') && str_contains($file, '/luan/app/')) {
-                $this->line = $trace['line'];
-                $this->file = $trace['file'];
-                break;
+            if (str_contains($file, $root)) {
+                continue;
             }
+
+            $this->line = $trace['line'];
+            $this->file = $trace['file'];
+            break;
         }
     }
 
-    public static function throwExceptionIf(bool $condition, string $message): void
+
+
+    public static function throwIf(bool $condition, string $message): void
     {
         if ($condition) {
             throw new self($message);

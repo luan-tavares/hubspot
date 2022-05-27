@@ -27,27 +27,36 @@ class ResponseNotIterableTest extends TestCase
             'b' => 5,
             'c' => null,
             'd' => ['a' => 5],
-            'e' => false
+            'e' => array_fill(0, 200, 'TATAKAE')
         ];
 
         $this->curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
-        $this->curl->method('getStatus')->willReturn(400);
         $this->curl->method('getResponse')->willReturn(json_encode($this->result));
-        $this->curl->method('getUri')
-            ->willReturn('https://test.com/api?hapikey=12345678-1234-1234-1234-abcde1234567');
-        $this->curl->method('getHeaders')->willReturn(['Content-Type' => 'application/json;charset=utf-8']);
 
-        $contactResource = $this->createMock(ContactHubspot::class);
-        $contactResource->method('__toString')->willReturn('contacts-v3');
-        $this->actionSchema = SchemaContainer::getAction($contactResource, 'get');
+        $this->actionSchema = SchemaContainer::getAction(new ContactHubspot, 'get');
     }
 
-
-    public function testIfIterableThrowException()
+    public function testIfNotIterableThrowHubspotApiException()
     {
         $response = new Response($this->curl, $this->actionSchema);
 
+       
         $this->expectException(HubspotApiException::class);
+
+        foreach ($response as $value) {
+        }
+    }
+
+
+    public function testIfNotIterableThrowException()
+    {
+        $response = new Response($this->curl, $this->actionSchema);
+
+        $responseSlice = mb_strimwidth(json_encode($this->result), 0, 150, ' ...');
+
+        $this->expectExceptionMessage(
+            "Resource response is not iterable or countable:\n\n{$responseSlice}\n\n"
+        );
 
         foreach ($response as $value) {
         }
@@ -57,9 +66,22 @@ class ResponseNotIterableTest extends TestCase
     {
         $response = new Response($this->curl, $this->actionSchema);
 
+        $responseSlice = mb_strimwidth(json_encode($this->result), 0, 150, ' ...');
+
+        $this->expectExceptionMessage(
+            "Resource response is not iterable or countable:\n\n{$responseSlice}\n\n"
+        );
+
+        count($response);
+    }
+
+    public function testIfCountableThrowHubspotApiException()
+    {
+        $response = new Response($this->curl, $this->actionSchema);
+
         $this->expectException(HubspotApiException::class);
 
-        $count = count($response);
+        count($response);
     }
 
     public function testIfAfterPropertyObjectIsNull()

@@ -1,0 +1,107 @@
+{
+    "resource": "crm",
+    "class": "EngagementMeetingHubspot",
+    "documentation": "https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/meetings",
+    "version": 3,
+    "latest": true,
+    "defaultProperties": [
+        "hs_timestamp",
+        "hs_meeting_title",
+        "hubspot_owner_id",
+        "hs_meeting_body",
+        "hs_internal_meeting_notes",
+        "hs_meeting_external_URL",
+        "hs_meeting_location",
+        "hs_meeting_start_time",
+        "hs_meeting_end_time",
+        "hs_meeting_outcome",
+        "hs_attachment_ids"
+    ],
+    "actions": {
+        "getAll": {
+            "path": "objects/meetings",
+            "method": "GET",
+            "description": "Read a page of meetings. Control what is returned via the properties query param.",
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after",
+            "withDefaultProperties": true
+        },
+        "get": {
+            "path": "objects/meetings/{meetingId}",
+            "method": "GET",
+            "description": "Read an note identified by {meetingId}.",
+            "withDefaultProperties": true
+        },
+        "create": {
+            "path": "objects/meetings",
+            "method": "POST",
+            "description": "Create a note with the given properties and return a copy of the object, including the ID."
+        },
+        "update": {
+            "path": "objects/meetings/{meetingId}",
+            "method": "PATCH",
+            "description": "Perform a partial update of an note identified by {meetingId}."
+        },
+        "delete": {
+            "path": "objects/meetings/{meetingId}",
+            "method": "DELETE",
+            "description": "Move an note identified by {meetingId} to the recycling bin."
+        },
+        "getAssociations": {
+            "path": "objects/meetings/{meetingId}/associations/{toObjectType}",
+            "method": "GET",
+            "description": "List associations of a note by type.",
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
+        },
+        "createAssociation": {
+            "path": "objects/meetings/{meetingId}/associations/{toObjectType}/{toObjectId}/{associationType}",
+            "method": "PUT",
+            "hasBody": false,
+            "description": "Associate a note with another object."
+        },
+        "removeAssociation": {
+            "path": "objects/meetings/{meetingId}/associations/{toObjectType}/{toObjectId}/{associationType}",
+            "method": "DELETE",
+            "description": "Remove an association between ticket and an object."
+        },
+        "batchDelete": {
+            "path": "objects/meetings/batch/archive",
+            "method": "POST",
+            "description": "Archive a batch of meetings by ID."
+        },
+        "batchCreate": {
+            "path": "objects/meetings/batch/create",
+            "method": "POST",
+            "description": "Create a batch of meetings.",
+            "iteratorIndex": "results",
+            "afterIndex": null
+        },
+        "batchRead": {
+            "path": "objects/meetings/batch/read",
+            "method": "POST",
+            "description": "Read a batch of meetings by internal ID, or unique property values.",
+            "iteratorIndex": "results",
+            "afterIndex": null
+        },
+        "batchUpdate": {
+            "path": "objects/meetings/batch/update",
+            "method": "POST",
+            "description": "Update a batch of meetings.",
+            "iteratorIndex": "results",
+            "afterIndex": null
+        },
+        "search": {
+            "path": "objects/meetings/search",
+            "method": "POST",
+            "description": "Search meetings.",
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
+        },
+        "merge": {
+            "path": "objects/meetings/merge",
+            "method": "POST",
+            "description": "Merge two meetings with same type"
+        }
+    }
+}

@@ -2,10 +2,13 @@
 
 namespace LTL\Hubspot\Tests\Request;
 
-use LTL\Hubspot\Exceptions\HubspotApiException;
+use LTL\Curl\Curl;
+use LTL\Hubspot\Containers\SchemaContainer;
+use LTL\Hubspot\Core\Request\RequestDefinition;
 use LTL\Hubspot\Factories\RequestFactory;
 use LTL\Hubspot\Hubspot;
-use LTL\Hubspot\Resources\CompanyHubspot;
+use LTL\Hubspot\Resources\V3\CompanyHubspot;
+use LTL\Hubspot\Resources\V3\EngagementEmailHubspot;
 use PHPUnit\Framework\TestCase;
 
 class RequestTest extends TestCase
@@ -27,9 +30,11 @@ class RequestTest extends TestCase
     {
         $request = RequestFactory::build(new CompanyHubspot);
 
-        $this->expectException(HubspotApiException::class);
+        $method = 'unknowMethod';
+
+        $this->expectExceptionMessage(CompanyHubspot::class ."::{$method}() not exists");
         
-        $request->unknowMethod();
+        $request->$method();
     }
 
     public function testAddOAuthToRequestByOAuth()
@@ -46,7 +51,7 @@ class RequestTest extends TestCase
     {
         $request = RequestFactory::build(new CompanyHubspot);
 
-        $request->addHeaders($this->result);
+        $request->addHeadersBefore($this->result);
 
         $request->removeHeader('a');
       
@@ -64,9 +69,13 @@ class RequestTest extends TestCase
 
     public function testAddBodyToRequestIsCorrect()
     {
-        $request = RequestFactory::build(new CompanyHubspot);
+        $resource = new CompanyHubspot;
 
-        $request->addBody($this->result);
+        $request = RequestFactory::build($resource);
+
+        $actionSchema = SchemaContainer::getAction($resource, 'update');
+
+        $request->addBody($actionSchema, ['123', $this->result]);
         
         $this->assertEquals($request->getBody(), [
             'a' => 4,
@@ -74,15 +83,47 @@ class RequestTest extends TestCase
         ]);
     }
 
-    public function testAddQueriesToRequestIsCorrect()
+    public function testAddMethodToRequestIsCorrect()
     {
         $request = RequestFactory::build(new CompanyHubspot);
 
-        $request->addQueries($this->result);
+        $method = 'GET';
+
+        $request->addMethod($method);
+        
+        $this->assertEquals($method, $request->getMethod());
+    }
+
+    public function testAddQueriesIsCorrect()
+    {
+        $resourceBuilder = EngagementEmailHubspot::limit(10);
+
+        $request = $resourceBuilder->request();
+
+        $request->addQueriesAfter([
+            'limit' => 20,
+            'nullable' => null
+        ]);
         
         $this->assertEquals($request->getQueries(), [
-            'a' => 4,
-            'b' => 5,
+            'limit' => 20,
+            'hapikey' => '123456'
+        ]);
+    }
+
+    public function testAddQueriesBeforeIsCorrect()
+    {
+        $resourceBuilder = EngagementEmailHubspot::limit(10);
+
+        $request = $resourceBuilder->request();
+
+        $request->addQueriesBefore([
+            'limit' => 20,
+            'nullable' => null
+        ]);
+        
+        $this->assertEquals($request->getQueries(), [
+            'limit' => 10,
             'hapikey' => '123456'
         ]);
     }
@@ -91,7 +132,7 @@ class RequestTest extends TestCase
     {
         $request = RequestFactory::build(new CompanyHubspot);
 
-        $request->addQueries($this->result);
+        $request->addQueriesAfter($this->result);
 
         $request->removeQuery('a');
       
@@ -123,15 +164,6 @@ class RequestTest extends TestCase
         $this->assertEquals($request->getCurlParams(), [
             CURLOPT_HEADER => true
         ]);
-    }
-
-    public function testChangeDispatchIsTrue()
-    {
-        $request = RequestFactory::build(new CompanyHubspot);
-
-        $request->changeDispatchToTrue();
-        
-        $this->assertTrue($request->hasDispatched());
     }
 
     public function testAddApiKey()
@@ -175,5 +207,24 @@ class RequestTest extends TestCase
         $request->oAuth('123456789');
      
         $this->assertEquals($request->getQueries(), []);
+    }
+
+    public function testCurlCallerConnectIsCalled()
+    {
+        $resource = new CompanyHubspot;
+
+        $request = RequestFactory::build($resource);
+
+        $actionSchema = SchemaContainer::getAction($resource, 'getAll');
+
+        $requestDefinition = new RequestDefinition($request, $actionSchema, []);
+
+
+        $curl = $this->createMock(Curl::class);
+
+
+        $curl->expects($this->once())->method('addUri');
+
+        $requestDefinition->connect($curl);
     }
 }

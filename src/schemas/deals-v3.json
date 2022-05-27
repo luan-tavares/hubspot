@@ -81,6 +81,11 @@
             "description": "Search deals.",
             "iteratorIndex": "results",
             "afterIndex": "paging.next.after"
+        },
+        "merge": {
+            "path": "objects/deals/merge",
+            "method": "POST",
+            "description": "Merge two deals with same type."
         }
     }
 }

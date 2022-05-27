@@ -2,6 +2,7 @@
 
 namespace LTL\Hubspot\Core\Request\Components;
 
+use LTL\Hubspot\Core\HubspotApikey;
 use LTL\Hubspot\Core\Interfaces\Request\QueryComponentInterface;
 use LTL\Hubspot\Core\Request\Components\RequestComponent;
 use LTL\ListMethods\PublicMethods\Traits\PublicMethodsListable;
@@ -10,115 +11,125 @@ class QueryRequestComponent extends RequestComponent implements QueryComponentIn
 {
     use PublicMethodsListable;
 
-    public function query(string $query, string|null $value): self
+    protected function boot(): void
+    {
+        $this->addNotNull('hapikey', HubspotApikey::get());
+    }
+
+    public function query(string $query, string|null $value = null): self
     {
         return $this->add($query, $value);
     }
 
     public function q(string $query): self
     {
-        return $this->add('q', $query);
+        return $this->addNotNull('q', $query);
     }
 
     public function archived(): self
     {
-        return $this->add('archived', 'true');
+        return $this->addNotNull('archived', 'true');
     }
 
     public function includeForeignIds(): self
     {
-        return $this->add('includeForeignIds', 'true');
+        return $this->addNotNull('includeForeignIds', 'true');
     }
 
     public function format(string $fileFormat): self
     {
-        return $this->add('format', $fileFormat);
+        return $this->addNotNull('format', $fileFormat);
     }
 
     public function byEmail(): self
     {
-        return $this->add('idProperty', 'email');
+        return $this->addNotNull('idProperty', 'email');
     }
 
     public function limit(int $limit): self
     {
-        return $this->add('limit', $limit);
+        return $this->addNotNull('limit', $limit);
     }
 
     public function setCount(int $count): self
     {
-        return $this->add('count', $count);
+        return $this->addNotNull('count', $count);
     }
 
     public function offset(string|int $hubspotId): self
     {
-        return $this->add('offset', $hubspotId);
+        return $this->addNotNull('offset', $hubspotId);
     }
 
     public function vidOffset(string|int $hubspotId): self
     {
-        return $this->add('vidOffset', $hubspotId);
+        return $this->addNotNull('vidOffset', $hubspotId);
     }
 
     public function timeOffset(string|int $hubspotId): self
     {
-        return $this->add('timeOffset', $hubspotId);
+        return $this->addNotNull('timeOffset', $hubspotId);
     }
 
     public function properties(string $propertiesWithComma): self
     {
-        return $this->add('properties', $propertiesWithComma);
+        return $this->addNotNull('properties', $propertiesWithComma);
     }
 
     public function propertiesWithHistory(string $propertiesWithComma): self
     {
-        return $this->add('propertiesWithHistory', $propertiesWithComma);
+        return $this->addNotNull('propertiesWithHistory', $propertiesWithComma);
     }
 
     public function associations(string $associationsWithComma): self
     {
-        return $this->add('associations', $associationsWithComma);
+        return $this->addNotNull('associations', $associationsWithComma);
     }
 
-    public function after(string $after): self
+    public function after(string|null $after): self
     {
-        return $this->add('after', $after);
+        return $this->addNotNull('after', $after);
     }
 
     public function before(string $before): self
     {
-        return $this->add('before', $before);
+        return $this->addNotNull('before', $before);
     }
 
     public function apikey(string $apikey): self
     {
         $this->notify('apikeyInserted');
 
-        return $this->add('hapikey', $apikey);
+        return $this->addNotNull('hapikey', $apikey);
     }
 
-    public function listProperties($arguments): self
+    public function withProperties($arguments): self
     {
-        return $this->add('property', func_get_args());
+        return $this->addNotNull('property', func_get_args());
     }
 
-    public function listEmails($arguments): self
+    public function withEmails($arguments): self
     {
-        return $this->add('email', func_get_args());
+        return $this->addNotNull('email', func_get_args());
+    }
+
+    public function withVids($arguments): self
+    {
+        return $this->addNotNull('vid', func_get_args());
+    }
+
+    public function withListIds($arguments): self
+    {
+        return $this->addNotNull('listId', func_get_args());
     }
 
     public function sort($arguments): self
     {
-        return $this->add('sort', func_get_args());
-    }
-
-    public function listVids($arguments): self
-    {
-        return $this->add('vid', func_get_args());
+        return $this->addNotNull('sort', func_get_args());
     }
 
     public function formTypes($arguments): self
     {
-        return $this->add('formTypes', func_get_args());
+        return $this->addNotNull('formTypes', func_get_args());
     }
 }

@@ -14,7 +14,18 @@ class ActionPropertyActionMethodTest extends TestCase
     {
         $this->expectException(HubspotApiException::class);
 
-        $object = SchemaContainer::getAction(new HubDbHubspot, 'unknowAction');
+        SchemaContainer::getAction(new HubDbHubspot, 'unknowAction');
+    }
+
+    public function testIfActionNotExistsThrowExceptionMessage()
+    {
+        $resource = new HubDbHubspot;
+
+        $action = 'unknowAction';
+
+        $this->expectExceptionMessage($resource::class ."::{$action}() not exists");
+
+        SchemaContainer::getAction(new HubDbHubspot, $action);
     }
 
     public function testIfActionPropertyCastInPublishHubDbIsCorrect()

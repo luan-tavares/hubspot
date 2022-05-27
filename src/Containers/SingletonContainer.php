@@ -20,4 +20,16 @@ abstract class SingletonContainer
 
         return self::$objects[$class] = new $class;
     }
+
+    public static function count(): int
+    {
+        return count(self::$objects);
+    }
+
+    public static function destroyAll(): void
+    {
+        foreach (self::$objects as $hash => $object) {
+            unset(self::$objects[$hash]);
+        }
+    }
 }

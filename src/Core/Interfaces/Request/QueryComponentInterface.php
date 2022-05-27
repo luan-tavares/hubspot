@@ -7,7 +7,7 @@ use LTL\ListMethods\PublicMethods\Interfaces\PublicMethodsListableInterface;
 
 interface QueryComponentInterface extends ComponentInterface, PublicMethodsListableInterface
 {
-    public function query(string $query, string|null $value): self;
+    public function query(string $query, string|null $value = null): self;
     public function byEmail(): self;
     public function q(string $query): self;
     public function archived(): self;
@@ -21,12 +21,13 @@ interface QueryComponentInterface extends ComponentInterface, PublicMethodsLista
     public function propertiesWithHistory(string $propertiesWithComma): self;
     public function properties(string $propertiesWithComma): self;
     public function associations(string $associationsWithComma): self;
-    public function after(string $after): self;
+    public function after(string|null $after): self;
     public function before(string $before): self;
     public function apikey(string $apikey): self;
-    public function listProperties($arguments): self;
     public function sort($arguments): self;
-    public function listEmails($arguments): self;
-    public function listVids($arguments): self;
+    public function withProperties($arguments): self;
+    public function withEmails($arguments): self;
+    public function withVids($arguments): self;
+    public function withListIds($arguments): self;
     public function formTypes($arguments): self;
 }

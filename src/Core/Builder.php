@@ -2,12 +2,12 @@
 
 namespace LTL\Hubspot\Core;
 
-use LTL\Hubspot\Containers\BuilderContainer;
+use LTL\Curl\Curl;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Interfaces\BuilderInterface;
 use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
-use LTL\Hubspot\Core\Request\RequestActionDefinition;
+use LTL\Hubspot\Core\Request\RequestDefinition;
 use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\ResourceFactory;
@@ -29,22 +29,21 @@ class Builder implements BuilderInterface
     public function __call($method, $arguments)
     {
         if (in_array($method, $this->baseResource->getMethods())) {
-            throw new HubspotApiException(
-                get_class($this->baseResource) ."::{$method}() must not be used before actions:\n\n". SchemaContainer::get($this->baseResource)
-            );
+            return $this->baseResource->{$method}(...$arguments);
         }
 
         if (in_array($method, SchemaContainer::get($this->baseResource)->getActions())) {
-            return $this->doRequest($method, $arguments);
+            return $this->makeCurlRequest($method, $arguments);
         }
 
-        return $this->doBeforeRequest($method, $arguments);
+        $this->request->{$method}(...$arguments);
+
+        return $this;
     }
 
     public function __destruct()
     {
         $this->request->destroyComponents();
-        BuilderContainer::destroy($this->baseResource);
     }
 
     public function baseResource(): ResourceInterface
@@ -57,21 +56,12 @@ class Builder implements BuilderInterface
         return $this->request;
     }
 
-    private function doRequest(string $method, array $arguments): ResourceInterface
+    private function makeCurlRequest(string $method, array $arguments): ResourceInterface
     {
         $actionSchema = SchemaContainer::getAction($this->baseResource, $method);
 
-        $curlService = RequestActionDefinition::finish($this->request, $actionSchema, $arguments)->connect();
+        $curl = $this->request->connect($actionSchema, $arguments);
 
-        $response =  new Response($curlService, $actionSchema);
-
-        return ResourceFactory::build($this->baseResource, $response);
-    }
- 
-    private function doBeforeRequest(string $method, array $arguments): BuilderInterface
-    {
-        $this->request->{$method}(...$arguments);
-
-        return $this;
+        return ResourceFactory::build($this->baseResource, new Response($curl, $actionSchema));
     }
 }

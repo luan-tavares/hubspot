@@ -3,6 +3,7 @@
 namespace LTL\Hubspot\Resources\V1;
 
 use LTL\Hubspot\Hubspot;
+use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
 
 /**
  * @method static $this getAll() 
@@ -17,16 +18,16 @@ use LTL\Hubspot\Hubspot;
  * @method $this get(int|string $property) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/get_deal_property
  *
- * @method static $this create(array $requestBody) 
+ * @method static $this create(BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/create_deal_property
  *
- * @method $this create(array $requestBody) 
+ * @method $this create(BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/create_deal_property
  *
- * @method static $this update(int|string $property, array $requestBody) 
+ * @method static $this update(int|string $property, BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/update_deal_property
  *
- * @method $this update(int|string $property, array $requestBody) 
+ * @method $this update(int|string $property, BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/update_deal_property
  *
  * @method static $this delete(int|string $property) 
@@ -47,16 +48,16 @@ use LTL\Hubspot\Hubspot;
  * @method $this getGroup(int|string $group) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/get_deal_property_group
  *
- * @method static $this createGroup(array $requestBody) 
+ * @method static $this createGroup(BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/create_deal_property_group
  *
- * @method $this createGroup(array $requestBody) 
+ * @method $this createGroup(BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/create_deal_property_group
  *
- * @method static $this updateGroup(int|string $group, array $requestBody) 
+ * @method static $this updateGroup(int|string $group, BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/update_deal_property_group
  *
- * @method $this updateGroup(int|string $group, array $requestBody) 
+ * @method $this updateGroup(int|string $group, BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/update_deal_property_group
  *
  * @method static $this deleteGroup(int|string $group) 

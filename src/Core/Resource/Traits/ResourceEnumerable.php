@@ -9,6 +9,8 @@ trait ResourceEnumerable
         foreach ($this as $key => $item) {
             $callback($item, $key);
         }
+
+        return;
     }
 
     public function map(callable $callback): array

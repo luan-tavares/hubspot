@@ -8,6 +8,7 @@ trait ResourceArrayAccess
 {
     public function offsetSet(mixed $offset, mixed $value): void
     {
+        return;
     }
 
     public function offsetExists(mixed $offset): bool
@@ -17,6 +18,7 @@ trait ResourceArrayAccess
 
     public function offsetUnset(mixed $offset):void
     {
+        return;
     }
 
     public function offsetGet(mixed $offset): mixed
@@ -25,7 +27,7 @@ trait ResourceArrayAccess
             return $this->toArray()[$offset];
         }
 
-        $response = mb_strimwidth($this->toJson(), 0, 300, ' ...');
+        $response = mb_strimwidth($this->toJson(), 0, 150, ' ...');
 
         throw new HubspotApiException("Undefined \"{$offset}\" offset in response array first level:\n\n{$response}\n\n");
     }

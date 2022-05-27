@@ -44,7 +44,7 @@ foreach ($resources as $resource) {
     $j = 0;
     $document = json_decode(file_get_contents($basePath . "/src/schemas/{$resource}.json"));
 
-    $documentation = @$document->documentation;
+    $documentation = $document->documentation ?? null;
 
     $resourcePath = "{$basePath}/src/Resources";
 
@@ -73,15 +73,17 @@ foreach ($resources as $resource) {
             return 'int|string $'. $item;
         }, $matches[1]);
 
-        if (in_array($actionSchema->method, HubspotConfig::METHODS_WITH_BODY)  && !@$actionSchema->noBody) {
-            $params[] = 'array $requestBody';
+        $hasBody = $actionSchema->hasBody ?? true;
+
+        if (in_array($actionSchema->method, HubspotConfig::METHODS_WITH_BODY)  && $hasBody) {
+            $params[] = 'BaseBodyBuilder|array $requestBody';
         }
  
         $params = implode(', ', $params);
         
-        $methodDocumentation = @$actionSchema->documentation ?? $documentation;
+        $methodDocumentation = $actionSchema->documentation ?? $documentation;
 
-        $description = @$actionSchema->description;
+        $description = $actionSchema->description ?? null;
     
         $doc .= " * @method static \$this {$action}({$params}) {$description}\n";
 
@@ -107,7 +109,7 @@ foreach ($resources as $resource) {
 
     file_put_contents("{$resourcePath}/V{$document->version}/{$document->class}.php", $content);
 
-    if (@$document->latest) {
+    if ($document->latest ?? false) {
         $latestContent = $latestTemplate;
         $latestContent = str_replace('{{class}}', $document->class, $latestContent);
         $latestContent = str_replace('{{version}}', $document->version, $latestContent);

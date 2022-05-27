@@ -10,6 +10,7 @@ use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 use LTL\Hubspot\Core\Request\Components\BodyRequestComponent;
 use LTL\Hubspot\Core\Request\Components\CurlRequestComponent;
 use LTL\Hubspot\Core\Request\Components\HeaderRequestComponent;
+use LTL\Hubspot\Core\Request\Components\MethodRequestComponent;
 use LTL\Hubspot\Core\Request\Components\QueryRequestComponent;
 use LTL\Hubspot\Core\Request\Components\UriRequestComponent;
 use LTL\Hubspot\Core\Request\Observers\ComponentObserver;
@@ -24,7 +25,8 @@ abstract class RequestFactory implements FactoryInterface
         'header' => HeaderRequestComponent::class,
         'body' => BodyRequestComponent::class,
         'curl' => CurlRequestComponent::class,
-        'uri' => UriRequestComponent::class
+        'uri' => UriRequestComponent::class,
+        'method' => MethodRequestComponent::class
     ];
 
     public static function build(ResourceInterface $baseResource): RequestInterface
@@ -33,7 +35,7 @@ abstract class RequestFactory implements FactoryInterface
             return new ReflectionClass($class);
         });
 
-        return self::makeRequest($reflectionClass, $baseResource)->addApikeyWithoutObserver(HubspotApikey::get());
+        return self::makeRequest($reflectionClass, $baseResource);
     }
 
     private static function makeRequest(ReflectionClass $reflectionClass, ResourceInterface $baseResource): RequestInterface
@@ -57,10 +59,7 @@ abstract class RequestFactory implements FactoryInterface
             return new ReflectionClass($class);
         });
 
-        $component = $reflectionClass->newInstanceWithoutConstructor();
-
-        $reflectionProperty = $reflectionClass->getProperty('request');
-        $reflectionProperty->setValue($component, $request);
+        $component = $reflectionClass->newInstance($request);
        
         $component->attach(SingletonContainer::get(ComponentObserver::class));
 

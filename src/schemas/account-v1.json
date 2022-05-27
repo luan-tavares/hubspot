@@ -1,0 +1,18 @@
+{
+    "resource": "integrations",
+    "class": "AccountHubspot",
+    "version": 1,
+    "latest": true,
+    "actions": {
+        "getRateLimit": {
+            "path": "limit/daily",
+            "documentation": "https://developers.hubspot.com/docs/api/usage-details",
+            "method": "GET"
+        },
+        "getDetails": {
+            "path": "me",
+            "documentation": "https://legacydocs.hubspot.com/docs/methods/get-account-details",
+            "method": "GET"
+        }
+    }
+}

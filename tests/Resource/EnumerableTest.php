@@ -14,9 +14,11 @@ class EnumerableTest extends TestCase
 {
     private ResourceInterface $resource;
 
+    private array $items;
+
     protected function setUp(): void
     {
-        $items = [
+        $this->items = [
             'results' => [
                 'a' => 4,
                 'b' => 5,
@@ -27,7 +29,7 @@ class EnumerableTest extends TestCase
         ];
 
         $response = $this->getMockBuilder(Response::class)->disableOriginalConstructor()->getMock();
-        $response->rawResponse = json_encode($items);
+        $response->rawResponse = json_encode($this->items);
         $response->method('toJson')->willReturn($response->rawResponse);
         $response->method('getIteratorIndex')->willReturn('results');
         
@@ -125,5 +127,22 @@ class EnumerableTest extends TestCase
         }, '');
 
         $this->assertEquals($result, 'a-b-c-d-e');
+    }
+
+    public function testEachIsCorrect()
+    {
+        $result = [];
+
+        $this->resource->each(function ($item, $key) use (&$result) {
+            $result[] = $item;
+        });
+
+        $this->assertEquals([
+            4,
+            5,
+            null,
+            (object) [ 'a' => 5 ],
+            false
+        ], $result);
     }
 }

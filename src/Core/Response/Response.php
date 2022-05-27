@@ -84,7 +84,7 @@ class Response implements ResponseInterface, IteratorAggregate, Countable
 
     public function hasErrors(): bool
     {
-        return ($this->status < 200 || $this->status > 299);
+        return ($this->status < 200 || $this->status >= 300);
     }
 
     public function isMultiStatus(): bool

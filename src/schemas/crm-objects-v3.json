@@ -82,6 +82,11 @@
             "documentation": "https://developers.hubspot.com/docs/api/crm/search",
             "iteratorIndex": "results",
             "afterIndex": "paging.next.after"
+        },
+        "merge": {
+            "path": "objects/{objectType}/merge",
+            "method": "POST",
+            "description": "Merge two objects with same type."
         }
     }
 }

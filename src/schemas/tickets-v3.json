@@ -81,6 +81,11 @@
             "description": "Search tickets.",
             "iteratorIndex": "results",
             "afterIndex": "paging.next.after"
+        },
+        "merge": {
+            "path": "objects/tickets/merge",
+            "method": "POST",
+            "description": "Merge two tickets with same type."
         }
     }
 }

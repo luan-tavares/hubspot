@@ -1,0 +1,91 @@
+{
+    "resource": "crm",
+    "class": "QuoteHubspot",
+    "documentation": "https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/quotes",
+    "version": 3,
+    "latest": true,
+    "actions": {
+        "getAll": {
+            "path": "objects/quotes",
+            "method": "GET",
+            "description": "Read a page of quotes. Control what is returned via the properties query param.",
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
+        },
+        "get": {
+            "path": "objects/quotes/{quoteId}",
+            "method": "GET",
+            "description": "Read an quote identified by {quoteId}."
+        },
+        "create": {
+            "path": "objects/quotes",
+            "method": "POST",
+            "description": "Create a quote with the given properties and return a copy of the object, including the ID."
+        },
+        "update": {
+            "path": "objects/quotes/{quoteId}",
+            "method": "PATCH",
+            "description": "Perform a partial update of an quote identified by {quoteId}."
+        },
+        "delete": {
+            "path": "objects/quotes/{quoteId}",
+            "method": "DELETE",
+            "description": "Move an quote identified by {quoteId} to the recycling bin."
+        },
+        "getAssociations": {
+            "path": "objects/quotes/{quoteId}/associations/{toObjectType}",
+            "method": "GET",
+            "description": "List associations of a quote by type.",
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
+        },
+        "createAssociation": {
+            "path": "objects/quotes/{quoteId}/associations/{toObjectType}/{toObjectId}/{associationType}",
+            "method": "PUT",
+            "description": "Associate a quote with another object."
+        },
+        "removeAssociation": {
+            "path": "objects/quotes/{quoteId}/associations/{toObjectType}/{toObjectId}/{associationType}",
+            "method": "DELETE",
+            "description": "Remove an association between a quote and an object."
+        },
+        "batchDelete": {
+            "path": "objects/quotes/batch/archive",
+            "method": "POST",
+            "description": "Archive a batch of quotes by ID."
+        },
+        "batchCreate": {
+            "path": "objects/quotes/batch/create",
+            "method": "POST",
+            "description": "Create a batch of quotes.",
+            "iteratorIndex": "results",
+            "afterIndex": null
+        },
+        "batchRead": {
+            "path": "objects/quotes/batch/read",
+            "method": "POST",
+            "description": "Read a batch of quotes by internal ID, or unique property values.",
+            "iteratorIndex": "results",
+            "afterIndex": null
+        },
+        "batchUpdate": {
+            "path": "objects/quotes/batch/update",
+            "method": "POST",
+            "description": "Update a batch of quotes.",
+            "iteratorIndex": "results",
+            "afterIndex": null
+        },
+        "search": {
+            "path": "objects/quotes/search",
+            "method": "POST",
+            "description": "Search quotes.",
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
+        },
+        "merge": {
+            "path": "objects/quotes/merge",
+            "method": "POST",
+            "description": "Merge two quotes with same type."
+        }
+    }
+}

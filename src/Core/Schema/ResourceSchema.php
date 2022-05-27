@@ -33,6 +33,7 @@ class ResourceSchema implements ResourceSchemaInterface
             $this->actions[$action]->isLatestVersion = $schema->latest ?? false;
             $this->actions[$action]->schemaHasAuthentication = $schema->authentication ?? true;
             $this->actions[$action]->schemaDocumentation = $schema->documentation ?? '';
+            $this->actions[$action]->defaultProperties = $schema->defaultProperties ?? null;
         }
     }
 
@@ -50,7 +51,7 @@ class ResourceSchema implements ResourceSchemaInterface
         try {
             return $this->actions[$action];
         } catch (RuntimeException $error) {
-            throw new HubspotApiException($this->resourceClass ."::{$action}() not exists");
+            throw new HubspotApiException($this->resourceClass ."::{$action}() not exists.");
         }
     }
 

@@ -2,7 +2,11 @@
     "name": "luan-tavares/hubspot",
     "license": "MIT",
     "description": "Hubspot API for everyone",
-    "keywords": ["hubspot","api","integration"],
+    "keywords": [
+        "hubspot",
+        "api",
+        "integration"
+    ],
     "type": "library",
     "authors": [
         {
@@ -28,7 +32,7 @@
         "bin/resource"
     ],
     "require": {
-        "php": "^8.0",
+        "php": "^8.1",
         "luan-tavares/list-methods": "^1.0",
         "luan-tavares/simple-observer": "^1.0",
         "luan-tavares/simple-curl": "^1.0",
@@ -37,7 +41,8 @@
     "require-dev": {
         "larapack/dd": "1.*",
         "phpunit/phpunit": "^9.5",
-        "illuminate/collections": "^9.2"
+        "illuminate/collections": "^9.2",
+        "infection/infection": "^0.26.6"
     },
     "scripts": {
         "deploy-tag": [
@@ -46,5 +51,10 @@
         "deploy": [
             "LTL\\Deploy\\Deploy::execute"
         ]
+    },
+    "config": {
+        "allow-plugins": {
+            "infection/extension-installer": true
+        }
     }
 }

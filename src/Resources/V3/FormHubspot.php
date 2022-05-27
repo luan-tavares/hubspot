@@ -3,6 +3,7 @@
 namespace LTL\Hubspot\Resources\V3;
 
 use LTL\Hubspot\Hubspot;
+use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
 
 /**
  * @link https://app.hubspot.com/developer-docs/api?spec=v1/apis/marketing/v3/forms
@@ -19,22 +20,22 @@ use LTL\Hubspot\Hubspot;
  * @method $this get(int|string $formId) Returns a form based on the form ID provided.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/marketing/v3/forms
  *
- * @method static $this create(array $requestBody) Add a new hubspot form.
+ * @method static $this create(BaseBodyBuilder|array $requestBody) Add a new hubspot form.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/marketing/v3/forms
  *
- * @method $this create(array $requestBody) Add a new hubspot form.
+ * @method $this create(BaseBodyBuilder|array $requestBody) Add a new hubspot form.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/marketing/v3/forms
  *
- * @method static $this update(int|string $formId, array $requestBody) Update all fields of a hubspot form definition.
+ * @method static $this update(int|string $formId, BaseBodyBuilder|array $requestBody) Update all fields of a hubspot form definition.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/marketing/v3/forms
  *
- * @method $this update(int|string $formId, array $requestBody) Update all fields of a hubspot form definition.
+ * @method $this update(int|string $formId, BaseBodyBuilder|array $requestBody) Update all fields of a hubspot form definition.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/marketing/v3/forms
  *
- * @method static $this partialUpdate(int|string $formId, array $requestBody) Update some of the form definition components.
+ * @method static $this partialUpdate(int|string $formId, BaseBodyBuilder|array $requestBody) Update some of the form definition components.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/marketing/v3/forms
  *
- * @method $this partialUpdate(int|string $formId, array $requestBody) Update some of the form definition components.
+ * @method $this partialUpdate(int|string $formId, BaseBodyBuilder|array $requestBody) Update some of the form definition components.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/marketing/v3/forms
  *
  * @method static $this delete(int|string $formId) Archive a form definition. New submissions will not be accepted and the form definition will be permanently deleted after 3 months.

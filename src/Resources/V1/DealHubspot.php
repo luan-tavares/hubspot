@@ -3,6 +3,7 @@
 namespace LTL\Hubspot\Resources\V1;
 
 use LTL\Hubspot\Hubspot;
+use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
 
 /**
  * @method static $this get(int|string $dealId) 
@@ -29,16 +30,16 @@ use LTL\Hubspot\Hubspot;
  * @method $this getRecentlyCreated() 
  * See https://legacydocs.hubspot.com/docs/methods/deals/get_deals_created
  *
- * @method static $this create(array $requestBody) 
+ * @method static $this create(BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/create_deal
  *
- * @method $this create(array $requestBody) 
+ * @method $this create(BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/create_deal
  *
- * @method static $this update(int|string $dealId, array $requestBody) 
+ * @method static $this update(int|string $dealId, BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/update_deal
  *
- * @method $this update(int|string $dealId, array $requestBody) 
+ * @method $this update(int|string $dealId, BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/update_deal
  *
  * @method static $this delete(int|string $dealId) 
@@ -47,10 +48,10 @@ use LTL\Hubspot\Hubspot;
  * @method $this delete(int|string $dealId) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/delete_deal
  *
- * @method static $this batchUpdate(array $requestBody) 
+ * @method static $this batchUpdate(BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/batch-update-deals
  *
- * @method $this batchUpdate(array $requestBody) 
+ * @method $this batchUpdate(BaseBodyBuilder|array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/batch-update-deals
  *
  */

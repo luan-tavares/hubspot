@@ -12,22 +12,24 @@ abstract class RequestComponent implements SubjectInterface
 
     private array $items = [];
 
-    protected RequestInterface $request;
+    protected RequestInterface|null $request;
 
-    public function __construct()
+    public function __construct(RequestInterface|null $request = null)
     {
+        $this->request = $request;
+        $this->boot();
     }
 
     private function __clone()
     {
     }
 
+    protected function boot(): void
+    {
+    }
+
     public function request(): RequestInterface|null
     {
-        if (!isset($this->request)) {
-            return null;
-        }
-
         return $this->request;
     }
 
@@ -41,25 +43,50 @@ abstract class RequestComponent implements SubjectInterface
         unset($this->items[$key]);
     }
 
-    public function addArray(array|null $array): self
+    public function addArrayAfter(array|null $array): self
     {
         if (is_null($array)) {
             return $this;
         }
 
-        $this->items = array_filter(array_merge($this->items, $array), function ($item) {
-            return !is_null($item);
-        });
+        $this->items = $this->addArray(array_merge($this->items, $array));
 
         return $this;
     }
+
+    public function addArrayBefore(array|null $array): self
+    {
+        if (is_null($array)) {
+            return $this;
+        }
+        
+        $this->items = $this->addArray(array_merge($array, $this->items));
+
+        return $this;
+    }
+
+    private function addArray(array|null $mergedArray): array
+    {
+        return array_filter($mergedArray, function ($item) {
+            return !is_null($item);
+        });
+    }
   
-    public function add(string $name, string|int|array|bool|null $value): self
+    public function addNotNull(string $name, string|int|array|bool|null $value): self
     {
         if (is_null($value)) {
             return $this;
         }
-        
+
+        return $this->add($name, $value);
+    }
+
+    public function add(string $name, string|int|array|bool|null $value = null): self
+    {
+        if (is_null($value)) {
+            $value = '';
+        }
+
         $this->items[$name] = $value;
 
         return $this;

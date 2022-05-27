@@ -2,6 +2,9 @@
  
 namespace LTL\Hubspot\Core\Interfaces\Request;
 
+use LTL\Curl\Interfaces\CurlInterface;
+use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
+
 interface RequestInterface
 {
     public function destroyComponents(): void;
@@ -11,13 +14,19 @@ interface RequestInterface
     public function getCurlParams(): array;
     public function getBody(): array|null;
     public function getUri(): string;
+    public function getMethod(): string;
 
     public function removeHeader(string $header): self;
     public function removeQuery(string $query): self;
-    public function addQueries(array|null $queries): self;
-    public function addBody(array|null $body): self;
-    public function addHeaders(array|null $headers): self;
-    public function addUri(string $baseUri, array $associativeParams, array $queries): self;
+    
+    public function addQueriesAfter(array|null $queries): self;
+    public function addQueriesBefore(array|null $queries): self;
+
+    public function addHeadersBefore(array|null $headers): self;
+    
+    public function addMethod(string $method): self;
+    public function addBody(ActionSchemaInterface $actionSchema, array $arguments): self;
+    public function addUri(ActionSchemaInterface $actionSchema, array $arguments): self;
 
     public function addApikeyWithoutObserver(string|null $apikey): self;
     public function removeApikey(): self;
@@ -25,6 +34,5 @@ interface RequestInterface
     public function addOAuthWithoutObserver(string $oAuth): self;
     public function removeOAuth(): self;
 
-    public function hasDispatched(): bool;
-    public function changeDispatchToTrue(): void;
+    public function connect(ActionSchemaInterface $actionSchema, array $arguments): CurlInterface;
 }

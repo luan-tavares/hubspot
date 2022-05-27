@@ -2,7 +2,9 @@
 
 namespace LTL\Hubspot\Tests\Schema;
 
+use Exception;
 use LTL\Hubspot\Containers\SchemaContainer;
+use LTL\Hubspot\Core\Schema\ActionSchema;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\ActionSchemaFactory;
 use LTL\Hubspot\Resources\ContactHubspot;
@@ -48,6 +50,7 @@ class ActionSchemaTest extends TestCase
             'batchRead',
             'batchUpdate',
             'search',
+            'merge'
         ]);
     }
 
@@ -58,13 +61,26 @@ class ActionSchemaTest extends TestCase
         $this->assertIsObject($object->getAction('create'));
     }
 
-    public function testIfGetActionThrowException()
+    public function testIfGetActionThrowHubspotApiException()
     {
         $object = SchemaContainer::get(new ContactHubspot);
 
         $this->expectException(HubspotApiException::class);
 
         $object->getAction('unknowAction');
+    }
+
+    public function testIfGetActionThrowHubspotApiExceptionCorrectMessage()
+    {
+        $resource = new ContactHubspot;
+
+        $action = 'unknowAction';
+
+        $object = SchemaContainer::get($resource);
+
+        $this->expectExceptionMessage($resource::class ."::{$action}() not exists");
+
+        $object->getAction($action);
     }
 
     public function testIfActionFactoryIsCorrect()
@@ -74,5 +90,41 @@ class ActionSchemaTest extends TestCase
         $actionSchema = ActionSchemaFactory::build($resourceSchema, 'get');
 
         $this->assertEquals($actionSchema->resourceClass, ContactHubspot::class);
+    }
+
+    public function testIfMagicMethodGetIsCorrect()
+    {
+        $object = SchemaContainer::getAction(new ContactHubspot, 'getAll');
+
+        $this->assertEquals($object->resourceClass, ContactHubspot::class);
+    }
+
+    public function testIfMagicMethodGetThrowException()
+    {
+        $object = SchemaContainer::getAction(new ContactHubspot, 'getAll');
+
+        $property = 'unknowProperty';
+
+        $this->expectException(HubspotApiException::class);
+
+        $object->unknowProperty;
+    }
+
+    public function testIfMagicMethodGetThrowExceptionMessageIsCorrect()
+    {
+        $object = SchemaContainer::getAction(new ContactHubspot, 'getAll');
+
+        $property = 'unknowProperty';
+
+        $this->expectExceptionMessage("Property {$property} not exists in ". ActionSchema::class);
+
+        $object->{$property};
+    }
+
+    public function testIfMagicMethodIssetReturnTrue()
+    {
+        $object = SchemaContainer::getAction(new ContactHubspot, 'getAll');
+
+        $this->assertTrue(isset($object->iteratorIndex));
     }
 }

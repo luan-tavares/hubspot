@@ -2,23 +2,43 @@
 
 namespace LTL\Hubspot\Core\Request\Components;
 
-use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Interfaces\Request\UriComponentInterface;
+use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
 use LTL\Hubspot\Core\Request\Components\RequestComponent;
+use LTL\Hubspot\Exceptions\HubspotApiException;
 
 class UriRequestComponent extends RequestComponent implements UriComponentInterface
 {
     private string $uri;
 
-    public function generate(string $baseUri, array $associativeParams, array $queries): void
+    public function create(ActionSchemaInterface $actionSchema, array $arguments): void
     {
-        $url = str_replace(
-            array_keys($associativeParams),
-            array_values($associativeParams),
-            $baseUri
+        $params = $actionSchema->params ?? [];
+        $queryArguments = $arguments;
+
+        $nParams = count($params);
+        $nArguments = count($arguments);
+
+        HubspotApiException::throwIf(
+            $nParams !== $nArguments,
+            '"'. $actionSchema->resourceClass ."::{$actionSchema}()\" must be {$nParams} params, {$nArguments} given"
         );
 
-        $encodedQueries = preg_replace('/%5B[0-9]+%5D/i', '', http_build_query($queries));
+        if (!$actionSchema->authentication) {
+            $this->request->removeApikey();
+        }
+
+        if ($actionSchema->hasBody) {
+            array_pop($queryArguments);
+        }
+        
+        $url = str_replace(
+            $params,
+            $queryArguments,
+            $actionSchema->baseUri
+        );
+
+        $encodedQueries = preg_replace('/%5B[0-9]+%5D/i', '', http_build_query($this->request->getQueries()));
 
         $this->uri = "{$url}?{$encodedQueries}";
     }

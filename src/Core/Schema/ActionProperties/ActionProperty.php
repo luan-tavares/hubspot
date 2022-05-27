@@ -13,7 +13,7 @@ abstract class ActionProperty
 
     protected function parse(object $actionSchema): mixed
     {
-        /**Parse */
+        return null;
     }
 
     public function get(): mixed

@@ -2,58 +2,78 @@
 
 namespace LTL\Hubspot\Tests\Request;
 
+use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Request\Components\UriRequestComponent;
 use LTL\Hubspot\Core\Request\Request;
+use LTL\Hubspot\Resources\V1\OAuthHubspot;
+use LTL\Hubspot\Resources\V3\ContactHubspot;
 use PHPUnit\Framework\TestCase;
 
 class UriComponentTest extends TestCase
 {
-    protected $object;
+    protected $request;
 
     protected function setUp(): void
     {
-        $stub = $this->getMockBuilder(Request::class)->disableOriginalConstructor()->getMock();
-
-        $this->object = new UriRequestComponent($stub);
+        $this->request = $this->getMockBuilder(Request::class)->disableOriginalConstructor()->getMock();
+        $this->request->method('removeApiKey')->willReturn($this->request);
     }
 
     public function testGenerateUriIsCorrect()
     {
-        $baseUri = 'https://domain/resource/{paramA}/{paramB}';
+        $arguments = ['123456', [
+            'test' => 123
+        ]];
 
-        $associativeParams = [
-            '{paramA}' => 'a',
-            '{paramB}' => 'b'
-        ];
+        $this->request->method('getQueries')->willReturn([
+            'email' => 'email@email.com',
+            'property__has_value' => ''
+        ]);
 
-        $queries = [
-            'key' => 'hash',
-            'properties' => ['a', 'b', 4],
-            'email' => 'l@l'
-        ];
+        $expectedUri = 'https://api.hubapi.com/crm/v3/objects/contacts/123456?email=email%40email.com&property__has_value=';
 
-        $expectedUri = 'https://domain/resource/a/b?key=hash&properties=a&properties=b&properties=4&email=l%40l';
+        $uriComponent = new UriRequestComponent($this->request);
 
-        $this->object->generate($baseUri, $associativeParams, $queries);
+        $actionSchema = SchemaContainer::getAction(new ContactHubspot, 'update');
 
-        $this->assertEquals($this->object->get(), $expectedUri);
+        $uriComponent->create($actionSchema, $arguments);
+
+        $this->assertEquals($expectedUri, $uriComponent->get());
     }
 
     public function testGenerateUriWithNullQueriesIsCorrect()
     {
-        $baseUri = 'https://domain/resource/{paramA}/{paramB}';
+        $arguments = ['123456', [
+            'test' => 123
+        ]];
 
-        $associativeParams = [
-            '{paramA}' => 'a',
-            '{paramB}' => 'b'
-        ];
+        $expectedUri = 'https://api.hubapi.com/crm/v3/objects/contacts/123456?';
 
-        $queries = [ ];
+        $this->request->method('getQueries')->willReturn([]);
 
-        $expectedUri = 'https://domain/resource/a/b?';
+        $uriComponent = new UriRequestComponent($this->request);
 
-        $this->object->generate($baseUri, $associativeParams, $queries);
+        $actionSchema = SchemaContainer::getAction(new ContactHubspot, 'update');
 
-        $this->assertEquals($this->object->get(), $expectedUri);
+        $uriComponent->create($actionSchema, $arguments);
+
+        $this->assertEquals($expectedUri, $uriComponent->get());
+    }
+
+    public function testGenerateUriWithoutAuthenticationIsCorrect()
+    {
+        $arguments = ['123456'];
+
+        $expectedUri = 'https://api.hubapi.com/crm/v3/objects/contacts/123456?';
+
+
+        $uriComponent = new UriRequestComponent($this->request);
+
+        $actionSchema = SchemaContainer::getAction(new OAuthHubspot, 'getRefreshToken');
+
+        $this->request->expects($this->once())
+            ->method('removeApikey');
+
+        $uriComponent->create($actionSchema, $arguments);
     }
 }

@@ -2,8 +2,8 @@
 
 namespace LTL\Hubspot\Core\Request\Components;
 
-use LTL\Hubspot\Core\Request\Components\RequestComponent;
 use LTL\Hubspot\Core\Interfaces\Request\HeaderComponentInterface;
+use LTL\Hubspot\Core\Request\Components\RequestComponent;
 use LTL\ListMethods\PublicMethods\Traits\PublicMethodsListable;
 
 class HeaderRequestComponent extends RequestComponent implements HeaderComponentInterface
@@ -14,6 +14,6 @@ class HeaderRequestComponent extends RequestComponent implements HeaderComponent
     {
         $this->notify('oAuthInserted');
         
-        return $this->add('Authorization', "Bearer {$oAuth}");
+        return $this->addNotNull('Authorization', "Bearer {$oAuth}");
     }
 }

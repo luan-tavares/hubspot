@@ -3,6 +3,7 @@
 namespace LTL\Hubspot\Resources\V1;
 
 use LTL\Hubspot\Hubspot;
+use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
 
 /**
  * @method static $this getAll() Get call engagement dispositions.
