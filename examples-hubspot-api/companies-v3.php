@@ -9,7 +9,7 @@ use LTL\Hubspot\Resources\V3\CompanyHubspot;
 
 $after = $i = $memory = 0;
 
-
+/** */
 while (true) {
     $companies = CompanyHubspot::after($after)->limit(100)->getAll();
     
