@@ -61,6 +61,16 @@ class SearchActionsBuilder extends ActionsBuilder implements SearchActionsBuilde
         return $this->filter($property, 'EQ', $value);
     }
 
+    public function filterLess(string $property, string|int $value): SearchBuilder
+    {
+        return $this->filter($property, 'LT', $value);
+    }
+
+    public function filterGreater(string $property, string|int $value): SearchBuilder
+    {
+        return $this->filter($property, 'GT', $value);
+    }
+
     public function filterHas(string $property): SearchBuilder
     {
         return $this->filter($property, 'HAS_PROPERTY');
