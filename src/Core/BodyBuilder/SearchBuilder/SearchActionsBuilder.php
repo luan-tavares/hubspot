@@ -37,7 +37,7 @@ class SearchActionsBuilder extends ActionsBuilder implements SearchActionsBuilde
         return $this->bodyBuilder;
     }
 
-    private function filter(string $property, string $operator, string|int|null $value = null): SearchBuilder
+    private function filter(string $property, string $operator, array|string|int|null $value = null, string|int|null $highValue = null): SearchBuilder
     {
         $array = $this->bodyBuilder['filterGroups'];
 
@@ -46,14 +46,34 @@ class SearchActionsBuilder extends ActionsBuilder implements SearchActionsBuilde
             'operator' => $operator,
         ];
 
+        if ($operator === 'IN' or $operator === 'NOT_IN') {
+            $array[$this->filterGroupIndex]['filters'][$this->filterIndex]['values'] = $value;
+            $this->filterIndex++;
+
+            return $this->bodyBuilder->add('filterGroups', $array);
+        }
+
         if (!is_null($value)) {
             $array[$this->filterGroupIndex]['filters'][$this->filterIndex]['value'] = $value;
         }
 
+        if (!is_null($highValue)) {
+            $array[$this->filterGroupIndex]['filters'][$this->filterIndex]['highValue'] = $highValue;
+        }
+
         $this->filterIndex++;
-    
 
         return $this->bodyBuilder->add('filterGroups', $array);
+    }
+
+    public function filterIn(string $property, array $values): SearchBuilder
+    {
+        return $this->filter($property, 'IN', $values);
+    }
+
+    public function filterNotIn(string $property, array $values): SearchBuilder
+    {
+        return $this->filter($property, 'NOT_IN', $values);
     }
 
     public function filterEqual(string $property, string|int $value): SearchBuilder
@@ -61,9 +81,34 @@ class SearchActionsBuilder extends ActionsBuilder implements SearchActionsBuilde
         return $this->filter($property, 'EQ', $value);
     }
 
+    public function filterContains(string $property, string|int $value): SearchBuilder
+    {
+        return $this->filter($property, 'CONTAINS_TOKEN', $value);
+    }
+
+    public function filterNotContains(string $property, string|int $value): SearchBuilder
+    {
+        return $this->filter($property, 'NOT_CONTAINS_TOKEN', $value);
+    }
+
+    public function filterNotEqual(string $property, string|int $value): SearchBuilder
+    {
+        return $this->filter($property, 'NEQ', $value);
+    }
+
+    public function filterBetween(string $property, string|int $value, string|int $highValue): SearchBuilder
+    {
+        return $this->filter($property, 'BETWEEN', $value, $highValue);
+    }
+
     public function filterLess(string $property, string|int $value): SearchBuilder
     {
         return $this->filter($property, 'LT', $value);
+    }
+
+    public function filterLessOrEqual(string $property, string|int $value): SearchBuilder
+    {
+        return $this->filter($property, 'LTE', $value);
     }
 
     public function filterGreater(string $property, string|int $value): SearchBuilder
@@ -71,9 +116,19 @@ class SearchActionsBuilder extends ActionsBuilder implements SearchActionsBuilde
         return $this->filter($property, 'GT', $value);
     }
 
+    public function filterGreaterOrEqual(string $property, string|int $value): SearchBuilder
+    {
+        return $this->filter($property, 'GTE', $value);
+    }
+
     public function filterHas(string $property): SearchBuilder
     {
         return $this->filter($property, 'HAS_PROPERTY');
+    }
+
+    public function filterNotHas(string $property): SearchBuilder
+    {
+        return $this->filter($property, 'NOT_HAS_PROPERTY');
     }
 
     public function properties(string ...$arguments): SearchBuilder

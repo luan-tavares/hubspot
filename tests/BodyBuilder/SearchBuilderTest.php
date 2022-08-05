@@ -79,6 +79,27 @@ class SearchBuilderTest extends TestCase
         $this->assertEquals($this->base, $requestBody->get());
     }
 
+    public function testIfFilterNotHasIsCorrect()
+    {
+        $filter = [
+            [
+                'filters' => [
+                    [
+                        'propertyName' => 'name',
+                        'operator' => 'NOT_HAS_PROPERTY'
+                    ]
+                ]
+            ]
+            
+        ];
+
+        $requestBody = SearchBuilder::filterNotHas('name');
+
+        $this->base['filterGroups'] = $filter;
+
+        $this->assertEquals($this->base, $requestBody->get());
+    }
+
     public function testIfSortAscIsCorrect()
     {
         $sort = [
@@ -171,6 +192,217 @@ class SearchBuilderTest extends TestCase
             })->filterGroup(function ($builder) {
                 $builder->filterEqual('name2', 'lorem');
             });
+
+        $this->base['filterGroups'] = $filter;
+
+        $this->assertEquals($this->base, $requestBody->get());
+    }
+
+    public function testIfFilterLessIsCorrect()
+    {
+        $filter = [
+            [
+                'filters' => [
+                    [
+                        'propertyName' => 'number',
+                        'operator' => 'LT',
+                        'value' => 1000
+                    ]
+                ]
+            ]
+        ];
+
+        $requestBody = SearchBuilder::filterLess('number', 1000);
+
+        $this->base['filterGroups'] = $filter;
+
+        $this->assertEquals($this->base, $requestBody->get());
+    }
+
+    public function testIfFilterGreaterIsCorrect()
+    {
+        $filter = [
+            [
+                'filters' => [
+                    [
+                        'propertyName' => 'number',
+                        'operator' => 'GT',
+                        'value' => 1000
+                    ]
+                ]
+            ]
+        ];
+
+        $requestBody = SearchBuilder::filterGreater('number', 1000);
+
+        $this->base['filterGroups'] = $filter;
+
+        $this->assertEquals($this->base, $requestBody->get());
+    }
+
+    public function testIfFilterGreaterOrEqualIsCorrect()
+    {
+        $filter = [
+            [
+                'filters' => [
+                    [
+                        'propertyName' => 'number',
+                        'operator' => 'GTE',
+                        'value' => 1000
+                    ]
+                ]
+            ]
+        ];
+
+        $requestBody = SearchBuilder::filterGreaterOrEqual('number', 1000);
+
+        $this->base['filterGroups'] = $filter;
+
+        $this->assertEquals($this->base, $requestBody->get());
+    }
+
+    public function testIfFilterLessOrEqualIsCorrect()
+    {
+        $filter = [
+            [
+                'filters' => [
+                    [
+                        'propertyName' => 'number',
+                        'operator' => 'LTE',
+                        'value' => 1000
+                    ]
+                ]
+            ]
+        ];
+
+        $requestBody = SearchBuilder::filterLessOrEqual('number', 1000);
+
+        $this->base['filterGroups'] = $filter;
+
+        $this->assertEquals($this->base, $requestBody->get());
+    }
+
+    public function testIfFilterNotEqualIsCorrect()
+    {
+        $filter = [
+            [
+                'filters' => [
+                    [
+                        'propertyName' => 'property',
+                        'operator' => 'NEQ',
+                        'value' => 'value'
+                    ]
+                ]
+            ]
+        ];
+
+        $requestBody = SearchBuilder::filterNotEqual('property', 'value');
+
+        $this->base['filterGroups'] = $filter;
+
+        $this->assertEquals($this->base, $requestBody->get());
+    }
+
+    public function testIfFilterBetweenIsCorrect()
+    {
+        $filter = [
+            [
+                'filters' => [
+                    [
+                        'propertyName' => 'number',
+                        'operator' => 'BETWEEN',
+                        'value' => 1000,
+                        'highValue' => 2000
+                    ]
+                ]
+            ]
+        ];
+
+        $requestBody = SearchBuilder::filterBetween('number', 1000, 2000);
+
+        $this->base['filterGroups'] = $filter;
+
+        $this->assertEquals($this->base, $requestBody->get());
+    }
+
+    public function testIfFilterInIsCorrect()
+    {
+        $filter = [
+            [
+                'filters' => [
+                    [
+                        'propertyName' => 'number',
+                        'operator' => 'IN',
+                        'values' => [1,2,3]
+                    ]
+                ]
+            ]
+        ];
+
+        $requestBody = SearchBuilder::filterIn('number', [1,2,3]);
+
+        $this->base['filterGroups'] = $filter;
+
+        $this->assertEquals($this->base, $requestBody->get());
+    }
+
+    public function testIfFilterNotInIsCorrect()
+    {
+        $filter = [
+            [
+                'filters' => [
+                    [
+                        'propertyName' => 'number',
+                        'operator' => 'NOT_IN',
+                        'values' => [1,2,3]
+                    ]
+                ]
+            ]
+        ];
+
+        $requestBody = SearchBuilder::filterNotIn('number', [1,2,3]);
+
+        $this->base['filterGroups'] = $filter;
+
+        $this->assertEquals($this->base, $requestBody->get());
+    }
+
+    public function testIfFilterContainsIsCorrect()
+    {
+        $filter = [
+            [
+                'filters' => [
+                    [
+                        'propertyName' => 'property',
+                        'operator' => 'CONTAINS_TOKEN',
+                        'value' => '*@teste'
+                    ]
+                ]
+            ]
+        ];
+
+        $requestBody = SearchBuilder::filterContains('property', '*@teste');
+
+        $this->base['filterGroups'] = $filter;
+
+        $this->assertEquals($this->base, $requestBody->get());
+    }
+
+    public function testIfFilterNotContainsIsCorrect()
+    {
+        $filter = [
+            [
+                'filters' => [
+                    [
+                        'propertyName' => 'property',
+                        'operator' => 'NOT_CONTAINS_TOKEN',
+                        'value' => '*@teste'
+                    ]
+                ]
+            ]
+        ];
+
+        $requestBody = SearchBuilder::filterNotContains('property', '*@teste');
 
         $this->base['filterGroups'] = $filter;
 
