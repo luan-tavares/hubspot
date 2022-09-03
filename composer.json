@@ -40,9 +40,9 @@
     },
     "require-dev": {
         "larapack/dd": "1.*",
-        "phpunit/phpunit": "^9.5",
-        "illuminate/collections": "^9.2",
-        "infection/infection": "^0.26.6"
+        "phpunit/phpunit": "^9",
+        "illuminate/collections": "^9",
+        "infection/infection": "^0"
     },
     "scripts": {
         "deploy-tag": [

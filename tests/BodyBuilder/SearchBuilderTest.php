@@ -334,13 +334,20 @@ class SearchBuilderTest extends TestCase
                         'propertyName' => 'number',
                         'operator' => 'IN',
                         'values' => [1,2,3]
+                    ],
+                    [
+                        'propertyName' => 'name',
+                        'operator' => 'HAS_PROPERTY'
                     ]
                 ]
             ]
+
         ];
 
-        $requestBody = SearchBuilder::filterIn('number', [1,2,3]);
+        $requestBody = SearchBuilder::filterIn('number', [1,2,3])
+            ->filterHas('name');
 
+            
         $this->base['filterGroups'] = $filter;
 
         $this->assertEquals($this->base, $requestBody->get());

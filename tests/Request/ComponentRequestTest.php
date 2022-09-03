@@ -4,6 +4,7 @@ namespace LTL\Hubspot\Tests\Request;
 
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\BodyBuilder\SearchBuilder\SearchBuilder;
+use LTL\Hubspot\Core\Request\Components\MethodRequestComponent;
 use LTL\Hubspot\Core\Request\Components\RequestComponent;
 use LTL\Hubspot\Core\Request\Components\UriRequestComponent;
 use LTL\Hubspot\Core\Request\RequestDefinition;
@@ -110,6 +111,13 @@ class ComponentRequestTest extends TestCase
     public function testIfRequestComponentBootMethodIsProtected()
     {
         $component = new ReflectionClass(RequestComponent::class);
+        
+        $this->assertTrue($component->getMethod('boot')->isProtected());
+    }
+
+    public function testIfRequestComponentConcreteBootMethodIsProtected()
+    {
+        $component = new ReflectionClass(MethodRequestComponent::class);
         
         $this->assertTrue($component->getMethod('boot')->isProtected());
     }
