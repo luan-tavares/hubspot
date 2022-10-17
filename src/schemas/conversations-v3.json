@@ -1,0 +1,101 @@
+{
+    "resource": "conversations",
+    "class": "ConversationHubspot",
+    "documentation": "https://app.hubspot.com/developer-docs/api?spec=v1/apis/conversations/v3/conversations",
+    "version": 3,
+    "latest": true,
+    "actions": {
+        "getAllActors": {
+            "path": "conversations/actors/batch/read",
+            "method": "POST",
+            "description": "Resolve ActorIds to the underlying actors/participants.",
+            "iteratorIndex": "results",
+            "afterIndex": null
+        },
+        "getActor": {
+            "path": "conversations/actors/{actorId}",
+            "method": "GET",
+            "description": "Get a single actor."
+        },
+        "getAllChannelsAccounts": {
+            "path": "conversations/channel-accounts",
+            "method": "GET",
+            "description": "Get channel accounts.",
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
+        },
+        "getChannelAccount": {
+            "path": "channel-accounts/{channelAccountId}",
+            "method": "GET",
+            "description": "Get a single channel account."
+        },
+        "getAllChannels": {
+            "path": "conversations/channels",
+            "method": "GET",
+            "description": "Get channels.",
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
+        },
+        "getChannel": {
+            "path": "conversations/channels/{channelId}",
+            "method": "GET",
+            "description": "Get a single channel."
+        },
+        "getAllInboxes": {
+            "path": "conversations/inboxes",
+            "method": "GET",
+            "description": "Get conversations inboxes.",
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
+        },
+        "getInbox": {
+            "path": "conversations/inboxes/{inboxId}",
+            "method": "GET",
+            "description": "Get a single conversations inbox."
+        },
+        "getAllThreads": {
+            "path": "conversations/threads",
+            "method": "GET",
+            "description": "Get threads.",
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
+        },
+        "getThread": {
+            "path": "conversations/threads/{threadId}",
+            "method": "GET",
+            "description": "Get a single thread."
+        },
+        "updateThread": {
+            "path": "conversations/threads/{threadId}",
+            "method": "PATCH",
+            "description": "Updates a single thread. Either a thread's status can be updated, or the thread can be restored."
+        },
+        "deleteThread": {
+            "path": "conversations/threads/{threadId}",
+            "method": "DELETE",
+            "description": "Archives a single thread. The thread will be permanently deleted 30 days after placed in an archived state."
+        },
+        "getAllMessages": {
+            "path": "conversations/threads/{threadId}/messages",
+            "method": "GET",
+            "description": "Get message history for a thread.",
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
+        },
+        "sendMessage": {
+            "path": "conversations/threads/{threadId}/messages",
+            "method": "POST",
+            "description": "Send a new message on a thread at the current timestamp."
+        },
+        "getMessage": {
+            "path": "conversations/threads/{threadId}/messages/{messageId}",
+            "method": "GET",
+            "description": "Get a single message."
+        },
+        "getMessageOriginalContent": {
+            "path": "conversations/threads/{threadId}/messages/{messageId}/original-content",
+            "method": "GET",
+            "description": "Returns the complete original text and rich text bodies of a message. This will be different from the text and rich text in the message itself if the message's truncationStatus is anything other than NOT_TRUNCATED."
+        }
+    }
+}
