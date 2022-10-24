@@ -92,6 +92,12 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this merge(BaseBodyBuilder|array $requestBody) Merge two products with same type.
  * See https://developers.hubspot.com/docs/api/crm/products
  *
+ * @method static $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $hubspotId) (Handler) Use Create or Update product if id exists.
+ * See https://developers.hubspot.com/docs/api/crm/products
+ *
+ * @method $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $hubspotId) (Handler) Use Create or Update product if id exists.
+ * See https://developers.hubspot.com/docs/api/crm/products
+ *
  */
 class ProductHubspot extends Hubspot
 {

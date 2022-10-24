@@ -99,6 +99,10 @@
             "path": "objects/emails/merge",
             "method": "POST",
             "description": "Merge two emails with same type"
+        },
+        "createOrUpdate": {
+            "handler": "create_or_update",
+            "description": "(Handler) Use Create or Update email if id exists."
         }
     }
 }

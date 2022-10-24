@@ -92,6 +92,12 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this merge(BaseBodyBuilder|array $requestBody) Merge two tasks with same type
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/tasks
  *
+ * @method static $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $hubspotId) (Handler) Use Create or Update yask if id exists.
+ * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/tasks
+ *
+ * @method $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $hubspotId) (Handler) Use Create or Update yask if id exists.
+ * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/tasks
+ *
  */
 class EngagementTaskHubspot extends Hubspot
 {

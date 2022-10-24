@@ -86,6 +86,10 @@
             "path": "objects/line_items/merge",
             "method": "POST",
             "description": "Merge two line items with same type."
+        },
+        "createOrUpdate": {
+            "handler": "create_or_update",
+            "description": "(Handler) Use Create or Update line item if id exists."
         }
     }
 }

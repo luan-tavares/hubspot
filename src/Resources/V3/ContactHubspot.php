@@ -104,6 +104,12 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this merge(BaseBodyBuilder|array $requestBody) Merge two contacts with same type.
  * See https://developers.hubspot.com/docs/api/crm/contacts
  *
+ * @method static $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $hubspotId) (Handler) Use Create or Update contact if id is not null.
+ * See https://developers.hubspot.com/docs/api/crm/contacts
+ *
+ * @method $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $hubspotId) (Handler) Use Create or Update contact if id is not null.
+ * See https://developers.hubspot.com/docs/api/crm/contacts
+ *
  */
 class ContactHubspot extends Hubspot
 {

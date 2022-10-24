@@ -92,6 +92,12 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this merge(BaseBodyBuilder|array $requestBody) Merge two notes with same type
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/notes
  *
+ * @method static $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $hubspotId) (Handler) Use Create or Update note if id exists.
+ * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/notes
+ *
+ * @method $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $hubspotId) (Handler) Use Create or Update note if id exists.
+ * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/notes
+ *
  */
 class EngagementNoteHubspot extends Hubspot
 {

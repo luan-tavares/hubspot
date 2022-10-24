@@ -86,6 +86,10 @@
             "path": "objects/companies/merge",
             "method": "POST",
             "description": "Merge two companies with same type."
+        },
+        "createOrUpdate": {
+            "handler": "create_or_update",
+            "description": "(Handler) Use Create or Update company if id is not null."
         }
     }
 }

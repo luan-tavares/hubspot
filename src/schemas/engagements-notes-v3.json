@@ -95,6 +95,10 @@
             "path": "objects/notes/merge",
             "method": "POST",
             "description": "Merge two notes with same type"
+        },
+        "createOrUpdate": {
+            "handler": "create_or_update",
+            "description": "(Handler) Use Create or Update note if id exists."
         }
     }
 }

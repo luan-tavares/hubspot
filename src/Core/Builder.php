@@ -2,14 +2,12 @@
 
 namespace LTL\Hubspot\Core;
 
-use LTL\Curl\Curl;
 use LTL\Hubspot\Containers\SchemaContainer;
+use LTL\Hubspot\Core\Handlers\Handlers;
 use LTL\Hubspot\Core\Interfaces\BuilderInterface;
 use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
-use LTL\Hubspot\Core\Request\RequestDefinition;
 use LTL\Hubspot\Core\Response\Response;
-use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\ResourceFactory;
 
 class Builder implements BuilderInterface
@@ -59,6 +57,18 @@ class Builder implements BuilderInterface
     private function makeCurlRequest(string $method, array $arguments): ResourceInterface
     {
         $actionSchema = SchemaContainer::getAction($this->baseResource, $method);
+
+        $handler = $actionSchema->handler;
+
+        
+        
+        if (!is_null($handler)) {
+            dump($actionSchema);
+
+            return Handlers::call($this->baseResource, $handler, $arguments);
+        }
+
+        dump($actionSchema);
 
         $curl = $this->request->connect($actionSchema, $arguments);
 

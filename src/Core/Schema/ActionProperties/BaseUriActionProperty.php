@@ -9,7 +9,12 @@ class BaseUriActionProperty extends ActionProperty
 {
     protected function parse(object $actionSchema): string
     {
+        if (isset($actionSchema->handler)) {
+            return '';
+        }
+
         $uri = HubspotConfig::BASE_URL ?? 'https://api.hubspot.com';
+
 
         if (!isset($actionSchema->absolutePath)) {
             $uri .= "/{$actionSchema->resource}/v{$actionSchema->version}";

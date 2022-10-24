@@ -92,6 +92,12 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this merge(BaseBodyBuilder|array $requestBody) Merge two meetings with same type
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/meetings
  *
+ * @method static $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $hubspotId) (Handler) Use Create or Update meeting if id exists.
+ * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/meetings
+ *
+ * @method $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $hubspotId) (Handler) Use Create or Update meeting if id exists.
+ * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/meetings
+ *
  */
 class EngagementMeetingHubspot extends Hubspot
 {

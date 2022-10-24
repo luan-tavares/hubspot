@@ -46,6 +46,10 @@
             "path": "schemas/{objectType}/purge",
             "method": "DELETE",
             "description": "???"
+        },
+        "createOrUpdate": {
+            "handler": "create_or_update",
+            "description": "(Handler) Use Create or Update schema if id exists."
         }
     }
 }

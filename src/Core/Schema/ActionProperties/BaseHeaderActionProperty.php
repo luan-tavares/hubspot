@@ -9,6 +9,10 @@ class BaseHeaderActionProperty extends ActionProperty
 {
     protected function parse(object $actionSchema): array|null
     {
+        if (isset($actionSchema->handler)) {
+            return null;
+        }
+
         $headers = (isset($actionSchema->headers))?((array) $actionSchema->headers):(null);
 
         if (!in_array($actionSchema->method, HubspotConfig::METHODS_WITH_BODY)) {

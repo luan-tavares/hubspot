@@ -50,7 +50,8 @@ class ActionSchemaTest extends TestCase
             'batchRead',
             'batchUpdate',
             'search',
-            'merge'
+            'merge',
+            'createOrUpdate'
         ]);
     }
 

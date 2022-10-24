@@ -103,6 +103,10 @@
             "path": "objects/calls/merge",
             "method": "POST",
             "description": "Merge two calls with same type"
+        },
+        "createOrUpdate": {
+            "handler": "create_or_update",
+            "description": "(Handler) Use Create or Update call if id exists."
         }
     }
 }

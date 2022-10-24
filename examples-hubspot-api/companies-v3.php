@@ -4,7 +4,6 @@
 
 require_once __DIR__ .'/__init.php';
 
-use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Resources\V3\CompanyHubspot;
 
 $after = $i = $memory = 0;

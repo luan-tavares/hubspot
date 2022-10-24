@@ -86,6 +86,10 @@
             "path": "objects/quotes/merge",
             "method": "POST",
             "description": "Merge two quotes with same type."
+        },
+        "createOrUpdate": {
+            "handler": "create_or_update",
+            "description": "(Handler) Use Create or Update quote if id exists."
         }
     }
 }

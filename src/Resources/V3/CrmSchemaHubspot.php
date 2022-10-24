@@ -56,6 +56,12 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this purge(int|string $objectType) ???
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
+ * @method static $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $hubspotId) (Handler) Use Create or Update schema if id exists.
+ * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
+ *
+ * @method $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $hubspotId) (Handler) Use Create or Update schema if id exists.
+ * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
+ *
  */
 class CrmSchemaHubspot extends Hubspot
 {

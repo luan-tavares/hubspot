@@ -11,6 +11,7 @@ use LTL\Hubspot\Core\Schema\ActionProperties\BaseQueryActionProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\BaseUriActionProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\DescriptionActionProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\DocumentationActionProperty;
+use LTL\Hubspot\Core\Schema\ActionProperties\HandlerActionProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\HasBodyActionProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\IteratorIndexActionProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\MethodActionProperty;
@@ -31,6 +32,7 @@ use LTL\Hubspot\Exceptions\HubspotApiException;
  * @property string $resourceClass
  * @property string $baseUri
  * @property string $method
+ * @property string|null $handler
  */
 class ActionSchema implements ActionSchemaInterface
 {
@@ -72,6 +74,9 @@ class ActionSchema implements ActionSchemaInterface
 
     #[ActionMethodActionProperty]
     private string $action;
+
+    #[HandlerActionProperty]
+    private string|null $handler;
 
     /**
      * \LTL\Hubspot\Factories\ActionSchemaFactory

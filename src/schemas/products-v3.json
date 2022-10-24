@@ -86,6 +86,10 @@
             "path": "objects/products/merge",
             "method": "POST",
             "description": "Merge two products with same type."
+        },
+        "createOrUpdate": {
+            "handler": "create_or_update",
+            "description": "(Handler) Use Create or Update product if id exists."
         }
     }
 }

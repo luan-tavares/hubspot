@@ -86,6 +86,10 @@
             "path": "objects/deals/merge",
             "method": "POST",
             "description": "Merge two deals with same type."
+        },
+        "createOrUpdate": {
+            "handler": "create_or_update",
+            "description": "(Handler) Use Create or Update deal if id is not null."
         }
     }
 }

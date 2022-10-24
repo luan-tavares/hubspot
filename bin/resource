@@ -20,7 +20,7 @@ if (!file_exists($dir.'/autoload.php')) {
 
 require $dir.'/autoload.php';
 
-
+use LTL\Hubspot\Core\Handlers\Handlers;
 use LTL\Hubspot\Core\HubspotConfig;
 
 $basePath = HubspotConfig::BASE_PATH;
@@ -62,24 +62,8 @@ foreach ($resources as $resource) {
     foreach ($document->actions as $action => $actionSchema) {
         $j++;
         $totalActions++;
-
-        if (!in_array($actionSchema->method, HubspotConfig::METHODS)) {
-            dd("{$actionSchema->method} not Allowed in {$resource}!");
-        }
-
-        preg_match_all('/\{(.*?)\}/', $actionSchema->path, $matches);
-
-        $params = array_map(function ($item) {
-            return 'int|string $'. $item;
-        }, $matches[1]);
-
-        $hasBody = $actionSchema->hasBody ?? true;
-
-        if (in_array($actionSchema->method, HubspotConfig::METHODS_WITH_BODY)  && $hasBody) {
-            $params[] = 'BaseBodyBuilder|array $requestBody';
-        }
  
-        $params = implode(', ', $params);
+        $params = writeParams($actionSchema, $resource);
         
         $methodDocumentation = $actionSchema->documentation ?? $documentation;
 
@@ -127,3 +111,51 @@ foreach ($resources as $resource) {
 $status = 'Total actions ';
 $size = mb_strlen($status);
 dump(str_repeat(' ', (40-$size)) . $status ." {$totalActions} actions");
+
+function writeParams(object $actionSchema, string $resource): string
+{
+    if (!is_null(@$actionSchema->handler)) {
+        return writeParamsWithHandler($actionSchema);
+    }
+
+    if (!in_array($actionSchema->method, HubspotConfig::METHODS)) {
+        error_log("{$actionSchema->method} not Allowed in {$resource}!");
+
+        exit;
+    }
+
+    preg_match_all('/\{(.*?)\}/', $actionSchema->path, $matches);
+
+    $params = array_map(function ($item) {
+        return 'int|string $'. $item;
+    }, $matches[1]);
+
+    $hasBody = $actionSchema->hasBody ?? true;
+
+    if (in_array($actionSchema->method, HubspotConfig::METHODS_WITH_BODY)  && $hasBody) {
+        $params[] = 'BaseBodyBuilder|array $requestBody';
+    }
+
+    return implode(', ', $params);
+}
+
+function writeParamsWithHandler(object $actionSchema): string
+{
+    $params = [];
+
+    $handlerClass = Handlers::getHandlerClass($actionSchema->handler);
+    $reflectionClass = new ReflectionClass($handlerClass);
+    $reflectionParameters = $reflectionClass->getMethod('handle')->getParameters();
+    array_shift($reflectionParameters);
+    foreach ($reflectionParameters as $reflectionParameter) {
+        $types = $reflectionParameter->getType()->getTypes();
+        $type = array_map(function ($type) {
+            return $type->getName();
+        }, $types);
+        $type = implode('|', $type);
+        $params[] = $type . ' $'. $reflectionParameter->name;
+    }
+
+
+    return implode(', ', $params);
+}

@@ -9,6 +9,10 @@ class ParamsActionProperty extends ActionProperty
 {
     protected function parse(object $actionSchema): array|null
     {
+        if (isset($actionSchema->handler)) {
+            return null;
+        }
+        
         preg_match_all('/{(.*?)}/', $actionSchema->path, $matches, PREG_PATTERN_ORDER);
         $arguments = $matches[0];
 

@@ -99,6 +99,10 @@
             "path": "objects/contacts/merge",
             "method": "POST",
             "description": "Merge two contacts with same type."
+        },
+        "createOrUpdate": {
+            "handler": "create_or_update",
+            "description": "(Handler) Use Create or Update contact if id is not null."
         }
     }
 }

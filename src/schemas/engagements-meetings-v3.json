@@ -102,6 +102,10 @@
             "path": "objects/meetings/merge",
             "method": "POST",
             "description": "Merge two meetings with same type"
+        },
+        "createOrUpdate": {
+            "handler": "create_or_update",
+            "description": "(Handler) Use Create or Update meeting if id exists."
         }
     }
 }
