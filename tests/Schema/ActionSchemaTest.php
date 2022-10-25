@@ -51,7 +51,8 @@ class ActionSchemaTest extends TestCase
             'batchUpdate',
             'search',
             'merge',
-            'createOrUpdate'
+            'createOrUpdate',
+            'importAll'
         ]);
     }
 

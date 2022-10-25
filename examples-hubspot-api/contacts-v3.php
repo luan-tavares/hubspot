@@ -6,6 +6,10 @@ require_once __DIR__ .'/__init.php';
 use LTL\Hubspot\Core\BodyBuilder\SearchBuilder\SearchBuilder;
 use LTL\Hubspot\Resources\ContactHubspot;
 
+ContactHubspot::importAll(function (ContactHubspot $hubspotResource) {
+    dump($hubspotResource->count());
+});
+
 dd(ContactHubspot::limit(10)->createOrUpdate([
     'properties' => [
         'firstname' => 'Teste',

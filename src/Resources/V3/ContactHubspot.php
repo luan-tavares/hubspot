@@ -110,6 +110,12 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $hubspotId) (Handler) Use Create or Update contact if id is not null.
  * See https://developers.hubspot.com/docs/api/crm/contacts
  *
+ * @method static $this importAll(callable $fn, int $chunk = 100) (Handler) Import All Contacts using offset and getAll
+ * See https://developers.hubspot.com/docs/api/crm/contacts
+ *
+ * @method $this importAll(callable $fn, int $chunk = 100) (Handler) Import All Contacts using offset and getAll
+ * See https://developers.hubspot.com/docs/api/crm/contacts
+ *
  */
 class ContactHubspot extends Hubspot
 {

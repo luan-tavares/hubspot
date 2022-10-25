@@ -21,6 +21,7 @@ if (!file_exists($dir.'/autoload.php')) {
 require $dir.'/autoload.php';
 
 use LTL\Hubspot\Core\Handlers\Handlers;
+use LTL\Hubspot\Core\Handlers\HandlersProvider;
 use LTL\Hubspot\Core\HubspotConfig;
 
 $basePath = HubspotConfig::BASE_PATH;
@@ -143,19 +144,38 @@ function writeParamsWithHandler(object $actionSchema): string
 {
     $params = [];
 
-    $handlerClass = Handlers::getHandlerClass($actionSchema->handler);
+    $handlerClass = HandlersProvider::HANDLERS[$actionSchema->handler];
     $reflectionClass = new ReflectionClass($handlerClass);
     $reflectionParameters = $reflectionClass->getMethod('handle')->getParameters();
     array_shift($reflectionParameters);
     foreach ($reflectionParameters as $reflectionParameter) {
-        $types = $reflectionParameter->getType()->getTypes();
-        $type = array_map(function ($type) {
-            return $type->getName();
-        }, $types);
-        $type = implode('|', $type);
-        $params[] = $type . ' $'. $reflectionParameter->name;
+        $type =  getTypes($reflectionParameter);
+
+        $parameter = $reflectionParameter->name;
+
+        if ($reflectionParameter->isDefaultValueAvailable()) {
+            $parameter .= ' = '. $reflectionParameter->getDefaultValue();
+        }
+
+        $params[] = $type . ' $'. $parameter;
     }
 
 
     return implode(', ', $params);
+}
+
+function getTypes(ReflectionParameter $reflectionParameter): string
+{
+    $reflectionType = $reflectionParameter->getType();
+
+    if ($reflectionType instanceof ReflectionUnionType) {
+        $types = $reflectionType->getTypes();
+        $names = array_map(function ($type) {
+            return $type->getName();
+        }, $types);
+
+        return implode('|', $names);
+    }
+
+    return $reflectionType->getName();
 }
