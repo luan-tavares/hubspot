@@ -60,16 +60,16 @@
         },
         {
             "name": "luan-tavares/simple-curl",
-            "version": "v2.0",
+            "version": "v2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/luan-tavares/simple-curl.git",
-                "reference": "5cd6cf8fdde2670bd524a45a4c264a0146ab2c99"
+                "reference": "a81477313ac906aab546a9895689688197a08c6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/luan-tavares/simple-curl/zipball/5cd6cf8fdde2670bd524a45a4c264a0146ab2c99",
-                "reference": "5cd6cf8fdde2670bd524a45a4c264a0146ab2c99",
+                "url": "https://api.github.com/repos/luan-tavares/simple-curl/zipball/a81477313ac906aab546a9895689688197a08c6e",
+                "reference": "a81477313ac906aab546a9895689688197a08c6e",
                 "shasum": ""
             },
             "require": {
@@ -106,9 +106,9 @@
             ],
             "support": {
                 "issues": "https://github.com/luan-tavares/simple-curl/issues",
-                "source": "https://github.com/luan-tavares/simple-curl/tree/v2.0"
+                "source": "https://github.com/luan-tavares/simple-curl/tree/v2.1"
             },
-            "time": "2022-11-20T00:19:58+00:00"
+            "time": "2022-11-20T13:57:07+00:00"
         },
         {
             "name": "luan-tavares/simple-deploy",
