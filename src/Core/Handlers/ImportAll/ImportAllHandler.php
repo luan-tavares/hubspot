@@ -10,9 +10,9 @@ abstract class ImportAllHandler
     public static function handle(
         Resource $resource,
         callable $fn,
-        int $chunk = 100
+        int $chunk
     ): ResourceInterface {
-        $after = null;
+        $after = 0;
 
         while (true) {
             $hubspotRequest = $resource->limit($chunk)->after($after)->getAll();

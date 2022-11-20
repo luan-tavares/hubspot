@@ -5,6 +5,7 @@ namespace LTL\Hubspot\Core\Resource;
 use LTL\Hubspot\Containers\BuilderContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\HubspotApikey;
+use LTL\Hubspot\Core\HubspotOAuth;
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
 use LTL\Hubspot\Core\Resource\Traits\ResourceArrayAccess;
@@ -77,5 +78,10 @@ abstract class Resource implements ResourceInterface
     public static function setGlobalApikey(string $apikey): void
     {
         HubspotApikey::store($apikey);
+    }
+
+    public static function setGlobalOAuth(string $token): void
+    {
+        HubspotOAuth::store($token);
     }
 }

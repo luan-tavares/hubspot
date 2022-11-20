@@ -37,16 +37,6 @@ class RequestTest extends TestCase
         $request->$method();
     }
 
-    public function testAddOAuthToRequestByOAuth()
-    {
-        $request = RequestFactory::build(new CompanyHubspot);
-
-        $request->addOAuthWithoutObserver('token');
-
-      
-        $this->assertEquals($request->getHeaders(), ['Authorization' => 'Bearer token']);
-    }
-
     public function testRemoveHeaderRequestIsCorrect()
     {
         $request = RequestFactory::build(new CompanyHubspot);
@@ -166,34 +156,13 @@ class RequestTest extends TestCase
         ]);
     }
 
-    public function testAddApiKey()
-    {
-        $request = RequestFactory::build(new CompanyHubspot);
 
-        $request->addApikeyWithoutObserver('5552');
-      
-        $this->assertEquals($request->getQueries(), [
-            'hapikey' => '5552'
-        ]);
-    }
-
-    public function testAddOAuth()
-    {
-        $request = RequestFactory::build(new CompanyHubspot);
-
-        $request->addOAuthWithoutObserver('123456789');
-
-      
-        $this->assertEquals($request->getHeaders(), [
-            'Authorization' => 'Bearer 123456789'
-        ]);
-    }
 
     public function testObserverRemoveOauth()
     {
         $request = RequestFactory::build(new CompanyHubspot);
 
-        $request->addOAuthWithoutObserver('123456789');
+        $request->oAuth('123456789');
         $request->apikey('5552');
      
         $this->assertEquals($request->getHeaders(), []);

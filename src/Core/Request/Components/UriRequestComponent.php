@@ -15,7 +15,6 @@ class UriRequestComponent extends RequestComponent implements UriComponentInterf
     {
         $params = $actionSchema->params ?? [];
         $queryArguments = $arguments;
-
         $nParams = count($params);
         $nArguments = count($arguments);
 

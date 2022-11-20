@@ -2,10 +2,15 @@
 
 namespace LTL\Hubspot\Tests\Request;
 
+use DateTimeImmutable;
+use LTL\Curl\Curl;
 use LTL\Hubspot\Containers\BuilderContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\HubspotApikey;
+use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Request\RequestDefinition;
+use LTL\Hubspot\Exceptions\HubspotApiException;
+use LTL\Hubspot\Factories\RequestFactory;
 use LTL\Hubspot\Resources\ContactHubspot;
 use LTL\Hubspot\Resources\FileHubspot;
 use LTL\Hubspot\Resources\HubDbHubspot;
@@ -209,5 +214,203 @@ class RequestDefinitionTest extends TestCase
         );
         
         new RequestDefinition($this->request, $actionSchema, $params);
+    }
+
+    public function testIfRecursiveCurlWithoutTooManyRequestsIsCorrect()
+    {
+        $requests = 1;
+
+        $resource = new ContactHubspot;
+
+        $request = RequestFactory::build($resource);
+
+        $actionSchema = SchemaContainer::getAction($resource, 'getAll');
+
+        $requestDefinition = new RequestDefinition($request, $actionSchema, []);
+
+
+        $curl = $this->getMockBuilder(Curl::class)->getMock();
+        $curl->method('connect')->willReturn($curl);
+        $curl->method('addUri')->willReturn($curl);
+        $curl->method('addHeaders')->willReturn($curl);
+        $curl->method('addParams')->willReturn($curl);
+        $curl->method('status')->willReturn(HubspotConfig::TOO_MANY_REQUESTS_ERROR_CODE);
+
+
+        $curl->expects($this->exactly($requests))->method('connect');
+
+        $requestDefinition->connect($curl);
+    }
+
+    public function testIfRecursiveCurlIsCorrect()
+    {
+        $tooManyRequests = 15;
+
+        HubspotConfig::sleepRequest(0);
+
+        $resourceBuilder = ContactHubspot::tooManyRequestsTries($tooManyRequests);
+
+        $request = $resourceBuilder->request();
+
+        $actionSchema = SchemaContainer::getAction($resourceBuilder->baseResource(), 'getAll');
+
+        $requestDefinition = new RequestDefinition($request, $actionSchema, []);
+
+
+        $curl = $this->getMockBuilder(Curl::class)->getMock();
+        $curl->method('connect')->willReturn($curl);
+        $curl->method('addUri')->willReturn($curl);
+        $curl->method('addHeaders')->willReturn($curl);
+        $curl->method('addParams')->willReturn($curl);
+        $curl->method('status')->willReturn(HubspotConfig::TOO_MANY_REQUESTS_ERROR_CODE);
+
+
+        $curl->expects($this->exactly($tooManyRequests))->method('connect');
+
+        $requestDefinition->connect($curl);
+    }
+
+    public function testIfSleepRecursiveCurlIsCorrect()
+    {
+        $tooManyRequests = 2;
+
+        HubspotConfig::sleepRequest(1);
+
+        $resourceBuilder = ContactHubspot::tooManyRequestsTries($tooManyRequests);
+
+        $request = $resourceBuilder->request();
+
+        $actionSchema = SchemaContainer::getAction($resourceBuilder->baseResource(), 'getAll');
+
+        $requestDefinition = new RequestDefinition($request, $actionSchema, []);
+
+
+        $curl = $this->getMockBuilder(Curl::class)->getMock();
+        $curl->method('connect')->willReturn($curl);
+        $curl->method('addUri')->willReturn($curl);
+        $curl->method('addHeaders')->willReturn($curl);
+        $curl->method('addParams')->willReturn($curl);
+        $curl->method('status')->willReturn(HubspotConfig::TOO_MANY_REQUESTS_ERROR_CODE);
+
+        $initTime = new DateTimeImmutable;
+
+        $requestDefinition->connect($curl);
+
+        $endTime = new DateTimeImmutable;
+
+        $this->assertEquals(1, $endTime->diff($initTime)->s);
+    }
+
+    public function testIfDefaultRecursiveCurlIsCorrect()
+    {
+        $requests = 1;
+
+        HubspotConfig::sleepRequest(0);
+
+        $resourceBuilder = ContactHubspot::tooManyRequestsTries();
+
+        $request = $resourceBuilder->request();
+
+        $actionSchema = SchemaContainer::getAction($resourceBuilder->baseResource(), 'getAll');
+
+        $requestDefinition = new RequestDefinition($request, $actionSchema, []);
+
+
+        $curl = $this->getMockBuilder(Curl::class)->getMock();
+        $curl->method('connect')->willReturn($curl);
+        $curl->method('addUri')->willReturn($curl);
+        $curl->method('addHeaders')->willReturn($curl);
+        $curl->method('addParams')->willReturn($curl);
+        $curl->method('status')->willReturn(HubspotConfig::TOO_MANY_REQUESTS_ERROR_CODE);
+
+
+        $curl->expects($this->exactly($requests))->method('connect');
+
+        $requestDefinition->connect($curl);
+    }
+
+    public function testIfTriesMore15ThrowException()
+    {
+        $tooManyRequests = 20;
+
+        HubspotConfig::sleepRequest(0);
+
+        $resourceBuilder = ContactHubspot::tooManyRequestsTries($tooManyRequests);
+
+        $request = $resourceBuilder->request();
+
+        $actionSchema = SchemaContainer::getAction($resourceBuilder->baseResource(), 'getAll');
+
+        $requestDefinition = new RequestDefinition($request, $actionSchema, []);
+
+
+        $curl = $this->getMockBuilder(Curl::class)->getMock();
+        $curl->method('connect')->willReturn($curl);
+        $curl->method('addUri')->willReturn($curl);
+        $curl->method('addHeaders')->willReturn($curl);
+        $curl->method('addParams')->willReturn($curl);
+        $curl->method('status')->willReturn(HubspotConfig::TOO_MANY_REQUESTS_ERROR_CODE);
+
+        $this->expectException(HubspotApiException::class);
+
+        $requestDefinition->connect($curl);
+    }
+
+    public function testIfTriesLess1ThrowException()
+    {
+        $tooManyRequests = 0;
+
+        HubspotConfig::sleepRequest(0);
+
+        $this->expectException(HubspotApiException::class);
+
+        $resourceBuilder = ContactHubspot::tooManyRequestsTries($tooManyRequests);
+    }
+
+    public function testIfExceptionIfRequestErrorMethodThrowException()
+    {
+        $resourceBuilder = ContactHubspot::exceptionIfRequestError();
+
+        $request = $resourceBuilder->request();
+
+        $actionSchema = SchemaContainer::getAction($resourceBuilder->baseResource(), 'getAll');
+
+        $requestDefinition = new RequestDefinition($request, $actionSchema, []);
+
+
+        $curl = $this->getMockBuilder(Curl::class)->getMock();
+        $curl->method('connect')->willReturn($curl);
+        $curl->method('addUri')->willReturn($curl);
+        $curl->method('addHeaders')->willReturn($curl);
+        $curl->method('addParams')->willReturn($curl);
+        $curl->method('error')->willReturn(true);
+
+        $this->expectException(HubspotApiException::class);
+
+        $requestDefinition->connect($curl);
+    }
+
+    public function testIfDefaultNotExceptionNotThrowException()
+    {
+        $resource = new ContactHubspot;
+
+        $request = RequestFactory::build($resource);
+
+        $actionSchema = SchemaContainer::getAction($resource, 'getAll');
+
+        $requestDefinition = new RequestDefinition($request, $actionSchema, []);
+
+
+        $curl = $this->getMockBuilder(Curl::class)->getMock();
+        $curl->method('connect')->willReturn($curl);
+        $curl->method('addUri')->willReturn($curl);
+        $curl->method('addHeaders')->willReturn($curl);
+        $curl->method('addParams')->willReturn($curl);
+        $curl->method('error')->willReturn(true);
+
+
+        $curl->expects($this->once())->method('connect');
+
+        $requestDefinition->connect($curl);
     }
 }

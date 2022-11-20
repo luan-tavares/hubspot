@@ -17,14 +17,18 @@ abstract class RequestComponent implements SubjectInterface
     public function __construct(RequestInterface|null $request = null)
     {
         $this->request = $request;
-        $this->boot();
     }
 
     private function __clone()
     {
     }
 
-    protected function boot(): void
+    public function boot(): void
+    {
+        $this->initConfig();
+    }
+
+    protected function initConfig(): void
     {
     }
 
@@ -90,5 +94,10 @@ abstract class RequestComponent implements SubjectInterface
         $this->items[$name] = $value;
 
         return $this;
+    }
+
+    public function value(string $index): int|null|string|array|bool
+    {
+        return @$this->items[$index];
     }
 }

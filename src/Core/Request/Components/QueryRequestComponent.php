@@ -11,9 +11,13 @@ class QueryRequestComponent extends RequestComponent implements QueryComponentIn
 {
     use PublicMethodsListable;
 
-    protected function boot(): void
+    protected function initConfig(): void
     {
-        $this->addNotNull('hapikey', HubspotApikey::get());
+        $apikey = HubspotApikey::get();
+
+        if (!is_null($apikey)) {
+            $this->apikey($apikey);
+        }
     }
 
     public function query(string $query, string|null $value = null): self

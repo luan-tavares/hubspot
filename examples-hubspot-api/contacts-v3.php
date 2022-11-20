@@ -8,7 +8,7 @@ use LTL\Hubspot\Resources\ContactHubspot;
 
 ContactHubspot::importAll(function (ContactHubspot $hubspotResource) {
     dump($hubspotResource->count());
-});
+}, 50);
 
 dd(ContactHubspot::limit(10)->createOrUpdate([
     'properties' => [

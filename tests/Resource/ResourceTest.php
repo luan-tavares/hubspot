@@ -41,11 +41,11 @@ class ResourceTest extends TestCase
         $this->response = null;
 
         $curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
-        $curl->method('getStatus')->willReturn(202);
-        $curl->method('getResponse')->willReturn(json_encode($this->result));
-        $curl->method('getUri')
+        $curl->method('status')->willReturn(202);
+        $curl->method('response')->willReturn(json_encode($this->result));
+        $curl->method('uri')
             ->willReturn('https://test.com/api?hapikey=12345678-1234-1234-1234-abcde1234567');
-        $curl->method('getHeaders')->willReturn(['Content-Type' => 'application/json;charset=utf-8']);
+        $curl->method('headers')->willReturn(['Content-Type' => 'application/json;charset=utf-8']);
 
         $this->baseResource = new AssociationHubspot;
         $actionSchema = SchemaContainer::getAction($this->baseResource, 'getDefinition');

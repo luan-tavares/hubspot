@@ -4,13 +4,22 @@
 
 require_once __DIR__ .'/__init.php';
 
+use LTL\Hubspot\Hubspot;
 use LTL\Hubspot\Resources\V3\CompanyHubspot;
 
 $after = $i = $memory = 0;
 
+$oAuth = ENV['HUBSPOT_OAUTH'];
+Hubspot::setGlobalOAuth($oAuth);
+
 /** */
 while (true) {
-    $companies = CompanyHubspot::after($after)->limit(100)->getAll();
+    CompanyHubspot::limit(10);
+    $companies = CompanyHubspot::after($after)
+        ->exceptionIfRequestError()
+        ->tooManyRequestsTries(5)
+        ->limit(100)
+        ->getAll();
     
     dump($companies->map(function ($company) use (&$i) {
         $i++;

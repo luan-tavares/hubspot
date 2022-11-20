@@ -37,11 +37,11 @@ class ResourceResponseTest extends TestCase
         $this->response = null;
 
         $curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
-        $curl->method('getStatus')->willReturn(202);
-        $curl->method('getResponse')->willReturn(json_encode($this->result));
-        $curl->method('getUri')
+        $curl->method('status')->willReturn(202);
+        $curl->method('response')->willReturn(json_encode($this->result));
+        $curl->method('uri')
             ->willReturn('https://test.com/api?hapikey=12345678-1234-1234-1234-abcde1234567');
-        $curl->method('getHeaders')->willReturn(['Content-Type' => 'application/json;charset=utf-8']);
+        $curl->method('headers')->willReturn(['Content-Type' => 'application/json;charset=utf-8']);
 
         $this->baseResource = new AssociationHubspot;
         $actionSchema = SchemaContainer::getAction($this->baseResource, 'getDefinition');
@@ -143,7 +143,7 @@ class ResourceResponseTest extends TestCase
     public function testErrorMethodWith199StatusIsTrue()
     {
         $curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
-        $curl->method('getStatus')->willReturn(199);
+        $curl->method('status')->willReturn(199);
       
         $resource = new ContactHubspot;
 
@@ -159,7 +159,7 @@ class ResourceResponseTest extends TestCase
     public function testErrorMethodWith200StatusIsFalse()
     {
         $curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
-        $curl->method('getStatus')->willReturn(200);
+        $curl->method('status')->willReturn(200);
       
         $resource = new ContactHubspot;
 
@@ -175,7 +175,7 @@ class ResourceResponseTest extends TestCase
     public function testErrorMethodWith202StatusIsFalse()
     {
         $curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
-        $curl->method('getStatus')->willReturn(202);
+        $curl->method('status')->willReturn(202);
       
         $resource = new ContactHubspot;
 
@@ -191,7 +191,7 @@ class ResourceResponseTest extends TestCase
     public function testErrorMethodWith300StatusIsTrue()
     {
         $curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
-        $curl->method('getStatus')->willReturn(300);
+        $curl->method('status')->willReturn(300);
       
         $resource = new ContactHubspot;
 
@@ -207,7 +207,7 @@ class ResourceResponseTest extends TestCase
     public function testErrorMethodWith404StatusIsTrue()
     {
         $curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
-        $curl->method('getStatus')->willReturn(404);
+        $curl->method('status')->willReturn(404);
       
         $resource = new ContactHubspot;
 
@@ -234,7 +234,7 @@ class ResourceResponseTest extends TestCase
     public function testIfMultiStatusISCorrect()
     {
         $curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
-        $curl->method('getStatus')->willReturn(207);
+        $curl->method('status')->willReturn(207);
       
         $resource = new ContactHubspot;
 

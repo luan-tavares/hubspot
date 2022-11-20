@@ -12,6 +12,8 @@ interface ComponentInterface
     public function add(string $name, string|int|array|bool|null $value = null): RequestComponent;
     public function addArrayAfter(array|null $array): RequestComponent;
     public function addArrayBefore(array|null $array): RequestComponent;
+    public function value(string $index): int|null|string|array|bool;
     public function all(): array;
     public function delete(int|string $key): void;
+    public function boot(): void;
 }

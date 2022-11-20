@@ -11,6 +11,8 @@ use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
 use LTL\Hubspot\Core\Interfaces\Request\UriComponentInterface;
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
+use LTL\Hubspot\Core\Request\Components\ResourceRequestComponent;
+use LTL\Hubspot\Core\Request\RequestComponentsList;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 
 class Request implements RequestInterface
@@ -29,6 +31,8 @@ class Request implements RequestInterface
 
     private ResourceInterface $resource;
 
+    private ResourceRequestComponent $resourceRequest;
+
     /**Factory \LTL\Hubspot\Factories\RequestFactory */
     private function __construct()
     {
@@ -36,11 +40,6 @@ class Request implements RequestInterface
 
     private function __clone()
     {
-    }
-
-    public function destroyComponents(): void
-    {
-        unset($this->query, $this->header, $this->body, $this->curl, $this->uri, $this->method);
     }
 
     public function __call($method, $arguments)
@@ -57,12 +56,30 @@ class Request implements RequestInterface
             return $this->curl->{$method}(...$arguments);
         }
 
+        if (in_array($method, $this->resourceRequest->getMethods())) {
+            return $this->resourceRequest->{$method}(...$arguments);
+        }
+
         throw new HubspotApiException($this->resource::class ."::{$method}() not exists");
     }
 
     public function connect(ActionSchemaInterface $actionSchema, array $arguments): CurlInterface
     {
         return (new RequestDefinition($this, $actionSchema, $arguments))->connect();
+    }
+
+    public function destroyComponents(): void
+    {
+        foreach (RequestComponentsList::ALL as $property => $className) {
+            unset($this->{$property});
+        }
+    }
+
+    public function bootComponents(): void
+    {
+        foreach (RequestComponentsList::ALL as $property => $className) {
+            $this->{$property}->boot();
+        }
     }
 
     public function removeHeader(string $header): self
@@ -120,24 +137,10 @@ class Request implements RequestInterface
 
         return $this;
     }
- 
-    public function addApikeyWithoutObserver(string|null $apikey): self
-    {
-        $this->query->addNotNull('hapikey', $apikey);
-
-        return $this;
-    }
 
     public function removeApikey(): self
     {
         $this->query->delete('hapikey');
-
-        return $this;
-    }
-
-    public function addOAuthWithoutObserver(string $oAuth): self
-    {
-        $this->header->addNotNull('Authorization', "Bearer {$oAuth}");
 
         return $this;
     }
@@ -179,5 +182,15 @@ class Request implements RequestInterface
     public function getMethod(): string
     {
         return $this->method->get();
+    }
+
+    public function getTooManyRequestsTries(): int
+    {
+        return $this->resourceRequest->value('requestTries');
+    }
+
+    public function hasExceptionIfRequestError(): bool
+    {
+        return $this->resourceRequest->value('exception');
     }
 }

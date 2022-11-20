@@ -39,7 +39,7 @@ class ResponseRepositoryIteratorTest extends TestCase
         ];
 
         $this->curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
-        $this->curl->method('getResponse')->willReturn(json_encode($this->result));
+        $this->curl->method('response')->willReturn(json_encode($this->result));
 
         $this->actionSchema = SchemaContainer::getAction(new HubDbHubspot, 'getAll');
     }

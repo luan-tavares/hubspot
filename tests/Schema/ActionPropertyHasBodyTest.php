@@ -3,6 +3,7 @@
 namespace LTL\Hubspot\Tests\Schema;
 
 use LTL\Hubspot\Containers\SchemaContainer;
+use LTL\Hubspot\Resources\V3\ContactHubspot;
 use LTL\Hubspot\Resources\V3\HubDbHubspot;
 use PHPUnit\Framework\TestCase;
 
@@ -31,6 +32,13 @@ class ActionPropertyHasBodyTest extends TestCase
     public function testIfHasBodyCastInDeletehHubDbIsDeleteMethodIsFalse()
     {
         $object = SchemaContainer::getAction(new HubDbHubspot, 'deleteRow');
+
+        $this->assertFalse($object->hasBody);
+    }
+
+    public function testIfHasBodyCastInContactImportAllIsFalse()
+    {
+        $object = SchemaContainer::getAction(new ContactHubspot, 'importAll');
 
         $this->assertFalse($object->hasBody);
     }

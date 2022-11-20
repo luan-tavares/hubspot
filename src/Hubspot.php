@@ -66,6 +66,13 @@ use LTL\Hubspot\Core\Resource\Resource;
  * @method static $this withProgressBar() 
  * @method $this withResponseHeaders() 
  * @method static $this withResponseHeaders() 
+ *
+ * Others Resources Methods
+ *
+ * @method $this tooManyRequestsTries(int $tries) 
+ * @method static $this tooManyRequestsTries(int $tries) 
+ * @method $this exceptionIfRequestError(bool $hasException) 
+ * @method static $this exceptionIfRequestError(bool $hasException) 
 */
  abstract class Hubspot extends Resource
  {

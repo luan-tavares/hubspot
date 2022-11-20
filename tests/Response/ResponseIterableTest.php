@@ -38,11 +38,11 @@ class ResponseIterableTest extends TestCase
         ];
 
         $this->curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
-        $this->curl->method('getStatus')->willReturn(400);
-        $this->curl->method('getResponse')->willReturn(json_encode($this->result));
-        $this->curl->method('getUri')
+        $this->curl->method('status')->willReturn(400);
+        $this->curl->method('response')->willReturn(json_encode($this->result));
+        $this->curl->method('uri')
             ->willReturn('https://test.com/api?hapikey=12345678-1234-1234-1234-abcde1234567');
-        $this->curl->method('getHeaders')->willReturn(['Content-Type' => 'application/json;charset=utf-8']);
+        $this->curl->method('headers')->willReturn(['Content-Type' => 'application/json;charset=utf-8']);
 
         $contactResource = $this->createMock(HubDbHubspot::class);
         $contactResource->method('__toString')->willReturn('hub-db-v3');

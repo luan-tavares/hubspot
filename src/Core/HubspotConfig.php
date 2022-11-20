@@ -15,4 +15,19 @@ abstract class HubspotConfig
     public const METHODS = ['PUT', 'POST', 'PATCH', 'GET', 'DELETE'];
     
     public const METHODS_WITH_BODY = ['PUT', 'POST', 'PATCH'];
+
+    public const TOO_MANY_REQUESTS_ERROR_CODE = 429;
+
+    public const MAX_TOO_MANY_REQUESTS_TRIES = 15;
+
+    private static int $sleepRequest = 2;
+
+    public static function sleepRequest(int|null $sleepRequest = null): int
+    {
+        if (!is_null($sleepRequest)) {
+            self::$sleepRequest = $sleepRequest;
+        }
+
+        return self::$sleepRequest;
+    }
 }

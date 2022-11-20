@@ -15,9 +15,13 @@ interface RequestInterface
     public function getBody(): array|null;
     public function getUri(): string;
     public function getMethod(): string;
+    public function getTooManyRequestsTries(): int;
+    public function hasExceptionIfRequestError(): bool;
 
     public function removeHeader(string $header): self;
     public function removeQuery(string $query): self;
+
+    public function bootComponents(): void;
     
     public function addQueriesAfter(array|null $queries): self;
     public function addQueriesBefore(array|null $queries): self;
@@ -28,10 +32,7 @@ interface RequestInterface
     public function addBody(ActionSchemaInterface $actionSchema, array $arguments): self;
     public function addUri(ActionSchemaInterface $actionSchema, array $arguments): self;
 
-    public function addApikeyWithoutObserver(string|null $apikey): self;
     public function removeApikey(): self;
-
-    public function addOAuthWithoutObserver(string $oAuth): self;
     public function removeOAuth(): self;
 
     public function connect(ActionSchemaInterface $actionSchema, array $arguments): CurlInterface;

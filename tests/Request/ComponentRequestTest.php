@@ -8,6 +8,7 @@ use LTL\Hubspot\Core\Request\Components\MethodRequestComponent;
 use LTL\Hubspot\Core\Request\Components\RequestComponent;
 use LTL\Hubspot\Core\Request\Components\UriRequestComponent;
 use LTL\Hubspot\Core\Request\RequestDefinition;
+use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\RequestFactory;
 use LTL\Hubspot\Resources\V1\OAuthHubspot;
 use LTL\Hubspot\Resources\V3\ContactHubspot;
@@ -108,17 +109,30 @@ class ComponentRequestTest extends TestCase
         $this->assertEquals($requestBody->get(), $request->getBody());
     }
 
-    public function testIfRequestComponentBootMethodIsProtected()
+    public function testIfComponentInitConfigMethodIsProtected()
     {
         $component = new ReflectionClass(RequestComponent::class);
         
-        $this->assertTrue($component->getMethod('boot')->isProtected());
+        $this->assertTrue($component->getMethod('initConfig')->isProtected());
     }
 
-    public function testIfRequestComponentConcreteBootMethodIsProtected()
+    public function testIfComponentInitConfigChildMethodIsProtected()
     {
         $component = new ReflectionClass(MethodRequestComponent::class);
         
-        $this->assertTrue($component->getMethod('boot')->isProtected());
+        $this->assertTrue($component->getMethod('initConfig')->isProtected());
+    }
+
+    public function testIfRequestUriDiffParamsThrowException()
+    {
+        $resource = new ContactHubspot;
+
+        $request = RequestFactory::build($resource);
+
+        $actionSchema = SchemaContainer::getAction($resource, 'update');
+
+        $this->expectException(HubspotApiException::class);
+
+        new RequestDefinition($request, $actionSchema, [1, 2, [5]]);
     }
 }

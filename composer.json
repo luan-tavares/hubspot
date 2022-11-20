@@ -35,7 +35,7 @@
         "php": "^8.1",
         "luan-tavares/list-methods": "^1.0",
         "luan-tavares/simple-observer": "^1.0",
-        "luan-tavares/simple-curl": "^1.0",
+        "luan-tavares/simple-curl": "^2.0",
         "luan-tavares/simple-deploy": "^1.0",
         "nesbot/carbon": "^2.62"
     },
