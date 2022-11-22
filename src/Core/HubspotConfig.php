@@ -20,6 +20,8 @@ abstract class HubspotConfig
 
     public const MAX_TOO_MANY_REQUESTS_TRIES = 15;
 
+    public const MULTI_STATUS_CODE = 207;
+
     private static int $sleepRequest = 2;
 
     public static function sleepRequest(int|null $sleepRequest = null): int

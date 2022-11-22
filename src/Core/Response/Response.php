@@ -7,6 +7,7 @@ use IteratorAggregate;
 use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Containers\ResponseRepositoryContainer;
 use LTL\Hubspot\Core\HubspotApikey;
+use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
 use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
 use LTL\Hubspot\Core\Response\ResponseRepository;
@@ -89,7 +90,12 @@ class Response implements ResponseInterface, IteratorAggregate, Countable
 
     public function isMultiStatus(): bool
     {
-        return $this->status === 207;
+        return $this->status === HubspotConfig::MULTI_STATUS_CODE;
+    }
+
+    public function isTooManyRequestsError(): bool
+    {
+        return $this->status === HubspotConfig::TOO_MANY_REQUESTS_ERROR_CODE;
     }
 
     public function getIterator(): ResponseRepository

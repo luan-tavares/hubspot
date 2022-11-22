@@ -24,6 +24,7 @@ interface ResourceInterface extends
     public function headers(): array|null;
     public function error(): bool;
     public function multiStatus(): bool;
+    public function isTooManyRequestsError(): bool;
     public static function setGlobalApikey(string $apikey): void;
     public static function setGlobalOAuth(string $token): void;
 }

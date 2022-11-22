@@ -32,6 +32,13 @@ trait ResourceResponse
         return $this->response->isMultiStatus();
     }
 
+    public function isTooManyRequestsError(): bool
+    {
+        $this->verifyIfResponseExists(__FUNCTION__);
+
+        return $this->response->isTooManyRequestsError();
+    }
+
     public function error(): bool
     {
         $this->verifyIfResponseExists(__FUNCTION__);

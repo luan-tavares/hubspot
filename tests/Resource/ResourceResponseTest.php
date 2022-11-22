@@ -4,9 +4,11 @@ namespace LTL\Hubspot\Tests\Resource;
 
 use LTL\Curl\Curl;
 use LTL\Hubspot\Containers\SchemaContainer;
+use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
 use LTL\Hubspot\Core\Response\Response;
+use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\ResourceFactory;
 use LTL\Hubspot\Resources\V3\ContactHubspot;
 use LTL\Hubspot\Resources\V4\AssociationHubspot;
@@ -234,7 +236,7 @@ class ResourceResponseTest extends TestCase
     public function testIfMultiStatusISCorrect()
     {
         $curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
-        $curl->method('status')->willReturn(207);
+        $curl->method('status')->willReturn(HubspotConfig::MULTI_STATUS_CODE);
       
         $resource = new ContactHubspot;
 
@@ -247,14 +249,38 @@ class ResourceResponseTest extends TestCase
         $this->assertTrue($object->multiStatus());
     }
 
+
     public function testMultiStatusMethodThrowExceptionIfCallBeforeRequest()
     {
         $resource = new AssociationHubspot;
 
-        $this->expectExceptionMessage(
-            $resource::class ."::multiStatus() must not be used before actions:\n\n". SchemaContainer::get($resource)
-        );
+        $this->expectException(HubspotApiException::class);
       
         $resource->multiStatus();
+    }
+
+    public function testIfTooManyRequestsErrorStatusISCorrect()
+    {
+        $curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
+        $curl->method('status')->willReturn(HubspotConfig::TOO_MANY_REQUESTS_ERROR_CODE);
+      
+        $resource = new ContactHubspot;
+
+        $actionSchema = SchemaContainer::getAction($resource, 'getAll');
+
+
+        $object = ResourceFactory::build($resource, new Response($curl, $actionSchema));
+
+   
+        $this->assertTrue($object->isTooManyRequestsError());
+    }
+
+    public function testIfTooManyRequestsErrorWithResponseNullThrowException()
+    {
+        $resource = new AssociationHubspot;
+
+        $this->expectException(HubspotApiException::class);
+      
+        $resource->isTooManyRequestsError();
     }
 }

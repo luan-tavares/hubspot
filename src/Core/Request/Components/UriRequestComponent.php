@@ -18,10 +18,11 @@ class UriRequestComponent extends RequestComponent implements UriComponentInterf
         $nParams = count($params);
         $nArguments = count($arguments);
 
-        HubspotApiException::throwIf(
-            $nParams !== $nArguments,
-            '"'. $actionSchema->resourceClass ."::{$actionSchema}()\" must be {$nParams} params, {$nArguments} given"
-        );
+        if ($nParams !== $nArguments) {
+            throw new HubspotApiException(
+                '"'. $actionSchema->resourceClass ."::{$actionSchema}()\" must be {$nParams} params, {$nArguments} given"
+            );
+        }
 
         if (!$actionSchema->authentication) {
             $this->request->removeApikey();
