@@ -40,7 +40,7 @@ class ResourceResponseTest extends TestCase
 
         $curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
         $curl->method('status')->willReturn(202);
-        $curl->method('response')->willReturn(json_encode($this->result));
+        $curl->method('raw')->willReturn(json_encode($this->result));
         $curl->method('uri')
             ->willReturn('https://test.com/api?hapikey=12345678-1234-1234-1234-abcde1234567');
         $curl->method('headers')->willReturn(['Content-Type' => 'application/json;charset=utf-8']);

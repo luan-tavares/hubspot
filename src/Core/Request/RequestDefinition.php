@@ -41,7 +41,7 @@ class RequestDefinition implements RequestDefinitionInterface
 
         if ($curlResponse->error() && $this->request->hasExceptionIfRequestError()) {
             throw new HubspotApiException(
-                "{$curlResponse->status()} Error => {$curlResponse->response()}"
+                "{$curlResponse->status()} Error => {$curlResponse->raw()}"
             );
         }
         
@@ -50,7 +50,7 @@ class RequestDefinition implements RequestDefinitionInterface
 
     private function recursiveCurl(CurlInterface $curl, int|null $tooManyRequestsTries, int $current = 1): CurlInterface
     {
-        $curlResponse =  $curl->connect($this->request->getMethod(), $this->request->getBody());
+        $curlResponse =  $curl->request($this->request->getMethod(), $this->request->getBody());
 
         if (is_null($tooManyRequestsTries)) {
             return $curlResponse;

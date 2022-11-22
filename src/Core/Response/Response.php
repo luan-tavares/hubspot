@@ -28,7 +28,7 @@ class Response implements ResponseInterface, IteratorAggregate, Countable
     public function __construct(CurlInterface $curl, private ActionSchemaInterface $actionSchema)
     {
         $this->status = $curl->status();
-        $this->rawResponse = $curl->response();
+        $this->rawResponse = $curl->raw();
         $this->uri = HubspotApikey::uriMask($curl->uri());
         $this->headers = $curl->headers();
     }

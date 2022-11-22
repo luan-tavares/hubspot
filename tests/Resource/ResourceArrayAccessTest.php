@@ -3,6 +3,7 @@
 namespace LTL\Hubspot\Tests\Resource;
 
 use LTL\Curl\Curl;
+use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
 use LTL\Hubspot\Core\Response\Response;
@@ -34,8 +35,8 @@ class ResourceArrayAccessTest extends TestCase
 
         $this->response = null;
 
-        $curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
-        $curl->method('response')->willReturn(json_encode($this->result));
+        $curl = $this->getMockBuilder(CurlInterface::class)->disableOriginalConstructor()->getMock();
+        $curl->method('raw')->willReturn(json_encode($this->result));
 
         $this->baseResource = new AssociationHubspot;
         $actionSchema = SchemaContainer::getAction($this->baseResource, 'getDefinition');

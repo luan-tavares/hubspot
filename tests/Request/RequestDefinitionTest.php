@@ -4,11 +4,14 @@ namespace LTL\Hubspot\Tests\Request;
 
 use DateTimeImmutable;
 use LTL\Curl\Curl;
+use LTL\Curl\CurlResponse;
+use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Containers\BuilderContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\HubspotApikey;
 use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Request\RequestDefinition;
+use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\RequestFactory;
 use LTL\Hubspot\Resources\ContactHubspot;
@@ -229,15 +232,17 @@ class RequestDefinitionTest extends TestCase
         $requestDefinition = new RequestDefinition($request, $actionSchema, []);
 
 
-        $curl = $this->getMockBuilder(Curl::class)->getMock();
-        $curl->method('connect')->willReturn($curl);
+        $curl = $this->getMockBuilder(CurlInterface::class)->getMock();
+        $curl->method('request')->willReturn($curl);
         $curl->method('addUri')->willReturn($curl);
         $curl->method('addHeaders')->willReturn($curl);
         $curl->method('addParams')->willReturn($curl);
         $curl->method('status')->willReturn(HubspotConfig::TOO_MANY_REQUESTS_ERROR_CODE);
 
+        $response = new Response($curl, $actionSchema);
 
-        $curl->expects($this->exactly($requests))->method('connect');
+
+        $curl->expects($this->exactly($requests))->method('request');
 
         $requestDefinition->connect($curl);
     }
@@ -258,14 +263,14 @@ class RequestDefinitionTest extends TestCase
 
 
         $curl = $this->getMockBuilder(Curl::class)->getMock();
-        $curl->method('connect')->willReturn($curl);
+        $curl->method('request')->willReturn($curl);
         $curl->method('addUri')->willReturn($curl);
         $curl->method('addHeaders')->willReturn($curl);
         $curl->method('addParams')->willReturn($curl);
         $curl->method('status')->willReturn(HubspotConfig::TOO_MANY_REQUESTS_ERROR_CODE);
 
 
-        $curl->expects($this->exactly($tooManyRequests))->method('connect');
+        $curl->expects($this->exactly($tooManyRequests))->method('request');
 
         $requestDefinition->connect($curl);
     }
@@ -286,7 +291,7 @@ class RequestDefinitionTest extends TestCase
 
 
         $curl = $this->getMockBuilder(Curl::class)->getMock();
-        $curl->method('connect')->willReturn($curl);
+        $curl->method('request')->willReturn($curl);
         $curl->method('addUri')->willReturn($curl);
         $curl->method('addHeaders')->willReturn($curl);
         $curl->method('addParams')->willReturn($curl);
@@ -317,14 +322,14 @@ class RequestDefinitionTest extends TestCase
 
 
         $curl = $this->getMockBuilder(Curl::class)->getMock();
-        $curl->method('connect')->willReturn($curl);
+        $curl->method('request')->willReturn($curl);
         $curl->method('addUri')->willReturn($curl);
         $curl->method('addHeaders')->willReturn($curl);
         $curl->method('addParams')->willReturn($curl);
         $curl->method('status')->willReturn(HubspotConfig::TOO_MANY_REQUESTS_ERROR_CODE);
 
 
-        $curl->expects($this->exactly($requests))->method('connect');
+        $curl->expects($this->exactly($requests))->method('request');
 
         $requestDefinition->connect($curl);
     }
@@ -345,7 +350,7 @@ class RequestDefinitionTest extends TestCase
 
 
         $curl = $this->getMockBuilder(Curl::class)->getMock();
-        $curl->method('connect')->willReturn($curl);
+        $curl->method('request')->willReturn($curl);
         $curl->method('addUri')->willReturn($curl);
         $curl->method('addHeaders')->willReturn($curl);
         $curl->method('addParams')->willReturn($curl);
@@ -379,7 +384,7 @@ class RequestDefinitionTest extends TestCase
 
 
         $curl = $this->getMockBuilder(Curl::class)->getMock();
-        $curl->method('connect')->willReturn($curl);
+        $curl->method('request')->willReturn($curl);
         $curl->method('addUri')->willReturn($curl);
         $curl->method('addHeaders')->willReturn($curl);
         $curl->method('addParams')->willReturn($curl);
@@ -402,14 +407,14 @@ class RequestDefinitionTest extends TestCase
 
 
         $curl = $this->getMockBuilder(Curl::class)->getMock();
-        $curl->method('connect')->willReturn($curl);
+        $curl->method('request')->willReturn($curl);
         $curl->method('addUri')->willReturn($curl);
         $curl->method('addHeaders')->willReturn($curl);
         $curl->method('addParams')->willReturn($curl);
         $curl->method('error')->willReturn(true);
 
 
-        $curl->expects($this->once())->method('connect');
+        $curl->expects($this->once())->method('request');
 
         $requestDefinition->connect($curl);
     }

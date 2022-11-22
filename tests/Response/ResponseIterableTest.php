@@ -39,7 +39,7 @@ class ResponseIterableTest extends TestCase
 
         $this->curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
         $this->curl->method('status')->willReturn(400);
-        $this->curl->method('response')->willReturn(json_encode($this->result));
+        $this->curl->method('raw')->willReturn(json_encode($this->result));
         $this->curl->method('uri')
             ->willReturn('https://test.com/api?hapikey=12345678-1234-1234-1234-abcde1234567');
         $this->curl->method('headers')->willReturn(['Content-Type' => 'application/json;charset=utf-8']);

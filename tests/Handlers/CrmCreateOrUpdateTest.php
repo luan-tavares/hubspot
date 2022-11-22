@@ -39,7 +39,7 @@ class CrmCreateOrUpdateTest extends TestCase
         $baseResource = new ContactHubspot;
 
         $curl = $this->getMockBuilder(Curl::class)->getMock();
-        $curl->method('response')->willReturn(json_encode($result));
+        $curl->method('raw')->willReturn(json_encode($result));
 
         $actionSchema = SchemaContainer::getAction($baseResource, 'create');
         $response = new Response($curl, $actionSchema);
@@ -69,7 +69,7 @@ class CrmCreateOrUpdateTest extends TestCase
         $baseResource = new ContactHubspot;
 
         $curl = $this->getMockBuilder(Curl::class)->getMock();
-        $curl->method('response')->willReturn(json_encode($result));
+        $curl->method('raw')->willReturn(json_encode($result));
 
         $actionSchema = SchemaContainer::getAction($baseResource, 'update');
         $response = new Response($curl, $actionSchema);
@@ -97,7 +97,7 @@ class CrmCreateOrUpdateTest extends TestCase
         $baseResource = new ContactHubspot;
 
         $curl = $this->getMockBuilder(Curl::class)->getMock();
-        $curl->method('response')->willReturn(json_encode($result));
+        $curl->method('raw')->willReturn(json_encode($result));
 
         $actionSchema = SchemaContainer::getAction($baseResource, 'createOrUpdate');
         $response = new Response($curl, $actionSchema);
