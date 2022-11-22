@@ -25,7 +25,7 @@ trait ResourceResponse
         return $this->response->getStatus();
     }
 
-    public function multiStatus(): bool
+    public function isMultiStatus(): bool
     {
         $this->verifyIfResponseExists(__FUNCTION__);
 

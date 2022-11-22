@@ -246,7 +246,7 @@ class ResourceResponseTest extends TestCase
         $object = ResourceFactory::build($resource, new Response($curl, $actionSchema));
 
    
-        $this->assertTrue($object->multiStatus());
+        $this->assertTrue($object->isMultiStatus());
     }
 
 
@@ -256,7 +256,7 @@ class ResourceResponseTest extends TestCase
 
         $this->expectException(HubspotApiException::class);
       
-        $resource->multiStatus();
+        $resource->isMultiStatus();
     }
 
     public function testIfTooManyRequestsErrorStatusISCorrect()
