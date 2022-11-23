@@ -31,7 +31,7 @@ class ResponseNotIterableTest extends TestCase
         ];
 
         $this->curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
-        $this->curl->method('raw')->willReturn(json_encode($this->result));
+        $this->curl->method('response')->willReturn(json_encode($this->result));
 
         $this->actionSchema = SchemaContainer::getAction(new ContactHubspot, 'get');
     }

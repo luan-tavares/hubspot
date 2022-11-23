@@ -37,15 +37,15 @@ class RequestDefinition implements RequestDefinitionInterface
             throw new HubspotApiException('Max too Many Request tries must be 15 or less');
         }
 
-        $curlResponse = $this->recursiveCurl($curl, $tooManyRequestsTries);
+        $curl = $this->recursiveCurl($curl, $tooManyRequestsTries);
 
-        if ($curlResponse->error() && $this->request->hasExceptionIfRequestError()) {
-            throw new HubspotApiException(
-                "{$curlResponse->status()} Error => {$curlResponse->raw()}"
-            );
+        if ($curl->error() && $this->request->hasExceptionIfRequestError()) {
+            $response = empty($curl->response())?'"NO RESPONSE"':$curl->response();
+
+            throw new HubspotApiException("Error {$curl->status()} :: {$response}");
         }
         
-        return $curlResponse;
+        return $curl;
     }
 
     private function recursiveCurl(CurlInterface $curl, int|null $tooManyRequestsTries, int $current = 1): CurlInterface

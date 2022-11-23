@@ -76,12 +76,16 @@ class ResponseRepository implements ResponseRepositoryInterface
         return $this->array;
     }
 
+    /**Countable */
+
     public function count(): int
     {
         $this->verifyIterable();
 
         return count($this->iterator);
     }
+
+    /**Iterable */
 
     public function rewind(): void
     {

@@ -11,7 +11,7 @@ trait ResourceResponse
         return $this->response->toArray();
     }
   
-    public function toJson(): string|null
+    public function toJson(): string
     {
         $this->verifyIfResponseExists(__FUNCTION__);
 

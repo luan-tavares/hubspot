@@ -55,7 +55,7 @@ class ImportAllHandlerTest extends TestCase
         
 
         $curl1 = $this->getMockBuilder(Curl::class)->getMock();
-        $curl1->method('raw')->willReturn(json_encode($result1));
+        $curl1->method('response')->willReturn(json_encode($result1));
         $actionSchema = SchemaContainer::getAction($baseResource, 'getAll');
         $response = new Response($curl1, $actionSchema);
         $resource1 = ResourceFactory::build($baseResource, $response);
@@ -65,7 +65,7 @@ class ImportAllHandlerTest extends TestCase
         $mockResource1->method('getAll')->willReturn($resource1);
 
         $curl2 = $this->getMockBuilder(Curl::class)->getMock();
-        $curl2->method('raw')->willReturn(json_encode($result2));
+        $curl2->method('response')->willReturn(json_encode($result2));
         $actionSchema = SchemaContainer::getAction($baseResource, 'getAll');
         $response = new Response($curl2, $actionSchema);
         $resource2 = ResourceFactory::build($baseResource, $response);

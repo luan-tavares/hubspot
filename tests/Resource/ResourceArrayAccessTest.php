@@ -36,7 +36,7 @@ class ResourceArrayAccessTest extends TestCase
         $this->response = null;
 
         $curl = $this->getMockBuilder(CurlInterface::class)->disableOriginalConstructor()->getMock();
-        $curl->method('raw')->willReturn(json_encode($this->result));
+        $curl->method('response')->willReturn(json_encode($this->result));
 
         $this->baseResource = new AssociationHubspot;
         $actionSchema = SchemaContainer::getAction($this->baseResource, 'getDefinition');

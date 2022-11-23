@@ -395,6 +395,31 @@ class RequestDefinitionTest extends TestCase
         $requestDefinition->connect($curl);
     }
 
+    public function testIfExceptionIfRequestErrorNoResponseThrowCorrectExceptionMessage()
+    {
+        $resourceBuilder = ContactHubspot::exceptionIfRequestError();
+
+        $request = $resourceBuilder->request();
+
+        $actionSchema = SchemaContainer::getAction($resourceBuilder->baseResource(), 'getAll');
+
+        $requestDefinition = new RequestDefinition($request, $actionSchema, []);
+
+        $status = 0;
+
+        $curl = $this->getMockBuilder(Curl::class)->getMock();
+        $curl->method('request')->willReturn($curl);
+        $curl->method('addUri')->willReturn($curl);
+        $curl->method('addHeaders')->willReturn($curl);
+        $curl->method('addParams')->willReturn($curl);
+        $curl->method('error')->willReturn(true);
+        $curl->method('status')->willReturn($status);
+
+        $this->expectExceptionMessage("Error {$status} :: \"NO RESPONSE\"");
+
+        $requestDefinition->connect($curl);
+    }
+
     public function testIfDefaultNotExceptionNotThrowException()
     {
         $resource = new ContactHubspot;

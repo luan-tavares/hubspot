@@ -203,7 +203,7 @@ class ResponseRepositoryTest extends TestCase
     public function testIfMagicGetMethodReturnNullIfResponseIsNull()
     {
         $response = $this->getMockBuilder(Response::class)->disableOriginalConstructor()->getMock();
-        $response->method('toJson')->willReturn(null);
+        $response->method('toJson')->willReturn('Lorem');
 
         $responseRepository = ResponseRepositoryFactory::build($response);
        
@@ -213,7 +213,7 @@ class ResponseRepositoryTest extends TestCase
     public function testIfIssetMagicMethodIsFalseIfResponseIsNull()
     {
         $response = $this->getMockBuilder(Response::class)->disableOriginalConstructor()->getMock();
-        $response->method('toJson')->willReturn(null);
+        $response->method('toJson')->willReturn('Lorem');
 
         $responseRepository = ResponseRepositoryFactory::build($response);
        

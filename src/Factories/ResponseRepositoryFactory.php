@@ -19,7 +19,7 @@ abstract class ResponseRepositoryFactory implements FactoryInterface
 
         $responseRepository = $reflectionClass->newInstanceWithoutConstructor();
 
-        $rawResponse = $response->toJson() ?? '';
+        $rawResponse = $response->toJson();
 
         $object = json_decode($rawResponse);
 

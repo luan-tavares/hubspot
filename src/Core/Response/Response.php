@@ -19,7 +19,7 @@ class Response implements ResponseInterface, IteratorAggregate, Countable
 {
     private array|null $headers;
    
-    private string|null $rawResponse;
+    private string $rawResponse;
 
     private int $status;
 
@@ -28,7 +28,7 @@ class Response implements ResponseInterface, IteratorAggregate, Countable
     public function __construct(CurlInterface $curl, private ActionSchemaInterface $actionSchema)
     {
         $this->status = $curl->status();
-        $this->rawResponse = $curl->raw();
+        $this->rawResponse = $curl->response();
         $this->uri = HubspotApikey::uriMask($curl->uri());
         $this->headers = $curl->headers();
     }
@@ -58,7 +58,7 @@ class Response implements ResponseInterface, IteratorAggregate, Countable
         return ResponseRepositoryContainer::get($this)->toArray();
     }
 
-    public function toJson(): string|null
+    public function toJson(): string
     {
         return $this->rawResponse;
     }
@@ -90,12 +90,12 @@ class Response implements ResponseInterface, IteratorAggregate, Countable
 
     public function isMultiStatus(): bool
     {
-        return $this->status === HubspotConfig::MULTI_STATUS_CODE;
+        return ($this->status === HubspotConfig::MULTI_STATUS_CODE);
     }
 
     public function isTooManyRequestsError(): bool
     {
-        return $this->status === HubspotConfig::TOO_MANY_REQUESTS_ERROR_CODE;
+        return ($this->status === HubspotConfig::TOO_MANY_REQUESTS_ERROR_CODE);
     }
 
     public function getIterator(): ResponseRepository
