@@ -7,6 +7,6 @@ use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Hubspot;
 
 define('ENV', hubspotEnv(HubspotConfig::BASE_PATH .'/.env'));
-
+ /**oauth */
 $oAuth = ENV['HUBSPOT_OAUTH'];
 Hubspot::setGlobalOAuth($oAuth);
