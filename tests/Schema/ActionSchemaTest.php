@@ -52,7 +52,8 @@ class ActionSchemaTest extends TestCase
             'search',
             'merge',
             'createOrUpdate',
-            'importAll'
+            'importAll',
+            'createOrUpdateByEmail'
         ]);
     }
 

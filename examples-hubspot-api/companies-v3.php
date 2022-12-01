@@ -9,8 +9,7 @@ use LTL\Hubspot\Resources\V3\CompanyHubspot;
 
 $after = $i = $memory = 0;
 
-$oAuth = ENV['HUBSPOT_OAUTH'];
-Hubspot::setGlobalOAuth($oAuth);
+
 
 /** */
 while (true) {

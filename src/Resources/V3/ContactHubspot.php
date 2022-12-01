@@ -116,6 +116,12 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this importAll(callable $fn, int $chunk) (Handler) Import All Contacts using offset and getAll
  * See https://developers.hubspot.com/docs/api/crm/contacts
  *
+ * @method static $this createOrUpdateByEmail(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody) (Handler) Create or Update If Email Exists
+ * See https://developers.hubspot.com/docs/api/crm/contacts
+ *
+ * @method $this createOrUpdateByEmail(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody) (Handler) Create or Update If Email Exists
+ * See https://developers.hubspot.com/docs/api/crm/contacts
+ *
  */
 class ContactHubspot extends Hubspot
 {

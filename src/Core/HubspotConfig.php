@@ -18,6 +18,8 @@ abstract class HubspotConfig
 
     public const TOO_MANY_REQUESTS_ERROR_CODE = 429;
 
+    public const CONFLICT_ERROR_CODE = 409;
+
     public const MAX_TOO_MANY_REQUESTS_TRIES = 15;
 
     public const MULTI_STATUS_CODE = 207;

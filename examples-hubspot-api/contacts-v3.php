@@ -6,6 +6,15 @@ require_once __DIR__ .'/__init.php';
 use LTL\Hubspot\Core\BodyBuilder\SearchBuilder\SearchBuilder;
 use LTL\Hubspot\Resources\ContactHubspot;
 
+dd(
+    ContactHubspot::createOrUpdateByEmail([
+        'properties' => [
+            'email' => 'mock@ipsum.com',
+            'firstname' => 'Jeje'
+        ]
+    ])
+);
+
 ContactHubspot::importAll(function (ContactHubspot $hubspotResource) {
     dump($hubspotResource->count());
 }, 50);
