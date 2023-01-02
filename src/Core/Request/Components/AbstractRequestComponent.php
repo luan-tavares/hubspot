@@ -6,7 +6,7 @@ use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
 use LTL\Observer\Interfaces\SubjectInterface;
 use LTL\Observer\Traits\SubjectTrait;
 
-abstract class RequestComponent implements SubjectInterface
+abstract class AbstractRequestComponent implements SubjectInterface
 {
     use SubjectTrait;
 
@@ -25,12 +25,10 @@ abstract class RequestComponent implements SubjectInterface
 
     public function boot(): void
     {
-        $this->initConfig();
+        $this->register();
     }
 
-    protected function initConfig(): void
-    {
-    }
+    abstract protected function register(): void;
 
     public function request(): RequestInterface|null
     {

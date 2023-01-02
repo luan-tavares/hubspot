@@ -7,11 +7,11 @@ use LTL\Hubspot\Core\Request\Components\RequestComponent;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\ListMethods\PublicMethods\Traits\PublicMethodsListable;
 
-class ResourceRequestComponent extends RequestComponent implements ResourceRequestComponentInterface
+class ResourceRequestComponent extends AbstractRequestComponent implements ResourceRequestComponentInterface
 {
     use PublicMethodsListable;
 
-    protected function initConfig(): void
+    protected function register(): void
     {
         $this->tooManyRequestsTries();
         $this->exceptionIfRequestError(false);

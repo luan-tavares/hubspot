@@ -4,12 +4,16 @@ namespace LTL\Hubspot\Core\Request\Components;
 
 use LTL\Hubspot\Core\Interfaces\Request\UriComponentInterface;
 use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
-use LTL\Hubspot\Core\Request\Components\RequestComponent;
+use LTL\Hubspot\Core\Request\Components\AbstractRequestComponent;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 
-class UriRequestComponent extends RequestComponent implements UriComponentInterface
+class UriRequestComponent extends AbstractRequestComponent implements UriComponentInterface
 {
     private string $uri;
+
+    protected function register(): void
+    {
+    }
 
     public function create(ActionSchemaInterface $actionSchema, array $arguments): void
     {

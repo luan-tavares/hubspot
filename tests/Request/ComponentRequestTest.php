@@ -4,8 +4,8 @@ namespace LTL\Hubspot\Tests\Request;
 
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\BodyBuilder\SearchBuilder\SearchBuilder;
+use LTL\Hubspot\Core\Request\Components\AbstractRequestComponent;
 use LTL\Hubspot\Core\Request\Components\MethodRequestComponent;
-use LTL\Hubspot\Core\Request\Components\RequestComponent;
 use LTL\Hubspot\Core\Request\Components\UriRequestComponent;
 use LTL\Hubspot\Core\Request\RequestDefinition;
 use LTL\Hubspot\Exceptions\HubspotApiException;
@@ -30,11 +30,11 @@ class ComponentRequestTest extends TestCase
 
     public function testAddArrayIsCorrect()
     {
-        $requestComponent = new UriRequestComponent;
+        $AbstractRequestComponent = new UriRequestComponent;
 
-        $requestComponent->addArrayAfter($this->result);
+        $AbstractRequestComponent->addArrayAfter($this->result);
         
-        $this->assertEquals($requestComponent->all(), [
+        $this->assertEquals($AbstractRequestComponent->all(), [
             'a' => 4,
             'b' => 5
         ]);
@@ -42,25 +42,25 @@ class ComponentRequestTest extends TestCase
 
     public function testDeleteItemIsCorrect()
     {
-        $requestComponent = new UriRequestComponent;
+        $AbstractRequestComponent = new UriRequestComponent;
 
-        $requestComponent->addArrayAfter($this->result);
-        $requestComponent->delete('a');
+        $AbstractRequestComponent->addArrayAfter($this->result);
+        $AbstractRequestComponent->delete('a');
 
-        $this->assertEquals($requestComponent->all(), [
+        $this->assertEquals($AbstractRequestComponent->all(), [
             'b' => 5
         ]);
     }
 
     public function testAddItemIsCorrect()
     {
-        $requestComponent = new UriRequestComponent;
+        $AbstractRequestComponent = new UriRequestComponent;
         
-        $requestComponent->addNotNull('a', 5);
-        $requestComponent->addNotNull('b', [10]);
-        $requestComponent->addNotNull('c', null);
+        $AbstractRequestComponent->addNotNull('a', 5);
+        $AbstractRequestComponent->addNotNull('b', [10]);
+        $AbstractRequestComponent->addNotNull('c', null);
 
-        $this->assertEquals($requestComponent->all(), [
+        $this->assertEquals($AbstractRequestComponent->all(), [
             'a' => 5,
             'b' => [10]
         ]);
@@ -68,12 +68,12 @@ class ComponentRequestTest extends TestCase
 
     public function testAddItemNullableIsCorrect()
     {
-        $requestComponent = new UriRequestComponent;
+        $AbstractRequestComponent = new UriRequestComponent;
         
-        $requestComponent->add('a');
-        $requestComponent->addNotNull('b', null);
+        $AbstractRequestComponent->add('a');
+        $AbstractRequestComponent->addNotNull('b', null);
 
-        $this->assertEquals($requestComponent->all(), [
+        $this->assertEquals($AbstractRequestComponent->all(), [
             'a' => ''
         ]);
     }
@@ -109,18 +109,18 @@ class ComponentRequestTest extends TestCase
         $this->assertEquals($requestBody->get(), $request->getBody());
     }
 
-    public function testIfComponentInitConfigMethodIsProtected()
+    public function testIfComponentRegisterMethodIsProtected()
     {
-        $component = new ReflectionClass(RequestComponent::class);
+        $component = new ReflectionClass(AbstractRequestComponent::class);
         
-        $this->assertTrue($component->getMethod('initConfig')->isProtected());
+        $this->assertTrue($component->getMethod('register')->isProtected());
     }
 
-    public function testIfComponentInitConfigChildMethodIsProtected()
+    public function testIfComponentRegisterChildMethodIsProtected()
     {
         $component = new ReflectionClass(MethodRequestComponent::class);
         
-        $this->assertTrue($component->getMethod('initConfig')->isProtected());
+        $this->assertTrue($component->getMethod('register')->isProtected());
     }
 
     public function testIfRequestUriDiffParamsThrowException()

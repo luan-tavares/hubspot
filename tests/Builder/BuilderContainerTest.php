@@ -86,7 +86,7 @@ class BuilderContainerTest extends TestCase
         $this->assertEquals($memoryDiff, 0);
     }
 
-    public function testIfBuilderContainerDestroyRequestComponents()
+    public function testIfBuilderContainerDestroyAbstractRequestComponents()
     {
         $request = $this->getMockBuilder(Request::class)->disableOriginalConstructor()->getMock();
 

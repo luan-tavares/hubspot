@@ -4,14 +4,14 @@ namespace LTL\Hubspot\Core\Request\Components;
 
 use LTL\Hubspot\Core\HubspotApikey;
 use LTL\Hubspot\Core\Interfaces\Request\QueryComponentInterface;
-use LTL\Hubspot\Core\Request\Components\RequestComponent;
+use LTL\Hubspot\Core\Request\Components\AbstractRequestComponent;
 use LTL\ListMethods\PublicMethods\Traits\PublicMethodsListable;
 
-class QueryRequestComponent extends RequestComponent implements QueryComponentInterface
+class QueryRequestComponent extends AbstractRequestComponent implements QueryComponentInterface
 {
     use PublicMethodsListable;
 
-    protected function initConfig(): void
+    protected function register(): void
     {
         $apikey = HubspotApikey::get();
 

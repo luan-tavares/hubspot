@@ -4,14 +4,14 @@ namespace LTL\Hubspot\Core\Request\Components;
 
 use LTL\Hubspot\Core\HubspotOAuth;
 use LTL\Hubspot\Core\Interfaces\Request\HeaderComponentInterface;
-use LTL\Hubspot\Core\Request\Components\RequestComponent;
+use LTL\Hubspot\Core\Request\Components\AbstractRequestComponent;
 use LTL\ListMethods\PublicMethods\Traits\PublicMethodsListable;
 
-class HeaderRequestComponent extends RequestComponent implements HeaderComponentInterface
+class HeaderRequestComponent extends AbstractRequestComponent implements HeaderComponentInterface
 {
     use PublicMethodsListable;
 
-    protected function initConfig(): void
+    protected function register(): void
     {
         $oAuth = HubspotOAuth::get();
 

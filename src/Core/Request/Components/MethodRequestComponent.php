@@ -3,11 +3,15 @@
 namespace LTL\Hubspot\Core\Request\Components;
 
 use LTL\Hubspot\Core\Interfaces\Request\MethodComponentInterface;
-use LTL\Hubspot\Core\Request\Components\RequestComponent;
+use LTL\Hubspot\Core\Request\Components\AbstractRequestComponent;
 
-class MethodRequestComponent extends RequestComponent implements MethodComponentInterface
+class MethodRequestComponent extends AbstractRequestComponent implements MethodComponentInterface
 {
     private string $method;
+
+    protected function register(): void
+    {
+    }
 
     public function set(string $method): void
     {
