@@ -4,6 +4,7 @@ namespace LTL\Hubspot\Tests\Request;
 
 use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Containers\SchemaContainer;
+use LTL\Hubspot\Core\Builder;
 use LTL\Hubspot\Core\Handlers\Handlers;
 use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Response\Response;
@@ -42,14 +43,16 @@ class ContactCreateOrUpdateByEmailHandlerTest extends TestCase
         $response = new Response($curl, $actionSchema);
         $resourceCreate = ResourceFactory::build($baseResource, $response);
 
-        $resource = $this->getMockBuilder(ContactHubspot::class)
+        $builder = $this->getMockBuilder(Builder::class)
+            ->disableOriginalConstructor()
             ->addMethods(['create'])
+            ->onlyMethods(['__destruct'])
             ->getMock();
 
-        $resource->expects($this->once())->method('create')->willReturn($resourceCreate);
+        $builder->expects($this->once())->method('create')->willReturn($resourceCreate);
 
         $result = Handlers::call(
-            $resource,
+            $builder,
             'contact_create_or_update_by_email',
             [
                 ['properties'=>['email' => 'lorem@ipsum.com']]

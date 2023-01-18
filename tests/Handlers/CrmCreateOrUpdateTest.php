@@ -4,6 +4,7 @@ namespace LTL\Hubspot\Tests\Request;
 
 use LTL\Curl\Curl;
 use LTL\Hubspot\Containers\SchemaContainer;
+use LTL\Hubspot\Core\Builder;
 use LTL\Hubspot\Core\Handlers\CrmCreateOrUpdate\CrmCreateOrUpdateHandler;
 use LTL\Hubspot\Core\Handlers\Handlers;
 use LTL\Hubspot\Core\Handlers\ImportAll\ImportAllHandler;
@@ -45,14 +46,16 @@ class CrmCreateOrUpdateTest extends TestCase
         $response = new Response($curl, $actionSchema);
         $resourceCreate = ResourceFactory::build($baseResource, $response);
 
-        $resource = $this->getMockBuilder(ContactHubspot::class)
+        $builder = $this->getMockBuilder(Builder::class)
+            ->disableOriginalConstructor()
             ->addMethods(['create'])
+            ->onlyMethods(['__destruct'])
             ->getMock();
 
-        $resource->expects($this->once())->method('create')->willReturn($resourceCreate);
+        $builder->expects($this->once())->method('create')->willReturn($resourceCreate);
 
         $result = Handlers::call(
-            $resource,
+            $builder,
             'create_or_update',
             [
                 ['properties'=>['name' => 'Lorem']], null
@@ -75,44 +78,16 @@ class CrmCreateOrUpdateTest extends TestCase
         $response = new Response($curl, $actionSchema);
         $resourceUpdate = ResourceFactory::build($baseResource, $response);
 
-        $resource = $this->getMockBuilder(ContactHubspot::class)
+        $builder = $this->getMockBuilder(Builder::class)
+            ->disableOriginalConstructor()
             ->addMethods(['update'])
+            ->onlyMethods(['__destruct'])
             ->getMock();
 
-        $resource->expects($this->once())->method('update')->willReturn($resourceUpdate);
+        $builder->expects($this->once())->method('update')->willReturn($resourceUpdate);
 
         CrmCreateOrUpdateHandler::handle(
-            $resource,
-            ['properties'=>['name' => 'Lorem']],
-            1
-        );
-    }
-
-    public function testIfHandlerIsCalledFromBuilder()
-    {
-        $result = [
-            'id' => 1
-        ];
-
-        $baseResource = new ContactHubspot;
-
-        $curl = $this->getMockBuilder(Curl::class)->getMock();
-        $curl->method('response')->willReturn(json_encode($result));
-
-        $actionSchema = SchemaContainer::getAction($baseResource, 'createOrUpdate');
-        $response = new Response($curl, $actionSchema);
-        $resourceUpdate = ResourceFactory::build($baseResource, $response);
-
-        $resource = $this->getMockBuilder(ContactHubspot::class)
-            ->addMethods(['update'])
-            ->getMock();
-
-        $request = RequestFactory::build($baseResource);
-        $builder = BuilderFactory::build($resource, $request);
-
-        $resource->expects($this->once())->method('update')->willReturn($resourceUpdate);
-
-        $builder->createOrUpdate(
+            $builder,
             ['properties'=>['name' => 'Lorem']],
             1
         );

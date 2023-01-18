@@ -6,17 +6,17 @@ require_once __DIR__ .'/__init.php';
 use LTL\Hubspot\Core\BodyBuilder\SearchBuilder\SearchBuilder;
 use LTL\Hubspot\Resources\ContactHubspot;
 
-dd(
-    ContactHubspot::createOrUpdateByEmail([
-        'properties' => [
-            'email' => 'mock@ipsum.com',
-            'firstname' => 'Jeje'
-        ]
-    ])
-);
+// dd(
+//     ContactHubspot::createOrUpdateByEmail([
+//         'properties' => [
+//             'email' => 'mock@ipsum.com',
+//             'firstname' => 'Jeje'
+//         ]
+//     ])
+// );
 
-ContactHubspot::importAll(function (ContactHubspot $hubspotResource) {
-    dump($hubspotResource->count());
+ContactHubspot::after('5199902')->importAll(function (ContactHubspot $hubspotResource) {
+    dump($hubspotResource->after);
 }, 50);
 
 dd(ContactHubspot::limit(10)->createOrUpdate([

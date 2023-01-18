@@ -3,6 +3,7 @@
 namespace LTL\Hubspot\Core\Handlers\ContactCreateOrUpdateByEmail;
 
 use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
+use LTL\Hubspot\Core\Builder;
 use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 use LTL\Hubspot\Resources\V3\ContactHubspot;
@@ -10,16 +11,16 @@ use LTL\Hubspot\Resources\V3\ContactHubspot;
 abstract class ContactCreateOrUpdateByEmailHandler
 {
     public static function handle(
-        ContactHubspot $resource,
+        Builder $builder,
         BaseBodyBuilder|array $requestBody
     ): ResourceInterface {
-        $hubspotResponse = $resource->create($requestBody);
+        $hubspotResponse = $builder->create($requestBody);
         $status = $hubspotResponse->status();
 
         if ($status === HubspotConfig::CONFLICT_ERROR_CODE) {
             $contactId = self::getIdFromErrorMessage($hubspotResponse);
 
-            return $resource->update($contactId, $requestBody);
+            return $builder->update($contactId, $requestBody);
         }
 
         return $hubspotResponse;

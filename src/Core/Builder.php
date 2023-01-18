@@ -61,7 +61,7 @@ class Builder implements BuilderInterface
         $handler = $actionSchema->handler;
         
         if (!is_null($handler)) {
-            return Handlers::call($this->baseResource, $handler, $arguments);
+            return Handlers::call($this, $handler, $arguments);
         }
 
         $curl = $this->request->connect($actionSchema, $arguments);

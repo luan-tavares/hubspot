@@ -4,6 +4,7 @@ namespace LTL\Hubspot\Tests\Request;
 
 use LTL\Curl\Curl;
 use LTL\Hubspot\Containers\SchemaContainer;
+use LTL\Hubspot\Core\Builder;
 use LTL\Hubspot\Core\Handlers\Handlers;
 use LTL\Hubspot\Core\Handlers\ImportAll\ImportAllHandler;
 use LTL\Hubspot\Core\Response\Response;
@@ -62,6 +63,7 @@ class ImportAllHandlerTest extends TestCase
         $mockResource1 = $this->getMockBuilder(ContactHubspot::class)
             ->addMethods(['getAll'])
             ->getMock();
+            
         $mockResource1->method('getAll')->willReturn($resource1);
 
         $curl2 = $this->getMockBuilder(Curl::class)->getMock();
@@ -74,28 +76,34 @@ class ImportAllHandlerTest extends TestCase
             ->getMock();
         $mockResource2->method('getAll')->willReturn($resource2);
 
+    
         $limitMap = [
             [0, $mockResource1],
             [2, $mockResource2]
         ];
 
-        $resource = $this->getMockBuilder(ContactHubspot::class)
-            ->addMethods(['limit', 'after'])
+        $builder = $this->getMockBuilder(Builder::class)
+            ->disableOriginalConstructor()
+            ->addMethods(['getAll', 'after'])
+            ->onlyMethods(['__destruct'])
             ->getMock();
 
-        $resource->method('limit')->will($this->returnSelf());
-        $resource->method('after')->will($this->returnValueMap($limitMap));
-
+        //$builder->method('getAll')->will($this->returnValueMap($limitMap));
+        $builder->method('getAll')->willReturnOnConsecutiveCalls(
+            $this->returnValue($resource1),
+            $this->returnValue($resource2)
+        );
+        $builder->method('after')->will($this->returnSelf());
+    
         $results = [];
 
         Handlers::call(
-            $resource,
+            $builder,
             'import_all',
             [
                 function ($item) use (&$results) {
                     $results = array_merge($results, $item['results']);
-                },
-                40
+                }
             ]
         );
 

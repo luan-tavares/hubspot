@@ -2,22 +2,25 @@
 
 namespace LTL\Hubspot\Core\Handlers\ImportAll;
 
+use LTL\Hubspot\Core\Builder;
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
-use LTL\Hubspot\Core\Resource\Resource;
 
 abstract class ImportAllHandler
 {
     public static function handle(
-        Resource $resource,
-        callable $fn,
-        int $chunk
+        Builder $builder,
+        callable $fn
     ): ResourceInterface {
         $after = 0;
 
         while (true) {
-            $hubspotRequest = $resource->limit($chunk)->after($after)->getAll();
+            if ($after != 0) {
+                $builder->after($after);
+            }
+            $hubspotRequest = $builder->getAll();
+           
             $after = $hubspotRequest->after;
-
+            
             $fn($hubspotRequest);
 
             if (is_null($after)) {
@@ -25,6 +28,6 @@ abstract class ImportAllHandler
             }
         }
 
-        return $resource;
+        return $hubspotRequest;
     }
 }
