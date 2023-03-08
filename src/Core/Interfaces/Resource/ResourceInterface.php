@@ -2,7 +2,7 @@
 
 namespace LTL\Hubspot\Core\Interfaces\Resource;
 
-use ArrayAccess; /** */
+use ArrayAccess;
 use Countable;
 use IteratorAggregate;
 use LTL\Hubspot\Interfaces\ArrayableInterface;
