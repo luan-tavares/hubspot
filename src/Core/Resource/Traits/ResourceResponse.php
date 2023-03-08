@@ -32,6 +32,13 @@ trait ResourceResponse
         return $this->response->isMultiStatus();
     }
 
+    public function invalidEmailError(): bool
+    {
+        $this->verifyIfResponseExists(__FUNCTION__);
+
+        return $this->response->isInvalidEmailError();
+    }
+
     public function isTooManyRequestsError(): bool
     {
         $this->verifyIfResponseExists(__FUNCTION__);

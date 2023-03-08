@@ -15,6 +15,8 @@ class ResourceSchema implements ResourceSchemaInterface
     private array $actionSchemas = [];
 
     private array $actions = [];
+
+    private string $resourceClass;
     
     public function __construct(ResourceInterface $resource)
     {

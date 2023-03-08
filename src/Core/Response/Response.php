@@ -98,6 +98,19 @@ class Response implements ResponseInterface, IteratorAggregate, Countable
         return ($this->status === HubspotConfig::TOO_MANY_REQUESTS_ERROR_CODE);
     }
 
+    public function isInvalidEmailError(): bool
+    {
+        if (!$this->hasErrors()) {
+            return false;
+        }
+
+        if (!mb_strpos($this->rawResponse, 'INVALID_EMAIL')) {
+            return false;
+        }
+
+        return true;
+    }
+
     public function getIterator(): ResponseRepository
     {
         return ResponseRepositoryContainer::get($this);

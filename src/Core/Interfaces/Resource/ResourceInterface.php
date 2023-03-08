@@ -25,6 +25,7 @@ interface ResourceInterface extends
     public function error(): bool;
     public function isMultiStatus(): bool;
     public function isTooManyRequestsError(): bool;
+    public function invalidEmailError(): bool;
     public static function setGlobalApikey(string $apikey): void;
     public static function setGlobalOAuth(string $token): void;
 }
