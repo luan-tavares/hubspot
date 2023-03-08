@@ -16,7 +16,7 @@ if (!file_exists($dir.'/autoload.php')) {
 if (!file_exists($dir.'/autoload.php')) {
     echo 'Autoload not found.';
 
-    exit(1);  /**dddddd */
+    exit(1);  /**ddddddd */
 }
 
 require $dir.'/autoload.php';
