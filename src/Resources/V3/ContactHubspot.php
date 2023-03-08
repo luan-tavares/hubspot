@@ -110,16 +110,16 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $hubspotId) (Handler) Use Create or Update contact if id is not null.
  * See https://developers.hubspot.com/docs/api/crm/contacts
  *
- * @method static $this importAll(callable $fn, int $chunk) (Handler) Import All Contacts using offset and getAll
+ * @method static $this importAll(callable $fn) (Handler) Import All Contacts using offset and getAll
  * See https://developers.hubspot.com/docs/api/crm/contacts
  *
- * @method $this importAll(callable $fn, int $chunk) (Handler) Import All Contacts using offset and getAll
+ * @method $this importAll(callable $fn) (Handler) Import All Contacts using offset and getAll
  * See https://developers.hubspot.com/docs/api/crm/contacts
  *
- * @method static $this createOrUpdateByEmail(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody) (Handler) Create or Update If Email Exists
+ * @method static $this createOrUpdateByEmail(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $idHubspot = null) (Handler) Create or Update If Email Exists
  * See https://developers.hubspot.com/docs/api/crm/contacts
  *
- * @method $this createOrUpdateByEmail(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody) (Handler) Create or Update If Email Exists
+ * @method $this createOrUpdateByEmail(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $idHubspot = null) (Handler) Create or Update If Email Exists
  * See https://developers.hubspot.com/docs/api/crm/contacts
  *
  */

@@ -12,10 +12,21 @@ abstract class ContactCreateOrUpdateByEmailHandler
 {
     public static function handle(
         Builder $builder,
-        BaseBodyBuilder|array $requestBody
+        BaseBodyBuilder|array $requestBody,
+        int|null|string $idHubspot = null
     ): ResourceInterface {
-        $hubspotResponse = $builder->create($requestBody);
+        if (is_null($idHubspot)) {
+            $hubspotResponse = $builder->create($requestBody);
+        } else {
+            $hubspotResponse = $builder->update($idHubspot, $requestBody);
+        }
+
         $status = $hubspotResponse->status();
+
+        if ($status === HubspotConfig::NOT_FOUND_ERROR_CODE) {
+            $hubspotResponse = $builder->create($requestBody);
+            $status = $hubspotResponse->status();
+        }
 
         if ($status === HubspotConfig::CONFLICT_ERROR_CODE) {
             $contactId = self::getIdFromErrorMessage($hubspotResponse);

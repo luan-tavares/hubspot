@@ -20,6 +20,8 @@ abstract class HubspotConfig
 
     public const CONFLICT_ERROR_CODE = 409;
 
+    public const NOT_FOUND_ERROR_CODE = 404;
+
     public const MAX_TOO_MANY_REQUESTS_TRIES = 15;
 
     public const MULTI_STATUS_CODE = 207;

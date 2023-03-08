@@ -152,9 +152,10 @@ function writeParamsWithHandler(object $actionSchema): string
         $type =  getTypes($reflectionParameter);
 
         $parameter = $reflectionParameter->name;
+       
 
         if ($reflectionParameter->isDefaultValueAvailable()) {
-            $parameter .= ' = '. $reflectionParameter->getDefaultValue();
+            $parameter .= ' = '. ($reflectionParameter->getDefaultValue() ?? 'null');
         }
 
         $params[] = $type . ' $'. $parameter;

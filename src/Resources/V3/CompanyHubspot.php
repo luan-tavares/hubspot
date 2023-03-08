@@ -98,6 +98,12 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $hubspotId) (Handler) Use Create or Update company if id is not null.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
+ * @method static $this importAll(callable $fn) (Handler) Import All Companies using offset and getAll
+ * See https://developers.hubspot.com/docs/api/crm/companies
+ *
+ * @method $this importAll(callable $fn) (Handler) Import All Companies using offset and getAll
+ * See https://developers.hubspot.com/docs/api/crm/companies
+ *
  */
 class CompanyHubspot extends Hubspot
 {
