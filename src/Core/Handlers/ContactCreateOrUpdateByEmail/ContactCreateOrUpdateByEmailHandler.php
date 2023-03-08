@@ -15,16 +15,18 @@ abstract class ContactCreateOrUpdateByEmailHandler
         BaseBodyBuilder|array $requestBody,
         int|null|string $idHubspot = null
     ): ResourceInterface {
-        if (is_null($idHubspot)) {
-            $hubspotResponse = $builder->create($requestBody);
-        } else {
-            $hubspotResponse = $builder->update($idHubspot, $requestBody);
-        }
-
+        $hubspotResponse = self::createOrUpdate($builder, $requestBody, $idHubspot);
         $status = $hubspotResponse->status();
 
         if ($status === HubspotConfig::NOT_FOUND_ERROR_CODE) {
-            $hubspotResponse = $builder->create($requestBody);
+            $idHubspot = null;
+            $hubspotResponse = self::createOrUpdate($builder, $requestBody, $idHubspot);
+            $status = $hubspotResponse->status();
+        }
+
+        if ($hubspotResponse->invalidEmailError()) {
+            unset($requestBody['properties']['email']);
+            $hubspotResponse = self::createOrUpdate($builder, $requestBody, $idHubspot);
             $status = $hubspotResponse->status();
         }
 
@@ -35,6 +37,18 @@ abstract class ContactCreateOrUpdateByEmailHandler
         }
 
         return $hubspotResponse;
+    }
+
+    private static function createOrUpdate(
+        Builder $builder,
+        BaseBodyBuilder|array $requestBody,
+        int|null|string $idHubspot = null
+    ): ResourceInterface {
+        if (is_null($idHubspot)) {
+            return $builder->create($requestBody);
+        }
+
+        return $builder->update($idHubspot, $requestBody);
     }
 
     private static function getIdFromErrorMessage(ContactHubspot $hubspotResponse): int
