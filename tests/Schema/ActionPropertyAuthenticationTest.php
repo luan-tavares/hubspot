@@ -8,7 +8,7 @@ use LTL\Hubspot\Resources\V2\FormHubspot;
 use LTL\Hubspot\Resources\V3\HubDbHubspot;
 use PHPUnit\Framework\TestCase;
 
-class ActionSchemaAuthenticationTest extends TestCase
+class ActionPropertyAuthenticationTest extends TestCase
 {
     public function testIfAuthenticationCastInGetAllHubDbIsCorrect()
     {

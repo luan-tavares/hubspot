@@ -6,14 +6,13 @@ require_once __DIR__ .'/__init.php';
 use LTL\Hubspot\Core\BodyBuilder\SearchBuilder\SearchBuilder;
 use LTL\Hubspot\Resources\ContactHubspot;
 
-$response = ContactHubspot::createOrUpdateByEmail([
+$response = ContactHubspot::exceptionIfRequestError()->createOrUpdateByEmail([
     'properties' => [
-        'email' => 'ddd',
-        'firstname' => 'Jeje'
+        'email' => 'luan.tavares.lourenco@gmail.com'
     ]
 ]);
 
-dd($response->invalidEmailError());
+dd($response);
 
 ContactHubspot::after('5199902')->importAll(function (ContactHubspot $hubspotResource) {
     dump($hubspotResource->after);

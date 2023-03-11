@@ -46,13 +46,19 @@ class CrmCreateOrUpdateTest extends TestCase
         $response = new Response($curl, $actionSchema);
         $resourceCreate = ResourceFactory::build($baseResource, $response);
 
+        $request = RequestFactory::build($baseResource);
+
         $builder = $this->getMockBuilder(Builder::class)
             ->disableOriginalConstructor()
             ->addMethods(['create'])
-            ->onlyMethods(['__destruct'])
+            ->onlyMethods(['request', '__call'])
             ->getMock();
 
-        $builder->expects($this->once())->method('create')->willReturn($resourceCreate);
+        $builder->method('request')->willReturn($request);
+        $builder->method('__call')->willReturn($resourceCreate);
+
+           
+        $builder->expects($this->exactly(1))->method('create')->willReturn($resourceCreate);
 
         $result = Handlers::call(
             $builder,
@@ -78,12 +84,17 @@ class CrmCreateOrUpdateTest extends TestCase
         $response = new Response($curl, $actionSchema);
         $resourceUpdate = ResourceFactory::build($baseResource, $response);
 
+        $request = RequestFactory::build($baseResource);
+
         $builder = $this->getMockBuilder(Builder::class)
             ->disableOriginalConstructor()
             ->addMethods(['update'])
-            ->onlyMethods(['__destruct'])
+            ->onlyMethods(['request', '__call'])
             ->getMock();
 
+        $builder->method('request')->willReturn($request);
+        $builder->method('__call')->willReturn($resourceUpdate);
+        
         $builder->expects($this->once())->method('update')->willReturn($resourceUpdate);
 
         CrmCreateOrUpdateHandler::handle(

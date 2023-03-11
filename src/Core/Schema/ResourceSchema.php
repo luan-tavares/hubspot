@@ -2,6 +2,7 @@
 
 namespace LTL\Hubspot\Core\Schema;
 
+use Error;
 use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
@@ -52,7 +53,7 @@ class ResourceSchema implements ResourceSchemaInterface
     {
         try {
             return $this->actions[$action];
-        } catch (RuntimeException $error) {
+        } catch (Error $error) {
             throw new HubspotApiException($this->resourceClass ."::{$action}() not exists.");
         }
     }

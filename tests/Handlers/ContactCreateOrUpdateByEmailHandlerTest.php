@@ -8,6 +8,7 @@ use LTL\Hubspot\Core\Builder;
 use LTL\Hubspot\Core\Handlers\Handlers;
 use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Response\Response;
+use LTL\Hubspot\Factories\RequestFactory;
 use LTL\Hubspot\Factories\ResourceFactory;
 use LTL\Hubspot\Resources\V3\ContactHubspot;
 use PHPUnit\Framework\TestCase;
@@ -23,6 +24,7 @@ class ContactCreateOrUpdateByEmailHandlerTest extends TestCase
     public function testIfContactCreateOrUpdateByEmailHandlerTestNameIsCorrect()
     {
         $baseResource = new ContactHubspot;
+
         $actionSchema = SchemaContainer::getAction($baseResource, 'createOrUpdateByEmail');
 
         $this->assertEquals('contact_create_or_update_by_email', $actionSchema->handler);
@@ -43,11 +45,16 @@ class ContactCreateOrUpdateByEmailHandlerTest extends TestCase
         $response = new Response($curl, $actionSchema);
         $resourceCreate = ResourceFactory::build($baseResource, $response);
 
+        $request = RequestFactory::build($baseResource);
+
         $builder = $this->getMockBuilder(Builder::class)
             ->disableOriginalConstructor()
             ->addMethods(['create'])
-            ->onlyMethods(['__destruct'])
+            ->onlyMethods(['request', '__call'])
             ->getMock();
+
+        $builder->method('request')->willReturn($request);
+        $builder->method('__call')->willReturn($resourceCreate);
 
         $builder->expects($this->once())->method('create')->willReturn($resourceCreate);
 

@@ -41,6 +41,9 @@ class Builder implements BuilderInterface
 
     public function __destruct()
     {
+        if (!isset($this->request)) {
+            return;
+        }
         $this->request->destroyComponents();
     }
 

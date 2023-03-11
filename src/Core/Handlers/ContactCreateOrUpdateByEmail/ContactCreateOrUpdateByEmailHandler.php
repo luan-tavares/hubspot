@@ -6,6 +6,8 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
 use LTL\Hubspot\Core\Builder;
 use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
+use LTL\Hubspot\Exceptions\HubspotApiException;
+use LTL\Hubspot\Hubspot;
 use LTL\Hubspot\Resources\V3\ContactHubspot;
 
 abstract class ContactCreateOrUpdateByEmailHandler
@@ -15,6 +17,9 @@ abstract class ContactCreateOrUpdateByEmailHandler
         BaseBodyBuilder|array $requestBody,
         int|null|string $idHubspot = null
     ): ResourceInterface {
+        $hasException = $builder->request()->hasExceptionIfRequestError();
+        $builder->exceptionIfRequestError(false);
+
         $hubspotResponse = self::createOrUpdate($builder, $requestBody, $idHubspot);
         $status = $hubspotResponse->status();
 
@@ -36,6 +41,10 @@ abstract class ContactCreateOrUpdateByEmailHandler
             return $builder->update($contactId, $requestBody);
         }
 
+        if ($hasException && $hubspotResponse->error()) {
+            throw new HubspotApiException($hubspotResponse->toJson());
+        }
+
         return $hubspotResponse;
     }
 
@@ -51,8 +60,12 @@ abstract class ContactCreateOrUpdateByEmailHandler
         return $builder->update($idHubspot, $requestBody);
     }
 
-    private static function getIdFromErrorMessage(ContactHubspot $hubspotResponse): int
+    private static function getIdFromErrorMessage(Hubspot $hubspotResponse): int
     {
-        return preg_replace('/[^0-9]/', '', $hubspotResponse->message);
+        preg_match_all('/\d+/', $hubspotResponse->message, $matches);
+        $matches = current($matches);
+       
+
+        return array_pop($matches);
     }
 }

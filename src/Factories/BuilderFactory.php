@@ -7,7 +7,6 @@ use LTL\Hubspot\Core\Builder;
 use LTL\Hubspot\Core\Interfaces\BuilderInterface;
 use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
-use LTL\Hubspot\Factories\RequestFactory;
 use LTL\Hubspot\Interfaces\FactoryInterface;
 use ReflectionClass;
 

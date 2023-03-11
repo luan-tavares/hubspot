@@ -8,13 +8,11 @@
         "integration"
     ],
     "type": "library",
-    "authors": [
-        {
-            "name": "Luan Tavares Lourenço",
-            "email": "luan.tavares.lourenco@gmail.com",
-            "role": "Developer"
-        }
-    ],
+    "authors": [{
+        "name": "Luan Tavares Lourenço",
+        "email": "luan.tavares.lourenco@gmail.com",
+        "role": "Developer"
+    }],
     "autoload": {
         "psr-4": {
             "LTL\\Hubspot\\": "src/"
@@ -41,7 +39,7 @@
     },
     "require-dev": {
         "larapack/dd": "1.*",
-        "phpunit/phpunit": "^9",
+        "phpunit/phpunit": "^10",
         "illuminate/collections": "^9",
         "infection/infection": "^0"
     },
