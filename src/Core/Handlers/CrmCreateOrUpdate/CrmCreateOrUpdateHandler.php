@@ -29,10 +29,10 @@ abstract class CrmCreateOrUpdateHandler
             $status = $hubspotResponse->status();
         }
 
-        if ($status === HubspotConfig::CONFLICT_ERROR_CODE) {
-            $contactId = self::getIdFromErrorMessage($hubspotResponse);
+        if ($hubspotResponse->error()) {
+            $idHubspot = self::getIdFromErrorMessage($hubspotResponse);
 
-            return $builder->update($contactId, $requestBody);
+            $hubspotResponse = self::createOrUpdate($builder, $requestBody, $idHubspot);
         }
 
         if ($hasException && $hubspotResponse->error()) {
@@ -54,10 +54,14 @@ abstract class CrmCreateOrUpdateHandler
         return $builder->update($idHubspot, $requestBody);
     }
 
-    private static function getIdFromErrorMessage(Hubspot $hubspotResponse): int
+    private static function getIdFromErrorMessage(Hubspot $hubspotResponse): int|null
     {
         preg_match_all('/\d+/', $hubspotResponse->message, $matches);
-        $matches = current($matches);
+        $matches = @current($matches);
+
+        if (is_null($matches)) {
+            return null;
+        }
 
         return array_pop($matches);
     }
