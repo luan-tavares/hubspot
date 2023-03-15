@@ -35,6 +35,10 @@ abstract class CrmCreateOrUpdateHandler
             $hubspotResponse = self::createOrUpdate($builder, $requestBody, $idHubspot);
         }
 
+        if ($hubspotResponse->error()) {
+            $hubspotResponse = self::createOrUpdate($builder, $requestBody);
+        }
+
         if ($hasException && $hubspotResponse->error()) {
             throw new HubspotApiException($hubspotResponse->toJson());
         }
