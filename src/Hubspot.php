@@ -3,7 +3,6 @@
 namespace LTL\Hubspot;
 
 use LTL\Hubspot\Core\Resource\Resource;
-use LTL\Hubspot\HubspotInterface;
 
 /**
  *
@@ -75,6 +74,6 @@ use LTL\Hubspot\HubspotInterface;
  * @method $this exceptionIfRequestError(bool $hasException)
  * @method static $this exceptionIfRequestError(bool $hasException)
  */
-abstract class Hubspot extends Resource implements HubspotInterface
+abstract class Hubspot extends Resource
 {
 }

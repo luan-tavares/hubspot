@@ -1,6 +1,6 @@
 <?php
 
-namespace LTL\Hubspot\Tests\Request;
+namespace LTL\Hubspot\Tests\Handlers;
 
 use LTL\Curl\Curl;
 use LTL\Hubspot\Containers\SchemaContainer;

@@ -48,7 +48,7 @@ class ActionPropertyBaseQueryTest extends TestCase
   
         $this->assertEquals(
             [
-                'properties' => 'hs_timestamp,hs_task_body,hubspot_owner_id,hs_task_subject,hs_task_status,hs_task_priority,hs_attachment_ids'
+                'properties' => 'hs_timestamp,hs_task_body,hubspot_owner_id,hs_task_subject,hs_task_status,hs_task_priority,hs_attachment_ids,hs_task_reminders'
             ],
             $object->baseQuery
         );
