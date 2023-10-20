@@ -4,6 +4,7 @@
     "documentation": "https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/emails",
     "version": 3,
     "latest": true,
+    "interfaceClass": "EngagementInterface",
     "defaultProperties": [
         "hs_timestamp",
         "hubspot_owner_id",
@@ -11,6 +12,7 @@
         "hs_email_status",
         "hs_email_subject",
         "hs_email_text",
+        "hs_email_html",
         "hs_attachment_ids",
         "hs_email_headers"
     ],
@@ -103,6 +105,10 @@
         "createOrUpdate": {
             "handler": "create_or_update",
             "description": "(Handler) Use Create or Update email if id exists."
+        },
+        "importAll": {
+            "handler": "import_all",
+            "description": "(Handler) Import All Deals using offset and getAll"
         }
     }
 }

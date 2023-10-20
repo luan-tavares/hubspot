@@ -4,6 +4,7 @@
     "documentation": "https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/communications",
     "version": 3,
     "latest": true,
+    "interfaceClass": "EngagementInterface",
     "defaultProperties": [
         "hs_timestamp",
         "hs_communication_channel_type",
@@ -101,6 +102,10 @@
         "createOrUpdate": {
             "handler": "create_or_update",
             "description": "(Handler) Use Create or Update communication if id exists."
+        },
+        "importAll": {
+            "handler": "import_all",
+            "description": "(Handler) Import All Deals using offset and getAll"
         }
     }
 }

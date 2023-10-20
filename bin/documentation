@@ -27,6 +27,7 @@ use LTL\Hubspot\Core\Interfaces\Request\HeaderComponentInterface;
 use LTL\Hubspot\Core\Interfaces\Request\QueryComponentInterface;
 use LTL\Hubspot\Core\Interfaces\Request\ResourceRequestComponentInterface;
 use LTL\Hubspot\Hubspot;
+use LTL\Hubspot\HubspotInterface;
 
 function generateDoc(string $class, string $title): string
 {
@@ -78,14 +79,28 @@ $content = file_get_contents(HubspotConfig::BASE_PATH . '/src/Hubspot.php');
 
 $rc = new ReflectionClass(Hubspot::class);
 
+$doc1 = $doc;
+
 if ($rc->getDocComment()) {
     $document = str_replace($rc->getDocComment(), $doc, $content);
 } else {
-    $doc .= "\n abstract class";
+    $doc .= "\nabstract class";
     $document = str_replace('abstract class', $doc, $content);
 }
 
+/**Interface */
+$content = file_get_contents(HubspotConfig::BASE_PATH . '/src/HubspotInterface.php');
 
-file_put_contents(HubspotConfig::BASE_PATH .'/src/Hubspot.php', $document);
+$rc = new ReflectionClass(HubspotInterface::class);
+
+if ($rc->getDocComment()) {
+    $document = str_replace($rc->getDocComment(), $doc, $content);
+} else {
+    $doc .= "\ninterface";
+    $document = str_replace('interface', $doc, $content);
+}
+
+
+file_put_contents(HubspotConfig::BASE_PATH .'/src/HubspotInterface.php', $document);
 
 dump($doc);

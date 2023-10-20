@@ -4,6 +4,7 @@
     "documentation": "https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls",
     "version": 3,
     "latest": true,
+    "interfaceClass": "EngagementInterface",
     "defaultProperties": [
         "hs_timestamp",
         "hs_call_body",
@@ -107,6 +108,10 @@
         "createOrUpdate": {
             "handler": "create_or_update",
             "description": "(Handler) Use Create or Update call if id exists."
+        },
+        "importAll": {
+            "handler": "import_all",
+            "description": "(Handler) Import All Deals using offset and getAll"
         }
     }
 }

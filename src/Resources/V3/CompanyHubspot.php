@@ -92,10 +92,10 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this merge(BaseBodyBuilder|array $requestBody) Merge two companies with same type.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method static $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $hubspotId) (Handler) Use Create or Update company if id is not null.
+ * @method static $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $idHubspot = null) (Handler) Use Create or Update company if id is not null.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $hubspotId) (Handler) Use Create or Update company if id is not null.
+ * @method $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $idHubspot = null) (Handler) Use Create or Update company if id is not null.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
  * @method static $this importAll(callable $fn) (Handler) Import All Companies using offset and getAll

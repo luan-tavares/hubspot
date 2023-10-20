@@ -4,6 +4,7 @@ namespace LTL\Hubspot\Resources\V3;
 
 use LTL\Hubspot\Hubspot;
 use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
+use LTL\Hubspot\Resources\V3\Interfaces\EngagementInterface;
 
 /**
  * @link https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/communications
@@ -92,14 +93,20 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this merge(BaseBodyBuilder|array $requestBody) Merge two calls with same type
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/communications
  *
- * @method static $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $hubspotId) (Handler) Use Create or Update communication if id exists.
+ * @method static $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $idHubspot = null) (Handler) Use Create or Update communication if id exists.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/communications
  *
- * @method $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $hubspotId) (Handler) Use Create or Update communication if id exists.
+ * @method $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $idHubspot = null) (Handler) Use Create or Update communication if id exists.
+ * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/communications
+ *
+ * @method static $this importAll(callable $fn) (Handler) Import All Deals using offset and getAll
+ * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/communications
+ *
+ * @method $this importAll(callable $fn) (Handler) Import All Deals using offset and getAll
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/communications
  *
  */
-class EngagementCommunicationHubspot extends Hubspot
+class EngagementCommunicationHubspot extends Hubspot implements EngagementInterface
 {
     protected string $resource = "engagements-communications-v3";
 

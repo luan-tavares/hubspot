@@ -28,6 +28,10 @@ $basePath = HubspotConfig::BASE_PATH;
 
 $template = file_get_contents($basePath . '/src/stubs/resource.stub');
 
+$templateWithInterface = file_get_contents($basePath . '/src/stubs/resourceWithInterface.stub');
+
+$templateInterface = file_get_contents($basePath . '/src/stubs/resourceInterface.stub');
+
 $latestTemplate = file_get_contents($basePath . '/src/stubs/latestResource.stub');
 
 $files = glob($basePath .'/src/schemas/*.json');
@@ -49,9 +53,23 @@ foreach ($resources as $resource) {
 
     $resourcePath = "{$basePath}/src/Resources";
 
-    $content = $template;
+
+
+    if(@$document->interface !== true) {
+
+        if(@$document->interfaceClass === null) {
+            $content = $template;
+        } else {
+            $content = $templateWithInterface;
+            $content = str_replace('{{interface}}', $document->interfaceClass, $content);
+        }
+        $content = str_replace('{{name}}', $resource, $content);
+
+    } else {
+        $content = $templateInterface;
+    }
+
     $content = str_replace('{{class}}', $document->class, $content);
-    $content = str_replace('{{name}}', $resource, $content);
     $content = str_replace('{{version}}', $document->version, $content);
 
     $doc = '';
@@ -87,12 +105,20 @@ foreach ($resources as $resource) {
 
     $content = str_replace('{{docs}}', $doc, $content);
 
-    if (!is_dir("{$resourcePath}/V{$document->version}")) {
-        mkdir("{$resourcePath}/V{$document->version}", 0775);
+
+    if(@$document->interface !== true) {
+        $path = "{$resourcePath}/V{$document->version}";
+       
+    } else {
+        $path = "{$resourcePath}/V{$document->version}/Interfaces";
+    }
+
+    if (!is_dir($path)) {
+        mkdir($path, 0775);
     }
 
 
-    file_put_contents("{$resourcePath}/V{$document->version}/{$document->class}.php", $content);
+    file_put_contents("{$path}/{$document->class}.php", $content);
 
     if ($document->latest ?? false) {
         $latestContent = $latestTemplate;
@@ -106,6 +132,8 @@ foreach ($resources as $resource) {
     $size = mb_strlen($status);
 
     dump($status . str_repeat('_', (40-$size)) .'  '. str_pad($j, 2, '0', STR_PAD_LEFT) .' actions');
+
+
 }
 
 

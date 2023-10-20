@@ -1,0 +1,12 @@
+<?php
+
+namespace LTL\Hubspot\Resources\V{{version}}\Interfaces;
+
+use LTL\Hubspot\HubspotInterface;
+use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
+
+/**
+{{docs}} */
+interface {{class}} extends HubspotInterface
+{
+}

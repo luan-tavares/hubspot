@@ -90,6 +90,10 @@
         "createOrUpdate": {
             "handler": "create_or_update",
             "description": "(Handler) Use Create or Update deal if id is not null."
+        },
+        "importAll": {
+            "handler": "import_all",
+            "description": "(Handler) Import All Deals using offset and getAll"
         }
     }
 }

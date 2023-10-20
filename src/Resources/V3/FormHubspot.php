@@ -44,10 +44,10 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this delete(int|string $formId) Archive a form definition. New submissions will not be accepted and the form definition will be permanently deleted after 3 months.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/marketing/v3/forms
  *
- * @method static $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $hubspotId) (Handler) Use Create or Update form if id exists.
+ * @method static $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $idHubspot = null) (Handler) Use Create or Update form if id exists.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/marketing/v3/forms
  *
- * @method $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $hubspotId) (Handler) Use Create or Update form if id exists.
+ * @method $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $idHubspot = null) (Handler) Use Create or Update form if id exists.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/marketing/v3/forms
  *
  */

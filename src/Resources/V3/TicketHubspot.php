@@ -92,10 +92,10 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this merge(BaseBodyBuilder|array $requestBody) Merge two tickets with same type.
  * See https://developers.hubspot.com/docs/api/crm/tickets
  *
- * @method static $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $hubspotId) (Handler) Use Create or Update ticket if id exists.
+ * @method static $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $idHubspot = null) (Handler) Use Create or Update ticket if id exists.
  * See https://developers.hubspot.com/docs/api/crm/tickets
  *
- * @method $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $hubspotId) (Handler) Use Create or Update ticket if id exists.
+ * @method $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $idHubspot = null) (Handler) Use Create or Update ticket if id exists.
  * See https://developers.hubspot.com/docs/api/crm/tickets
  *
  */
