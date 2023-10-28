@@ -26,14 +26,5 @@ abstract class HubspotConfig
 
     public const MULTI_STATUS_CODE = 207;
 
-    private static int $sleepRequest = 2;
-
-    public static function sleepRequest(int|null $sleepRequest = null): int
-    {
-        if (!is_null($sleepRequest)) {
-            self::$sleepRequest = $sleepRequest;
-        }
-
-        return self::$sleepRequest;
-    }
+    public const SLEEP_SECONDS = 2;
 }

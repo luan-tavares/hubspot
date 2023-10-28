@@ -34,13 +34,14 @@ class CrmCreateOrUpdateTest extends TestCase
     public function testIfHandlerUseCreateISCorrect()
     {
         $result = [
-            'id' => 1
+            'id' => 222
         ];
 
         $baseResource = new ContactHubspot;
 
         $curl = $this->getMockBuilder(Curl::class)->getMock();
         $curl->method('response')->willReturn(json_encode($result));
+        $curl->method('status')->willReturn(404);
 
         $actionSchema = SchemaContainer::getAction($baseResource, 'create');
         $response = new Response($curl, $actionSchema);
@@ -50,7 +51,6 @@ class CrmCreateOrUpdateTest extends TestCase
 
         $builder = $this->getMockBuilder(Builder::class)
             ->disableOriginalConstructor()
-            ->addMethods(['create'])
             ->onlyMethods(['request', '__call'])
             ->getMock();
 
@@ -58,7 +58,7 @@ class CrmCreateOrUpdateTest extends TestCase
         $builder->method('__call')->willReturn($resourceCreate);
 
            
-        $builder->expects($this->exactly(1))->method('create')->willReturn($resourceCreate);
+        $builder->expects($this->exactly(5))->method('__call')->willReturn($resourceCreate);
 
         $result = Handlers::call(
             $builder,
@@ -79,6 +79,7 @@ class CrmCreateOrUpdateTest extends TestCase
 
         $curl = $this->getMockBuilder(Curl::class)->getMock();
         $curl->method('response')->willReturn(json_encode($result));
+        $curl->method('status')->willReturn(200);
 
         $actionSchema = SchemaContainer::getAction($baseResource, 'update');
         $response = new Response($curl, $actionSchema);
@@ -88,14 +89,13 @@ class CrmCreateOrUpdateTest extends TestCase
 
         $builder = $this->getMockBuilder(Builder::class)
             ->disableOriginalConstructor()
-            ->addMethods(['update'])
             ->onlyMethods(['request', '__call'])
             ->getMock();
 
         $builder->method('request')->willReturn($request);
         $builder->method('__call')->willReturn($resourceUpdate);
         
-        $builder->expects($this->once())->method('update')->willReturn($resourceUpdate);
+        $builder->expects($this->exactly(2))->method('__call')->willReturn($resourceUpdate);
 
         CrmCreateOrUpdateHandler::handle(
             $builder,

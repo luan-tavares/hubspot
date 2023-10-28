@@ -4,7 +4,7 @@ namespace LTL\Hubspot\Tests\Resource;
 
 use LTL\Curl\Curl;
 use LTL\Hubspot\Containers\SchemaContainer;
-use LTL\Hubspot\Core\HubspotApikey;
+use LTL\Hubspot\Core\Globals\ApikeyGlobal;
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
 use LTL\Hubspot\Core\Response\Response;
@@ -65,7 +65,7 @@ class ResourceTest extends TestCase
     {
         Hubspot::setGlobalApikey('123456');
       
-        $this->assertEquals(HubspotApikey::get(), '123456');
+        $this->assertEquals(ApikeyGlobal::get(), '123456');
     }
 
     public function testIfCallMagicMethodIsCorrect()

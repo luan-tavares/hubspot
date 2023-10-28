@@ -2,10 +2,10 @@
 
 namespace LTL\Hubspot\Core\Resource;
 
+use Error;
 use LTL\Hubspot\Containers\BuilderContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
-use LTL\Hubspot\Core\HubspotApikey;
-use LTL\Hubspot\Core\HubspotOAuth;
+use LTL\Hubspot\Core\Globals\GlobalComponents;
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
 use LTL\Hubspot\Core\Resource\Traits\ResourceArrayAccess;
@@ -43,7 +43,19 @@ abstract class Resource implements ResourceInterface
 
     public static function __callStatic($name, $arguments)
     {
-        return call_user_func_array([(new static), $name], $arguments);
+        if(in_array($name, GlobalComponents::getMethods())) {
+            try {
+                return GlobalComponents::{$name}(...$arguments);
+            } catch (TypeError $exception) {
+                throw new HubspotApiException($exception->getMessage(), static::class);
+            }
+        }
+
+        try {
+            return call_user_func_array([(new static), $name], $arguments);
+        } catch (Error $exception) {
+            throw new HubspotApiException('Static method '. static::class ."::{$name}(...) not exists!", static::class);
+        }
     }
 
     public function __toString()
@@ -73,15 +85,5 @@ abstract class Resource implements ResourceInterface
         throw new HubspotApiException(
             "{$case} must not be used before actions:\n\n". SchemaContainer::get($this)
         );
-    }
-
-    public static function setGlobalApikey(string $apikey): void
-    {
-        HubspotApikey::store($apikey);
-    }
-
-    public static function setGlobalOAuth(string $token): void
-    {
-        HubspotOAuth::store($token);
     }
 }

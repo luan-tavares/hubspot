@@ -3,7 +3,6 @@
 namespace LTL\Hubspot\Core\Request\Components;
 
 use LTL\Hubspot\Core\Interfaces\Request\ResourceRequestComponentInterface;
-use LTL\Hubspot\Core\Request\Components\RequestComponent;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\ListMethods\PublicMethods\Traits\PublicMethodsListable;
 

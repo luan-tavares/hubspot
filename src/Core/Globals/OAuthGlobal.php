@@ -1,8 +1,8 @@
 <?php
 
-namespace LTL\Hubspot\Core;
+namespace LTL\Hubspot\Core\Globals;
 
-abstract class HubspotOAuth
+abstract class OAuthGlobal
 {
     private static string|null $token = null;
 

@@ -2,7 +2,7 @@
 
 namespace LTL\Hubspot\Core\Request\Components;
 
-use LTL\Hubspot\Core\HubspotApikey;
+use LTL\Hubspot\Core\Globals\ApikeyGlobal;
 use LTL\Hubspot\Core\Interfaces\Request\QueryComponentInterface;
 use LTL\Hubspot\Core\Request\Components\AbstractRequestComponent;
 use LTL\ListMethods\PublicMethods\Traits\PublicMethodsListable;
@@ -13,7 +13,7 @@ class QueryRequestComponent extends AbstractRequestComponent implements QueryCom
 
     protected function register(): void
     {
-        $apikey = HubspotApikey::get();
+        $apikey = ApikeyGlobal::get();
 
         if (!is_null($apikey)) {
             $this->apikey($apikey);

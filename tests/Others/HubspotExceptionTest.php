@@ -2,7 +2,7 @@
 
 namespace LTL\Hubspot\Tests\Others;
 
-use LTL\Hubspot\Core\HubspotOAuth;
+use LTL\Hubspot\Core\Globals\OAuthGlobal;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\RequestFactory;
 use LTL\Hubspot\Hubspot;

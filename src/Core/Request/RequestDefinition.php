@@ -4,6 +4,7 @@ namespace LTL\Hubspot\Core\Request;
 
 use LTL\Curl\Curl;
 use LTL\Curl\Interfaces\CurlInterface;
+use LTL\Hubspot\Core\Globals\TimesleepGlobal;
 use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Interfaces\Request\RequestDefinitionInterface;
 use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
@@ -64,7 +65,7 @@ class RequestDefinition implements RequestDefinitionInterface
             return $curlResponse;
         }
 
-        sleep(HubspotConfig::sleepRequest());
+        sleep(TimesleepGlobal::get());
 
         $current++;
 

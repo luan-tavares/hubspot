@@ -8,7 +8,8 @@ use LTL\Curl\CurlResponse;
 use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Containers\BuilderContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
-use LTL\Hubspot\Core\HubspotApikey;
+use LTL\Hubspot\Core\Globals\ApikeyGlobal;
+use LTL\Hubspot\Core\Globals\TimesleepGlobal;
 use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Request\RequestDefinition;
 use LTL\Hubspot\Core\Response\Response;
@@ -35,7 +36,7 @@ class RequestDefinitionTest extends TestCase
 
         $this->resource->method('__toString')->willReturn('contacts-v3');
 
-        HubspotApikey::store('123456');
+        ApikeyGlobal::store('123456');
 
         $this->request = BuilderContainer::get($this->resource)->request();
         
@@ -251,7 +252,7 @@ class RequestDefinitionTest extends TestCase
     {
         $tooManyRequests = 15;
 
-        HubspotConfig::sleepRequest(0);
+        TimesleepGlobal::get(0);
 
         $resourceBuilder = ContactHubspot::tooManyRequestsTries($tooManyRequests);
 
@@ -279,7 +280,7 @@ class RequestDefinitionTest extends TestCase
     {
         $tooManyRequests = 2;
 
-        HubspotConfig::sleepRequest(1);
+        TimesleepGlobal::get(1);
 
         $resourceBuilder = ContactHubspot::tooManyRequestsTries($tooManyRequests);
 
@@ -310,7 +311,7 @@ class RequestDefinitionTest extends TestCase
     {
         $requests = 1;
 
-        HubspotConfig::sleepRequest(0);
+        TimesleepGlobal::get(0);
 
         $resourceBuilder = ContactHubspot::tooManyRequestsTries();
 
@@ -338,7 +339,7 @@ class RequestDefinitionTest extends TestCase
     {
         $tooManyRequests = 20;
 
-        HubspotConfig::sleepRequest(0);
+        TimesleepGlobal::get(0);
 
         $resourceBuilder = ContactHubspot::tooManyRequestsTries($tooManyRequests);
 
@@ -365,7 +366,7 @@ class RequestDefinitionTest extends TestCase
     {
         $tooManyRequests = 0;
 
-        HubspotConfig::sleepRequest(0);
+        TimesleepGlobal::get(0);
 
         $this->expectException(HubspotApiException::class);
 

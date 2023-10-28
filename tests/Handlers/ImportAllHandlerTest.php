@@ -6,7 +6,6 @@ use LTL\Curl\Curl;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Builder;
 use LTL\Hubspot\Core\Handlers\Handlers;
-use LTL\Hubspot\Core\Handlers\ImportAll\ImportAllHandler;
 use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Factories\ResourceFactory;
 use LTL\Hubspot\Resources\V3\ContactHubspot;

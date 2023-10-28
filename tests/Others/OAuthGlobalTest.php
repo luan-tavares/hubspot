@@ -2,7 +2,7 @@
 
 namespace LTL\Hubspot\Tests\Others;
 
-use LTL\Hubspot\Core\HubspotOAuth;
+use LTL\Hubspot\Core\Globals\OAuthGlobal;
 use LTL\Hubspot\Factories\RequestFactory;
 use LTL\Hubspot\Hubspot;
 use LTL\Hubspot\Resources\V3\ContactHubspot;
@@ -23,7 +23,7 @@ class OAuthGlobalTest extends TestCase
     {
         Hubspot::setGlobalOAuth('token');
 
-        HubspotOAuth::clear();
+        OAuthGlobal::clear();
 
         $request = RequestFactory::build(new ContactHubspot);
         

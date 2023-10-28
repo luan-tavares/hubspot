@@ -9,8 +9,6 @@ use LTL\Hubspot\Resources\V3\CompanyHubspot;
 
 $after = $i = $memory = 0;
 
-
-
 /** */
 while (true) {
     CompanyHubspot::limit(10);
@@ -19,6 +17,8 @@ while (true) {
         ->tooManyRequestsTries(5)
         ->limit(100)
         ->getAll();
+
+    dd($companies);
     
     dump($companies->map(function ($company) use (&$i) {
         $i++;

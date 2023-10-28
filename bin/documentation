@@ -22,6 +22,7 @@ if (!file_exists($dir.'/autoload.php')) {
 require $dir.'/autoload.php';
 
 use LTL\Hubspot\Core\HubspotConfig;
+use LTL\Hubspot\Core\Interfaces\GlobalComponentInterface;
 use LTL\Hubspot\Core\Interfaces\Request\CurlComponentInterface;
 use LTL\Hubspot\Core\Interfaces\Request\HeaderComponentInterface;
 use LTL\Hubspot\Core\Interfaces\Request\QueryComponentInterface;
@@ -29,7 +30,7 @@ use LTL\Hubspot\Core\Interfaces\Request\ResourceRequestComponentInterface;
 use LTL\Hubspot\Hubspot;
 use LTL\Hubspot\HubspotInterface;
 
-function generateDoc(string $class, string $title): string
+function generateDoc(string $class, string $title, bool $onlyStatic = false): string
 {
     $reflectionClass = new ReflectionClass($class);
 
@@ -60,7 +61,9 @@ function generateDoc(string $class, string $title): string
      
         $params = implode(', ', $params);
         
-        $doc .= " * @method \$this {$name}({$params}) {$description}\n";
+        if(!$onlyStatic) {
+            $doc .= " * @method \$this {$name}({$params}) {$description}\n";
+        }
         $doc .= " * @method static \$this {$name}({$params}) {$description}\n";
     }
 
@@ -73,6 +76,7 @@ $doc .= generateDoc(QueryComponentInterface::class, 'Uri Query Methods');
 $doc .= generateDoc(HeaderComponentInterface::class, 'Uri Header Methods');
 $doc .= generateDoc(CurlComponentInterface::class, 'Uri Curl Methods');
 $doc .= generateDoc(ResourceRequestComponentInterface::class, 'Others Resources Methods');
+$doc .= generateDoc(GlobalComponentInterface::class, 'Global Methods', true);
 $doc .= '*/';
 
 $content = file_get_contents(HubspotConfig::BASE_PATH . '/src/Hubspot.php');
@@ -87,6 +91,8 @@ if ($rc->getDocComment()) {
     $doc .= "\nabstract class";
     $document = str_replace('abstract class', $doc, $content);
 }
+
+file_put_contents(HubspotConfig::BASE_PATH .'/src/Hubspot.php', $document);
 
 /**Interface */
 $content = file_get_contents(HubspotConfig::BASE_PATH . '/src/HubspotInterface.php');

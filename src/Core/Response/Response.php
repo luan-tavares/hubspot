@@ -6,7 +6,7 @@ use Countable;
 use IteratorAggregate;
 use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Containers\ResponseRepositoryContainer;
-use LTL\Hubspot\Core\HubspotApikey;
+use LTL\Hubspot\Core\Globals\ApikeyGlobal;
 use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
 use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
@@ -29,7 +29,7 @@ class Response implements ResponseInterface, IteratorAggregate, Countable
     {
         $this->status = $curl->status();
         $this->rawResponse = $curl->response();
-        $this->uri = HubspotApikey::uriMask($curl->uri());
+        $this->uri = ApikeyGlobal::uriMask($curl->uri());
         $this->headers = $curl->headers();
     }
 

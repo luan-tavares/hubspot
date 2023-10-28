@@ -1,8 +1,8 @@
 <?php
 
-namespace LTL\Hubspot\Core;
+namespace LTL\Hubspot\Core\Globals;
 
-abstract class HubspotApikey
+abstract class ApikeyGlobal
 {
     private static string|null $apikey = null;
 

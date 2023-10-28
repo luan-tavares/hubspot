@@ -3,7 +3,7 @@
 namespace LTL\Hubspot\Tests\Builder;
 
 use LTL\Hubspot\Containers\BuilderContainer;
-use LTL\Hubspot\Core\HubspotApikey;
+use LTL\Hubspot\Core\Globals\ApikeyGlobal;
 use LTL\Hubspot\Core\Request\Request;
 use LTL\Hubspot\Factories\BuilderFactory;
 use LTL\Hubspot\Resources\AssociationHubspot;
@@ -17,7 +17,7 @@ class BuilderContainerTest extends TestCase
     {
         BuilderContainer::destroyAll();
 
-        HubspotApikey::clear();
+        ApikeyGlobal::clear();
     }
 
     public function testIfBuilderCountMethodIsCorrect()

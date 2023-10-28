@@ -6,7 +6,6 @@ use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Builder;
 use LTL\Hubspot\Core\Handlers\Handlers;
-use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Factories\RequestFactory;
 use LTL\Hubspot\Factories\ResourceFactory;
@@ -37,7 +36,7 @@ class ContactCreateOrUpdateByEmailHandlerTest extends TestCase
         ];
 
         $baseResource = new ContactHubspot;
-
+ 
         $curl = $this->getMockBuilder(CurlInterface::class)->getMock();
         $curl->method('response')->willReturn(json_encode($result));
 

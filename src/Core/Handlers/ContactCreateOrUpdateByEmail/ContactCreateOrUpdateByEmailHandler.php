@@ -8,7 +8,6 @@ use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Hubspot;
-use LTL\Hubspot\Resources\V3\ContactHubspot;
 
 abstract class ContactCreateOrUpdateByEmailHandler
 {
