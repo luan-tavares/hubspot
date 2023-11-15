@@ -1,9 +1,9 @@
 <?php
 
+use LTL\Hubspot\Resources\V4\AssociationHubspot;
 
 require_once __DIR__ .'/__init.php';
 
-use LTL\Hubspot\Resources\AssociationHubspot;
 
 // dd(
 //     AssociationHubspot::deleteDefinition(
@@ -21,6 +21,10 @@ use LTL\Hubspot\Resources\AssociationHubspot;
 //     )
 // );
 /*dasdsad*/
+
+AssociationHubspot::importAll(function ($resource) {
+
+});
 
 // dump(AssociationHubspot::getDefinition('contacts', 'deals'));
 dump(AssociationHubspot::createDefinition('d', 'dsd', ['s' => 5]));

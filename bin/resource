@@ -120,13 +120,14 @@ foreach ($resources as $resource) {
 
     file_put_contents("{$path}/{$document->class}.php", $content);
 
+    /*
     if ($document->latest ?? false) {
         $latestContent = $latestTemplate;
         $latestContent = str_replace('{{class}}', $document->class, $latestContent);
         $latestContent = str_replace('{{version}}', $document->version, $latestContent);
         file_put_contents("{$resourcePath}/{$document->class}.php", $latestContent);
     }
-
+*/
     $status = str_pad($i, 2, '0', STR_PAD_LEFT) ."▕ {$resource} ";
 
     $size = mb_strlen($status);

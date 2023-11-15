@@ -60,7 +60,7 @@
             "description": "deletes all associations between two records."
         },
         "importAll": {
-            "handler": "import_all",
+            "handler": "associations_import_all",
             "description": "(Handler) Import All relations using offset and getAll"
         }
     }

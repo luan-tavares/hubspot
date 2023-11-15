@@ -68,10 +68,10 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this delete(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType, int|string $toObjectId) deletes all associations between two records.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method static $this importAll(callable $fn) (Handler) Import All relations using offset and getAll
+ * @method static $this importAll(string|int $fromObjectType, string|int $fromObjectId, string|int $toObjectType, callable $fn) (Handler) Import All relations using offset and getAll
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method $this importAll(callable $fn) (Handler) Import All relations using offset and getAll
+ * @method $this importAll(string|int $fromObjectType, string|int $fromObjectId, string|int $toObjectType, callable $fn) (Handler) Import All relations using offset and getAll
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
  */
