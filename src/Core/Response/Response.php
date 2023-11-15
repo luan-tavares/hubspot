@@ -120,4 +120,9 @@ class Response implements ResponseInterface, IteratorAggregate, Countable
     {
         return count(ResponseRepositoryContainer::get($this));
     }
+
+    public function empty(): bool
+    {
+        return ($this->count() === 0);
+    }
 }

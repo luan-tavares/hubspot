@@ -18,7 +18,7 @@ while (true) {
         ->limit(100)
         ->getAll();
 
-    dd($companies);
+    dd($companies->empty());
     
     dump($companies->map(function ($company) use (&$i) {
         $i++;

@@ -8,4 +8,9 @@ trait ResourceCountable
     {
         return count($this->response);
     }
+
+    public function empty(): bool
+    {
+        return ($this->count() === 0);
+    }
 }
