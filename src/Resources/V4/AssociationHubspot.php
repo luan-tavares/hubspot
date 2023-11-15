@@ -50,10 +50,10 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this batchGet(int|string $fromObjectType, int|string $toObjectType, BaseBodyBuilder|array $requestBody) Batch read associations for objects to specific object type.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method static $this get(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType) List all associations of an object by object type. Limit 1000 per call.
+ * @method static $this getAll(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType) List all associations of an object by object type. Limit 1000 per call.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method $this get(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType) List all associations of an object by object type. Limit 1000 per call.
+ * @method $this getAll(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType) List all associations of an object by object type. Limit 1000 per call.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
  * @method static $this create(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType, int|string $toObjectId, BaseBodyBuilder|array $requestBody) Set association labels between two records.
@@ -66,6 +66,12 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
  * @method $this delete(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType, int|string $toObjectId) deletes all associations between two records.
+ * See https://developers.hubspot.com/docs/api/crm/associations/v4
+ *
+ * @method static $this importAll(callable $fn) (Handler) Import All relations using offset and getAll
+ * See https://developers.hubspot.com/docs/api/crm/associations/v4
+ *
+ * @method $this importAll(callable $fn) (Handler) Import All relations using offset and getAll
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
  */
