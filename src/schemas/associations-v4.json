@@ -42,11 +42,12 @@
             "description": "Batch read associations for objects to specific object type.",
             "iteratorIndex": "results"
         },
-        "get": {
+        "getAll": {
             "path": "objects/{fromObjectType}/{fromObjectId}/associations/{toObjectType}",
             "method": "GET",
             "description": "List all associations of an object by object type. Limit 1000 per call.",
-            "iteratorIndex": "results"
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         },
         "create": {
             "path": "objects/{fromObjectType}/{fromObjectId}/associations/{toObjectType}/{toObjectId}",
@@ -57,6 +58,10 @@
             "path": "objects/{fromObjectType}/{fromObjectId}/associations/{toObjectType}/{toObjectId}",
             "method": "DELETE",
             "description": "deletes all associations between two records."
+        },
+        "importAll": {
+            "handler": "import_all",
+            "description": "(Handler) Import All relations using offset and getAll"
         }
     }
 }
