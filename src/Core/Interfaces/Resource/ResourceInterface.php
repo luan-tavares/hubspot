@@ -31,5 +31,5 @@ interface ResourceInterface extends
     public function empty(): bool;
 
     #[Override]
-    public function getIterator(): ResponseInterface;
+    public function getIterator(): ResponseInterface;/** */
 }
