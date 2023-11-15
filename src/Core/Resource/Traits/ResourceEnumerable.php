@@ -2,6 +2,9 @@
 
 namespace LTL\Hubspot\Core\Resource\Traits;
 
+use Closure;
+use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
+
 trait ResourceEnumerable
 {
     public function each(callable $callback): void
@@ -13,10 +16,17 @@ trait ResourceEnumerable
         return;
     }
 
+    /**
+     * @param Closure(object $resource, int $key): mixed $callback
+     *
+     */
     public function map(callable $callback): array
     {
         $result = [];
 
+        /**
+         * @var ResourceInterface $this
+         */
         foreach ($this as $key => $item) {
             $result[] = $callback($item, $key);
         }

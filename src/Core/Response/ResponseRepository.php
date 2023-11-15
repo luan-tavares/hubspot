@@ -94,7 +94,7 @@ class ResponseRepository implements ResponseRepositoryInterface
         reset($this->iterator);
     }
     
-    public function current(): mixed
+    public function current(): object
     {
         return current($this->iterator);
     }

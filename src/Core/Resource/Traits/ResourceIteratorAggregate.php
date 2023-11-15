@@ -2,11 +2,14 @@
 
 namespace LTL\Hubspot\Core\Resource\Traits;
 
-use LTL\Hubspot\Core\Response\Response;
+use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
 
+/**
+ * @property ResponseInterface $response
+ */
 trait ResourceIteratorAggregate
 {
-    public function getIterator(): Response
+    public function getIterator(): ResponseInterface
     {
         return $this->response;
     }

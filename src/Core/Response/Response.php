@@ -9,13 +9,13 @@ use LTL\Hubspot\Containers\ResponseRepositoryContainer;
 use LTL\Hubspot\Core\Globals\ApikeyGlobal;
 use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
+use LTL\Hubspot\Core\Interfaces\Response\ResponseRepositoryInterface;
 use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
-use LTL\Hubspot\Core\Response\ResponseRepository;
 
 /**
  * @property string|int $after
  */
-class Response implements ResponseInterface, IteratorAggregate, Countable
+class Response implements ResponseInterface
 {
     private array|null $headers;
    
@@ -111,7 +111,7 @@ class Response implements ResponseInterface, IteratorAggregate, Countable
         return true;
     }
 
-    public function getIterator(): ResponseRepository
+    public function getIterator(): ResponseRepositoryInterface
     {
         return ResponseRepositoryContainer::get($this);
     }

@@ -2,13 +2,15 @@
 
 namespace LTL\Hubspot\Core\Interfaces\Resource;
 
-use ArrayAccess;/** */
+use ArrayAccess;
 use Countable;
 use IteratorAggregate;
+use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
 use LTL\Hubspot\Interfaces\ArrayableInterface;
 use LTL\Hubspot\Interfaces\EnumerableInterface;
 use LTL\Hubspot\Interfaces\JsonableInterface;
 use LTL\ListMethods\PublicMethods\Interfaces\PublicMethodsListableInterface;
+use Override;
 
 interface ResourceInterface extends
     PublicMethodsListableInterface,
@@ -27,4 +29,7 @@ interface ResourceInterface extends
     public function isTooManyRequestsError(): bool;
     public function invalidEmailError(): bool;
     public function empty(): bool;
+
+    #[Override]
+    public function getIterator(): ResponseInterface;
 }
