@@ -3,8 +3,10 @@
 namespace LTL\Hubspot;
 
 use LTL\Hubspot\Concerns\ExceptionIfRequestError;
+use LTL\Hubspot\Concerns\MaxLimit;
 use LTL\Hubspot\Concerns\TooManyRequestsTries;
 use LTL\Hubspot\Concerns\WithHeaders;
+use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Resource\Resource;
 use ReflectionClass;
 
@@ -107,6 +109,10 @@ abstract class Hubspot extends Resource
 
         if(in_array(TooManyRequestsTries::class, $interfaces)) {
             $this->tooManyRequestsTries();
+        }
+
+        if(in_array(MaxLimit::class, $interfaces)) {
+            $this->limit(HubspotConfig::MAX_BATCH_LIMIT);
         }
 
         if(isset($this->properties)) {

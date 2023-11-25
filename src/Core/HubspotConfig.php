@@ -27,4 +27,6 @@ abstract class HubspotConfig
     public const MULTI_STATUS_CODE = 207;
 
     public const SLEEP_SECONDS = 2;
+
+    public const MAX_BATCH_LIMIT = 1E2;
 }
