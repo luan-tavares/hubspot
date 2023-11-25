@@ -184,7 +184,7 @@ class Request implements RequestInterface
         return $this->method->get();
     }
 
-    public function getTooManyRequestsTries(): int
+    public function getTooManyRequestsTries(): int|null
     {
         return $this->resourceRequest->value('requestTries');
     }

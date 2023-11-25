@@ -3,6 +3,7 @@
 namespace LTL\Hubspot\Core\Resource;
 
 use Error;
+use LTL\Hubspot\Concerns\WithHeaders;
 use LTL\Hubspot\Containers\BuilderContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Globals\GlobalComponents;
@@ -15,6 +16,7 @@ use LTL\Hubspot\Core\Resource\Traits\ResourceIteratorAggregate;
 use LTL\Hubspot\Core\Resource\Traits\ResourceResponse;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\ListMethods\PublicMethods\Traits\PublicMethodsListable;
+use ReflectionClass;
 use TypeError;
 
 abstract class Resource implements ResourceInterface

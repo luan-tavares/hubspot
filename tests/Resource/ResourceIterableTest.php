@@ -8,7 +8,7 @@ use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
 use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Factories\ResourceFactory;
-use LTL\Hubspot\Resources\AssociationHubspot;
+use LTL\Hubspot\Resources\V4\AssociationHubspot;
 use PHPUnit\Framework\TestCase;
 
 class ResourceIterableTest extends TestCase

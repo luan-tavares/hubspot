@@ -1,5 +1,5 @@
 <?php
- 
+
 namespace LTL\Hubspot\Core\Interfaces\Request;
 
 use LTL\Hubspot\Core\Interfaces\Request\ComponentInterface;
@@ -18,9 +18,9 @@ interface QueryComponentInterface extends ComponentInterface, PublicMethodsLista
     public function offset(string|int $hubspotId): self;
     public function vidOffset(string|int $hubspotId): self;
     public function timeOffset(string|int $hubspotId): self;
-    public function propertiesWithHistory(string $propertiesWithComma): self;
-    public function properties(string $propertiesWithComma): self;
-    public function associations(string $associationsWithComma): self;
+    public function propertiesWithHistory(string ...$properties): self;
+    public function properties(string ...$properties): self;
+    public function associations(string ...$associations): self;
     public function after(string|null $after): self;
     public function before(string $before): self;
     public function apikey(string $apikey): self;

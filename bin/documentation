@@ -45,18 +45,22 @@ function generateDoc(string $class, string $title, bool $onlyStatic = false): st
         $description = @$matches[1][0] ?? '';
         $name = $reflectionMethod->name;
     
-        $params = array_map(function ($item) {
+        $params = array_map(function (ReflectionParameter $item) {
             $reflectionType = $item->getType();
             $type = (!is_null($reflectionType))?($reflectionType):('mixed');
     
-            $multiple = '';
+            $spreadOperator = '';
+
+            if($item->isVariadic()) {
+                $spreadOperator = '...';
+            }
     
             if ($item->name === 'arguments') {
                 $type = 'string';
-                $multiple = '...';
+                $spreadOperator = '...';
             }
     
-            return "{$type} {$multiple}$". $item->name;
+            return "{$type} {$spreadOperator}$". $item->name;
         }, $reflectionMethod->getParameters());
      
         $params = implode(', ', $params);

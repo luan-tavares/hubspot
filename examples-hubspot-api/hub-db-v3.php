@@ -4,7 +4,7 @@
 require_once __DIR__ .'/__init.php';
 
 use LTL\Hubspot\Core\HubspotConfig;
-use LTL\Hubspot\Resources\HubDbHubspot;
+use LTL\Hubspot\Resources\V3\HubDbHubspot;
 
 $content = HubDbHubspot::withProgressBar()->exportDraftToCsv(5314890);
 file_put_contents(HubspotConfig::BASE_PATH .'/luan.csv', $content->toJson());

@@ -10,7 +10,7 @@ use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
 use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Core\Response\ResponseRepository;
 use LTL\Hubspot\Exceptions\HubspotApiException;
-use LTL\Hubspot\Resources\HubDbHubspot;
+use LTL\Hubspot\Resources\V3\HubDbHubspot;
 use PHPUnit\Framework\TestCase;
 
 class ResponseRepositoryIteratorTest extends TestCase

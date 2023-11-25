@@ -15,9 +15,9 @@ use LTL\Hubspot\Core\Request\RequestDefinition;
 use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\RequestFactory;
-use LTL\Hubspot\Resources\ContactHubspot;
-use LTL\Hubspot\Resources\FileHubspot;
-use LTL\Hubspot\Resources\HubDbHubspot;
+use LTL\Hubspot\Resources\V3\ContactHubspot;
+use LTL\Hubspot\Resources\V3\FileHubspot;
+use LTL\Hubspot\Resources\V3\HubDbHubspot;
 use PHPUnit\Framework\TestCase;
 
 class RequestDefinitionTest extends TestCase

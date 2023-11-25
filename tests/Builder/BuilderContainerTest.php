@@ -6,9 +6,9 @@ use LTL\Hubspot\Containers\BuilderContainer;
 use LTL\Hubspot\Core\Globals\ApikeyGlobal;
 use LTL\Hubspot\Core\Request\Request;
 use LTL\Hubspot\Factories\BuilderFactory;
-use LTL\Hubspot\Resources\AssociationHubspot;
 use LTL\Hubspot\Resources\V3\CompanyHubspot;
 use LTL\Hubspot\Resources\V3\ContactHubspot;
+use LTL\Hubspot\Resources\V4\AssociationHubspot;
 use PHPUnit\Framework\TestCase;
 
 class BuilderContainerTest extends TestCase

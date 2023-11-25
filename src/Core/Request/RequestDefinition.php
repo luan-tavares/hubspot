@@ -34,10 +34,6 @@ class RequestDefinition implements RequestDefinitionInterface
         
         $tooManyRequestsTries = $this->request->getTooManyRequestsTries();
 
-        if ($tooManyRequestsTries > HubspotConfig::MAX_TOO_MANY_REQUESTS_TRIES) {
-            throw new HubspotApiException('Max too Many Request tries must be 15 or less');
-        }
-
         $curl = $this->recursiveCurl($curl, $tooManyRequestsTries);
 
         if ($curl->error() && $this->request->hasExceptionIfRequestError()) {

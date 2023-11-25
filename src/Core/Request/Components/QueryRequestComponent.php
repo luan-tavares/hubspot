@@ -75,18 +75,24 @@ class QueryRequestComponent extends AbstractRequestComponent implements QueryCom
         return $this->addNotNull('timeOffset', $hubspotId);
     }
 
-    public function properties(string $propertiesWithComma): self
+    public function properties(string ...$properties): self
     {
+        $propertiesWithComma = implode(',', $properties);
+
         return $this->addNotNull('properties', $propertiesWithComma);
     }
 
-    public function propertiesWithHistory(string $propertiesWithComma): self
+    public function propertiesWithHistory(string ...$properties): self
     {
+        $propertiesWithComma = implode(',', $properties);
+
         return $this->addNotNull('propertiesWithHistory', $propertiesWithComma);
     }
 
-    public function associations(string $associationsWithComma): self
+    public function associations(string ...$associations): self
     {
+        $associationsWithComma = implode(',', $associations);
+
         return $this->addNotNull('associations', $associationsWithComma);
     }
 

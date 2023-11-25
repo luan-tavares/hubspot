@@ -3,7 +3,7 @@
 namespace LTL\Hubspot\Tests\Schema;
 
 use LTL\Hubspot\Containers\SchemaContainer;
-use LTL\Hubspot\Resources\ContactHubspot;
+use LTL\Hubspot\Resources\V3\ContactHubspot;
 use LTL\Hubspot\Resources\V3\CompanyHubspot;
 use PHPUnit\Framework\TestCase;
 

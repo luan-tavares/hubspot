@@ -12,11 +12,14 @@ abstract class ResourceFactory implements FactoryInterface
 {
     public static function build(ResourceInterface $resource, ResponseInterface $response): ResourceInterface
     {
+        /**
+         * @var ReflectionClass $reflectionClass
+         */
         $reflectionClass = SingletonContainer::get($resource::class, function ($class) {
             return new ReflectionClass($class);
         });
 
-        $newResource = $reflectionClass->newInstance();
+        $newResource = $reflectionClass->newInstanceWithoutConstructor();
 
         $reflectionProperty = $reflectionClass->getProperty('response');
         $reflectionProperty->setValue($newResource, $response);

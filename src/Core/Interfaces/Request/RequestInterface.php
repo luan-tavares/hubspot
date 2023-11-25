@@ -1,5 +1,5 @@
 <?php
- 
+
 namespace LTL\Hubspot\Core\Interfaces\Request;
 
 use LTL\Curl\Interfaces\CurlInterface;
@@ -15,7 +15,7 @@ interface RequestInterface
     public function getBody(): array|null;
     public function getUri(): string;
     public function getMethod(): string;
-    public function getTooManyRequestsTries(): int;
+    public function getTooManyRequestsTries(): int|null;
     public function hasExceptionIfRequestError(): bool;
 
     public function removeHeader(string $header): self;

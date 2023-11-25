@@ -7,8 +7,8 @@ use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Schema\ActionSchema;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\ActionSchemaFactory;
-use LTL\Hubspot\Resources\ContactHubspot;
-use LTL\Hubspot\Resources\OwnerHubspot;
+use LTL\Hubspot\Resources\V3\ContactHubspot;
+use LTL\Hubspot\Resources\V3\OwnerHubspot;
 use PHPUnit\Framework\TestCase;
 
 class ActionSchemaTest extends TestCase

@@ -30,12 +30,12 @@ use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
  * @method static $this vidOffset(string|int $hubspotId) 
  * @method $this timeOffset(string|int $hubspotId) 
  * @method static $this timeOffset(string|int $hubspotId) 
- * @method $this propertiesWithHistory(string $propertiesWithComma) 
- * @method static $this propertiesWithHistory(string $propertiesWithComma) 
- * @method $this properties(string $propertiesWithComma) 
- * @method static $this properties(string $propertiesWithComma) 
- * @method $this associations(string $associationsWithComma) 
- * @method static $this associations(string $associationsWithComma) 
+ * @method $this propertiesWithHistory(string ...$properties) 
+ * @method static $this propertiesWithHistory(string ...$properties) 
+ * @method $this properties(string ...$properties) 
+ * @method static $this properties(string ...$properties) 
+ * @method $this associations(string ...$associations) 
+ * @method static $this associations(string ...$associations) 
  * @method $this after(?string $after) 
  * @method static $this after(?string $after) 
  * @method $this before(string $before) 
@@ -69,8 +69,8 @@ use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
  *
  * Others Resources Methods
  *
- * @method $this tooManyRequestsTries(int $tries) 
- * @method static $this tooManyRequestsTries(int $tries) 
+ * @method $this tooManyRequestsTries() 
+ * @method static $this tooManyRequestsTries() 
  * @method $this exceptionIfRequestError(bool $hasException) 
  * @method static $this exceptionIfRequestError(bool $hasException) 
  *

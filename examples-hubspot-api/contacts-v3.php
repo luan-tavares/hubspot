@@ -3,12 +3,25 @@
 
 require_once __DIR__ .'/__init.php';
 
+use LTL\Hubspot\Concerns\ExceptionIfRequestError;
+use LTL\Hubspot\Concerns\TooManyRequestsTries;
+use LTL\Hubspot\Concerns\WithHeaders;
 use LTL\Hubspot\Core\BodyBuilder\SearchBuilder\SearchBuilder;
-use LTL\Hubspot\Resources\ContactHubspot;
+use LTL\Hubspot\Resources\V3\ContactHubspot;
+
+$a = new class extends ContactHubspot implements ExceptionIfRequestError, WithHeaders, TooManyRequestsTries {
+    protected array $properties = ['teste', 'colaborador_aniversario_de_empresa', 'fdgsfd'];
+
+    protected array $propertiesWithHistory = ['phone', 'lastmodifieddate'];
+};
+
+$a->getAll()->each(function (object $item) {
+    dd($item);
+});
 
 $response = ContactHubspot::exceptionIfRequestError()->createOrUpdateByEmail([
     'properties' => [
-        'email' => 'luan.tavares.lourenco@gmail.com'
+        'email' => 'luan.tavares.lourenco@gmail'
     ]
 ]);
 

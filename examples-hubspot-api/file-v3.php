@@ -3,7 +3,7 @@
 require_once __DIR__ .'/__init.php';
 
 use LTL\Hubspot\Core\HubspotConfig;
-use LTL\Hubspot\Resources\FileHubspot;
+use LTL\Hubspot\Resources\V3\FileHubspot;
 
 $path = HubspotConfig::BASE_PATH .'/luan.csv';
 
