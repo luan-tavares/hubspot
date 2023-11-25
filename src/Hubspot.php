@@ -126,5 +126,11 @@ abstract class Hubspot extends Resource
         if(isset($this->associations)) {
             $this->associations(...$this->associations);
         }
+
+        $this->init();
+    }
+
+    protected function init()
+    {
     }
 }
