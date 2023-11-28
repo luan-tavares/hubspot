@@ -8,12 +8,13 @@ abstract class TimesleepGlobal
 {
     private static int $timesleep = HubspotConfig::SLEEP_SECONDS;
 
-    public static function get(int|null $timesleep = null): int
+    public static function get(): int
     {
-        if (!is_null($timesleep)) {
-            self::$timesleep = $timesleep;
-        }
-
         return self::$timesleep;
+    }
+
+    public static function set(int $timesleep): void
+    {
+        self::$timesleep = $timesleep;
     }
 }

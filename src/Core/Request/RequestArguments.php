@@ -14,20 +14,20 @@ class RequestArguments
 
     private array|BaseBodyBuilder|null $requestBody = null;
     
-    public function __construct(ActionSchemaInterface $actionSchema, array $arguments)
+    public function __construct(private ActionSchemaInterface $actionSchema, array $arguments = [])
     {
         $nArguments = count($arguments);
 
-        $params = $actionSchema->params ?? [];
-        $queryParams = $actionSchema->queryAsParam ?? [];
+        $params = $this->actionSchema->params ?? [];
+        $queryParams = $this->actionSchema->queryAsParam ?? [];
 
-        $hasBody = $actionSchema->hasBody;
+        $hasBody = $this->actionSchema->hasBody;
         
         $total = count($queryParams) + count($params) + ((int) $hasBody);
 
         if ($total !== $nArguments) {
             throw new HubspotApiException(
-                '"'. $actionSchema->resourceClass ."::{$actionSchema}(...)\" must be {$total} params, {$nArguments} given"
+                '"'. $this->actionSchema->resourceClass ."::{$this->actionSchema}(...)\" must be {$total} params, {$nArguments} given"
             );
         }
 
@@ -42,11 +42,11 @@ class RequestArguments
         }
 
         if($hasBody) {
-            $this->requestBody = $this->resolveRequestBody($actionSchema, $reverseArguments);
+            $this->requestBody = $this->resolveRequestBody($reverseArguments);
         }
     }
 
-    private function resolveRequestBody(ActionSchemaInterface $actionSchema, array $reverseArguments): array
+    private function resolveRequestBody(array $reverseArguments): array
     {
         $requestBody = current($reverseArguments);
 
@@ -59,7 +59,7 @@ class RequestArguments
         }
 
         throw new HubspotApiException(
-            '"'. $actionSchema->resourceClass ."::{$actionSchema}()\" request body (last param) must be array or Body Object, ". gettype($requestBody) .' given'
+            '"'. $this->actionSchema->resourceClass ."::{$this->actionSchema}(...)\" request body (last param) must be array or Body Object, ". gettype($requestBody) .' given'
         );
     }
 
@@ -76,5 +76,30 @@ class RequestArguments
     public function queriesAsParams(): array|null
     {
         return $this->queriesAsParam;
+    }
+
+    public function baseURi(): string
+    {
+        return $this->actionSchema->baseUri;
+    }
+
+    public function notHasAuth(): bool
+    {
+        return !$this->actionSchema->authentication;
+    }
+
+    public function baseQuery(): array|null
+    {
+        return $this->actionSchema->baseQuery;
+    }
+
+    public function method(): string
+    {
+        return $this->actionSchema->method;
+    }
+
+    public function baseHeader(): array|null
+    {
+        return $this->actionSchema->baseHeader;
     }
 }

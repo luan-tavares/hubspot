@@ -5,7 +5,7 @@ namespace LTL\Hubspot\Tests\Request;
 use LTL\Curl\Curl;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Request\RequestArguments;
-use LTL\Hubspot\Core\Request\RequestDefinition;
+use LTL\Hubspot\Core\Request\RequestConnection;
 use LTL\Hubspot\Core\Schema\ActionSchema;
 use LTL\Hubspot\Factories\RequestFactory;
 use LTL\Hubspot\Hubspot;
@@ -87,7 +87,9 @@ class RequestTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction($resource, 'getAll');
 
-        $request->addMethod($actionSchema);
+
+
+        $request->addMethod(new RequestArguments($actionSchema));
         
         $this->assertEquals($method, $request->getMethod());
     }
@@ -194,7 +196,7 @@ class RequestTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction($resource, 'getAll');
 
-        $requestDefinition = new RequestDefinition($request, $actionSchema, []);
+        $requestConnection = new RequestConnection($request, new RequestArguments($actionSchema));
 
 
         $curl = $this->createMock(Curl::class);
@@ -202,6 +204,6 @@ class RequestTest extends TestCase
 
         $curl->expects($this->once())->method('addUri');
 
-        $requestDefinition->connect($curl);
+        $requestConnection->connect($curl);
     }
 }

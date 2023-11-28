@@ -10,7 +10,8 @@ use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Globals\ApikeyGlobal;
 use LTL\Hubspot\Core\Globals\TimesleepGlobal;
 use LTL\Hubspot\Core\HubspotConfig;
-use LTL\Hubspot\Core\Request\RequestDefinition;
+use LTL\Hubspot\Core\Request\RequestArguments;
+use LTL\Hubspot\Core\Request\RequestConnection;
 use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\RequestFactory;
@@ -19,7 +20,7 @@ use LTL\Hubspot\Resources\V3\FileHubspot;
 use LTL\Hubspot\Resources\V3\HubDbHubspot;
 use PHPUnit\Framework\TestCase;
 
-class RequestDefinitionTest extends TestCase
+class RequestConnectionTest extends TestCase
 {
     protected $resource;
 
@@ -67,7 +68,7 @@ class RequestDefinitionTest extends TestCase
     {
         $actionSchema = SchemaContainer::getAction($this->resource, 'get');
         
-        $requestDefinition = new RequestDefinition($this->request, $actionSchema, $this->getContactArguments);
+        RequestConnection::handle($this->request, new RequestArguments($actionSchema, $this->getContactArguments));
         
         $this->assertEquals(
             $this->request->getUri(),
@@ -84,7 +85,7 @@ class RequestDefinitionTest extends TestCase
 
         $request = BuilderContainer::get($fileV2Resource)->request();
         
-        $requestDefinition = new RequestDefinition($request, $actionSchema, [['files' => []]]);
+        RequestConnection::handle($request, new RequestArguments($actionSchema, [['files' => []]]));
 
         
         $this->assertEquals(
@@ -96,8 +97,8 @@ class RequestDefinitionTest extends TestCase
     public function testBaseQueriesAddPropertiesIsCorrect()
     {
         $actionSchema = SchemaContainer::getAction($this->resource, 'getByEmail');
-        
-        $requestDefinition = new RequestDefinition($this->request, $actionSchema, $this->getContactArguments);
+
+        RequestConnection::handle($this->request, new RequestArguments($actionSchema, $this->getContactArguments));
         
         $this->assertEquals($this->request->getQueries(), ['hapikey' => '123456', 'idProperty' => 'email']);
     }
@@ -107,7 +108,7 @@ class RequestDefinitionTest extends TestCase
     {
         $actionSchema = SchemaContainer::getAction($this->resource, 'get');
         
-        $requestDefinition = new RequestDefinition($this->request, $actionSchema, $this->getContactArguments);
+        RequestConnection::handle($this->request, new RequestArguments($actionSchema, $this->getContactArguments));
         
         $this->assertEquals($this->request->getBody(), []);
     }
@@ -116,7 +117,7 @@ class RequestDefinitionTest extends TestCase
     {
         $actionSchema = SchemaContainer::getAction($this->resource, 'get');
         
-        $requestDefinition = new RequestDefinition($this->request, $actionSchema, $this->getContactArguments);
+        RequestConnection::handle($this->request, new RequestArguments($actionSchema, $this->getContactArguments));
         
         $this->assertEquals($this->request->getHeaders(), []);
     }
@@ -126,7 +127,7 @@ class RequestDefinitionTest extends TestCase
     {
         $actionSchema = SchemaContainer::getAction($this->resource, 'create');
         
-        $requestDefinition = new RequestDefinition($this->request, $actionSchema, $this->createContactArguments);
+        RequestConnection::handle($this->request, new RequestArguments($actionSchema, $this->createContactArguments));
         
         $this->assertEquals($this->request->getHeaders(), [
             'Content-Type' => 'application/json'
@@ -141,7 +142,7 @@ class RequestDefinitionTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction($builder->baseResource(), 'upload');
         
-        $requestDefinition = new RequestDefinition($request, $actionSchema, $this->createContactArguments);
+        RequestConnection::handle($request, new RequestArguments($actionSchema, $this->createContactArguments));
         
         $this->assertEquals($request->getHeaders(), [
             'Content-Type' => 'multipart/form-data'
@@ -156,7 +157,7 @@ class RequestDefinitionTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction($builder->baseResource(), 'exportToCsv');
         
-        $requestDefinition = new RequestDefinition($request, $actionSchema, ['tableId']);
+        RequestConnection::handle($request, new RequestArguments($actionSchema, ['tableId']));
         
         $this->assertEquals($request->getHeaders(), [
             'accept' => 'application/vnd.ms-excel'
@@ -171,7 +172,7 @@ class RequestDefinitionTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction($builder->baseResource(), 'exportToCsv');
         
-        $requestDefinition = new RequestDefinition($request, $actionSchema, ['tableId']);
+        RequestConnection::handle($request, new RequestArguments($actionSchema, ['tableId']));
         
         $this->assertEquals('GET', $request->getMethod());
     }
@@ -180,7 +181,7 @@ class RequestDefinitionTest extends TestCase
     {
         $actionSchema = SchemaContainer::getAction($this->resource, 'create');
         
-        $requestDefinition = new RequestDefinition($this->request, $actionSchema, $this->createContactArguments);
+        RequestConnection::handle($this->request, new RequestArguments($actionSchema, $this->createContactArguments));
         
         $this->assertEquals($this->request->getBody(), [
             'id' => 123456789,
@@ -200,7 +201,7 @@ class RequestDefinitionTest extends TestCase
             '"'. $actionSchema->resourceClass ."::{$actionSchema}(...)\" must be {$nParams} params, {$nArguments} given"
         );
         
-        new RequestDefinition($this->request, $actionSchema, $this->updateContactArguments);
+        RequestConnection::handle($this->request, new RequestArguments($actionSchema, $this->updateContactArguments));
     }
 
     public function testExceptionIfBodyIsNotArray()
@@ -217,10 +218,10 @@ class RequestDefinitionTest extends TestCase
         $actionSchema = SchemaContainer::getAction($this->resource, 'update');
 
         $this->expectExceptionMessage(
-            '"'. $actionSchema->resourceClass ."::{$actionSchema}()\" request body (last param) must be array or Body Object, {$requestBodyType} given"
+            '"'. $actionSchema->resourceClass ."::{$actionSchema}(...)\" request body (last param) must be array or Body Object, {$requestBodyType} given"
         );
         
-        new RequestDefinition($this->request, $actionSchema, $params);
+        new RequestArguments($actionSchema, $params);
     }
 
     public function testIfRecursiveCurlWithoutTooManyRequestsIsCorrect()
@@ -233,7 +234,7 @@ class RequestDefinitionTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction($resource, 'getAll');
 
-        $requestDefinition = new RequestDefinition($request, $actionSchema, []);
+        $requestConnection = new RequestConnection($request, new RequestArguments($actionSchema));
 
 
         $curl = $this->getMockBuilder(CurlInterface::class)->getMock();
@@ -243,19 +244,16 @@ class RequestDefinitionTest extends TestCase
         $curl->method('addParams')->willReturn($curl);
         $curl->method('status')->willReturn(HubspotConfig::TOO_MANY_REQUESTS_ERROR_CODE);
 
-        $response = new Response($curl, $actionSchema);
-
-
         $curl->expects($this->exactly($requests))->method('request');
 
-        $requestDefinition->connect($curl);
+        $requestConnection->connect($curl);
     }
 
     public function testIfRecursiveCurlIsCorrect()
     {
         $tooManyRequests = 15;
 
-        TimesleepGlobal::get(0);
+        TimesleepGlobal::set(0);
 
         $resourceBuilder = ContactHubspot::tooManyRequestsTries($tooManyRequests);
 
@@ -263,7 +261,7 @@ class RequestDefinitionTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction($resourceBuilder->baseResource(), 'getAll');
 
-        $requestDefinition = new RequestDefinition($request, $actionSchema, []);
+        $requestConnection = new RequestConnection($request, new RequestArguments($actionSchema));
 
 
         $curl = $this->getMockBuilder(Curl::class)->getMock();
@@ -276,14 +274,14 @@ class RequestDefinitionTest extends TestCase
 
         $curl->expects($this->exactly($tooManyRequests))->method('request');
 
-        $requestDefinition->connect($curl);
+        $requestConnection->connect($curl);
     }
 
     public function testIfSleepRecursiveCurlIsCorrect()
     {
         $tooManyRequests = 2;
 
-        TimesleepGlobal::get(1);
+        TimesleepGlobal::set(1);
 
         $resourceBuilder = ContactHubspot::tooManyRequestsTries($tooManyRequests);
 
@@ -291,7 +289,7 @@ class RequestDefinitionTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction($resourceBuilder->baseResource(), 'getAll');
 
-        $requestDefinition = new RequestDefinition($request, $actionSchema, []);
+        $requestConnection = new RequestConnection($request, new RequestArguments($actionSchema));
 
 
         $curl = $this->getMockBuilder(Curl::class)->getMock();
@@ -303,7 +301,7 @@ class RequestDefinitionTest extends TestCase
 
         $initTime = new DateTimeImmutable;
 
-        $requestDefinition->connect($curl);
+        $requestConnection->connect($curl);
 
         $endTime = new DateTimeImmutable;
 
@@ -314,7 +312,7 @@ class RequestDefinitionTest extends TestCase
     {
         $requests = 1;
 
-        TimesleepGlobal::get(0);
+        TimesleepGlobal::set(0);
 
         $resourceBuilder = ContactHubspot::tooManyRequestsTries($requests);
 
@@ -322,7 +320,7 @@ class RequestDefinitionTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction($resourceBuilder->baseResource(), 'getAll');
 
-        $requestDefinition = new RequestDefinition($request, $actionSchema, []);
+        $requestConnection = new RequestConnection($request, new RequestArguments($actionSchema));
 
 
         $curl = $this->getMockBuilder(Curl::class)->getMock();
@@ -335,14 +333,14 @@ class RequestDefinitionTest extends TestCase
 
         $curl->expects($this->exactly($requests))->method('request');
 
-        $requestDefinition->connect($curl);
+        $requestConnection->connect($curl);
     }
 
     public function testIfTriesMore15ThrowException()
     {
         $tooManyRequests = 20;
 
-        TimesleepGlobal::get(0);
+        TimesleepGlobal::set(0);
 
         $this->expectException(HubspotApiException::class);
 
@@ -355,7 +353,7 @@ class RequestDefinitionTest extends TestCase
     {
         $tooManyRequests = 0;
 
-        TimesleepGlobal::get(0);
+        TimesleepGlobal::set(0);
 
         $this->expectException(HubspotApiException::class);
 
@@ -370,7 +368,7 @@ class RequestDefinitionTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction($resourceBuilder->baseResource(), 'getAll');
 
-        $requestDefinition = new RequestDefinition($request, $actionSchema, []);
+        $requestConnection = new RequestConnection($request, new RequestArguments($actionSchema));
 
 
         $curl = $this->getMockBuilder(Curl::class)->getMock();
@@ -382,7 +380,7 @@ class RequestDefinitionTest extends TestCase
 
         $this->expectException(HubspotApiException::class);
 
-        $requestDefinition->connect($curl);
+        $requestConnection->connect($curl);
     }
 
     public function testIfExceptionIfRequestErrorNoResponseThrowCorrectExceptionMessage()
@@ -393,7 +391,7 @@ class RequestDefinitionTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction($resourceBuilder->baseResource(), 'getAll');
 
-        $requestDefinition = new RequestDefinition($request, $actionSchema, []);
+        $requestConnection = new RequestConnection($request, new RequestArguments($actionSchema));
 
         $status = 0;
 
@@ -407,7 +405,7 @@ class RequestDefinitionTest extends TestCase
 
         $this->expectExceptionMessage("Error {$status} :: \"NO RESPONSE\"");
 
-        $requestDefinition->connect($curl);
+        $requestConnection->connect($curl);
     }
 
     public function testIfDefaultNotExceptionNotThrowException()
@@ -418,7 +416,7 @@ class RequestDefinitionTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction($resource, 'getAll');
 
-        $requestDefinition = new RequestDefinition($request, $actionSchema, []);
+        $requestConnection = new RequestConnection($request, new RequestArguments($actionSchema));
 
 
         $curl = $this->getMockBuilder(Curl::class)->getMock();
@@ -431,6 +429,6 @@ class RequestDefinitionTest extends TestCase
 
         $curl->expects($this->once())->method('request');
 
-        $requestDefinition->connect($curl);
+        $requestConnection->connect($curl);
     }
 }

@@ -7,7 +7,8 @@ use LTL\Hubspot\Core\BodyBuilder\SearchBuilder\SearchBuilder;
 use LTL\Hubspot\Core\Request\Components\AbstractRequestComponent;
 use LTL\Hubspot\Core\Request\Components\MethodRequestComponent;
 use LTL\Hubspot\Core\Request\Components\UriRequestComponent;
-use LTL\Hubspot\Core\Request\RequestDefinition;
+use LTL\Hubspot\Core\Request\RequestArguments;
+use LTL\Hubspot\Core\Request\RequestConnection;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\RequestFactory;
 use LTL\Hubspot\Resources\V1\OAuthHubspot;
@@ -89,7 +90,9 @@ class ComponentRequestTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction(new OAuthHubspot, 'getRefreshToken');
 
-        $requestDefinition = new RequestDefinition($request, $actionSchema, ['someToken']);
+        $requestArguments = new RequestArguments($actionSchema, ['someToken']);
+
+        RequestConnection::handle($request, $requestArguments);
 
         $this->assertEquals('https://api.hubapi.com/oauth/v1/refresh-tokens/someToken?', $request->getUri());
     }
@@ -104,7 +107,7 @@ class ComponentRequestTest extends TestCase
 
         $requestBody = SearchBuilder::filterHas('id')->properties('name');
 
-        new RequestDefinition($request, $actionSchema, [$requestBody]);
+        RequestConnection::handle($request, new RequestArguments($actionSchema, [$requestBody]));
 
         $this->assertEquals($requestBody->get(), $request->getBody());
     }
@@ -133,6 +136,6 @@ class ComponentRequestTest extends TestCase
 
         $this->expectException(HubspotApiException::class);
 
-        new RequestDefinition($request, $actionSchema, [1, 2, [5]]);
+        new RequestArguments($actionSchema, [1, 2, [5]]);
     }
 }

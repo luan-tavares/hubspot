@@ -6,21 +6,25 @@ use LTL\Curl\Curl;
 use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Core\Globals\TimesleepGlobal;
 use LTL\Hubspot\Core\HubspotConfig;
-use LTL\Hubspot\Core\Interfaces\Request\RequestDefinitionInterface;
+use LTL\Hubspot\Core\Interfaces\Request\RequestConnectionInterface;
 use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
-use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 
-class RequestDefinition implements RequestDefinitionInterface
+class RequestConnection implements RequestConnectionInterface
 {
-    public function __construct(private RequestInterface $request, ActionSchemaInterface $actionSchema, array $arguments)
+    public function __construct(private RequestInterface $request, RequestArguments $requestArguments)
     {
-        $requestArguments = new RequestArguments($actionSchema, $arguments);
-
-        $this->request->addBaseHeader($actionSchema);
-        $this->request->addMethod($actionSchema);
+        $this->request->addBaseHeader($requestArguments);
+        $this->request->addMethod($requestArguments);
         $this->request->addBody($requestArguments);
-        $this->request->addUri($requestArguments, $actionSchema);
+        $this->request->addUri($requestArguments);
+    }
+
+    public static function handle(RequestInterface $request, RequestArguments $requestArguments): CurlInterface
+    {
+        $object = new self($request, $requestArguments);
+        
+        return $object->connect();
     }
 
     public function connect(CurlInterface|null $curl = null): CurlInterface

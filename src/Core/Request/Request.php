@@ -67,7 +67,9 @@ class Request implements RequestInterface
 
     public function connect(ActionSchemaInterface $actionSchema, array $arguments): CurlInterface
     {
-        return (new RequestDefinition($this, $actionSchema, $arguments))->connect();
+        $requestArguments = new RequestArguments($actionSchema, $arguments);
+
+        return RequestConnection::handle($this, $requestArguments);
     }
 
     public function destroyComponents(): void
@@ -121,9 +123,9 @@ class Request implements RequestInterface
         return $this;
     }
 
-    public function addBaseHeader(ActionSchemaInterface $actionSchema): self
+    public function addBaseHeader(RequestArguments $requestArguments): self
     {
-        $headers = $actionSchema->baseHeader;
+        $headers = $requestArguments->baseHeader();
 
         $this->header->addArrayBefore($headers);
 
@@ -137,16 +139,16 @@ class Request implements RequestInterface
         return $this;
     }
 
-    public function addUri(RequestArguments $requestArguments, ActionSchemaInterface $actionSchema): self
+    public function addUri(RequestArguments $requestArguments): self
     {
-        $this->uri->create($requestArguments, $actionSchema);
+        $this->uri->create($requestArguments);
 
         return $this;
     }
 
-    public function addMethod(ActionSchemaInterface $actionSchema): self
+    public function addMethod(RequestArguments $requestArguments): self
     {
-        $method = $actionSchema->method;
+        $method = $requestArguments->method();
 
         $this->method->set($method);
 

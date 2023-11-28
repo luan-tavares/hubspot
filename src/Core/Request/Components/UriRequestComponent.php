@@ -3,7 +3,6 @@
 namespace LTL\Hubspot\Core\Request\Components;
 
 use LTL\Hubspot\Core\Interfaces\Request\UriComponentInterface;
-use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
 use LTL\Hubspot\Core\Request\Components\AbstractRequestComponent;
 use LTL\Hubspot\Core\Request\RequestArguments;
 
@@ -15,16 +14,16 @@ class UriRequestComponent extends AbstractRequestComponent implements UriCompone
     {
     }
 
-    public function create(RequestArguments $requestArguments, ActionSchemaInterface $actionSchema): void
+    public function create(RequestArguments $requestArguments): void
     {
-        if (!$actionSchema->authentication) {
+        if ($requestArguments->notHasAuth()) {
             $this->request->removeApikey();
         }
         
-        $this->request->addQueriesBefore($actionSchema->baseQuery);
+        $this->request->addQueriesBefore($requestArguments->baseQuery());
         $this->request->addQueriesBefore($requestArguments->queriesAsParams());
 
-        $url = $actionSchema->baseUri;
+        $url = $requestArguments->baseURi();
 
         if(!is_null($params = $requestArguments->params())) {
             $url = str_replace(array_keys($params), $params, $url);

@@ -29,10 +29,10 @@ interface RequestInterface
     public function addQueriesAfter(array|null $queries): self;
     public function addQueriesBefore(array|null $queries): self;
 
-    public function addBaseHeader(ActionSchemaInterface $actionSchema): self;
-    public function addMethod(ActionSchemaInterface $actionSchema): self;
+    public function addBaseHeader(RequestArguments $requestArguments): self;
+    public function addMethod(RequestArguments $requestArguments): self;
     public function addBody(RequestArguments $requestArguments): self;
-    public function addUri(RequestArguments $requestArguments, ActionSchemaInterface $actionSchema): self;
+    public function addUri(RequestArguments $requestArguments): self;
 
     public function removeApikey(): self;
     public function removeOAuth(): self;
