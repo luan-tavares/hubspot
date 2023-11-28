@@ -24,9 +24,9 @@ class ResourceSchema implements ResourceSchemaInterface
         $schemaPath = HubspotConfig::BASE_PATH ."/src/schemas/{$resource}.json";
 
         $schema = json_decode(file_get_contents($schemaPath));
-
+ 
         $this->actions = (array) $schema->actions;
-        $this->resourceClass = $resource::class;
+        $this->resourceClass = removeFromAnonymousClassName($resource::class);
 
         foreach ($this->actions as $action => $actionDefinition) {
             $this->actions[$action]->action = $action;

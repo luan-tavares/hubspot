@@ -15,11 +15,12 @@ class RequestDefinition implements RequestDefinitionInterface
 {
     public function __construct(private RequestInterface $request, ActionSchemaInterface $actionSchema, array $arguments)
     {
-        $this->request->addHeadersBefore($actionSchema->baseHeader);
-        $this->request->addQueriesBefore($actionSchema->baseQuery);
-        $this->request->addMethod($actionSchema->method);
-        $this->request->addBody($actionSchema, $arguments);
-        $this->request->addUri($actionSchema, $arguments);
+        $requestArguments = new RequestArguments($actionSchema, $arguments);
+
+        $this->request->addBaseHeader($actionSchema);
+        $this->request->addMethod($actionSchema);
+        $this->request->addBody($requestArguments);
+        $this->request->addUri($requestArguments, $actionSchema);
     }
 
     public function connect(CurlInterface|null $curl = null): CurlInterface
@@ -63,8 +64,6 @@ class RequestDefinition implements RequestDefinitionInterface
 
         sleep(TimesleepGlobal::get());
 
-        $current++;
-
-        return $this->recursiveCurl($curl, $tooManyRequestsTries, $current);
+        return $this->recursiveCurl($curl, $tooManyRequestsTries, ++$current);
     }
 }

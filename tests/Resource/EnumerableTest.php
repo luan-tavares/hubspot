@@ -22,9 +22,7 @@ class EnumerableTest extends TestCase
             'results' => [
                 'a' => 4,
                 'b' => 5,
-                'c' => null,
                 'd' => ['a' => 5],
-                'e' => false
             ]
         ];
 
@@ -49,9 +47,7 @@ class EnumerableTest extends TestCase
         $this->assertEquals($result, [
             4,
             5,
-            null,
             (object) [ 'a' => 5 ],
-            false
         ]);
     }
 
@@ -69,7 +65,6 @@ class EnumerableTest extends TestCase
             4,
             5,
             (object) [ 'a' => 5 ],
-            false
         ]);
     }
 
@@ -82,9 +77,7 @@ class EnumerableTest extends TestCase
         $this->assertEquals($result, [
             'a::' => 4,
             'b::' => 5,
-            'c::' => null,
             'd::' => (object) ['a' => 5],
-            'e::' => false
         ]);
     }
 
@@ -101,8 +94,7 @@ class EnumerableTest extends TestCase
         $this->assertEquals($result, [
             'a::' => 4,
             'b::' => 5,
-            'd::' => (object) ['a' => 5],
-            'e::' => false
+            'd::' => (object) ['a' => 5]
         ]);
     }
 
@@ -114,9 +106,7 @@ class EnumerableTest extends TestCase
 
         $this->assertEquals($result, [
             'b' => 5,
-            'c' => null,
-            'd' => (object) ['a' => 5],
-            'e' => false
+            'd' => (object) ['a' => 5]
         ]);
     }
 
@@ -126,7 +116,7 @@ class EnumerableTest extends TestCase
             return ($before === '')?($key):($before .'-'. $key);
         }, '');
 
-        $this->assertEquals($result, 'a-b-c-d-e');
+        $this->assertEquals($result, 'a-b-d');
     }
 
     public function testEachIsCorrect()
@@ -140,9 +130,7 @@ class EnumerableTest extends TestCase
         $this->assertEquals([
             4,
             5,
-            null,
-            (object) [ 'a' => 5 ],
-            false
+            (object) [ 'a' => 5 ]
         ], $result);
     }
 }

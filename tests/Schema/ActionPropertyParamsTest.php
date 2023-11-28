@@ -20,13 +20,12 @@ class ActionPropertyParamsTest extends TestCase
     public function testIfParamsCastInCreateAssociationIsCorrect()
     {
         $object = SchemaContainer::getAction(new AssociationHubspot, 'create');
-
+        
         $this->assertEquals($object->params, [
             '{fromObjectType}',
             '{fromObjectId}',
             '{toObjectType}',
-            '{toObjectId}',
-            '{requestBody}'
+            '{toObjectId}'
         ]);
     }
 

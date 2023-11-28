@@ -2,10 +2,9 @@
 
 namespace LTL\Hubspot\Core\Schema\ActionProperties;
 
-use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Schema\ActionProperties\ActionProperty;
 
-class ParamsActionProperty extends ActionProperty
+class QueryAsParamProperty extends ActionProperty
 {
     protected function parse(object $actionSchema): array|null
     {
@@ -13,8 +12,13 @@ class ParamsActionProperty extends ActionProperty
             return null;
         }
         
-        preg_match_all('/{(.*?)}/', $actionSchema->path, $matches, PREG_PATTERN_ORDER);
-        $arguments = $matches[0];
+        $arguments = [];
+
+        if(!is_null($queryAsParam = @$actionSchema->queryAsParam)) {
+            foreach ($queryAsParam as $query => $param) {
+                $arguments[] = $query;
+            }
+        }
 
         if (empty($arguments)) {
             return null;

@@ -1,9 +1,9 @@
 <?php
 
+use LTL\Hubspot\Resources\V3\EngagementNoteHubspot;
 
 require_once __DIR__ .'/__init.php';
 
-use LTL\Hubspot\Resources\EngagementNoteHubspot;
 
 $dealId = 8635866769;
 

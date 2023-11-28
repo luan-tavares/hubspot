@@ -34,3 +34,10 @@ if (!function_exists('hubspotEnv')) {
         return $a;
     }
 }
+
+if (!function_exists('removeFromAnonymousClassName')) {
+    function removeFromAnonymousClassName(string $className)
+    {
+        return preg_replace('/[\x00-\x1F\x7F](.*)\$0/', '', $className);
+    }
+}

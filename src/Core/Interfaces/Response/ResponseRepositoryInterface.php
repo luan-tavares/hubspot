@@ -13,5 +13,5 @@ interface ResponseRepositoryInterface extends Iterator, Countable, JsonSerializa
     public function after(): string|int|null;
     
     #[Override]
-    public function current(): object;
+    public function current(): object|int;
 }

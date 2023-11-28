@@ -13,9 +13,7 @@ class QueryRequestComponent extends AbstractRequestComponent implements QueryCom
 
     protected function register(): void
     {
-        $apikey = ApikeyGlobal::get();
-
-        if (!is_null($apikey)) {
+        if (!is_null($apikey = ApikeyGlobal::get())) {
             $this->apikey($apikey);
         }
     }
@@ -113,22 +111,22 @@ class QueryRequestComponent extends AbstractRequestComponent implements QueryCom
         return $this->addNotNull('hapikey', $apikey);
     }
 
-    public function withProperties($arguments): self
+    public function withProperties(string ...$property): self
     {
         return $this->addNotNull('property', func_get_args());
     }
 
-    public function withEmails($arguments): self
+    public function withEmails(string ...$email): self
     {
         return $this->addNotNull('email', func_get_args());
     }
 
-    public function withVids($arguments): self
+    public function withVids(int ...$id): self
     {
         return $this->addNotNull('vid', func_get_args());
     }
 
-    public function withListIds($arguments): self
+    public function withListIds(int ...$id): self
     {
         return $this->addNotNull('listId', func_get_args());
     }
@@ -141,5 +139,20 @@ class QueryRequestComponent extends AbstractRequestComponent implements QueryCom
     public function formTypes($arguments): self
     {
         return $this->addNotNull('formTypes', func_get_args());
+    }
+
+    public function includeListFilters(): self
+    {
+        return $this->addNotNull('includeFilters', 'true');
+    }
+
+    public function enrollObjectsUpdateList(): self
+    {
+        return $this->addNotNull('enrollObjectsInWorkflows', 'true');
+    }
+
+    public function listIds(int ...$listId): self
+    {
+        return $this->addNotNull('listIds', func_get_args());
     }
 }

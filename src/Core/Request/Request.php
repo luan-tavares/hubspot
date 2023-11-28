@@ -60,7 +60,9 @@ class Request implements RequestInterface
             return $this->resourceRequest->{$method}(...$arguments);
         }
 
-        throw new HubspotApiException($this->resource::class ."::{$method}() not exists");
+        $className = removeFromAnonymousClassName($this->resource::class);
+
+        throw new HubspotApiException("{$className}::{$method}() not exists");
     }
 
     public function connect(ActionSchemaInterface $actionSchema, array $arguments): CurlInterface
@@ -110,9 +112,20 @@ class Request implements RequestInterface
         return $this;
     }
  
-    public function addBody(ActionSchemaInterface $actionSchema, array $arguments): self
+    public function addBody(RequestArguments $requestArguments): self
     {
-        $this->body->create($actionSchema, $arguments);
+        $requestBody = $requestArguments->requestBody();
+
+        $this->body->addArrayAfter($requestBody);
+
+        return $this;
+    }
+
+    public function addBaseHeader(ActionSchemaInterface $actionSchema): self
+    {
+        $headers = $actionSchema->baseHeader;
+
+        $this->header->addArrayBefore($headers);
 
         return $this;
     }
@@ -124,15 +137,17 @@ class Request implements RequestInterface
         return $this;
     }
 
-    public function addUri(ActionSchemaInterface $actionSchema, array $arguments): self
+    public function addUri(RequestArguments $requestArguments, ActionSchemaInterface $actionSchema): self
     {
-        $this->uri->create($actionSchema, $arguments);
+        $this->uri->create($requestArguments, $actionSchema);
 
         return $this;
     }
 
-    public function addMethod(string $method): self
+    public function addMethod(ActionSchemaInterface $actionSchema): self
     {
+        $method = $actionSchema->method;
+
         $this->method->set($method);
 
         return $this;

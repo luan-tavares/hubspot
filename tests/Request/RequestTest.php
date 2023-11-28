@@ -4,7 +4,9 @@ namespace LTL\Hubspot\Tests\Request;
 
 use LTL\Curl\Curl;
 use LTL\Hubspot\Containers\SchemaContainer;
+use LTL\Hubspot\Core\Request\RequestArguments;
 use LTL\Hubspot\Core\Request\RequestDefinition;
+use LTL\Hubspot\Core\Schema\ActionSchema;
 use LTL\Hubspot\Factories\RequestFactory;
 use LTL\Hubspot\Hubspot;
 use LTL\Hubspot\Resources\V3\CompanyHubspot;
@@ -65,7 +67,9 @@ class RequestTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction($resource, 'update');
 
-        $request->addBody($actionSchema, ['123', $this->result]);
+        $requestArguments = new RequestArguments($actionSchema, ['123', $this->result]);
+
+        $request->addBody($requestArguments);
         
         $this->assertEquals($request->getBody(), [
             'a' => 4,
@@ -75,11 +79,15 @@ class RequestTest extends TestCase
 
     public function testAddMethodToRequestIsCorrect()
     {
-        $request = RequestFactory::build(new CompanyHubspot);
+        $resource = new CompanyHubspot;
+
+        $request = RequestFactory::build($resource);
 
         $method = 'GET';
 
-        $request->addMethod($method);
+        $actionSchema = SchemaContainer::getAction($resource, 'getAll');
+
+        $request->addMethod($actionSchema);
         
         $this->assertEquals($method, $request->getMethod());
     }

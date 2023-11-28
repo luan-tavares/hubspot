@@ -3,7 +3,6 @@
 namespace LTL\Hubspot\Core\Resource;
 
 use Error;
-use LTL\Hubspot\Concerns\WithHeaders;
 use LTL\Hubspot\Containers\BuilderContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Globals\GlobalComponents;
@@ -16,7 +15,6 @@ use LTL\Hubspot\Core\Resource\Traits\ResourceIteratorAggregate;
 use LTL\Hubspot\Core\Resource\Traits\ResourceResponse;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\ListMethods\PublicMethods\Traits\PublicMethodsListable;
-use ReflectionClass;
 use TypeError;
 
 abstract class Resource implements ResourceInterface
@@ -39,24 +37,28 @@ abstract class Resource implements ResourceInterface
         try {
             return BuilderContainer::get($this)->{$name}(...$arguments);
         } catch (TypeError $exception) {
-            throw new HubspotApiException($exception->getMessage(), static::class);
+            $className = removeFromAnonymousClassName(static::class);
+
+            throw new HubspotApiException($exception->getMessage(), $className);
         }
     }
 
     public static function __callStatic($name, $arguments)
     {
+        $className = removeFromAnonymousClassName(static::class);
+        
         if(in_array($name, GlobalComponents::getMethods())) {
             try {
                 return GlobalComponents::{$name}(...$arguments);
             } catch (TypeError $exception) {
-                throw new HubspotApiException($exception->getMessage(), static::class);
+                throw new HubspotApiException($exception->getMessage(), $className);
             }
         }
 
         try {
             return call_user_func_array([(new static), $name], $arguments);
         } catch (Error $exception) {
-            throw new HubspotApiException('Static method '. static::class ."::{$name}(...) not exists!", static::class);
+            throw new HubspotApiException("Static method {$className}::{$name}(...) not exists!", $className);
         }
     }
 

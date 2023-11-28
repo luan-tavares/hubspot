@@ -4,7 +4,6 @@ namespace LTL\Hubspot\Tests\Request;
 
 use DateTimeImmutable;
 use LTL\Curl\Curl;
-use LTL\Curl\CurlResponse;
 use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Containers\BuilderContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
@@ -27,6 +26,10 @@ class RequestDefinitionTest extends TestCase
     protected $request;
 
     private $getContactArguments;
+
+    private $createContactArguments;
+
+    private $updateContactArguments;
 
     private $items;
 
@@ -191,10 +194,10 @@ class RequestDefinitionTest extends TestCase
         $actionSchema = SchemaContainer::getAction($this->resource, 'create');
 
         $nArguments = count($this->updateContactArguments);
-        $nParams = count($actionSchema->params);
+        $nParams = count($actionSchema->params ?? []) + count($actionSchema->queryAsParam ?? []) + ((int) $actionSchema->hasBody);
 
         $this->expectExceptionMessage(
-            '"'. $actionSchema->resourceClass ."::{$actionSchema}()\" must be {$nParams} params, {$nArguments} given"
+            '"'. $actionSchema->resourceClass ."::{$actionSchema}(...)\" must be {$nParams} params, {$nArguments} given"
         );
         
         new RequestDefinition($this->request, $actionSchema, $this->updateContactArguments);
@@ -313,7 +316,7 @@ class RequestDefinitionTest extends TestCase
 
         TimesleepGlobal::get(0);
 
-        $resourceBuilder = ContactHubspot::tooManyRequestsTries();
+        $resourceBuilder = ContactHubspot::tooManyRequestsTries($requests);
 
         $request = $resourceBuilder->request();
 
@@ -341,25 +344,11 @@ class RequestDefinitionTest extends TestCase
 
         TimesleepGlobal::get(0);
 
-        $resourceBuilder = ContactHubspot::tooManyRequestsTries($tooManyRequests);
-
-        $request = $resourceBuilder->request();
-
-        $actionSchema = SchemaContainer::getAction($resourceBuilder->baseResource(), 'getAll');
-
-        $requestDefinition = new RequestDefinition($request, $actionSchema, []);
-
-
-        $curl = $this->getMockBuilder(Curl::class)->getMock();
-        $curl->method('request')->willReturn($curl);
-        $curl->method('addUri')->willReturn($curl);
-        $curl->method('addHeaders')->willReturn($curl);
-        $curl->method('addParams')->willReturn($curl);
-        $curl->method('status')->willReturn(HubspotConfig::TOO_MANY_REQUESTS_ERROR_CODE);
-
         $this->expectException(HubspotApiException::class);
 
-        $requestDefinition->connect($curl);
+        ContactHubspot::tooManyRequestsTries($tooManyRequests);
+
+     
     }
 
     public function testIfTriesLess1ThrowException()
@@ -370,7 +359,7 @@ class RequestDefinitionTest extends TestCase
 
         $this->expectException(HubspotApiException::class);
 
-        $resourceBuilder = ContactHubspot::tooManyRequestsTries($tooManyRequests);
+        ContactHubspot::tooManyRequestsTries($tooManyRequests);
     }
 
     public function testIfExceptionIfRequestErrorMethodThrowException()

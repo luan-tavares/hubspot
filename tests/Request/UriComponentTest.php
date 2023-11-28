@@ -5,6 +5,7 @@ namespace LTL\Hubspot\Tests\Request;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Request\Components\UriRequestComponent;
 use LTL\Hubspot\Core\Request\Request;
+use LTL\Hubspot\Core\Request\RequestArguments;
 use LTL\Hubspot\Resources\V1\OAuthHubspot;
 use LTL\Hubspot\Resources\V3\ContactHubspot;
 use PHPUnit\Framework\TestCase;
@@ -36,7 +37,9 @@ class UriComponentTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction(new ContactHubspot, 'update');
 
-        $uriComponent->create($actionSchema, $arguments);
+        $requestArguments = new RequestArguments($actionSchema, $arguments);
+
+        $uriComponent->create($requestArguments, $actionSchema);
 
         $this->assertEquals($expectedUri, $uriComponent->get());
     }
@@ -55,7 +58,9 @@ class UriComponentTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction(new ContactHubspot, 'update');
 
-        $uriComponent->create($actionSchema, $arguments);
+        $requestArguments = new RequestArguments($actionSchema, $arguments);
+
+        $uriComponent->create($requestArguments, $actionSchema);
 
         $this->assertEquals($expectedUri, $uriComponent->get());
     }
@@ -71,9 +76,11 @@ class UriComponentTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction(new OAuthHubspot, 'getRefreshToken');
 
+        $requestArguments = new RequestArguments($actionSchema, $arguments);
+
         $this->request->expects($this->once())
             ->method('removeApikey');
 
-        $uriComponent->create($actionSchema, $arguments);
+        $uriComponent->create($requestArguments, $actionSchema);
     }
 }

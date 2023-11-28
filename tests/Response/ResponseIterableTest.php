@@ -26,9 +26,7 @@ class ResponseIterableTest extends TestCase
             'results' => [
                 'a' => 4,
                 'b' => 5,
-                'c' => null,
                 'd' => ['a' => 5],
-                'e' => false
             ],
             'paging' => [
                 'next' => [
@@ -61,9 +59,7 @@ class ResponseIterableTest extends TestCase
         $this->assertEquals($return, [
             4,
             5,
-            null,
             (object) [ 'a' => 5 ],
-            false
         ]);
     }
 

@@ -61,15 +61,15 @@ abstract class AbstractRequestComponent implements SubjectInterface
         if (is_null($array)) {
             return $this;
         }
-        
+
         $this->items = $this->addArray(array_merge($array, $this->items));
 
         return $this;
     }
 
-    private function addArray(array|null $mergedArray): array
+    private function addArray(array $array): array
     {
-        return array_filter($mergedArray, function ($item) {
+        return array_filter($array, function ($item) {
             return !is_null($item);
         });
     }

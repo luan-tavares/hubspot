@@ -82,7 +82,7 @@ foreach ($resources as $resource) {
         $j++;
         $totalActions++;
  
-        $params = writeParams($actionSchema, $resource);
+        $params = writeParams($actionSchema, $resource, $action);
         
         $methodDocumentation = $actionSchema->documentation ?? $documentation;
 
@@ -142,8 +142,11 @@ $status = 'Total actions ';
 $size = mb_strlen($status);
 dump(str_repeat(' ', (40-$size)) . $status ." {$totalActions} actions");
 
-function writeParams(object $actionSchema, string $resource): string
+function writeParams(object $actionSchema, string $resource, string $action): string
 {
+
+ 
+
     if (!is_null(@$actionSchema->handler)) {
         return writeParamsWithHandler($actionSchema);
     }
@@ -160,11 +163,19 @@ function writeParams(object $actionSchema, string $resource): string
         return 'int|string $'. $item;
     }, $matches[1]);
 
+
+    if(!is_null($queryAsParams = @$actionSchema->queryAsParam)) {
+        foreach ($queryAsParams as $query => $param) {
+            $params[] = "string \${$param}";
+        }
+    }
+
     $hasBody = $actionSchema->hasBody ?? true;
 
     if (in_array($actionSchema->method, HubspotConfig::METHODS_WITH_BODY)  && $hasBody) {
         $params[] = 'BaseBodyBuilder|array $requestBody';
     }
+
 
     return implode(', ', $params);
 }

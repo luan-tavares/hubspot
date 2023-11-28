@@ -4,6 +4,7 @@ namespace LTL\Hubspot\Core\Interfaces\Request;
 
 use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
+use LTL\Hubspot\Core\Request\RequestArguments;
 
 interface RequestInterface
 {
@@ -19,6 +20,8 @@ interface RequestInterface
     public function hasExceptionIfRequestError(): bool;
 
     public function removeHeader(string $header): self;
+    public function addHeadersBefore(array|null $headers): self;
+
     public function removeQuery(string $query): self;
 
     public function bootComponents(): void;
@@ -26,11 +29,10 @@ interface RequestInterface
     public function addQueriesAfter(array|null $queries): self;
     public function addQueriesBefore(array|null $queries): self;
 
-    public function addHeadersBefore(array|null $headers): self;
-    
-    public function addMethod(string $method): self;
-    public function addBody(ActionSchemaInterface $actionSchema, array $arguments): self;
-    public function addUri(ActionSchemaInterface $actionSchema, array $arguments): self;
+    public function addBaseHeader(ActionSchemaInterface $actionSchema): self;
+    public function addMethod(ActionSchemaInterface $actionSchema): self;
+    public function addBody(RequestArguments $requestArguments): self;
+    public function addUri(RequestArguments $requestArguments, ActionSchemaInterface $actionSchema): self;
 
     public function removeApikey(): self;
     public function removeOAuth(): self;

@@ -1,0 +1,95 @@
+{
+    "resource": "crm",
+    "class": "ListHubspot",
+    "documentation": "https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/lists",
+    "version": 3,
+    "latest": true,
+    "actions": {
+        "fetch": {
+            "path": "lists",
+            "method": "GET",
+            "description": "Fetch multiple lists in a single request by ILS list ID. The response will include the definitions of all lists that exist for the listIds provided.",
+            "iteratorIndex": "lists",
+            "afterIndex": "paging.next.after"
+        },
+        "fetchByName": {
+            "path": "lists/object-type-id/{objectTypeId}/name/{listName}",
+            "method": "GET",
+            "description": "Fetch a single list by list name and object type.",
+            "iteratorIndex": "lists",
+            "afterIndex": "paging.next.after"
+        },
+        "get": {
+            "path": "lists/{listId}",
+            "method": "GET",
+            "description": "Fetch a single list by ILS list ID."
+        },
+        "create": {
+            "path": "lists",
+            "method": "POST",
+            "description": "Create a new list with the provided object list definition.."
+        },
+        "updateDefinition": {
+            "path": "lists/{listId}/update-list-filters",
+            "method": "PUT",
+            "description": "Update the filter branch definition of a DYNAMIC list. Once updated, the list memberships will be re-evaluated and updated to match the new definition."
+        },
+        "updateName": {
+            "path": "lists/{listId}/update-list-name",
+            "method": "PUT",
+            "hasBody": false,
+            "queryAsParam": {
+                "listName": "newName"
+            },
+            "description": "Update the name of a list. The name must be globally unique relative to all other public lists in the portal."
+        },
+        "delete": {
+            "path": "lists/{listId}",
+            "method": "DELETE",
+            "description": "Delete a List."
+        },
+        "restore": {
+            "path": "lists/{listId}/restore",
+            "method": "PUT",
+            "description": "Restore a previously deleted list by ILS list ID. Deleted lists are eligible to be restored up-to 90-days after the list has been deleted."
+        },
+        "search": {
+            "path": "lists/search",
+            "method": "POST",
+            "description": "Search lists by list name or page through all lists by providing an empty query value.",
+            "iteratorIndex": "lists"
+        },
+        "getMemberships": {
+            "path": "lists/{listId}/memberships",
+            "method": "GET",
+            "description": "Fetch List Memberships Ordered by ID.",
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
+        },
+        "deleteAllMemberships": {
+            "path": "lists/{listId}/memberships",
+            "method": "DELETE",
+            "description": "Remove all of the records from a list. Note: The list is not deleted."
+        },
+        "addMemberships": {
+            "path": "lists/{listId}/memberships/add",
+            "method": "PUT",
+            "description": "Add the records provided to the list. Records that do not exist or that are already members of the list are ignored."
+        },
+        "addAndRemoveMemberships": {
+            "path": "lists/{listId}/memberships/add-and-remove",
+            "method": "PUT",
+            "description": "Add and/or remove records that have already been created in the system to and/or from a list."
+        },
+        "addMembershipsFromList": {
+            "path": "lists/{listId}/memberships/add-from/{sourceListId}",
+            "method": "PUT",
+            "description": "Add All Records from a Source List to a Destination List."
+        },
+        "deleteMemberships": {
+            "path": "lists/{listId}/memberships/remove",
+            "method": "PUT",
+            "description": "Remove the records provided from the list. Records that do not exist or that are not members of the list are ignored."
+        }
+    }
+}

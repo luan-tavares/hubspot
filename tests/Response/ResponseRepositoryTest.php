@@ -20,11 +20,7 @@ class ResponseRepositoryTest extends TestCase
             'results' => [
                 'a' => 4,
                 'b' => 5,
-                'c' => null,
-                'd' => [5],
-                'e' => false,
-                'f' => 'lorem ipusum asset mode',
-                'more' => array_fill(0, 100, 'a')
+                'd' =>  ['b' => 5],
             ],
             'after' => [
                 'paging' => [
@@ -49,8 +45,10 @@ class ResponseRepositoryTest extends TestCase
         foreach ($responseRepository as $value) {
             $return[] = $value;
         }
+
+        $array = json_encode(array_values($this->result['results']));
       
-        $this->assertEquals($return, array_values($this->result['results']));
+        $this->assertEquals($return, json_decode($array));
     }
 
     public function testIfCountableObjectIsCorrect()

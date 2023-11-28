@@ -25,9 +25,12 @@ interface QueryComponentInterface extends ComponentInterface, PublicMethodsLista
     public function before(string $before): self;
     public function apikey(string $apikey): self;
     public function sort($arguments): self;
-    public function withProperties($arguments): self;
-    public function withEmails($arguments): self;
-    public function withVids($arguments): self;
-    public function withListIds($arguments): self;
+    public function withProperties(string ...$property): self;
+    public function withEmails(string ...$email): self;
+    public function withVids(int ...$id): self;
+    public function withListIds(int ...$id): self;
     public function formTypes($arguments): self;
+    public function includeListFilters(): self;
+    public function enrollObjectsUpdateList(): self;
+    public function listIds(int ...$listId): self;
 }
