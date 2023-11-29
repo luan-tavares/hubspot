@@ -3,7 +3,6 @@
 namespace LTL\Hubspot\Core\Request;
 
 use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
-use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
 use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 
