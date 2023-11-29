@@ -4,9 +4,10 @@ namespace LTL\Hubspot\Tests\Request;
 
 use LTL\Curl\Curl;
 use LTL\Hubspot\Containers\SchemaContainer;
+use LTL\Hubspot\Core\Interfaces\BuilderInterface;
+use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
 use LTL\Hubspot\Core\Request\RequestArguments;
 use LTL\Hubspot\Core\Request\RequestConnection;
-use LTL\Hubspot\Core\Schema\ActionSchema;
 use LTL\Hubspot\Factories\RequestFactory;
 use LTL\Hubspot\Hubspot;
 use LTL\Hubspot\Resources\V3\CompanyHubspot;
@@ -15,7 +16,8 @@ use PHPUnit\Framework\TestCase;
 
 class RequestTest extends TestCase
 {
-    private array $items;
+
+    private array $result;
 
     protected function setUp(): void
     {
@@ -39,115 +41,18 @@ class RequestTest extends TestCase
         $request->$method();
     }
 
-    public function testRemoveHeaderRequestIsCorrect()
-    {
-        $request = RequestFactory::build(new CompanyHubspot);
-
-        $request->addHeadersBefore($this->result);
-
-        $request->removeHeader('a');
-      
-        $this->assertEquals($request->getHeaders(), ['b' => 5]);
-    }
-
-    public function testObserverRemoveApikeyIfOAuthAdded()
-    {
-        $request = RequestFactory::build(new CompanyHubspot);
-
-        $request->oAuth('token');
-
-        $this->assertArrayNotHasKey('hapikey', $request->getQueries(), 'With Header "oAuth", the Request Query must not have "hapikey"');
-    }
-
-    public function testAddBodyToRequestIsCorrect()
-    {
-        $resource = new CompanyHubspot;
-
-        $request = RequestFactory::build($resource);
-
-        $actionSchema = SchemaContainer::getAction($resource, 'update');
-
-        $requestArguments = new RequestArguments($actionSchema, ['123', $this->result]);
-
-        $request->addBody($requestArguments);
-        
-        $this->assertEquals($request->getBody(), [
-            'a' => 4,
-            'b' => 5
-        ]);
-    }
-
-    public function testAddMethodToRequestIsCorrect()
-    {
-        $resource = new CompanyHubspot;
-
-        $request = RequestFactory::build($resource);
-
-        $method = 'GET';
-
-        $actionSchema = SchemaContainer::getAction($resource, 'getAll');
-
-
-
-        $request->addMethod(new RequestArguments($actionSchema));
-        
-        $this->assertEquals($method, $request->getMethod());
-    }
-
-    public function testAddQueriesIsCorrect()
-    {
-        $resourceBuilder = EngagementEmailHubspot::limit(10);
-
-        $request = $resourceBuilder->request();
-
-        $request->addQueriesAfter([
-            'limit' => 20,
-            'nullable' => null
-        ]);
-        
-        $this->assertEquals($request->getQueries(), [
-            'limit' => 20,
-            'hapikey' => '123456'
-        ]);
-    }
-
-    public function testAddQueriesBeforeIsCorrect()
-    {
-        $resourceBuilder = EngagementEmailHubspot::limit(10);
-
-        $request = $resourceBuilder->request();
-
-        $request->addQueriesBefore([
-            'limit' => 20,
-            'nullable' => null
-        ]);
-        
-        $this->assertEquals($request->getQueries(), [
-            'limit' => 10,
-            'hapikey' => '123456'
-        ]);
-    }
-
-    public function testRemoveQueryRequestIsCorrect()
-    {
-        $request = RequestFactory::build(new CompanyHubspot);
-
-        $request->addQueriesAfter($this->result);
-
-        $request->removeQuery('a');
-      
-        $this->assertEquals($request->getQueries(), [
-            'b' => 5,
-            'hapikey' => '123456'
-        ]);
-    }
-
 
     public function testCurlAddProgressIsCorrect()
     {
-        $request = RequestFactory::build(new CompanyHubspot);
-
-        $request->withProgressBar();
+        /**
+         * @var BuilderInterface $builder
+         */
+        $builder = CompanyHubspot::withProgressBar();
+        
+        /**
+         * @var RequestInterface $request
+         */
+        $request = $builder->request();
         
         $this->assertEquals($request->getCurlParams(), [
             CURLOPT_NOPROGRESS => false,
@@ -157,9 +62,15 @@ class RequestTest extends TestCase
 
     public function testCurlGetResponseHeadersIsCorrect()
     {
-        $request = RequestFactory::build(new CompanyHubspot);
-
-        $request->withResponseHeaders();
+        /**
+         * @var BuilderInterface $builder
+         */
+        $builder = CompanyHubspot::withResponseHeaders();
+        
+        /**
+         * @var RequestInterface $request
+         */
+        $request = $builder->request();
         
         $this->assertEquals($request->getCurlParams(), [
             CURLOPT_HEADER => true
@@ -168,22 +79,32 @@ class RequestTest extends TestCase
 
 
 
-    public function testObserverRemoveOauth()
+    public function testRemoveOauth()
     {
-        $request = RequestFactory::build(new CompanyHubspot);
-
-        $request->oAuth('123456789');
-        $request->apikey('5552');
+        /**
+         * @var BuilderInterface $builder
+         */
+        $builder = CompanyHubspot::oAuth('bbb')->apikey('aaa');
+        
+        /**
+         * @var RequestInterface $request
+         */
+        $request = $builder->request();
      
         $this->assertEquals($request->getHeaders(), []);
     }
 
-    public function testObserverRemoveApikey()
+    public function testRemoveApikey()
     {
-        $request = RequestFactory::build(new CompanyHubspot);
+        /**
+         * @var BuilderInterface $builder
+         */
+        $builder = CompanyHubspot::apikey('aaa')->oAuth('bbb');
         
-        $request->apikey('5552');
-        $request->oAuth('123456789');
+        /**
+         * @var RequestInterface $request
+         */
+        $request = $builder->request();
      
         $this->assertEquals($request->getQueries(), []);
     }
@@ -196,14 +117,12 @@ class RequestTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction($resource, 'getAll');
 
-        $requestConnection = new RequestConnection($request, new RequestArguments($actionSchema));
-
+        $requestArguments = new RequestArguments($actionSchema);
 
         $curl = $this->createMock(Curl::class);
 
-
         $curl->expects($this->once())->method('addUri');
 
-        $requestConnection->connect($curl);
+        RequestConnection::handle($request, $requestArguments, $curl);
     }
 }

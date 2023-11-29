@@ -8,11 +8,13 @@
         "integration"
     ],
     "type": "library",
-    "authors": [{
-        "name": "Luan Tavares Lourenço",
-        "email": "luan.tavares.lourenco@gmail.com",
-        "role": "Developer"
-    }],
+    "authors": [
+        {
+            "name": "Luan Tavares Lourenço",
+            "email": "luan.tavares.lourenco@gmail.com",
+            "role": "Developer"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "LTL\\Hubspot\\": "src/"
@@ -32,7 +34,6 @@
     "require": {
         "php": "^8.1",
         "luan-tavares/list-methods": "^1.0",
-        "luan-tavares/simple-observer": "^1.0",
         "luan-tavares/simple-curl": "^2.0",
         "luan-tavares/simple-deploy": "^1.0",
         "nesbot/carbon": "^2.62"

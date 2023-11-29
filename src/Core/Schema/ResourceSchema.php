@@ -51,11 +51,11 @@ class ResourceSchema implements ResourceSchemaInterface
 
     public function getAction(string $action): object
     {
-        try {
+        if(array_key_exists($action, $this->actions)) {
             return $this->actions[$action];
-        } catch (Error $error) {
-            throw new HubspotApiException($this->resourceClass ."::{$action}() not exists.");
         }
+
+        throw new HubspotApiException($this->resourceClass ."::{$action}() not exists.");
     }
 
     public function getActions(): array

@@ -8,8 +8,6 @@ use LTL\Hubspot\Containers\ResponseRepositoryContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
 use LTL\Hubspot\Core\Response\Response;
-use LTL\Hubspot\Core\Response\ResponseRepository;
-use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Resources\V3\HubDbHubspot;
 use PHPUnit\Framework\TestCase;
 
@@ -38,8 +36,10 @@ class ResponseRepositoryIteratorTest extends TestCase
             ]
         ];
 
-        $this->curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
-        $this->curl->method('response')->willReturn(json_encode($this->result));
+        $curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
+        $curl->method('response')->willReturn(json_encode($this->result));
+
+        $this->curl = $curl;
 
         $this->actionSchema = SchemaContainer::getAction(new HubDbHubspot, 'getAll');
     }

@@ -39,6 +39,6 @@ class BuilderTest extends TestCase
             $resource::class ."::{$method}() must not be used before actions:\n\n". SchemaContainer::get($resource)
         );
 
-        $builder->$method();
+        $builder->{$method}();
     }
 }

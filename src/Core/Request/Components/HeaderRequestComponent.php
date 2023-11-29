@@ -22,7 +22,7 @@ class HeaderRequestComponent extends AbstractRequestComponent implements HeaderC
 
     public function oAuth(string $oAuth): self
     {
-        $this->notify('oAuthInserted');
+        $this->request->removeApikey();
         
         return $this->addNotNull('Authorization', "Bearer {$oAuth}");
     }

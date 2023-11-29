@@ -8,8 +8,8 @@ use LTL\Hubspot\Containers\ResponseRepositoryContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
 use LTL\Hubspot\Core\Response\Response;
-use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Resources\V3\HubDbHubspot;
+use PHPUnit\Framework\MockObject\MockBuilder;
 use PHPUnit\Framework\TestCase;
 
 class ResponseIterableTest extends TestCase
@@ -35,12 +35,14 @@ class ResponseIterableTest extends TestCase
             ]
         ];
 
-        $this->curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
-        $this->curl->method('status')->willReturn(400);
-        $this->curl->method('response')->willReturn(json_encode($this->result));
-        $this->curl->method('uri')
+        $curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
+        $curl->method('status')->willReturn(400);
+        $curl->method('response')->willReturn(json_encode($this->result));
+        $curl->method('uri')
             ->willReturn('https://test.com/api?hapikey=12345678-1234-1234-1234-abcde1234567');
-        $this->curl->method('headers')->willReturn(['Content-Type' => 'application/json;charset=utf-8']);
+        $curl->method('headers')->willReturn(['Content-Type' => 'application/json;charset=utf-8']);
+
+        $this->curl = $curl;
 
         $contactResource = $this->createMock(HubDbHubspot::class);
         $contactResource->method('__toString')->willReturn('hub-db-v3');

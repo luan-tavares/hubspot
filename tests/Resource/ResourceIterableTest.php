@@ -3,6 +3,7 @@
 namespace LTL\Hubspot\Tests\Resource;
 
 use LTL\Curl\Curl;
+use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
@@ -45,6 +46,9 @@ class ResourceIterableTest extends TestCase
         $this->baseResource = new AssociationHubspot;
         $actionSchema = SchemaContainer::getAction($this->baseResource, 'getDefinition');
 
+        /**
+         * @var CurlInterface $curl
+         */
         $this->response = new Response($curl, $actionSchema);
     }
 

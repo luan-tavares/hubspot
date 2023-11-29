@@ -4,7 +4,6 @@ namespace LTL\Hubspot\Tests\Response;
 
 use LTL\Curl\Curl;
 use LTL\Curl\Interfaces\CurlInterface;
-use LTL\Hubspot\Containers\ResponseRepositoryContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
 use LTL\Hubspot\Core\Response\Response;
@@ -30,8 +29,10 @@ class ResponseNotIterableTest extends TestCase
             'e' => array_fill(0, 200, 'TATAKAE')
         ];
 
-        $this->curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
-        $this->curl->method('response')->willReturn(json_encode($this->result));
+        $curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
+        $curl->method('response')->willReturn(json_encode($this->result));
+
+        $this->curl = $curl;
 
         $this->actionSchema = SchemaContainer::getAction(new ContactHubspot, 'get');
     }

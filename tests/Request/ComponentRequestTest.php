@@ -5,10 +5,10 @@ namespace LTL\Hubspot\Tests\Request;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\BodyBuilder\SearchBuilder\SearchBuilder;
 use LTL\Hubspot\Core\Request\Components\AbstractRequestComponent;
-use LTL\Hubspot\Core\Request\Components\MethodRequestComponent;
-use LTL\Hubspot\Core\Request\Components\UriRequestComponent;
+use LTL\Hubspot\Core\Request\Components\HeaderRequestComponent;
 use LTL\Hubspot\Core\Request\RequestArguments;
 use LTL\Hubspot\Core\Request\RequestConnection;
+use LTL\Hubspot\Core\Request\RequestUri;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\RequestFactory;
 use LTL\Hubspot\Resources\V1\OAuthHubspot;
@@ -31,7 +31,7 @@ class ComponentRequestTest extends TestCase
 
     public function testAddArrayIsCorrect()
     {
-        $AbstractRequestComponent = new UriRequestComponent;
+        $AbstractRequestComponent = new HeaderRequestComponent;
 
         $AbstractRequestComponent->addArrayAfter($this->result);
         
@@ -43,7 +43,7 @@ class ComponentRequestTest extends TestCase
 
     public function testDeleteItemIsCorrect()
     {
-        $AbstractRequestComponent = new UriRequestComponent;
+        $AbstractRequestComponent = new HeaderRequestComponent;
 
         $AbstractRequestComponent->addArrayAfter($this->result);
         $AbstractRequestComponent->delete('a');
@@ -55,7 +55,7 @@ class ComponentRequestTest extends TestCase
 
     public function testAddItemIsCorrect()
     {
-        $AbstractRequestComponent = new UriRequestComponent;
+        $AbstractRequestComponent = new HeaderRequestComponent;
         
         $AbstractRequestComponent->addNotNull('a', 5);
         $AbstractRequestComponent->addNotNull('b', [10]);
@@ -69,7 +69,7 @@ class ComponentRequestTest extends TestCase
 
     public function testAddItemNullableIsCorrect()
     {
-        $AbstractRequestComponent = new UriRequestComponent;
+        $AbstractRequestComponent = new HeaderRequestComponent;
         
         $AbstractRequestComponent->add('a');
         $AbstractRequestComponent->addNotNull('b', null);
@@ -81,7 +81,7 @@ class ComponentRequestTest extends TestCase
 
     public function testIfRequestReturnNull()
     {
-        $this->assertNull((new UriRequestComponent)->request());
+        $this->assertNull((new HeaderRequestComponent)->request());
     }
 
     public function testIfNoAuthenticationCallRequestRemoveApiMethod()
@@ -94,7 +94,10 @@ class ComponentRequestTest extends TestCase
 
         RequestConnection::handle($request, $requestArguments);
 
-        $this->assertEquals('https://api.hubapi.com/oauth/v1/refresh-tokens/someToken?', $request->getUri());
+        $this->assertEquals(
+            'https://api.hubapi.com/oauth/v1/refresh-tokens/someToken',
+            RequestUri::get($request, $requestArguments)
+        );
     }
 
     public function testIfRequestBodyObjectIsCorrect()
@@ -107,21 +110,14 @@ class ComponentRequestTest extends TestCase
 
         $requestBody = SearchBuilder::filterHas('id')->properties('name');
 
-        RequestConnection::handle($request, new RequestArguments($actionSchema, [$requestBody]));
+        $requestArguments = new RequestArguments($actionSchema, [$requestBody]);
 
-        $this->assertEquals($requestBody->get(), $request->getBody());
+        $this->assertEquals($requestBody->get(), $requestArguments->body());
     }
 
     public function testIfComponentRegisterMethodIsProtected()
     {
         $component = new ReflectionClass(AbstractRequestComponent::class);
-        
-        $this->assertTrue($component->getMethod('register')->isProtected());
-    }
-
-    public function testIfComponentRegisterChildMethodIsProtected()
-    {
-        $component = new ReflectionClass(MethodRequestComponent::class);
         
         $this->assertTrue($component->getMethod('register')->isProtected());
     }

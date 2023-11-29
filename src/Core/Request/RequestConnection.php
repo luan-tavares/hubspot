@@ -10,38 +10,28 @@ use LTL\Hubspot\Core\Interfaces\Request\RequestConnectionInterface;
 use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 
-class RequestConnection implements RequestConnectionInterface
+abstract class RequestConnection implements RequestConnectionInterface
 {
-    public function __construct(private RequestInterface $request, RequestArguments $requestArguments)
-    {
-        $this->request->addBaseHeader($requestArguments);
-        $this->request->addMethod($requestArguments);
-        $this->request->addBody($requestArguments);
-        $this->request->addUri($requestArguments);
-    }
-
-    public static function handle(RequestInterface $request, RequestArguments $requestArguments): CurlInterface
-    {
-        $object = new self($request, $requestArguments);
-        
-        return $object->connect();
-    }
-
-    public function connect(CurlInterface|null $curl = null): CurlInterface
-    {
+    public static function handle(
+        RequestInterface $request,
+        RequestArguments $requestArguments,
+        CurlInterface|null $curl = null
+    ): CurlInterface {
         if (is_null($curl)) {
             $curl = new Curl;
         }
 
-        $curl =  $curl->addUri($this->request->getUri())
-            ->addHeaders($this->request->getHeaders())
-            ->addParams($this->request->getCurlParams());
+        $headers = RequestHeaders::get($request, $requestArguments);
         
-        $tooManyRequestsTries = $this->request->getTooManyRequestsTries();
+        $uri = RequestUri::get($request, $requestArguments);
 
-        $curl = $this->recursiveCurl($curl, $tooManyRequestsTries);
+        $curlParams = $request->getCurlParams();
 
-        if ($curl->error() && $this->request->hasExceptionIfRequestError()) {
+        $curl =  $curl->addUri($uri)->addHeaders($headers)->addParams($curlParams);
+
+        $curl = self::recursiveCurl($request, $requestArguments, $curl);
+
+        if ($curl->error() && $request->hasExceptionIfRequestError()) {
             $response = empty($curl->response())?'"NO RESPONSE"':$curl->response();
 
             throw new HubspotApiException("Error {$curl->status()} :: {$response}");
@@ -50,9 +40,15 @@ class RequestConnection implements RequestConnectionInterface
         return $curl;
     }
 
-    private function recursiveCurl(CurlInterface $curl, int|null $tooManyRequestsTries, int $current = 1): CurlInterface
-    {
-        $curlResponse =  $curl->request($this->request->getMethod(), $this->request->getBody());
+    private static function recursiveCurl(
+        RequestInterface $request,
+        RequestArguments $requestArguments,
+        CurlInterface $curl,
+        int $current = 1
+    ): CurlInterface {
+        $tooManyRequestsTries = $request->getTooManyRequestsTries();
+        
+        $curlResponse = $curl->request($requestArguments->method(), $requestArguments->body());
 
         if (is_null($tooManyRequestsTries)) {
             return $curlResponse;
@@ -68,6 +64,6 @@ class RequestConnection implements RequestConnectionInterface
 
         sleep(TimesleepGlobal::get());
 
-        return $this->recursiveCurl($curl, $tooManyRequestsTries, ++$current);
+        return self::recursiveCurl($request, $requestArguments, $curl, ++$current);
     }
 }

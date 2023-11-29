@@ -2,14 +2,16 @@
 
 namespace LTL\Hubspot\Tests\Response;
 
+use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
 use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\ResponseRepositoryFactory;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class ResponseRepositoryTest extends TestCase
 {
-    private Response $response;
+    private MockObject $response;
 
     private array $result;
 
@@ -40,7 +42,11 @@ class ResponseRepositoryTest extends TestCase
         
         $return = [];
         
-        $responseRepository = ResponseRepositoryFactory::build($this->response);
+        /**
+         * @var ResponseInterface $response
+         */
+        $response = $this->response;
+        $responseRepository = ResponseRepositoryFactory::build($response);
 
         foreach ($responseRepository as $value) {
             $return[] = $value;
@@ -55,14 +61,22 @@ class ResponseRepositoryTest extends TestCase
     {
         $this->response->method('getIteratorIndex')->willReturn('results');
         
-        $responseRepository = ResponseRepositoryFactory::build($this->response);
+        /**
+         * @var ResponseInterface $response
+         */
+        $response = $this->response;
+        $responseRepository = ResponseRepositoryFactory::build($response);
 
         $this->assertEquals(count($responseRepository), count($this->result['results']));
     }
 
     public function testIfJsonSerializableResponseRepositoryIsCorrect()
     {
-        $responseRepository = ResponseRepositoryFactory::build($this->response);
+        /**
+         * @var ResponseInterface $response
+         */
+        $response = $this->response;
+        $responseRepository = ResponseRepositoryFactory::build($response);
 
         $this->assertEquals(
             json_encode($responseRepository),
@@ -72,7 +86,11 @@ class ResponseRepositoryTest extends TestCase
 
     public function testIftoArrayResponseRepositoryIsCorrect()
     {
-        $responseRepository = ResponseRepositoryFactory::build($this->response);
+        /**
+         * @var ResponseInterface $response
+         */
+        $response = $this->response;
+        $responseRepository = ResponseRepositoryFactory::build($response);
 
         $this->assertEquals(
             $responseRepository->toArray(),
@@ -82,7 +100,11 @@ class ResponseRepositoryTest extends TestCase
 
     public function testIftoJsonSerializableIsCorrect()
     {
-        $responseRepository = ResponseRepositoryFactory::build($this->response);
+        /**
+         * @var ResponseInterface $response
+         */
+        $response = $this->response;
+        $responseRepository = ResponseRepositoryFactory::build($response);
 
         $this->assertEquals(
             json_encode($responseRepository),
@@ -95,7 +117,11 @@ class ResponseRepositoryTest extends TestCase
         $this->response->method('getIteratorIndex')->willReturn('results');
         $this->response->method('getAfterIndex')->willReturn('after.paging.next');
 
-        $responseRepository = ResponseRepositoryFactory::build($this->response);
+        /**
+         * @var ResponseInterface $response
+         */
+        $response = $this->response;
+        $responseRepository = ResponseRepositoryFactory::build($response);
 
         $this->assertEquals(
             $responseRepository->after,
@@ -105,7 +131,11 @@ class ResponseRepositoryTest extends TestCase
 
     public function testIfGetMagicMethodResponseRepositoryIsCorrect()
     {
-        $responseRepository = ResponseRepositoryFactory::build($this->response);
+        /**
+         * @var ResponseInterface $response
+         */
+        $response = $this->response;
+        $responseRepository = ResponseRepositoryFactory::build($response);
        
         $this->assertEquals(
             $responseRepository->results->a,
@@ -115,7 +145,11 @@ class ResponseRepositoryTest extends TestCase
 
     public function testIfIssetMagicMethodResponseRepositoryIsCorrect()
     {
-        $responseRepository = ResponseRepositoryFactory::build($this->response);
+        /**
+         * @var ResponseInterface $response
+         */
+        $response = $this->response;
+        $responseRepository = ResponseRepositoryFactory::build($response);
        
         $this->assertEquals(
             isset($responseRepository->results),
@@ -127,7 +161,11 @@ class ResponseRepositoryTest extends TestCase
     {
         $this->response->method('getIteratorIndex')->willReturn(null);
         
-        $responseRepository = ResponseRepositoryFactory::build($this->response);
+        /**
+         * @var ResponseInterface $response
+         */
+        $response = $this->response;
+        $responseRepository = ResponseRepositoryFactory::build($response);
 
         $response = mb_strimwidth(json_encode($this->result), 0, 150, ' ...');
 
@@ -143,7 +181,11 @@ class ResponseRepositoryTest extends TestCase
     {
         $this->response->method('getIteratorIndex')->willReturn(null);
 
-        $responseRepository = ResponseRepositoryFactory::build($this->response);
+        /**
+         * @var ResponseInterface $response
+         */
+        $response = $this->response;
+        $responseRepository = ResponseRepositoryFactory::build($response);
 
         $this->expectException(HubspotApiException::class);
 
@@ -154,7 +196,11 @@ class ResponseRepositoryTest extends TestCase
     {
         $this->response->method('getIteratorIndex')->willReturn(null);
 
-        $responseRepository = ResponseRepositoryFactory::build($this->response);
+        /**
+         * @var ResponseInterface $response
+         */
+        $response = $this->response;
+        $responseRepository = ResponseRepositoryFactory::build($response);
 
         $responseSlice = mb_strimwidth(json_encode($this->result), 0, 150, ' ...');
 
@@ -175,6 +221,9 @@ class ResponseRepositoryTest extends TestCase
         $response = $this->getMockBuilder(Response::class)->disableOriginalConstructor()->getMock();
         $response->method('toJson')->willReturn(json_encode($items));
 
+        /**
+         * @var ResponseInterface $response
+         */
         $responseRepository = ResponseRepositoryFactory::build($response);
 
         $result = [];
@@ -193,6 +242,9 @@ class ResponseRepositoryTest extends TestCase
         $response = $this->getMockBuilder(Response::class)->disableOriginalConstructor()->getMock();
         $response->method('toJson')->willReturn('<h1>Error 404</h1>');
 
+        /**
+         * @var ResponseInterface $response
+         */
         $responseRepository = ResponseRepositoryFactory::build($response);
        
         $this->assertEquals($responseRepository->toArray(), []);
@@ -203,6 +255,9 @@ class ResponseRepositoryTest extends TestCase
         $response = $this->getMockBuilder(Response::class)->disableOriginalConstructor()->getMock();
         $response->method('toJson')->willReturn('Lorem');
 
+        /**
+         * @var ResponseInterface $response
+         */
         $responseRepository = ResponseRepositoryFactory::build($response);
        
         $this->assertNull($responseRepository->anotherProperty);
@@ -213,6 +268,9 @@ class ResponseRepositoryTest extends TestCase
         $response = $this->getMockBuilder(Response::class)->disableOriginalConstructor()->getMock();
         $response->method('toJson')->willReturn('Lorem');
 
+        /**
+         * @var ResponseInterface $response
+         */
         $responseRepository = ResponseRepositoryFactory::build($response);
        
         $this->assertFalse(isset($responseRepository->anotherProperty));

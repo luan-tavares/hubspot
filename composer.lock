@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "76de89b8cd3eb57f234d761f81f51675",
+    "content-hash": "0117b21a37316a694555acd971e64fea",
     "packages": [
         {
             "name": "luan-tavares/list-methods",
@@ -160,58 +160,6 @@
                 "source": "https://github.com/luan-tavares/simple-deploy/tree/v1.0.8"
             },
             "time": "2023-03-08T20:57:12+00:00"
-        },
-        {
-            "name": "luan-tavares/simple-observer",
-            "version": "v1.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/luan-tavares/simple-observer.git",
-                "reference": "535a65a8d688b7a961bfece5e2c0d733bc001877"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/luan-tavares/simple-observer/zipball/535a65a8d688b7a961bfece5e2c0d733bc001877",
-                "reference": "535a65a8d688b7a961bfece5e2c0d733bc001877",
-                "shasum": ""
-            },
-            "require": {
-                "luan-tavares/simple-deploy": "^1.0",
-                "php": "^8.0"
-            },
-            "require-dev": {
-                "larapack/dd": "1.*",
-                "phpunit/phpunit": "^9.5"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "LTL\\Observer\\": [
-                        "src/"
-                    ]
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Luan Tavares Lourenço",
-                    "email": "luan.tavares.lourenco@gmail.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Simple Observer with subject trait",
-            "keywords": [
-                "api",
-                "integration"
-            ],
-            "support": {
-                "issues": "https://github.com/luan-tavares/simple-observer/issues",
-                "source": "https://github.com/luan-tavares/simple-observer/tree/v1.0.2"
-            },
-            "time": "2022-10-14T23:40:46+00:00"
         },
         {
             "name": "nesbot/carbon",

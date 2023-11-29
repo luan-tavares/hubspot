@@ -106,7 +106,7 @@ class QueryRequestComponent extends AbstractRequestComponent implements QueryCom
 
     public function apikey(string $apikey): self
     {
-        $this->notify('apikeyInserted');
+        $this->request->removeOAuth();
 
         return $this->addNotNull('hapikey', $apikey);
     }

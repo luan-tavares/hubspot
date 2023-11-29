@@ -2,13 +2,10 @@
 namespace LTL\Hubspot\Core\Request;
 
 use LTL\Curl\Interfaces\CurlInterface;
-use LTL\Hubspot\Core\Interfaces\Request\BodyComponentInterface;
 use LTL\Hubspot\Core\Interfaces\Request\CurlComponentInterface;
 use LTL\Hubspot\Core\Interfaces\Request\HeaderComponentInterface;
-use LTL\Hubspot\Core\Interfaces\Request\MethodComponentInterface;
 use LTL\Hubspot\Core\Interfaces\Request\QueryComponentInterface;
 use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
-use LTL\Hubspot\Core\Interfaces\Request\UriComponentInterface;
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
 use LTL\Hubspot\Core\Request\Components\ResourceRequestComponent;
@@ -21,21 +18,15 @@ class Request implements RequestInterface
 
     private HeaderComponentInterface $header;
 
-    private BodyComponentInterface $body;
-
-    private MethodComponentInterface $method;
-
     private CurlComponentInterface $curl;
-
-    private UriComponentInterface $uri;
-
-    private ResourceInterface $resource;
 
     private ResourceRequestComponent $resourceRequest;
 
-    /**Factory \LTL\Hubspot\Factories\RequestFactory */
+    private ResourceInterface $resource;
+    
     private function __construct()
     {
+        /**Factory \LTL\Hubspot\Factories\RequestFactory */
     }
 
     private function __clone()
@@ -86,72 +77,19 @@ class Request implements RequestInterface
         }
     }
 
-    public function removeHeader(string $header): self
+    public function addUriArguments(RequestArguments $requestArguments): self
     {
-        $this->header->delete($header);
-
-        return $this;
-    }
-
-    public function removeQuery(string $query): self
-    {
-        $this->query->delete($query);
-
-        return $this;
-    }
-
-    public function addQueriesAfter(array|null $queries): self
-    {
-        $this->query->addArrayAfter($queries);
-
-        return $this;
-    }
-
-    public function addQueriesBefore(array|null $queries): self
-    {
-        $this->query->addArrayBefore($queries);
-
-        return $this;
-    }
- 
-    public function addBody(RequestArguments $requestArguments): self
-    {
-        $requestBody = $requestArguments->requestBody();
-
-        $this->body->addArrayAfter($requestBody);
-
+        $this->query->addArrayBefore($requestArguments->baseQuery());
+        
+        $this->query->addArrayBefore($requestArguments->queriesAsParams());
+        
         return $this;
     }
 
     public function addBaseHeader(RequestArguments $requestArguments): self
     {
-        $headers = $requestArguments->baseHeader();
-
-        $this->header->addArrayBefore($headers);
-
-        return $this;
-    }
-
-    public function addHeadersBefore(array|null $headers): self
-    {
-        $this->header->addArrayBefore($headers);
-
-        return $this;
-    }
-
-    public function addUri(RequestArguments $requestArguments): self
-    {
-        $this->uri->create($requestArguments);
-
-        return $this;
-    }
-
-    public function addMethod(RequestArguments $requestArguments): self
-    {
-        $method = $requestArguments->method();
-
-        $this->method->set($method);
-
+        $this->header->addArrayBefore($requestArguments->baseHeader());
+        
         return $this;
     }
 
@@ -184,21 +122,6 @@ class Request implements RequestInterface
     public function getCurlParams(): array
     {
         return $this->curl->all();
-    }
-
-    public function getBody(): array
-    {
-        return $this->body->all();
-    }
-
-    public function getUri(): string
-    {
-        return $this->uri->get();
-    }
-
-    public function getMethod(): string
-    {
-        return $this->method->get();
     }
 
     public function getTooManyRequestsTries(): int|null

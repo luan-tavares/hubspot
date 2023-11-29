@@ -3,6 +3,7 @@
 namespace LTL\Hubspot\Tests\Resource;
 
 use LTL\Curl\Curl;
+use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
@@ -48,6 +49,9 @@ class ResourceResponseTest extends TestCase
         $this->baseResource = new AssociationHubspot;
         $actionSchema = SchemaContainer::getAction($this->baseResource, 'getDefinition');
 
+        /**
+         * @var CurlInterface $curl
+         */
         $this->response = new Response($curl, $actionSchema);
     }
 
@@ -151,10 +155,11 @@ class ResourceResponseTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction($resource, 'getAll');
 
-
+        /**
+         * @var CurlInterface $curl
+         */
         $object = ResourceFactory::build($resource, new Response($curl, $actionSchema));
-
-   
+  
         $this->assertTrue($object->error());
     }
 
@@ -167,7 +172,9 @@ class ResourceResponseTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction($resource, 'getAll');
 
-
+        /**
+         * @var CurlInterface $curl
+         */
         $object = ResourceFactory::build($resource, new Response($curl, $actionSchema));
 
    
@@ -183,10 +190,11 @@ class ResourceResponseTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction($resource, 'getAll');
 
-
+        /**
+         * @var CurlInterface $curl
+         */
         $object = ResourceFactory::build($resource, new Response($curl, $actionSchema));
-
-   
+ 
         $this->assertFalse($object->error());
     }
 
@@ -199,10 +207,11 @@ class ResourceResponseTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction($resource, 'getAll');
 
-
+        /**
+         * @var CurlInterface $curl
+         */
         $object = ResourceFactory::build($resource, new Response($curl, $actionSchema));
-
-   
+ 
         $this->assertTrue($object->error());
     }
 
@@ -215,10 +224,11 @@ class ResourceResponseTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction($resource, 'getAll');
 
-
+        /**
+         * @var CurlInterface $curl
+         */
         $object = ResourceFactory::build($resource, new Response($curl, $actionSchema));
-
-   
+  
         $this->assertTrue($object->error());
     }
 
@@ -242,10 +252,11 @@ class ResourceResponseTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction($resource, 'getAll');
 
-
+        /**
+         * @var CurlInterface $curl
+         */
         $object = ResourceFactory::build($resource, new Response($curl, $actionSchema));
-
-   
+  
         $this->assertTrue($object->isMultiStatus());
     }
 
@@ -268,10 +279,11 @@ class ResourceResponseTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction($resource, 'getAll');
 
-
+        /**
+         * @var CurlInterface $curl
+         */
         $object = ResourceFactory::build($resource, new Response($curl, $actionSchema));
-
-   
+  
         $this->assertTrue($object->isTooManyRequestsError());
     }
 

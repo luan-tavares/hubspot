@@ -3,13 +3,13 @@
 namespace LTL\Hubspot\Tests\Handlers;
 
 use LTL\Curl\Curl;
+use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Builder;
 use LTL\Hubspot\Core\Handlers\CrmCreateOrUpdate\CrmCreateOrUpdateHandler;
 use LTL\Hubspot\Core\Handlers\Handlers;
-use LTL\Hubspot\Core\Handlers\ImportAll\ImportAllHandler;
+use LTL\Hubspot\Core\Interfaces\BuilderInterface;
 use LTL\Hubspot\Core\Response\Response;
-use LTL\Hubspot\Factories\BuilderFactory;
 use LTL\Hubspot\Factories\RequestFactory;
 use LTL\Hubspot\Factories\ResourceFactory;
 use LTL\Hubspot\Resources\V3\ContactHubspot;
@@ -17,7 +17,6 @@ use PHPUnit\Framework\TestCase;
 
 class CrmCreateOrUpdateTest extends TestCase
 {
-    private ContactHubspot $resource;
 
     protected function setUp(): void
     {
@@ -43,6 +42,9 @@ class CrmCreateOrUpdateTest extends TestCase
         $curl->method('response')->willReturn(json_encode($result));
         $curl->method('status')->willReturn(404);
 
+        /**
+         * @var CurlInterface $curl
+         */
         $actionSchema = SchemaContainer::getAction($baseResource, 'create');
         $response = new Response($curl, $actionSchema);
         $resourceCreate = ResourceFactory::build($baseResource, $response);
@@ -59,7 +61,10 @@ class CrmCreateOrUpdateTest extends TestCase
 
            
         $builder->expects($this->exactly(5))->method('__call')->willReturn($resourceCreate);
-
+        
+        /**
+         * @var BuilderInterface $builder
+         */
         $result = Handlers::call(
             $builder,
             'create_or_update',
@@ -81,6 +86,9 @@ class CrmCreateOrUpdateTest extends TestCase
         $curl->method('response')->willReturn(json_encode($result));
         $curl->method('status')->willReturn(200);
 
+        /**
+         * @var CurlInterface $curl
+         */
         $actionSchema = SchemaContainer::getAction($baseResource, 'update');
         $response = new Response($curl, $actionSchema);
         $resourceUpdate = ResourceFactory::build($baseResource, $response);
@@ -97,6 +105,9 @@ class CrmCreateOrUpdateTest extends TestCase
         
         $builder->expects($this->exactly(2))->method('__call')->willReturn($resourceUpdate);
 
+        /**
+         * @var BuilderInterface $builder
+         */
         CrmCreateOrUpdateHandler::handle(
             $builder,
             ['properties'=>['name' => 'Lorem']],

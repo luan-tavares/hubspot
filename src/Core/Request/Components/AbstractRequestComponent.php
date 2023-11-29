@@ -3,13 +3,9 @@
 namespace LTL\Hubspot\Core\Request\Components;
 
 use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
-use LTL\Observer\Interfaces\SubjectInterface;
-use LTL\Observer\Traits\SubjectTrait;
 
-abstract class AbstractRequestComponent implements SubjectInterface
+abstract class AbstractRequestComponent
 {
-    use SubjectTrait;
-
     private array $items = [];
 
     protected RequestInterface|null $request;

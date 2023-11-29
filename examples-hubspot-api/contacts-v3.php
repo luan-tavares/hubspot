@@ -15,9 +15,8 @@ $a = new class extends ContactHubspot implements ExceptionIfRequestError, WithHe
     protected array $propertiesWithHistory = ['phone', 'lastmodifieddate'];
 };
 
-$a->getAll()->each(function (object $item) {
-    dd($item);
-});
+dd($a->getAll()->toArray());
+
 
 $response = ContactHubspot::exceptionIfRequestError()->createOrUpdateByEmail([
     'properties' => [

@@ -3,6 +3,7 @@
 namespace LTL\Hubspot\Core\Request;
 
 use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
+use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
 use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 
@@ -12,7 +13,7 @@ class RequestArguments
 
     private array $queriesAsParam = [];
 
-    private array|BaseBodyBuilder|null $requestBody = null;
+    private array|BaseBodyBuilder|null $body = null;
     
     public function __construct(private ActionSchemaInterface $actionSchema, array $arguments = [])
     {
@@ -42,30 +43,30 @@ class RequestArguments
         }
 
         if($hasBody) {
-            $this->requestBody = $this->resolveRequestBody($reverseArguments);
+            $this->body = $this->resolveBody($reverseArguments);
         }
     }
 
-    private function resolveRequestBody(array $reverseArguments): array
+    private function resolveBody(array $reverseArguments): array
     {
-        $requestBody = current($reverseArguments);
+        $body = current($reverseArguments);
 
-        if($requestBody instanceof BaseBodyBuilder) {
-            return $requestBody->get();
+        if($body instanceof BaseBodyBuilder) {
+            return $body->get();
         }
 
-        if(is_array($requestBody)) {
-            return $requestBody;
+        if(is_array($body)) {
+            return $body;
         }
 
         throw new HubspotApiException(
-            '"'. $this->actionSchema->resourceClass ."::{$this->actionSchema}(...)\" request body (last param) must be array or Body Object, ". gettype($requestBody) .' given'
+            '"'. $this->actionSchema->resourceClass ."::{$this->actionSchema}(...)\" request body (last param) must be array or Body Object, ". gettype($body) .' given'
         );
     }
 
-    public function requestBody(): array|null
+    public function body(): array|null
     {
-        return $this->requestBody;
+        return $this->body;
     }
 
     public function params(): array|null
@@ -78,12 +79,12 @@ class RequestArguments
         return $this->queriesAsParam;
     }
 
-    public function baseURi(): string
+    public function baseUri(): string
     {
         return $this->actionSchema->baseUri;
     }
 
-    public function notHasAuth(): bool
+    public function notHasAuthentication(): bool
     {
         return !$this->actionSchema->authentication;
     }

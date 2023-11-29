@@ -3,9 +3,11 @@
 namespace LTL\Hubspot\Tests\Request;
 
 use LTL\Curl\Curl;
+use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Builder;
 use LTL\Hubspot\Core\Handlers\Handlers;
+use LTL\Hubspot\Core\Interfaces\BuilderInterface;
 use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Factories\ResourceFactory;
 use LTL\Hubspot\Resources\V3\ContactHubspot;
@@ -57,6 +59,10 @@ class ImportAllHandlerTest extends TestCase
         $curl1 = $this->getMockBuilder(Curl::class)->getMock();
         $curl1->method('response')->willReturn(json_encode($result1));
         $actionSchema = SchemaContainer::getAction($baseResource, 'getAll');
+
+        /**
+         * @var CurlInterface $curl1
+         */
         $response = new Response($curl1, $actionSchema);
         $resource1 = ResourceFactory::build($baseResource, $response);
         $mockResource1 = $this->getMockBuilder(ContactHubspot::class)
@@ -68,6 +74,10 @@ class ImportAllHandlerTest extends TestCase
         $curl2 = $this->getMockBuilder(Curl::class)->getMock();
         $curl2->method('response')->willReturn(json_encode($result2));
         $actionSchema = SchemaContainer::getAction($baseResource, 'getAll');
+
+        /**
+         * @var CurlInterface $curl2
+         */
         $response = new Response($curl2, $actionSchema);
         $resource2 = ResourceFactory::build($baseResource, $response);
         $mockResource2 = $this->getMockBuilder(ContactHubspot::class)
@@ -96,6 +106,9 @@ class ImportAllHandlerTest extends TestCase
     
         $results = [];
 
+        /**
+         * @var BuilderInterface $builder
+         */
         Handlers::call(
             $builder,
             'import_all',

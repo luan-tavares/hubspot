@@ -2,9 +2,9 @@
 
 namespace LTL\Hubspot\Tests\Resource;
 
-use LTL\Curl\Curl;
 use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Containers\SchemaContainer;
+use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
 use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
 use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Factories\ResourceFactory;
@@ -17,6 +17,8 @@ class ResourceArrayAccessTest extends TestCase
     private ResponseInterface|null $response;
 
     private array $result;
+
+    private ResourceInterface $baseResource;
 
     protected function setUp(): void
     {
@@ -41,6 +43,9 @@ class ResourceArrayAccessTest extends TestCase
         $this->baseResource = new AssociationHubspot;
         $actionSchema = SchemaContainer::getAction($this->baseResource, 'getDefinition');
 
+        /**
+         * @var CurlInterface $curl
+         */
         $this->response = new Response($curl, $actionSchema);
     }
 

@@ -12,6 +12,7 @@ use LTL\Hubspot\Core\Globals\TimesleepGlobal;
 use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Request\RequestArguments;
 use LTL\Hubspot\Core\Request\RequestConnection;
+use LTL\Hubspot\Core\Request\RequestUri;
 use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\RequestFactory;
@@ -67,11 +68,11 @@ class RequestConnectionTest extends TestCase
     public function testRequestUriIsCorrectWithRelativePath()
     {
         $actionSchema = SchemaContainer::getAction($this->resource, 'get');
-        
-        RequestConnection::handle($this->request, new RequestArguments($actionSchema, $this->getContactArguments));
+
+        $requestArguments = new RequestArguments($actionSchema, $this->getContactArguments);
         
         $this->assertEquals(
-            $this->request->getUri(),
+            RequestUri::get($this->request, $requestArguments),
             'https://api.hubapi.com/crm/v3/objects/contacts/idOrEmail?hapikey=123456'
         );
     }
@@ -82,14 +83,14 @@ class RequestConnectionTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction($fileV2Resource, 'upload');
 
-
         $request = BuilderContainer::get($fileV2Resource)->request();
+
+        $requestArguments = new RequestArguments($actionSchema, [['files' => []]]);
         
         RequestConnection::handle($request, new RequestArguments($actionSchema, [['files' => []]]));
-
         
         $this->assertEquals(
-            $request->getUri(),
+            RequestUri::get($request, $requestArguments),
             'https://api.hubapi.com/filemanager/api/v3/files/upload?hapikey=123456'
         );
     }
@@ -107,10 +108,10 @@ class RequestConnectionTest extends TestCase
     public function testRequestBodyGetMethodIsCorrect()
     {
         $actionSchema = SchemaContainer::getAction($this->resource, 'get');
+
+        $requestArguments = new RequestArguments($actionSchema, $this->getContactArguments);
         
-        RequestConnection::handle($this->request, new RequestArguments($actionSchema, $this->getContactArguments));
-        
-        $this->assertEquals($this->request->getBody(), []);
+        $this->assertNull($requestArguments->body());
     }
 
     public function testRequestHeaderGetMethodIsCorrect()
@@ -172,18 +173,18 @@ class RequestConnectionTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction($builder->baseResource(), 'exportToCsv');
         
-        RequestConnection::handle($request, new RequestArguments($actionSchema, ['tableId']));
+        $requestArguments = new RequestArguments($actionSchema, ['tableId']);
         
-        $this->assertEquals('GET', $request->getMethod());
+        $this->assertEquals('GET', $requestArguments->method());
     }
 
     public function testRequestBodyPostMethodIsCorrect()
     {
         $actionSchema = SchemaContainer::getAction($this->resource, 'create');
+
+        $requestArguments = new RequestArguments($actionSchema, $this->createContactArguments);
         
-        RequestConnection::handle($this->request, new RequestArguments($actionSchema, $this->createContactArguments));
-        
-        $this->assertEquals($this->request->getBody(), [
+        $this->assertEquals($requestArguments->body(), [
             'id' => 123456789,
             'results' => []
         ]);
@@ -234,7 +235,7 @@ class RequestConnectionTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction($resource, 'getAll');
 
-        $requestConnection = new RequestConnection($request, new RequestArguments($actionSchema));
+        $requestArguments = new RequestArguments($actionSchema);
 
 
         $curl = $this->getMockBuilder(CurlInterface::class)->getMock();
@@ -246,7 +247,10 @@ class RequestConnectionTest extends TestCase
 
         $curl->expects($this->exactly($requests))->method('request');
 
-        $requestConnection->connect($curl);
+        /**
+         * @var CurlInterface $curl
+         */
+        RequestConnection::handle($request, $requestArguments, $curl);
     }
 
     public function testIfRecursiveCurlIsCorrect()
@@ -261,8 +265,7 @@ class RequestConnectionTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction($resourceBuilder->baseResource(), 'getAll');
 
-        $requestConnection = new RequestConnection($request, new RequestArguments($actionSchema));
-
+        $requestArguments = new RequestArguments($actionSchema);
 
         $curl = $this->getMockBuilder(Curl::class)->getMock();
         $curl->method('request')->willReturn($curl);
@@ -274,7 +277,10 @@ class RequestConnectionTest extends TestCase
 
         $curl->expects($this->exactly($tooManyRequests))->method('request');
 
-        $requestConnection->connect($curl);
+        /**
+         * @var CurlInterface $curl
+         */
+        RequestConnection::handle($request, $requestArguments, $curl);
     }
 
     public function testIfSleepRecursiveCurlIsCorrect()
@@ -289,8 +295,7 @@ class RequestConnectionTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction($resourceBuilder->baseResource(), 'getAll');
 
-        $requestConnection = new RequestConnection($request, new RequestArguments($actionSchema));
-
+        $requestArguments = new RequestArguments($actionSchema);
 
         $curl = $this->getMockBuilder(Curl::class)->getMock();
         $curl->method('request')->willReturn($curl);
@@ -301,7 +306,10 @@ class RequestConnectionTest extends TestCase
 
         $initTime = new DateTimeImmutable;
 
-        $requestConnection->connect($curl);
+        /**
+         * @var CurlInterface $curl
+         */
+        RequestConnection::handle($request, $requestArguments, $curl);
 
         $endTime = new DateTimeImmutable;
 
@@ -320,8 +328,7 @@ class RequestConnectionTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction($resourceBuilder->baseResource(), 'getAll');
 
-        $requestConnection = new RequestConnection($request, new RequestArguments($actionSchema));
-
+        $requestArguments = new RequestArguments($actionSchema);
 
         $curl = $this->getMockBuilder(Curl::class)->getMock();
         $curl->method('request')->willReturn($curl);
@@ -333,7 +340,10 @@ class RequestConnectionTest extends TestCase
 
         $curl->expects($this->exactly($requests))->method('request');
 
-        $requestConnection->connect($curl);
+        /**
+         * @var CurlInterface $curl
+         */
+        RequestConnection::handle($request, $requestArguments, $curl);
     }
 
     public function testIfTriesMore15ThrowException()
@@ -368,7 +378,7 @@ class RequestConnectionTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction($resourceBuilder->baseResource(), 'getAll');
 
-        $requestConnection = new RequestConnection($request, new RequestArguments($actionSchema));
+        $requestArguments = new RequestArguments($actionSchema);
 
 
         $curl = $this->getMockBuilder(Curl::class)->getMock();
@@ -380,7 +390,10 @@ class RequestConnectionTest extends TestCase
 
         $this->expectException(HubspotApiException::class);
 
-        $requestConnection->connect($curl);
+        /**
+         * @var CurlInterface $curl
+         */
+        RequestConnection::handle($request, $requestArguments, $curl);
     }
 
     public function testIfExceptionIfRequestErrorNoResponseThrowCorrectExceptionMessage()
@@ -391,7 +404,7 @@ class RequestConnectionTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction($resourceBuilder->baseResource(), 'getAll');
 
-        $requestConnection = new RequestConnection($request, new RequestArguments($actionSchema));
+        $requestArguments = new RequestArguments($actionSchema);
 
         $status = 0;
 
@@ -405,7 +418,10 @@ class RequestConnectionTest extends TestCase
 
         $this->expectExceptionMessage("Error {$status} :: \"NO RESPONSE\"");
 
-        $requestConnection->connect($curl);
+        /**
+         * @var CurlInterface $curl
+         */
+        RequestConnection::handle($request, $requestArguments, $curl);
     }
 
     public function testIfDefaultNotExceptionNotThrowException()
@@ -416,8 +432,7 @@ class RequestConnectionTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction($resource, 'getAll');
 
-        $requestConnection = new RequestConnection($request, new RequestArguments($actionSchema));
-
+        $requestArguments = new RequestArguments($actionSchema);
 
         $curl = $this->getMockBuilder(Curl::class)->getMock();
         $curl->method('request')->willReturn($curl);
@@ -426,9 +441,11 @@ class RequestConnectionTest extends TestCase
         $curl->method('addParams')->willReturn($curl);
         $curl->method('error')->willReturn(true);
 
-
         $curl->expects($this->once())->method('request');
 
-        $requestConnection->connect($curl);
+        /**
+         * @var CurlInterface $curl
+         */
+        RequestConnection::handle($request, $requestArguments, $curl);
     }
 }

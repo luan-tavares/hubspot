@@ -6,7 +6,6 @@ use LTL\Hubspot\Containers\SingletonContainer;
 use LTL\Hubspot\Core\Interfaces\Request\ComponentInterface;
 use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
 use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
-use LTL\Hubspot\Core\Request\Observers\ComponentObserver;
 use LTL\Hubspot\Core\Request\Request;
 use LTL\Hubspot\Core\Request\RequestComponentsList;
 use LTL\Hubspot\Interfaces\FactoryInterface;
@@ -47,8 +46,6 @@ abstract class RequestFactory implements FactoryInterface
         });
 
         $component = $reflectionClass->newInstance($request);
-       
-        $component->attach(SingletonContainer::get(ComponentObserver::class));
 
         return $component;
     }
