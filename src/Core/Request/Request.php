@@ -2,14 +2,15 @@
 namespace LTL\Hubspot\Core\Request;
 
 use LTL\Curl\Interfaces\CurlInterface;
-use LTL\Hubspot\Core\Interfaces\Request\CurlComponentInterface;
-use LTL\Hubspot\Core\Interfaces\Request\HeaderComponentInterface;
-use LTL\Hubspot\Core\Interfaces\Request\QueryComponentInterface;
-use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
-use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
-use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
 use LTL\Hubspot\Core\Request\Components\ResourceRequestComponent;
+use LTL\Hubspot\Core\Request\Interfaces\CurlComponentInterface;
+use LTL\Hubspot\Core\Request\Interfaces\HeaderComponentInterface;
+use LTL\Hubspot\Core\Request\Interfaces\QueryComponentInterface;
+use LTL\Hubspot\Core\Request\Interfaces\RequestArgumentsInterface;
+use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
 use LTL\Hubspot\Core\Request\RequestComponentsList;
+use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
+use LTL\Hubspot\Core\Schema\Interfaces\ActionSchemaInterface;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 
 class Request implements RequestInterface
@@ -77,7 +78,7 @@ class Request implements RequestInterface
         }
     }
 
-    public function addUriArguments(RequestArguments $requestArguments): self
+    public function addUriArguments(RequestArgumentsInterface $requestArguments): self
     {
         $this->query->addArrayBefore($requestArguments->baseQuery());
         
@@ -86,10 +87,17 @@ class Request implements RequestInterface
         return $this;
     }
 
-    public function addBaseHeader(RequestArguments $requestArguments): self
+    public function addBaseHeader(RequestArgumentsInterface $requestArguments): self
     {
         $this->header->addArrayBefore($requestArguments->baseHeader());
         
+        return $this;
+    }
+
+    public function removeException(): self
+    {
+        $this->resourceRequest->exceptionIfRequestError(false);
+
         return $this;
     }
 

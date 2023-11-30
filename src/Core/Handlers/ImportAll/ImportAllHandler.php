@@ -3,7 +3,7 @@
 namespace LTL\Hubspot\Core\Handlers\ImportAll;
 
 use LTL\Hubspot\Core\Builder;
-use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
+use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 
 abstract class ImportAllHandler
 {
@@ -17,17 +17,17 @@ abstract class ImportAllHandler
             if ($after != 0) {
                 $builder->after($after);
             }
-            $hubspotRequest = $builder->getAll();
+            $resource = $builder->getAll();
            
-            $after = $hubspotRequest->after;
+            $after = $resource->after;
             
-            $fn($hubspotRequest);
+            $fn($resource);
 
             if (is_null($after)) {
                 break;
             }
         }
 
-        return $hubspotRequest;
+        return $resource;
     }
 }

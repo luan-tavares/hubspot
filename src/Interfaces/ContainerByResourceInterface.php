@@ -2,7 +2,7 @@
 
 namespace LTL\Hubspot\Interfaces;
 
-use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
+use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 
 interface ContainerByResourceInterface
 {

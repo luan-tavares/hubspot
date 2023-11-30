@@ -4,9 +4,9 @@ namespace LTL\Hubspot\Core\Schema;
 
 use Error;
 use LTL\Hubspot\Core\HubspotConfig;
-use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
-use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
-use LTL\Hubspot\Core\Interfaces\Schemas\ResourceSchemaInterface;
+use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
+use LTL\Hubspot\Core\Schema\Interfaces\ActionSchemaInterface;
+use LTL\Hubspot\Core\Schema\Interfaces\ResourceSchemaInterface;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\ActionSchemaFactory;
 use RuntimeException;

@@ -3,7 +3,7 @@
 namespace LTL\Hubspot\Core\Resource\Traits;
 
 use Closure;
-use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
+use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 
 trait ResourceEnumerable
 {

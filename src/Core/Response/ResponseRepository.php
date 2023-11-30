@@ -1,7 +1,7 @@
 <?php
 namespace LTL\Hubspot\Core\Response;
 
-use LTL\Hubspot\Core\Interfaces\Response\ResponseRepositoryInterface;
+use LTL\Hubspot\Core\Response\Interfaces\ResponseRepositoryInterface;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 
 /**

@@ -6,15 +6,16 @@ use LTL\Curl\Curl;
 use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Core\Globals\TimesleepGlobal;
 use LTL\Hubspot\Core\HubspotConfig;
-use LTL\Hubspot\Core\Interfaces\Request\RequestConnectionInterface;
-use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
+use LTL\Hubspot\Core\Request\Interfaces\RequestArgumentsInterface;
+use LTL\Hubspot\Core\Request\Interfaces\RequestConnectionInterface;
+use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 
 abstract class RequestConnection implements RequestConnectionInterface
 {
     public static function handle(
         RequestInterface $request,
-        RequestArguments $requestArguments,
+        RequestArgumentsInterface $requestArguments,
         CurlInterface|null $curl = null
     ): CurlInterface {
         if (is_null($curl)) {
@@ -42,13 +43,13 @@ abstract class RequestConnection implements RequestConnectionInterface
 
     private static function recursiveCurl(
         RequestInterface $request,
-        RequestArguments $requestArguments,
+        RequestArgumentsInterface $requestArguments,
         CurlInterface $curl,
         int $current = 1
     ): CurlInterface {
         $tooManyRequestsTries = $request->getTooManyRequestsTries();
         
-        $curlResponse = $curl->request($requestArguments->method(), $requestArguments->body());
+        $curlResponse = $curl->request($requestArguments->getMethod(), $requestArguments->body());
 
         if (is_null($tooManyRequestsTries)) {
             return $curlResponse;

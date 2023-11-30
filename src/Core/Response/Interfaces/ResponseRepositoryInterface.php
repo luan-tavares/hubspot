@@ -1,6 +1,6 @@
 <?php
 
-namespace LTL\Hubspot\Core\Interfaces\Response;
+namespace LTL\Hubspot\Core\Response\Interfaces;
 
 use Countable;
 use Iterator;

@@ -3,8 +3,8 @@
 namespace LTL\Hubspot\Core\Request\Components;
 
 use LTL\Hubspot\Core\Globals\OAuthGlobal;
-use LTL\Hubspot\Core\Interfaces\Request\HeaderComponentInterface;
 use LTL\Hubspot\Core\Request\Components\AbstractRequestComponent;
+use LTL\Hubspot\Core\Request\Interfaces\HeaderComponentInterface;
 use LTL\ListMethods\PublicMethods\Traits\PublicMethodsListable;
 
 class HeaderRequestComponent extends AbstractRequestComponent implements HeaderComponentInterface

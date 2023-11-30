@@ -1,6 +1,6 @@
 <?php
 
-namespace LTL\Hubspot\Core\Interfaces;
+namespace LTL\Hubspot\Core;
 
 interface GlobalComponentInterface
 {

@@ -3,8 +3,8 @@
 namespace LTL\Hubspot\Factories;
 
 use LTL\Hubspot\Containers\SingletonContainer;
-use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
-use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
+use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
+use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
 use LTL\Hubspot\Interfaces\FactoryInterface;
 use ReflectionClass;
 

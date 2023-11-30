@@ -2,7 +2,7 @@
 
 namespace LTL\Hubspot\Core\Request\Components;
 
-use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
+use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
 
 abstract class AbstractRequestComponent
 {

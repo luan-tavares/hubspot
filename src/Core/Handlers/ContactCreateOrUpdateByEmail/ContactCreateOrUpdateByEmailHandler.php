@@ -5,7 +5,7 @@ namespace LTL\Hubspot\Core\Handlers\ContactCreateOrUpdateByEmail;
 use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
 use LTL\Hubspot\Core\Builder;
 use LTL\Hubspot\Core\HubspotConfig;
-use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
+use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Hubspot;
 
@@ -16,8 +16,11 @@ abstract class ContactCreateOrUpdateByEmailHandler
         BaseBodyBuilder|array $requestBody,
         int|null|string $idHubspot = null
     ): ResourceInterface {
-        $hasException = $builder->request()->hasExceptionIfRequestError();
-        $builder->exceptionIfRequestError(false);
+        $request = $builder->request();
+
+        $hasException = $request->hasExceptionIfRequestError();
+        
+        $request->removeException();
 
         $hubspotResponse = self::createOrUpdate($builder, $requestBody, $idHubspot);
         $status = $hubspotResponse->status();
@@ -64,7 +67,6 @@ abstract class ContactCreateOrUpdateByEmailHandler
         preg_match_all('/\d+/', $hubspotResponse->message, $matches);
         $matches = current($matches);
        
-
         return array_pop($matches);
     }
 }

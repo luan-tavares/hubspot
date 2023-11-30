@@ -2,8 +2,8 @@
 
 namespace LTL\Hubspot\Tests\Resource;
 
-use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
-use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
+use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
+use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
 use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Factories\ResourceFactory;
 use LTL\Hubspot\Factories\ResponseRepositoryFactory;
@@ -19,7 +19,7 @@ class EnumerableTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->items = [
+        $items = [
             'results' => [
                 'a' => 4,
                 'b' => 5,
@@ -28,8 +28,7 @@ class EnumerableTest extends TestCase
         ];
 
         $response = $this->getMockBuilder(Response::class)->disableOriginalConstructor()->getMock();
-        $response->rawResponse = json_encode($this->items);
-        $response->method('toJson')->willReturn($response->rawResponse);
+        $response->method('toJson')->willReturn(json_encode($items));
         $response->method('getIteratorIndex')->willReturn('results');
         
         /**
@@ -57,7 +56,7 @@ class EnumerableTest extends TestCase
         $this->assertEquals($result, [
             4,
             5,
-            (object) [ 'a' => 5 ],
+            (object) ['a' => 5],
         ]);
     }
 
@@ -74,7 +73,7 @@ class EnumerableTest extends TestCase
         $this->assertEquals($result, [
             4,
             5,
-            (object) [ 'a' => 5 ],
+            (object) ['a' => 5],
         ]);
     }
 
@@ -140,7 +139,7 @@ class EnumerableTest extends TestCase
         $this->assertEquals([
             4,
             5,
-            (object) [ 'a' => 5 ]
+            (object) ['a' => 5]
         ], $result);
     }
 }

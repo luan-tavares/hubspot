@@ -1,11 +1,11 @@
 <?php
 
-namespace LTL\Hubspot\Core\Interfaces\Resource;
+namespace LTL\Hubspot\Core\Resource\Interfaces;
 
 use ArrayAccess;
 use Countable;
 use IteratorAggregate;
-use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
+use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
 use LTL\Hubspot\Interfaces\ArrayableInterface;
 use LTL\Hubspot\Interfaces\EnumerableInterface;
 use LTL\Hubspot\Interfaces\JsonableInterface;

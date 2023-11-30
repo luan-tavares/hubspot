@@ -4,10 +4,11 @@ namespace LTL\Hubspot\Tests\Resource;
 
 use LTL\Curl\Curl;
 use LTL\Curl\Interfaces\CurlInterface;
+use LTL\Hubspot\Containers\BuilderContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Globals\ApikeyGlobal;
-use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
-use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
+use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
+use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
 use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\ResourceFactory;
@@ -121,5 +122,24 @@ class ResourceTest extends TestCase
         $this->expectException(HubspotApiException::class);
       
         CompanyHubspot::after([]);
+    }
+
+    public function testIfInitWorks()
+    {
+        $expected = ['limit' => 50];
+        $resource = new class extends ContactHubspot {
+            protected function init()
+            {
+                $this->limit(50);
+            }
+        };
+
+        $builder = BuilderContainer::get($resource);
+
+        $request = $builder->request();
+
+        $request->removeApikey();
+      
+        $this->assertEquals($expected, $request->getQueries());
     }
 }

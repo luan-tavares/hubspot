@@ -1,9 +1,9 @@
 <?php
 
-namespace LTL\Hubspot\Core\Interfaces;
+namespace LTL\Hubspot\Core;
 
-use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
-use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
+use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
+use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 
 interface BuilderInterface
 {

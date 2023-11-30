@@ -5,8 +5,7 @@ namespace LTL\Hubspot\Core\Handlers\CrmCreateOrUpdate;
 use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
 use LTL\Hubspot\Core\Builder;
 use LTL\Hubspot\Core\HubspotConfig;
-use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
-use LTL\Hubspot\Core\Resource\Resource;
+use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Hubspot;
 
@@ -17,8 +16,10 @@ abstract class CrmCreateOrUpdateHandler
         BaseBodyBuilder|array $requestBody,
         int|null|string $idHubspot = null
     ): ResourceInterface {
-        $hasException = $builder->request()->hasExceptionIfRequestError();
-        $builder->exceptionIfRequestError(false);
+        
+        $request = $builder->request();
+        $hasException = $request->hasExceptionIfRequestError();
+        $request->removeException();
 
         $hubspotResponse = self::createOrUpdate($builder, $requestBody, $idHubspot);
         $status = $hubspotResponse->status();
@@ -60,13 +61,16 @@ abstract class CrmCreateOrUpdateHandler
 
     private static function getIdFromErrorMessage(Hubspot $hubspotResponse): int|null
     {
-        preg_match_all('/\d+/', $hubspotResponse->message, $matches);
-        $matches = @current($matches);
-
-        if (is_null($matches)) {
+        if(is_null($message = $hubspotResponse->message)) {
             return null;
         }
 
-        return array_pop($matches);
+        preg_match('/\d+/', $message, $matches);
+
+        if(empty($matches)) {
+            return null;
+        }
+
+        return current($matches);
     }
 }

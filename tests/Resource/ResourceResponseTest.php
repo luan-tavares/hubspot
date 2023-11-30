@@ -6,8 +6,8 @@ use LTL\Curl\Curl;
 use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\HubspotConfig;
-use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
-use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
+use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
+use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
 use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\ResourceFactory;
@@ -260,6 +260,32 @@ class ResourceResponseTest extends TestCase
         $this->assertTrue($object->isMultiStatus());
     }
 
+
+    public function testInvalidEmailMethodThrowExceptionIfCallBeforeRequest()
+    {
+        $resource = new AssociationHubspot;
+
+        $this->expectException(HubspotApiException::class);
+      
+        $resource->invalidEmailError();
+    }
+
+    public function testInvalidEmailMethodAnaliseString()
+    {
+        $curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
+        $curl->method('response')->willReturn('teste INVALID_EMAIL 123');
+      
+        $resource = new ContactHubspot;
+
+        $actionSchema = SchemaContainer::getAction($resource, 'getAll');
+
+        /**
+         * @var CurlInterface $curl
+         */
+        $object = ResourceFactory::build($resource, new Response($curl, $actionSchema));
+  
+        $this->assertTrue($object->invalidEmailError());
+    }
 
     public function testMultiStatusMethodThrowExceptionIfCallBeforeRequest()
     {

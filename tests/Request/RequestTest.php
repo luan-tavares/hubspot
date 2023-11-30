@@ -4,30 +4,20 @@ namespace LTL\Hubspot\Tests\Request;
 
 use LTL\Curl\Curl;
 use LTL\Hubspot\Containers\SchemaContainer;
-use LTL\Hubspot\Core\Interfaces\BuilderInterface;
-use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
+use LTL\Hubspot\Core\BuilderInterface;
+use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
 use LTL\Hubspot\Core\Request\RequestArguments;
 use LTL\Hubspot\Core\Request\RequestConnection;
 use LTL\Hubspot\Factories\RequestFactory;
 use LTL\Hubspot\Hubspot;
 use LTL\Hubspot\Resources\V3\CompanyHubspot;
-use LTL\Hubspot\Resources\V3\EngagementEmailHubspot;
 use PHPUnit\Framework\TestCase;
 
 class RequestTest extends TestCase
 {
-
-    private array $result;
-
     protected function setUp(): void
     {
         Hubspot::setGlobalApikey('123456');
-
-        $this->result = [
-            'a' => 4,
-            'b' => 5,
-            'c' => null
-        ];
     }
 
     public function testExpectHubspotExceptionIfNoExistMethod()
@@ -38,9 +28,8 @@ class RequestTest extends TestCase
 
         $this->expectExceptionMessage(CompanyHubspot::class ."::{$method}() not exists");
         
-        $request->$method();
+        $request->{$method}();
     }
-
 
     public function testCurlAddProgressIsCorrect()
     {
@@ -124,5 +113,40 @@ class RequestTest extends TestCase
         $curl->expects($this->once())->method('addUri');
 
         RequestConnection::handle($request, $requestArguments, $curl);
+    }
+
+    public function testAddUriArgumentsIsCorrect()
+    {
+        $request = RequestFactory::build(new CompanyHubspot);
+
+        $request->removeApikey();
+
+        $requestArgumentsMock = $this->getMockBuilder(RequestArguments::class)
+            ->onlyMethods(['queriesAsParams', 'baseQuery'])
+            ->disableOriginalConstructor()->getMock();
+  
+        $requestArgumentsMock->method('queriesAsParams')->willReturn([5]);
+        $requestArgumentsMock->method('baseQuery')->willReturn([6]);
+
+        /**
+         * @var RequestArguments $requestArgumentsMock
+         */
+        $request->addUriArguments($requestArgumentsMock);
+
+        $this->assertEquals($request->getQueries(), [5,6]);
+    }
+
+    public function testRemoveExceptionIsCorrect()
+    {
+        /**
+         * @var BuilderInterface $builder
+         */
+        $builder = CompanyHubspot::exceptionIfRequestError();
+
+        $request = $builder->request();
+
+        $request->removeException();
+
+        $this->assertFalse($request->hasExceptionIfRequestError());
     }
 }

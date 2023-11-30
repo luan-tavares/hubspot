@@ -3,10 +3,10 @@
 namespace LTL\Hubspot\Core;
 
 use LTL\Hubspot\Containers\SchemaContainer;
+use LTL\Hubspot\Core\BuilderInterface;
 use LTL\Hubspot\Core\Handlers\Handlers;
-use LTL\Hubspot\Core\Interfaces\BuilderInterface;
-use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
-use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
+use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
+use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Factories\ResourceFactory;
 
@@ -26,6 +26,7 @@ class Builder implements BuilderInterface
 
     public function __call($method, $arguments)
     {
+        
         if (in_array($method, $this->baseResource->getMethods())) {
             return $this->baseResource->{$method}(...$arguments);
         }

@@ -2,12 +2,12 @@
 
 namespace LTL\Hubspot\Core\Request;
 
-use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
-use LTL\Hubspot\Core\Request\RequestArguments;
+use LTL\Hubspot\Core\Request\Interfaces\RequestArgumentsInterface;
+use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
 
 abstract class RequestUri
 {
-    public static function get(RequestInterface $request, RequestArguments $requestArguments): string
+    public static function get(RequestInterface $request, RequestArgumentsInterface $requestArguments): string
     {
         $request->addUriArguments($requestArguments);
 

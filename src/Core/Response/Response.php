@@ -2,15 +2,13 @@
 
 namespace LTL\Hubspot\Core\Response;
 
-use Countable;
-use IteratorAggregate;
 use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Containers\ResponseRepositoryContainer;
 use LTL\Hubspot\Core\Globals\ApikeyGlobal;
 use LTL\Hubspot\Core\HubspotConfig;
-use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
-use LTL\Hubspot\Core\Interfaces\Response\ResponseRepositoryInterface;
-use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
+use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
+use LTL\Hubspot\Core\Response\Interfaces\ResponseRepositoryInterface;
+use LTL\Hubspot\Core\Schema\Interfaces\ActionSchemaInterface;
 
 /**
  * @property string|int $after
@@ -104,7 +102,7 @@ class Response implements ResponseInterface
             return false;
         }
 
-        if (!mb_strpos($this->rawResponse, 'INVALID_EMAIL')) {
+        if (!strpos($this->rawResponse, 'INVALID_EMAIL')) {
             return false;
         }
 

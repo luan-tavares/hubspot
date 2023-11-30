@@ -4,9 +4,9 @@ namespace LTL\Hubspot\Factories;
 
 use LTL\Hubspot\Containers\SingletonContainer;
 use LTL\Hubspot\Core\Builder;
-use LTL\Hubspot\Core\Interfaces\BuilderInterface;
-use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
-use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
+use LTL\Hubspot\Core\BuilderInterface;
+use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
+use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 use LTL\Hubspot\Interfaces\FactoryInterface;
 use ReflectionClass;
 

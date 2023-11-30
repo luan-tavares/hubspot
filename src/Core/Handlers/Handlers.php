@@ -4,7 +4,7 @@ namespace LTL\Hubspot\Core\Handlers;
 
 use LTL\Hubspot\Core\Builder;
 use LTL\Hubspot\Core\Handlers\HandlersProvider;
-use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
+use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 
 abstract class Handlers
 {

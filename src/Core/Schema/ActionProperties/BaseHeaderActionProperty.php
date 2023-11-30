@@ -24,10 +24,6 @@ class BaseHeaderActionProperty extends ActionProperty
         if (!$hasBody) {
             return $headers;
         }
-
-        if (is_null($headers)) {
-            $headers = [];
-        }
         
         $headers['Content-Type'] = $actionSchema->headers->{'Content-Type'} ?? HubspotConfig::DEFAULT_CONTENT_TYPE;
 

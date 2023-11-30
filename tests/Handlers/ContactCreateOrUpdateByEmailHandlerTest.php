@@ -5,9 +5,12 @@ namespace LTL\Hubspot\Tests\Request;
 use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Builder;
+use LTL\Hubspot\Core\BuilderInterface;
+use LTL\Hubspot\Core\Handlers\ContactCreateOrUpdateByEmail\ContactCreateOrUpdateByEmailHandler;
 use LTL\Hubspot\Core\Handlers\Handlers;
-use LTL\Hubspot\Core\Interfaces\BuilderInterface;
+use LTL\Hubspot\Core\Request\Request;
 use LTL\Hubspot\Core\Response\Response;
+use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\RequestFactory;
 use LTL\Hubspot\Factories\ResourceFactory;
 use LTL\Hubspot\Resources\V3\ContactHubspot;
@@ -40,36 +43,133 @@ class ContactCreateOrUpdateByEmailHandlerTest extends TestCase
  
         $curl = $this->getMockBuilder(CurlInterface::class)->getMock();
         $curl->method('response')->willReturn(json_encode($result));
+        $curl->method('status')->willReturn(404);
 
         /**
          * @var CurlInterface $curl
          */
-        $actionSchema = SchemaContainer::getAction($baseResource, 'create');
-        $response = new Response($curl, $actionSchema);
-        $resourceCreate = ResourceFactory::build($baseResource, $response);
+        $response = new Response($curl, SchemaContainer::getAction($baseResource, 'create'));
+        $resourceResponse = ResourceFactory::build($baseResource, $response);
 
         $request = RequestFactory::build($baseResource);
 
-        $builder = $this->getMockBuilder(Builder::class)
+        $mockBuilder = $this->getMockBuilder(Builder::class)
             ->disableOriginalConstructor()
-            ->addMethods(['create'])
             ->onlyMethods(['request', '__call'])
             ->getMock();
 
-        $builder->method('request')->willReturn($request);
-        $builder->method('__call')->willReturn($resourceCreate);
+        $requestBody = ['properties'=>['email' => 'lorem@ipsum.com']];
 
-        $builder->expects($this->once())->method('create')->willReturn($resourceCreate);
+        $map = [
+            ['create', [$requestBody], $resourceResponse]
+        ];
+    
+        $mockBuilder->method('request')->willReturn($request);
+        $mockBuilder->expects($this->exactly(2))->method('__call')->willReturnOnConsecutiveCalls()->willReturnMap($map);
 
+        /**
+         * @var BuilderInterface $mockBuilder
+         */
+        ContactCreateOrUpdateByEmailHandler::handle(
+            $mockBuilder,
+            $requestBody
+        );
+    }
+
+    public function testIfHandlerThrowException()
+    {
+        $result = [
+            'id' => 1
+        ];
+
+        $baseResource = new ContactHubspot;
         /**
          * @var BuilderInterface $builder
          */
-        $result = Handlers::call(
-            $builder,
-            'contact_create_or_update_by_email',
-            [
-                ['properties'=>['email' => 'lorem@ipsum.com']]
-            ]
+        $builder = $baseResource->exceptionIfRequestError();
+ 
+        $curl = $this->getMockBuilder(CurlInterface::class)->getMock();
+        $curl->method('response')->willReturn(json_encode($result));
+        $curl->method('status')->willReturn(404);
+
+        /**
+         * @var CurlInterface $curl
+         */
+        $response = new Response($curl, SchemaContainer::getAction($baseResource, 'create'));
+        $resourceResponse = ResourceFactory::build($baseResource, $response);
+ 
+        $requestBody = ['properties'=>['email' => 'lorem@ipsum.com']];
+
+        $mockBuilder = $this->getMockBuilder(Builder::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['request', '__call'])
+            ->getMock();
+
+        $map = [
+            ['exceptionIfRequestError', [false], $mockBuilder],
+            ['create', [$requestBody], $resourceResponse]
+        ];
+
+        $mockBuilder->method('request')->willReturn($builder->request());
+        $mockBuilder->method('__call')->willReturnMap($map);
+
+        $this->expectException(HubspotApiException::class);
+
+        /**
+         * @var BuilderInterface $mockBuilder
+         */
+        ContactCreateOrUpdateByEmailHandler::handle(
+            $mockBuilder,
+            $requestBody
+        );
+    }
+
+    public function testIfChangeExceptionOnRequestErrorToFalse()
+    {
+        $result = [
+            'id' => 1
+        ];
+
+        $baseResource = new ContactHubspot;
+ 
+        $curl = $this->getMockBuilder(CurlInterface::class)->getMock();
+        $curl->method('response')->willReturn(json_encode($result));
+        $curl->method('status')->willReturn(404);
+
+        /**
+         * @var CurlInterface $curl
+         */
+        $response = new Response($curl, SchemaContainer::getAction($baseResource, 'create'));
+        $resourceResponse = ResourceFactory::build($baseResource, $response);
+ 
+        $requestBody = ['properties'=>['email' => 'lorem@ipsum.com']];
+
+        $mockBuilder = $this->getMockBuilder(Builder::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['request', '__call'])
+            ->getMock();
+
+        $mockRequest = $this->getMockBuilder(Request::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['removeException', 'hasExceptionIfRequestError'])
+            ->getMock();
+
+        $map = [
+            ['exceptionIfRequestError', [false], $mockBuilder],
+            ['create', [$requestBody], $resourceResponse]
+        ];
+
+        $mockBuilder->method('request')->willReturn($mockRequest);
+        $mockBuilder->method('__call')->willReturnMap($map);
+
+        $mockRequest->expects($this->once(1))->method('removeException');
+
+        /**
+         * @var BuilderInterface $mockBuilder
+         */
+        ContactCreateOrUpdateByEmailHandler::handle(
+            $mockBuilder,
+            $requestBody
         );
     }
 }

@@ -3,8 +3,8 @@
 namespace LTL\Hubspot\Core\Request\Components;
 
 use LTL\Curl\CurlProgressBar;
-use LTL\Hubspot\Core\Interfaces\Request\CurlComponentInterface;
 use LTL\Hubspot\Core\Request\Components\AbstractRequestComponent;
+use LTL\Hubspot\Core\Request\Interfaces\CurlComponentInterface;
 use LTL\ListMethods\PublicMethods\Traits\PublicMethodsListable;
 
 class CurlRequestComponent extends AbstractRequestComponent implements CurlComponentInterface

@@ -1,6 +1,6 @@
 <?php
 
-namespace LTL\Hubspot\Core\Interfaces\Schemas;
+namespace LTL\Hubspot\Core\Schema\Interfaces;
 
 /**
  * @property array|null $params

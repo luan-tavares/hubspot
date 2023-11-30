@@ -2,12 +2,12 @@
 
 namespace LTL\Hubspot\Core\Request;
 
-use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
-use LTL\Hubspot\Core\Request\RequestArguments;
+use LTL\Hubspot\Core\Request\Interfaces\RequestArgumentsInterface;
+use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
 
 abstract class RequestHeaders
 {
-    public static function get(RequestInterface $request, RequestArguments $requestArguments): array
+    public static function get(RequestInterface $request, RequestArgumentsInterface $requestArguments): array
     {
         $request->addBaseHeader($requestArguments);
        

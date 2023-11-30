@@ -13,7 +13,6 @@ use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Request\RequestArguments;
 use LTL\Hubspot\Core\Request\RequestConnection;
 use LTL\Hubspot\Core\Request\RequestUri;
-use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\RequestFactory;
 use LTL\Hubspot\Resources\V3\ContactHubspot;
@@ -175,7 +174,7 @@ class RequestConnectionTest extends TestCase
         
         $requestArguments = new RequestArguments($actionSchema, ['tableId']);
         
-        $this->assertEquals('GET', $requestArguments->method());
+        $this->assertEquals('GET', $requestArguments->getMethod());
     }
 
     public function testRequestBodyPostMethodIsCorrect()

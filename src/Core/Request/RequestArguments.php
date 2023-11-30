@@ -3,10 +3,11 @@
 namespace LTL\Hubspot\Core\Request;
 
 use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
-use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
+use LTL\Hubspot\Core\Request\Interfaces\RequestArgumentsInterface;
+use LTL\Hubspot\Core\Schema\Interfaces\ActionSchemaInterface;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 
-class RequestArguments
+class RequestArguments implements RequestArgumentsInterface
 {
     private array $params = [];
 
@@ -16,6 +17,7 @@ class RequestArguments
     
     public function __construct(private ActionSchemaInterface $actionSchema, array $arguments = [])
     {
+
         $nArguments = count($arguments);
 
         $params = $this->actionSchema->params ?? [];
@@ -23,7 +25,7 @@ class RequestArguments
 
         $hasBody = $this->actionSchema->hasBody;
         
-        $total = count($queryParams) + count($params) + ((int) $hasBody);
+        $total = count($queryParams) + count($params) + $hasBody;
 
         if ($total !== $nArguments) {
             throw new HubspotApiException(
@@ -93,7 +95,7 @@ class RequestArguments
         return $this->actionSchema->baseQuery;
     }
 
-    public function method(): string
+    public function getMethod(): string
     {
         return $this->actionSchema->method;
     }

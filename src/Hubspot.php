@@ -82,8 +82,8 @@ use ReflectionClass;
  *
  * Others Resources Methods
  *
- * @method $this tooManyRequestsTries() 
- * @method static $this tooManyRequestsTries() 
+ * @method $this tooManyRequestsTries(int $tries) 
+ * @method static $this tooManyRequestsTries(int $tries) 
  * @method $this exceptionIfRequestError(bool $hasException) 
  * @method static $this exceptionIfRequestError(bool $hasException) 
  *

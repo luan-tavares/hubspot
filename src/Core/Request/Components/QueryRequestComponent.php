@@ -3,8 +3,8 @@
 namespace LTL\Hubspot\Core\Request\Components;
 
 use LTL\Hubspot\Core\Globals\ApikeyGlobal;
-use LTL\Hubspot\Core\Interfaces\Request\QueryComponentInterface;
 use LTL\Hubspot\Core\Request\Components\AbstractRequestComponent;
+use LTL\Hubspot\Core\Request\Interfaces\QueryComponentInterface;
 use LTL\ListMethods\PublicMethods\Traits\PublicMethodsListable;
 
 class QueryRequestComponent extends AbstractRequestComponent implements QueryComponentInterface

@@ -3,7 +3,7 @@
 namespace LTL\Hubspot\Tests\Request;
 
 use LTL\Hubspot\Containers\SchemaContainer;
-use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
+use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
 use LTL\Hubspot\Core\Request\Request;
 use LTL\Hubspot\Core\Request\RequestArguments;
 use LTL\Hubspot\Core\Request\RequestUri;

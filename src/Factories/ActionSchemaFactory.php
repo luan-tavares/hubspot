@@ -3,10 +3,10 @@
 namespace LTL\Hubspot\Factories;
 
 use LTL\Hubspot\Containers\SingletonContainer;
-use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
-use LTL\Hubspot\Core\Interfaces\Schemas\ResourceSchemaInterface;
 use LTL\Hubspot\Core\Schema\ActionProperties\ActionProperty;
 use LTL\Hubspot\Core\Schema\ActionSchema;
+use LTL\Hubspot\Core\Schema\Interfaces\ActionSchemaInterface;
+use LTL\Hubspot\Core\Schema\Interfaces\ResourceSchemaInterface;
 use ReflectionClass;
 use ReflectionProperty;
 

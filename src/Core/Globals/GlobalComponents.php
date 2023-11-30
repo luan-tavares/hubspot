@@ -2,7 +2,7 @@
 
 namespace LTL\Hubspot\Core\Globals;
 
-use LTL\Hubspot\Core\Interfaces\GlobalComponentInterface;
+use LTL\Hubspot\Core\GlobalComponentInterface;
 use LTL\ListMethods\PublicMethods\Interfaces\StaticPublicMethodsListableInterface;
 use LTL\ListMethods\PublicMethods\Traits\StaticPublicMethodsListable;
 

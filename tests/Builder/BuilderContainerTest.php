@@ -4,7 +4,7 @@ namespace LTL\Hubspot\Tests\Builder;
 
 use LTL\Hubspot\Containers\BuilderContainer;
 use LTL\Hubspot\Core\Globals\ApikeyGlobal;
-use LTL\Hubspot\Core\Interfaces\Request\RequestInterface;
+use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
 use LTL\Hubspot\Core\Request\Request;
 use LTL\Hubspot\Factories\BuilderFactory;
 use LTL\Hubspot\Resources\V3\CompanyHubspot;

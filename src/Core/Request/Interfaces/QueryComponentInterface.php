@@ -1,8 +1,8 @@
 <?php
 
-namespace LTL\Hubspot\Core\Interfaces\Request;
+namespace LTL\Hubspot\Core\Request\Interfaces;
 
-use LTL\Hubspot\Core\Interfaces\Request\ComponentInterface;
+use LTL\Hubspot\Core\Request\Interfaces\ComponentInterface;
 use LTL\ListMethods\PublicMethods\Interfaces\PublicMethodsListableInterface;
 
 interface QueryComponentInterface extends ComponentInterface, PublicMethodsListableInterface

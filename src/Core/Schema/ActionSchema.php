@@ -2,7 +2,6 @@
 
 namespace LTL\Hubspot\Core\Schema;
 
-use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
 use LTL\Hubspot\Core\Schema\ActionProperties\ActionMethodActionProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\AfterIndexActionProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\AuthenticationActionProperty;
@@ -18,6 +17,7 @@ use LTL\Hubspot\Core\Schema\ActionProperties\MethodActionProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\ParamsActionProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\QueryAsParamProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\ResourceClassActionProperty;
+use LTL\Hubspot\Core\Schema\Interfaces\ActionSchemaInterface;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 
 /**

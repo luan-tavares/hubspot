@@ -2,8 +2,8 @@
 
 namespace LTL\Hubspot\Core\Schema\ActionProperties;
 
-use LTL\Hubspot\Core\Interfaces\Schemas\ResourceSchemaInterface;
 use LTL\Hubspot\Core\Schema\ActionProperties\ActionProperty;
+use LTL\Hubspot\Core\Schema\Interfaces\ResourceSchemaInterface;
 
 class IteratorIndexActionProperty extends ActionProperty
 {

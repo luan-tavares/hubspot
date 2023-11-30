@@ -2,9 +2,9 @@
 
 namespace LTL\Hubspot\Containers;
 
-use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
-use LTL\Hubspot\Core\Interfaces\Schemas\ActionSchemaInterface;
-use LTL\Hubspot\Core\Interfaces\Schemas\ResourceSchemaInterface;
+use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
+use LTL\Hubspot\Core\Schema\Interfaces\ActionSchemaInterface;
+use LTL\Hubspot\Core\Schema\Interfaces\ResourceSchemaInterface;
 use LTL\Hubspot\Core\Schema\ResourceSchema;
 use LTL\Hubspot\Interfaces\ContainerByResourceInterface;
 

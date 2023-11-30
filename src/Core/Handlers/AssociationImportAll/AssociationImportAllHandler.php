@@ -4,7 +4,7 @@ namespace LTL\Hubspot\Core\Handlers\AssociationImportAll;
 
 use Closure;
 use LTL\Hubspot\Core\Builder;
-use LTL\Hubspot\Core\Interfaces\Resource\ResourceInterface;
+use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 use LTL\Hubspot\Resources\V4\AssociationHubspot;
 
 abstract class AssociationImportAllHandler

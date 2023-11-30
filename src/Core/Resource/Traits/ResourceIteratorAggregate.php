@@ -2,7 +2,7 @@
 
 namespace LTL\Hubspot\Core\Resource\Traits;
 
-use LTL\Hubspot\Core\Interfaces\Response\ResponseInterface;
+use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
 
 /**
  * @property ResponseInterface $response

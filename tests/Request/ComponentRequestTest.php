@@ -33,9 +33,11 @@ class ComponentRequestTest extends TestCase
     {
         $AbstractRequestComponent = new HeaderRequestComponent;
 
+        $AbstractRequestComponent->addNotNull('eren', 5);
         $AbstractRequestComponent->addArrayAfter($this->result);
         
         $this->assertEquals($AbstractRequestComponent->all(), [
+            'eren' => 5,
             'a' => 4,
             'b' => 5
         ]);
