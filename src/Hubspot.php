@@ -2,9 +2,9 @@
 
 namespace LTL\Hubspot;
 
-use LTL\Hubspot\Concerns\IncludeListFilters;
-use LTL\Hubspot\Concerns\MaxLimit;
 use LTL\Hubspot\Concerns\WithHeaders;
+use LTL\Hubspot\Concerns\WithListFilters;
+use LTL\Hubspot\Concerns\WithMaxLimit;
 use LTL\Hubspot\Concerns\WithRequestException;
 use LTL\Hubspot\Concerns\WithRequestTries;
 use LTL\Hubspot\Core\HubspotConfig;
@@ -29,6 +29,8 @@ use ReflectionClass;
  * @method static $this format(string $fileFormat) 
  * @method $this limit(int $limit) 
  * @method static $this limit(int $limit) 
+ * @method $this maxLimit() 
+ * @method static $this maxLimit() 
  * @method $this setCount(int $count) 
  * @method static $this setCount(int $count) 
  * @method $this offset(string|int $hubspotId) 
@@ -61,8 +63,8 @@ use ReflectionClass;
  * @method static $this withListIds(int ...$id) 
  * @method $this formTypes(string ...$arguments) 
  * @method static $this formTypes(string ...$arguments) 
- * @method $this includeListFilters() 
- * @method static $this includeListFilters() 
+ * @method $this withListFilters() 
+ * @method static $this withListFilters() 
  * @method $this enrollObjectsUpdateList() 
  * @method static $this enrollObjectsUpdateList() 
  * @method $this listIds(int ...$listId) 
@@ -120,15 +122,15 @@ abstract class Hubspot extends Resource
             $this->withRequestTries();
         }
 
-        if(in_array(MaxLimit::class, $interfaces)) {
-            $this->limit(HubspotConfig::MAX_BATCH_LIMIT);
+        if(in_array(WithMaxLimit::class, $interfaces)) {
+            $this->maxLimit();
         }
 
-        if(in_array(IncludeListFilters::class, $interfaces)) {
-            $this->includeListFilters();
+        if(in_array(WithListFilters::class, $interfaces)) {
+            $this->withListFilters();
         }
 
-        if(in_array(IncludeListFilters::class, $interfaces)) {
+        if(in_array(WithListFilters::class, $interfaces)) {
             $this->enrollObjectsUpdateList();
         }
 

@@ -14,6 +14,7 @@ interface QueryComponentInterface extends ComponentInterface, PublicMethodsLista
     public function includeForeignIds(): self;
     public function format(string $fileFormat): self;
     public function limit(int $limit): self;
+    public function maxLimit(): self;
     public function setCount(int $count): self;
     public function offset(string|int $hubspotId): self;
     public function vidOffset(string|int $hubspotId): self;
@@ -30,7 +31,7 @@ interface QueryComponentInterface extends ComponentInterface, PublicMethodsLista
     public function withVids(int ...$id): self;
     public function withListIds(int ...$id): self;
     public function formTypes($arguments): self;
-    public function includeListFilters(): self;
+    public function withListFilters(): self;
     public function enrollObjectsUpdateList(): self;
     public function listIds(int ...$listId): self;
 }

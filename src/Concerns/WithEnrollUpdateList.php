@@ -2,6 +2,6 @@
 
 namespace LTL\Hubspot\Concerns;
 
-interface IncludeListFilters
+interface WithEnrollUpdateList
 {
 }

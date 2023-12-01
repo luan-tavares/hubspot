@@ -28,5 +28,5 @@ abstract class HubspotConfig
 
     public const SLEEP_SECONDS = 2;
 
-    public const MAX_BATCH_LIMIT = 1E2;
+    public const MAX_LIMIT = 1E2;
 }

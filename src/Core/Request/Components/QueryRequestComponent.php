@@ -3,6 +3,7 @@
 namespace LTL\Hubspot\Core\Request\Components;
 
 use LTL\Hubspot\Core\Globals\ApikeyGlobal;
+use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Request\Components\AbstractRequestComponent;
 use LTL\Hubspot\Core\Request\Interfaces\QueryComponentInterface;
 use LTL\ListMethods\PublicMethods\Traits\PublicMethodsListable;
@@ -51,6 +52,11 @@ class QueryRequestComponent extends AbstractRequestComponent implements QueryCom
     public function limit(int $limit): self
     {
         return $this->addNotNull('limit', $limit);
+    }
+
+    public function maxLimit(): self
+    {
+        return $this->limit(HubspotConfig::MAX_LIMIT);
     }
 
     public function setCount(int $count): self
@@ -141,7 +147,7 @@ class QueryRequestComponent extends AbstractRequestComponent implements QueryCom
         return $this->addNotNull('formTypes', func_get_args());
     }
 
-    public function includeListFilters(): self
+    public function withListFilters(): self
     {
         return $this->addNotNull('includeFilters', 'true');
     }
