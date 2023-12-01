@@ -4,10 +4,10 @@ namespace LTL\Hubspot\Core\Handlers\CrmCreateOrUpdate;
 
 use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
 use LTL\Hubspot\Core\Builder;
+use LTL\Hubspot\Core\Helpers\GetIdFromErrorMessageHelper;
 use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 use LTL\Hubspot\Exceptions\HubspotApiException;
-use LTL\Hubspot\Hubspot;
 
 abstract class CrmCreateOrUpdateHandler
 {
@@ -31,7 +31,7 @@ abstract class CrmCreateOrUpdateHandler
         }
 
         if ($hubspotResponse->error()) {
-            $idHubspot = self::getIdFromErrorMessage($hubspotResponse);
+            $idHubspot = GetIdFromErrorMessageHelper::handle($hubspotResponse);
 
             $hubspotResponse = self::createOrUpdate($builder, $requestBody, $idHubspot);
         }
@@ -57,20 +57,5 @@ abstract class CrmCreateOrUpdateHandler
         }
 
         return $builder->update($idHubspot, $requestBody);
-    }
-
-    private static function getIdFromErrorMessage(Hubspot $hubspotResponse): int|null
-    {
-        if(is_null($message = $hubspotResponse->message)) {
-            return null;
-        }
-
-        preg_match('/\d+/', $message, $matches);
-
-        if(empty($matches)) {
-            return null;
-        }
-
-        return current($matches);
     }
 }

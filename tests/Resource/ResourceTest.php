@@ -12,6 +12,7 @@ use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
 use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\ResourceFactory;
+use LTL\Hubspot\Factories\ResponseRepositoryFactory;
 use LTL\Hubspot\Hubspot;
 use LTL\Hubspot\Resources\V3\CompanyHubspot;
 use LTL\Hubspot\Resources\V3\ContactHubspot;
@@ -141,5 +142,39 @@ class ResourceTest extends TestCase
         $request->removeApikey();
       
         $this->assertEquals($expected, $request->getQueries());
+    }
+
+    public function testIfCallGlobalMethodsWrongArgumentsThrowException()
+    {
+        $this->expectException(HubspotApiException::class);
+
+        Hubspot::setGlobalApikey(null, 5);
+    }
+
+    public function testIfCallUnknowMethodsInAbstractClassThrowException()
+    {
+        $this->expectException(HubspotApiException::class);
+
+        Hubspot::aaa();
+    }
+
+    public function testIfEmptyCountableIsCorrect()
+    {
+        $curlResponse = [
+            'results' => []
+        ];
+        
+        $baseResource = new ContactHubspot;
+
+        $curlMock = $this->getMockBuilder(Curl::class)->getMock();
+        $curlMock->method('response')->willReturn(json_encode($curlResponse));
+
+        /**
+         * @var CurlInterface $curlMock
+         */
+        $response = new Response($curlMock, SchemaContainer::getAction($baseResource, 'getAll'));
+        $resource = ResourceFactory::build($baseResource, $response);
+
+        $this->assertTrue($resource->empty());
     }
 }

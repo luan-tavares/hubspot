@@ -13,12 +13,12 @@ class ResourceRequestComponent extends AbstractRequestComponent implements Resou
     protected function register(): void
     {
         $this->notWithRequestException();
-        $this->addNotNull('tries', 0);
+        $this->addNotNull('tries', 1);
     }
 
     public function withRequestTries(): self
     {
-        return $this->addNotNull('tries', HubspotConfig::TOO_MANY_REQUESTS_TRIES);
+        return $this->addNotNull('tries', HubspotConfig::MAX_REQUESTS_TRIES);
     }
 
     public function withRequestException(): self

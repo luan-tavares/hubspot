@@ -226,8 +226,6 @@ class RequestConnectionTest extends TestCase
 
     public function testIfRecursiveCurlWithoutTooManyRequestsIsCorrect()
     {
-        $requests = 1;
-
         $resource = new ContactHubspot;
 
         $request = RequestFactory::build($resource);
@@ -236,15 +234,10 @@ class RequestConnectionTest extends TestCase
 
         $requestArguments = new RequestArguments($actionSchema);
 
-
         $curl = $this->getMockBuilder(CurlInterface::class)->getMock();
-        $curl->method('request')->willReturn($curl);
-        $curl->method('addUri')->willReturn($curl);
-        $curl->method('addHeaders')->willReturn($curl);
-        $curl->method('addParams')->willReturn($curl);
         $curl->method('status')->willReturn(HubspotConfig::TOO_MANY_REQUESTS_ERROR_CODE);
 
-        $curl->expects($this->exactly($requests))->method('request');
+        $curl->expects($this->once())->method('request');
 
         /**
          * @var CurlInterface $curl
@@ -321,7 +314,7 @@ class RequestConnectionTest extends TestCase
 
     public function testIfTriesMAxAddOneThrowException()
     {
-        $tries = HubspotConfig::TOO_MANY_REQUESTS_TRIES + 1;
+        $tries = HubspotConfig::MAX_REQUESTS_TRIES + 1;
 
         TimesleepGlobal::set(0);
 
@@ -336,7 +329,7 @@ class RequestConnectionTest extends TestCase
 
     public function testIfTriesMaxNotThrowException()
     {
-        $tries = HubspotConfig::TOO_MANY_REQUESTS_TRIES;
+        $tries = HubspotConfig::MAX_REQUESTS_TRIES;
 
         TimesleepGlobal::set(0);
 
@@ -349,9 +342,9 @@ class RequestConnectionTest extends TestCase
         $request->setRequestTries($tries);
     }
 
-    public function testIfTriesZeroNotThrowException()
+    public function testIfTriesOneNotThrowException()
     {
-        $tries = 0;
+        $tries = 1;
 
         TimesleepGlobal::set(0);
 
@@ -364,7 +357,7 @@ class RequestConnectionTest extends TestCase
         $request->setRequestTries($tries);
     }
 
-    public function testIfTriesZeroIsDefault()
+    public function testIfTriesOneIsDefault()
     {
         TimesleepGlobal::set(0);
 
@@ -372,7 +365,7 @@ class RequestConnectionTest extends TestCase
 
         $request = RequestFactory::build($resource);
 
-        $this->assertEquals(0, $request->getRequestsTries());
+        $this->assertEquals(1, $request->getRequestsTries());
     }
 
     public function testIfTriesLessZeroThrowException()

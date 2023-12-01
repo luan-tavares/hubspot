@@ -8,6 +8,7 @@ use LTL\Hubspot\Containers\ResponseRepositoryContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Core\Schema\Interfaces\ActionSchemaInterface;
+use LTL\Hubspot\Resources\V3\CompanyHubspot;
 use LTL\Hubspot\Resources\V3\HubDbHubspot;
 use PHPUnit\Framework\TestCase;
 
@@ -64,11 +65,30 @@ class ResponseIterableTest extends TestCase
         ]);
     }
 
-    public function testIfContableIsCorrect()
+    public function testIfCountableIsCorrect()
     {
         $response = new Response($this->curl, $this->actionSchema);
       
         $this->assertEquals(count($response), count($this->result['results']));
+    }
+
+    public function testIfCountableEmptyIsCorrect()
+    {
+        $result = [
+            'results' => [],
+        ];
+
+        $curlMock = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
+        $curlMock->method('response')->willReturn(json_encode($result));
+        
+        $actionSchema = SchemaContainer::getAction(new CompanyHubspot, 'getAll');
+
+        /**
+         * @var CurlInterface $curlMock
+         */
+        $response = new Response($curlMock, $actionSchema);
+      
+        $this->assertTrue($response->empty());
     }
 
     public function testIfGetMagicCatchAfterIsCorrect()

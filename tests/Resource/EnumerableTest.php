@@ -14,19 +14,9 @@ use PHPUnit\Framework\TestCase;
 class EnumerableTest extends TestCase
 {
     private ResourceInterface $resource;
-
-    private array $items;
-
-    protected function setUp(): void
+    
+    private function resource(array $items): ResourceInterface
     {
-        $items = [
-            'results' => [
-                'a' => 4,
-                'b' => 5,
-                'd' => ['a' => 5],
-            ]
-        ];
-
         $response = $this->getMockBuilder(Response::class)->disableOriginalConstructor()->getMock();
         $response->method('toJson')->willReturn(json_encode($items));
         $response->method('getIteratorIndex')->willReturn('results');
@@ -44,12 +34,20 @@ class EnumerableTest extends TestCase
         /**
          * @var ResponseInterface $response
          */
-        $this->resource = ResourceFactory::build((new ContactHubspot), $response);
+        return ResourceFactory::build((new ContactHubspot), $response);
     }
 
     public function testMapIsCorrect()
     {
-        $result = $this->resource->map(function ($item, $key) {
+        $resource = $this->resource([
+            'results' => [
+                'a' => 4,
+                'b' => 5,
+                'd' => ['a' => 5],
+            ]
+        ]);
+
+        $result = $resource->map(function ($item, $key) {
             return $item;
         });
 
@@ -62,8 +60,16 @@ class EnumerableTest extends TestCase
 
     public function testMapAndFilterIsCorrect()
     {
-        $result = $this->resource->mapAndFilter(function ($item, $key) {
-            if (is_null($item)) {
+        $resource = $this->resource([
+            'results' => [
+                'a' => 4,
+                'b' => 5,
+                'd' => ['a' => 5],
+            ]
+        ]);
+
+        $result = $resource->mapAndFilter(function ($item, $key) {
+            if ($key === 'a') {
                 return;
             }
 
@@ -71,7 +77,6 @@ class EnumerableTest extends TestCase
         });
 
         $this->assertEquals($result, [
-            4,
             5,
             (object) ['a' => 5],
         ]);
@@ -79,7 +84,15 @@ class EnumerableTest extends TestCase
 
     public function testMapWithKeysIsCorrect()
     {
-        $result = $this->resource->mapWithKeys(function ($item, $key) {
+        $resource = $this->resource([
+            'results' => [
+                'a' => 4,
+                'b' => 5,
+                'd' => ['a' => 5],
+            ]
+        ]);
+        
+        $result = $resource->mapWithKeys(function ($item, $key) {
             return [($key . '::') => $item];
         });
 
@@ -92,9 +105,17 @@ class EnumerableTest extends TestCase
 
     public function testMapWithKeysAndFilterIsCorrect()
     {
-        $result = $this->resource->mapWithKeysAndFilter(function ($item, $key) {
-            if (is_null($item)) {
-                return;
+        $resource = $this->resource([
+            'results' => [
+                'a' => 4,
+                'b' => 5,
+                'd' => ['a' => 5],
+            ]
+        ]);
+
+        $result = $resource->mapWithKeysAndFilter(function ($item, $key) {
+            if ($key === 'b') {
+                return null;
             }
 
             return [($key . '::') => $item];
@@ -102,14 +123,21 @@ class EnumerableTest extends TestCase
 
         $this->assertEquals($result, [
             'a::' => 4,
-            'b::' => 5,
             'd::' => (object) ['a' => 5]
         ]);
     }
 
     public function testFilterIsCorrect()
     {
-        $result = $this->resource->filter(function ($item, $key) {
+        $resource = $this->resource([
+            'results' => [
+                'a' => 4,
+                'b' => 5,
+                'd' => ['a' => 5],
+            ]
+        ]);
+
+        $result = $resource->filter(function ($item, $key) {
             return $item !== 4;
         });
 
@@ -121,7 +149,15 @@ class EnumerableTest extends TestCase
 
     public function testMapReduceIsCorrect()
     {
-        $result = $this->resource->reduce(function ($before, $item, $key) {
+        $resource = $this->resource([
+            'results' => [
+                'a' => 4,
+                'b' => 5,
+                'd' => ['a' => 5],
+            ]
+        ]);
+        
+        $result = $resource->reduce(function ($before, $item, $key) {
             return ($before === '')?($key):($before .'-'. $key);
         }, '');
 
@@ -130,9 +166,17 @@ class EnumerableTest extends TestCase
 
     public function testEachIsCorrect()
     {
+        $resource = $this->resource([
+            'results' => [
+                'a' => 4,
+                'b' => 5,
+                'd' => ['a' => 5],
+            ]
+        ]);
+        
         $result = [];
 
-        $this->resource->each(function ($item, $key) use (&$result) {
+        $resource->each(function ($item, $key) use (&$result) {
             $result[] = $item;
         });
 

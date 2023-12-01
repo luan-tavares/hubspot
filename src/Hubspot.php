@@ -2,6 +2,7 @@
 
 namespace LTL\Hubspot;
 
+use LTL\Hubspot\Concerns\WithEnrollUpdateList;
 use LTL\Hubspot\Concerns\WithHeaders;
 use LTL\Hubspot\Concerns\WithListFilters;
 use LTL\Hubspot\Concerns\WithMaxLimit;
@@ -79,8 +80,8 @@ use ReflectionClass;
  *
  * @method $this withProgressBar() 
  * @method static $this withProgressBar() 
- * @method $this withResponseHeaders() 
- * @method static $this withResponseHeaders() 
+ * @method $this withHeaders() 
+ * @method static $this withHeaders() 
  *
  * Others Resources Methods
  *
@@ -113,7 +114,7 @@ abstract class Hubspot extends Resource
         }
 
         if(in_array(WithHeaders::class, $interfaces)) {
-            $this->withResponseHeaders();
+            $this->withHeaders();
         }
 
         if(in_array(WithRequestTries::class, $interfaces)) {
@@ -128,7 +129,7 @@ abstract class Hubspot extends Resource
             $this->withListFilters();
         }
 
-        if(in_array(WithListFilters::class, $interfaces)) {
+        if(in_array(WithEnrollUpdateList::class, $interfaces)) {
             $this->enrollObjectsUpdateList();
         }
 

@@ -72,8 +72,8 @@ use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
  *
  * @method $this withProgressBar() 
  * @method static $this withProgressBar() 
- * @method $this withResponseHeaders() 
- * @method static $this withResponseHeaders() 
+ * @method $this withHeaders() 
+ * @method static $this withHeaders() 
  *
  * Others Resources Methods
  *

@@ -28,7 +28,7 @@ abstract class RequestConnection implements RequestConnectionInterface
 
         $curlParams = $request->getCurlParams();
 
-        $curl =  $curl->addUri($uri)->addHeaders($headers)->addParams($curlParams);
+        $curl->addUri($uri)->addHeaders($headers)->addParams($curlParams);
 
         $curl = self::recursiveCurl($request, $requestArguments, $curl);
 
@@ -47,19 +47,15 @@ abstract class RequestConnection implements RequestConnectionInterface
         CurlInterface $curl,
         int $current = 1
     ): CurlInterface {
-        $withRequestTries = $request->getRequestsTries();
+        $requestTries = $request->getRequestsTries();
         
         $curlResponse = $curl->request($requestArguments->getMethod(), $requestArguments->body());
-
-        if (is_null($withRequestTries)) {
-            return $curlResponse;
-        }
  
         if ($curlResponse->status() !== HubspotConfig::TOO_MANY_REQUESTS_ERROR_CODE) {
             return $curlResponse;
         }
 
-        if ($current >= $withRequestTries) {
+        if ($current === $requestTries) {
             return $curlResponse;
         }
 

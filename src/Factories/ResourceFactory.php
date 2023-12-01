@@ -10,12 +10,12 @@ use ReflectionClass;
 
 abstract class ResourceFactory implements FactoryInterface
 {
-    public static function build(ResourceInterface $resource, ResponseInterface $response): ResourceInterface
+    public static function build(ResourceInterface $baseResource, ResponseInterface $response): ResourceInterface
     {
         /**
          * @var ReflectionClass $reflectionClass
          */
-        $reflectionClass = SingletonContainer::get($resource::class, function ($class) {
+        $reflectionClass = SingletonContainer::get($baseResource::class, function ($class) {
             return new ReflectionClass($class);
         });
 

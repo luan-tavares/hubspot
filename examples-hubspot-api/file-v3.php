@@ -38,7 +38,7 @@ $params = [
     'folderPath' => '/__luan'
 ];
 
-$request = FileHubspot::withProgressBar()->withResponseHeaders()->upload($post_data);
+$request = FileHubspot::withProgressBar()->withHeaders()->upload($post_data);
 
 dump($request->url);
 $file = FileHubspot::withProgressBar()->importFromUrl($params);

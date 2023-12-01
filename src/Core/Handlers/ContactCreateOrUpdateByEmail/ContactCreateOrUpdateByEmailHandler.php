@@ -4,10 +4,10 @@ namespace LTL\Hubspot\Core\Handlers\ContactCreateOrUpdateByEmail;
 
 use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
 use LTL\Hubspot\Core\Builder;
+use LTL\Hubspot\Core\Helpers\GetIdFromErrorMessageHelper;
 use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 use LTL\Hubspot\Exceptions\HubspotApiException;
-use LTL\Hubspot\Hubspot;
 
 abstract class ContactCreateOrUpdateByEmailHandler
 {
@@ -38,7 +38,7 @@ abstract class ContactCreateOrUpdateByEmailHandler
         }
 
         if ($status === HubspotConfig::CONFLICT_ERROR_CODE) {
-            $contactId = self::getIdFromErrorMessage($hubspotResponse);
+            $contactId = GetIdFromErrorMessageHelper::handle($hubspotResponse);
 
             return $builder->update($contactId, $requestBody);
         }
@@ -60,13 +60,5 @@ abstract class ContactCreateOrUpdateByEmailHandler
         }
 
         return $builder->update($idHubspot, $requestBody);
-    }
-
-    private static function getIdFromErrorMessage(Hubspot $hubspotResponse): int
-    {
-        preg_match_all('/\d+/', $hubspotResponse->message, $matches);
-        $matches = current($matches);
-       
-        return array_pop($matches);
     }
 }

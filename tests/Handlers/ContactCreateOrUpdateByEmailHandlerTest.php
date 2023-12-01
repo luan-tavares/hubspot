@@ -2,6 +2,7 @@
 
 namespace LTL\Hubspot\Tests\Request;
 
+use LTL\Curl\Curl;
 use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Builder;
@@ -9,6 +10,7 @@ use LTL\Hubspot\Core\BuilderInterface;
 use LTL\Hubspot\Core\Handlers\ContactCreateOrUpdateByEmail\ContactCreateOrUpdateByEmailHandler;
 use LTL\Hubspot\Core\Handlers\Handlers;
 use LTL\Hubspot\Core\Request\Request;
+use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
 use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\RequestFactory;
@@ -171,5 +173,104 @@ class ContactCreateOrUpdateByEmailHandlerTest extends TestCase
             $mockBuilder,
             $requestBody
         );
+    }
+
+    public function testIfHandlerUseUpdateISCorrect()
+    {
+        $result = [
+            'id' => 1
+        ];
+
+        $baseResource = new ContactHubspot;
+
+        $curl = $this->getMockBuilder(Curl::class)->getMock();
+        $curl->method('response')->willReturn(json_encode($result));
+        $curl->method('status')->willReturn(200);
+
+        /**
+         * @var CurlInterface $curl
+         */
+        $actionSchema = SchemaContainer::getAction($baseResource, 'update');
+        $response = new Response($curl, $actionSchema);
+        $resourceUpdate = ResourceFactory::build($baseResource, $response);
+
+        $request = RequestFactory::build($baseResource);
+
+        $builder = $this->getMockBuilder(Builder::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['request', '__call'])
+            ->getMock();
+
+        $builder->method('request')->willReturn($request);
+        $builder->expects($this->once())->method('__call')->willReturn($resourceUpdate);
+
+        /**
+         * @var BuilderInterface $builder
+         */
+        ContactCreateOrUpdateByEmailHandler::handle(
+            $builder,
+            ['properties'=>['name' => 'Lorem']],
+            1
+        );
+    }
+
+    public function testIfMatchNewIdInMessage()
+    {
+        $responseMock = $this->getMockBuilder(Response::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['__get', 'getStatus', 'hasErrors', 'isInvalidEmailError'])
+            ->getMock();
+
+        $getMap = [
+            ['message', 'id 555 n']
+        ];
+    
+        $responseMock->method('__get')->willReturnMap($getMap);
+        $responseMock->method('isInvalidEmailError')->willReturn(false);
+        $responseMock->method('getStatus')->willReturn(409);
+        $responseMock->method('hasErrors')->willReturn(true);
+
+        /**
+         * @var ResponseInterface $responseMock
+         */
+        $resource = ResourceFactory::build(new ContactHubspot, $responseMock);
+
+        $request = RequestFactory::build(new ContactHubspot);
+
+        $builderMock = $this->getMockBuilder(Builder::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['request', '__call'])
+            ->getMock();
+      
+        $map = [
+            'create' => $resource,
+            'update' => $resource,
+        ];
+
+        $update = 0;
+
+        $builderMock->method('request')->willReturn($request);
+        $builderMock->method('__call')->willReturnCallback(function (...$params) use (&$update, $map) {
+            $method = current($params);
+
+            if($method === 'update') {
+                $update++;
+            }
+            
+            return $map[$method];
+        });
+
+        $requestBody = ['properties'=>['name' => 'Lorem']];
+ 
+        /**
+         * @var BuilderInterface $builderMock
+         */
+        ContactCreateOrUpdateByEmailHandler::handle(
+            $builderMock,
+            $requestBody
+        );
+
+        $this->assertEquals(1, $update);
+
     }
 }

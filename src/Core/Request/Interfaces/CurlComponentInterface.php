@@ -8,5 +8,5 @@ use LTL\ListMethods\PublicMethods\Interfaces\PublicMethodsListableInterface;
 interface CurlComponentInterface extends ComponentInterface, PublicMethodsListableInterface
 {
     public function withProgressBar(): self;
-    public function withResponseHeaders(): self;
+    public function withHeaders(): self;
 }

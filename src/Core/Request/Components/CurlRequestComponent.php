@@ -23,7 +23,7 @@ class CurlRequestComponent extends AbstractRequestComponent implements CurlCompo
         return $this;
     }
 
-    public function withResponseHeaders(): self
+    public function withHeaders(): self
     {
         $this->addNotNull(CURLOPT_HEADER, true);
 

@@ -58,6 +58,8 @@ abstract class Resource implements ResourceInterface
         try {
             return call_user_func_array([(new static), $name], $arguments);
         } catch (Error $exception) {
+            /**Call with Hubspot abstract class */
+            
             throw new HubspotApiException("Static method {$className}::{$name}(...) not exists!", $className);
         }
     }

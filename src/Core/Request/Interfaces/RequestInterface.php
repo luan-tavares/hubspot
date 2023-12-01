@@ -14,7 +14,7 @@ interface RequestInterface
     public function getHeaders(): array;
     public function getQueries(): array;
     public function getCurlParams(): array;
-    public function getRequestsTries(): int|null;
+    public function getRequestsTries(): int;
     public function hasWithRequestException(): bool;
     
     public function addUriArguments(RequestArgumentsInterface $requestArguments): self;

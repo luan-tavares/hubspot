@@ -104,13 +104,15 @@ class Request implements RequestInterface
 
     public function setRequestTries(int $tries): self
     {
-        if($tries < 0 || $tries > HubspotConfig::TOO_MANY_REQUESTS_TRIES) {
-            throw new HubspotApiException('Max too Many Request tries must be less 15 or more 0');
+        $maxTries = HubspotConfig::MAX_REQUESTS_TRIES;
+
+        if($tries >= 1 && $tries <= $maxTries) {
+            $this->resourceRequest->add('tries', $tries);
+
+            return $this;
         }
 
-        $this->resourceRequest->add('tries', $tries);
-
-        return $this;
+        throw new HubspotApiException("Max too Many Request tries must be less {$maxTries} or more 1");
     }
 
     public function removeApikey(): self

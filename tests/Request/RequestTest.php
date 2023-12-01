@@ -54,7 +54,7 @@ class RequestTest extends TestCase
         /**
          * @var BuilderInterface $builder
          */
-        $builder = CompanyHubspot::withResponseHeaders();
+        $builder = CompanyHubspot::withHeaders();
         
         /**
          * @var RequestInterface $request

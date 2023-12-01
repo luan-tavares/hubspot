@@ -7,6 +7,7 @@ use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Builder;
 use LTL\Hubspot\Core\BuilderInterface;
+use LTL\Hubspot\Core\Handlers\AssociationImportAll\AssociationImportAllHandler;
 use LTL\Hubspot\Core\Handlers\Handlers;
 use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Factories\ResourceFactory;
@@ -26,16 +27,8 @@ class AssociationImportAllHandlerTest extends TestCase
     public function testIfHandlerNameIsCorrect()
     {
         $actionSchema = SchemaContainer::getAction($this->baseResource, 'importAll');
-        dd($actionSchema);
-        $this->assertEquals('import_all', $actionSchema->handler);
-    }
-
-    public function testIfNotIsHandlerNameIsNull()
-    {
-        $baseResource = new ContactHubspot;
-        $actionSchema = SchemaContainer::getAction($baseResource, 'getAll');
-
-        $this->assertNull($actionSchema->handler);
+   
+        $this->assertEquals('associations_import_all', $actionSchema->handler);
     }
 
     public function testIfImporAllReturnTwoTimes()
@@ -53,18 +46,16 @@ class AssociationImportAllHandlerTest extends TestCase
             'results' => [3],
         ];
 
-        $baseResource = new ContactHubspot;
-
         $curl1 = $this->getMockBuilder(Curl::class)->getMock();
         $curl1->method('response')->willReturn(json_encode($result1));
-        $actionSchema = SchemaContainer::getAction($baseResource, 'getAll');
+        $actionSchema = SchemaContainer::getAction($this->baseResource, 'getAll');
 
         /**
          * @var CurlInterface $curl1
          */
         $response = new Response($curl1, $actionSchema);
-        $resource1 = ResourceFactory::build($baseResource, $response);
-        $mockResource1 = $this->getMockBuilder(ContactHubspot::class)
+        $resource1 = ResourceFactory::build($this->baseResource, $response);
+        $mockResource1 = $this->getMockBuilder($this->baseResource::class)
             ->onlyMethods(['__call'])
             ->getMock();
             
@@ -72,13 +63,13 @@ class AssociationImportAllHandlerTest extends TestCase
 
         $curl2 = $this->getMockBuilder(Curl::class)->getMock();
         $curl2->method('response')->willReturn(json_encode($result2));
-        $actionSchema = SchemaContainer::getAction($baseResource, 'getAll');
+        $actionSchema = SchemaContainer::getAction($this->baseResource, 'getAll');
 
         /**
          * @var CurlInterface $curl2
          */
         $response = new Response($curl2, $actionSchema);
-        $resource2 = ResourceFactory::build($baseResource, $response);
+        $resource2 = ResourceFactory::build($this->baseResource, $response);
         $mockResource2 = $this->getMockBuilder(ContactHubspot::class)
             ->onlyMethods(['__call'])
             ->getMock();
@@ -100,15 +91,9 @@ class AssociationImportAllHandlerTest extends TestCase
         /**
          * @var BuilderInterface $builder
          */
-        Handlers::call(
-            $builder,
-            'import_all',
-            [
-                function ($item) use (&$results) {
-                    $results = array_merge($results, $item['results']);
-                }
-            ]
-        );
+        AssociationImportAllHandler::handle($builder, 'contact', 111, 'deal', function ($item) use (&$results) {
+            $results = array_merge($results, $item['results']);
+        });
 
         $this->assertEquals([1,2,3], $results);
     }
