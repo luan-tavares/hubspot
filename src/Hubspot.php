@@ -106,9 +106,7 @@ abstract class Hubspot extends Resource
     
     public function __construct()
     {
-        $reflectionClass = new ReflectionClass($this);
-
-        $interfaces = $reflectionClass->getInterfaceNames();
+        $interfaces = (new ReflectionClass($this))->getInterfaceNames();
 
         if(in_array(WithRequestException::class, $interfaces)) {
             $this->withRequestException();
