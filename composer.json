@@ -46,6 +46,8 @@
     },
     "scripts": {
         "deploy-tag": [
+            "./bin/documentation",
+            "./bin/resource",
             "LTL\\Deploy\\DeployTag::execute"
         ],
         "deploy": [
