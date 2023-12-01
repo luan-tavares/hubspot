@@ -254,15 +254,17 @@ class RequestConnectionTest extends TestCase
 
     public function testIfRecursiveCurlIsCorrect()
     {
-        $tooManyRequests = 15;
+        $tries = 2;
 
         TimesleepGlobal::set(0);
 
-        $resourceBuilder = ContactHubspot::tooManyRequestsTries($tooManyRequests);
+        $resource = new ContactHubspot;
 
-        $request = $resourceBuilder->request();
+        $request = RequestFactory::build($resource);
 
-        $actionSchema = SchemaContainer::getAction($resourceBuilder->baseResource(), 'getAll');
+        $request->setRequestTries($tries);
+
+        $actionSchema = SchemaContainer::getAction($resource, 'getAll');
 
         $requestArguments = new RequestArguments($actionSchema);
 
@@ -274,7 +276,7 @@ class RequestConnectionTest extends TestCase
         $curl->method('status')->willReturn(HubspotConfig::TOO_MANY_REQUESTS_ERROR_CODE);
 
 
-        $curl->expects($this->exactly($tooManyRequests))->method('request');
+        $curl->expects($this->exactly($tries))->method('request');
 
         /**
          * @var CurlInterface $curl
@@ -284,15 +286,17 @@ class RequestConnectionTest extends TestCase
 
     public function testIfSleepRecursiveCurlIsCorrect()
     {
-        $tooManyRequests = 2;
+        $tries = 2;
 
         TimesleepGlobal::set(1);
 
-        $resourceBuilder = ContactHubspot::tooManyRequestsTries($tooManyRequests);
+        $resource = new ContactHubspot;
 
-        $request = $resourceBuilder->request();
+        $request = RequestFactory::build($resource);
 
-        $actionSchema = SchemaContainer::getAction($resourceBuilder->baseResource(), 'getAll');
+        $request->setRequestTries($tries);
+
+        $actionSchema = SchemaContainer::getAction($resource, 'getAll');
 
         $requestArguments = new RequestArguments($actionSchema);
 
@@ -315,63 +319,80 @@ class RequestConnectionTest extends TestCase
         $this->assertEquals(1, $endTime->diff($initTime)->s);
     }
 
-    public function testIfDefaultRecursiveCurlIsCorrect()
+    public function testIfTriesMAxAddOneThrowException()
     {
-        $requests = 1;
+        $tries = HubspotConfig::TOO_MANY_REQUESTS_TRIES + 1;
 
         TimesleepGlobal::set(0);
 
-        $resourceBuilder = ContactHubspot::tooManyRequestsTries($requests);
+        $resource = new ContactHubspot;
 
-        $request = $resourceBuilder->request();
-
-        $actionSchema = SchemaContainer::getAction($resourceBuilder->baseResource(), 'getAll');
-
-        $requestArguments = new RequestArguments($actionSchema);
-
-        $curl = $this->getMockBuilder(Curl::class)->getMock();
-        $curl->method('request')->willReturn($curl);
-        $curl->method('addUri')->willReturn($curl);
-        $curl->method('addHeaders')->willReturn($curl);
-        $curl->method('addParams')->willReturn($curl);
-        $curl->method('status')->willReturn(HubspotConfig::TOO_MANY_REQUESTS_ERROR_CODE);
-
-
-        $curl->expects($this->exactly($requests))->method('request');
-
-        /**
-         * @var CurlInterface $curl
-         */
-        RequestConnection::handle($request, $requestArguments, $curl);
-    }
-
-    public function testIfTriesMore15ThrowException()
-    {
-        $tooManyRequests = 20;
-
-        TimesleepGlobal::set(0);
+        $request = RequestFactory::build($resource);
 
         $this->expectException(HubspotApiException::class);
 
-        ContactHubspot::tooManyRequestsTries($tooManyRequests);
-
-     
+        $request->setRequestTries($tries);
     }
 
-    public function testIfTriesLess1ThrowException()
+    public function testIfTriesMaxNotThrowException()
     {
-        $tooManyRequests = 0;
+        $tries = HubspotConfig::TOO_MANY_REQUESTS_TRIES;
 
         TimesleepGlobal::set(0);
 
-        $this->expectException(HubspotApiException::class);
+        $resource = new ContactHubspot;
 
-        ContactHubspot::tooManyRequestsTries($tooManyRequests);
+        $request = RequestFactory::build($resource);
+
+        $this->expectNotToPerformAssertions();
+
+        $request->setRequestTries($tries);
     }
 
-    public function testIfExceptionIfRequestErrorMethodThrowException()
+    public function testIfTriesZeroNotThrowException()
     {
-        $resourceBuilder = ContactHubspot::exceptionIfRequestError();
+        $tries = 0;
+
+        TimesleepGlobal::set(0);
+
+        $resource = new ContactHubspot;
+
+        $request = RequestFactory::build($resource);
+
+        $this->expectNotToPerformAssertions();
+
+        $request->setRequestTries($tries);
+    }
+
+    public function testIfTriesZeroIsDefault()
+    {
+        TimesleepGlobal::set(0);
+
+        $resource = new ContactHubspot;
+
+        $request = RequestFactory::build($resource);
+
+        $this->assertEquals(0, $request->getRequestsTries());
+    }
+
+    public function testIfTriesLessZeroThrowException()
+    {
+        $tries = -1;
+
+        TimesleepGlobal::set(0);
+
+        $resource = new ContactHubspot;
+
+        $request = RequestFactory::build($resource);
+
+        $this->expectException(HubspotApiException::class);
+
+        $request->setRequestTries($tries);
+    }
+
+    public function testIfWithRequestExceptionMethodThrowException()
+    {
+        $resourceBuilder = ContactHubspot::withRequestException();
 
         $request = $resourceBuilder->request();
 
@@ -395,9 +416,9 @@ class RequestConnectionTest extends TestCase
         RequestConnection::handle($request, $requestArguments, $curl);
     }
 
-    public function testIfExceptionIfRequestErrorNoResponseThrowCorrectExceptionMessage()
+    public function testIfWithRequestExceptionNoResponseThrowCorrectExceptionMessage()
     {
-        $resourceBuilder = ContactHubspot::exceptionIfRequestError();
+        $resourceBuilder = ContactHubspot::withRequestException();
 
         $request = $resourceBuilder->request();
 

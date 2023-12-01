@@ -14,15 +14,16 @@ interface RequestInterface
     public function getHeaders(): array;
     public function getQueries(): array;
     public function getCurlParams(): array;
-    public function getTooManyRequestsTries(): int|null;
-    public function hasExceptionIfRequestError(): bool;
-    public function removeException(): self;
-
+    public function getRequestsTries(): int|null;
+    public function hasWithRequestException(): bool;
+    
     public function addUriArguments(RequestArgumentsInterface $requestArguments): self;
     public function addBaseHeader(RequestArgumentsInterface $requestArguments): self;
 
     public function removeApikey(): self;
     public function removeOAuth(): self;
+    public function setRequestTries(int $limit): self;
+    public function removeException(): self;
 
     public function connect(ActionSchemaInterface $actionSchema, array $arguments): CurlInterface;
 }

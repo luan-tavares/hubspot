@@ -18,7 +18,7 @@ abstract class CrmCreateOrUpdateHandler
     ): ResourceInterface {
         
         $request = $builder->request();
-        $hasException = $request->hasExceptionIfRequestError();
+        $hasException = $request->hasWithRequestException();
         $request->removeException();
 
         $hubspotResponse = self::createOrUpdate($builder, $requestBody, $idHubspot);

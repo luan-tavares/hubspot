@@ -4,7 +4,6 @@ namespace LTL\Hubspot\Core\Request\Components;
 
 use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Request\Interfaces\ResourceRequestComponentInterface;
-use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\ListMethods\PublicMethods\Traits\PublicMethodsListable;
 
 class ResourceRequestComponent extends AbstractRequestComponent implements ResourceRequestComponentInterface
@@ -13,20 +12,22 @@ class ResourceRequestComponent extends AbstractRequestComponent implements Resou
 
     protected function register(): void
     {
-        $this->exceptionIfRequestError(false);
+        $this->notWithRequestException();
+        $this->addNotNull('tries', 0);
     }
 
-    public function tooManyRequestsTries(int $tries = HubspotConfig::TOO_MANY_REQUESTS_TRIES): self
+    public function withRequestTries(): self
     {
-        if($tries > HubspotConfig::TOO_MANY_REQUESTS_TRIES || $tries < 1) {
-            throw new HubspotApiException('Max too Many Request tries must be less 15 or more 0');
-        }
-
-        return $this->addNotNull('requestTries', $tries);
+        return $this->addNotNull('tries', HubspotConfig::TOO_MANY_REQUESTS_TRIES);
     }
 
-    public function exceptionIfRequestError(bool $hasException = true): self
+    public function withRequestException(): self
     {
-        return $this->addNotNull('exception', $hasException);
+        return $this->addNotNull('exception', true);
+    }
+
+    public function notWithRequestException(): self
+    {
+        return $this->addNotNull('exception', false);
     }
 }

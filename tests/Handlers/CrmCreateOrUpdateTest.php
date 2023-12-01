@@ -65,7 +65,7 @@ class CrmCreateOrUpdateTest extends TestCase
         $requestBody = ['properties'=>['name' => 'Lorem']];
 
         $map = [
-            ['exceptionIfRequestError', [false], $builder],
+            ['withRequestException', [false], $builder],
             ['create', [$requestBody], $resourceCreate],
             ['update', [5, $requestBody], $resourceCreate]
         ];
@@ -92,7 +92,7 @@ class CrmCreateOrUpdateTest extends TestCase
         /**
          * @var BuilderInterface $builder
          */
-        $builder = $baseResource->exceptionIfRequestError();
+        $builder = $baseResource->withRequestException();
  
         $curl = $this->getMockBuilder(CurlInterface::class)->getMock();
         $curl->method('response')->willReturn(json_encode($result));
@@ -112,7 +112,7 @@ class CrmCreateOrUpdateTest extends TestCase
             ->getMock();
 
         $map = [
-            ['exceptionIfRequestError', [false], $mockBuilder],
+            ['withRequestException', [false], $mockBuilder],
             ['create', [$requestBody], $resourceResponse],
             ['update', [1 ,$requestBody], $resourceResponse]
         ];
@@ -198,11 +198,11 @@ class CrmCreateOrUpdateTest extends TestCase
 
         $mockRequest = $this->getMockBuilder(Request::class)
             ->disableOriginalConstructor()
-            ->onlyMethods(['removeException', 'hasExceptionIfRequestError'])
+            ->onlyMethods(['removeException', 'hasWithRequestException'])
             ->getMock();
 
         $map = [
-            ['exceptionIfRequestError', [false], $mockBuilder],
+            ['withRequestException', [false], $mockBuilder],
             ['create', [$requestBody], $resourceResponse],
             ['update', [1 ,$requestBody], $resourceResponse]
         ];
@@ -248,7 +248,7 @@ class CrmCreateOrUpdateTest extends TestCase
         $requestBody = ['properties'=>['name' => 'Lorem']];
 
         $map = [
-            'exceptionIfRequestError' => $builderMock,
+            'withRequestException' => $builderMock,
             'create' => $resourceMock,
             'update' => $resourceMock,
         ];

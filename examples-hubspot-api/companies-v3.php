@@ -13,8 +13,8 @@ $after = $i = $memory = 0;
 while (true) {
     CompanyHubspot::limit(10);
     $companies = CompanyHubspot::after($after)
-        ->exceptionIfRequestError()
-        ->tooManyRequestsTries(5)
+        ->withRequestException()
+        ->withRequestTries(5)
         ->limit(100)
         ->getAll();
 

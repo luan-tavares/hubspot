@@ -75,10 +75,12 @@ use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
  *
  * Others Resources Methods
  *
- * @method $this tooManyRequestsTries(int $tries)
- * @method static $this tooManyRequestsTries(int $tries)
- * @method $this exceptionIfRequestError(bool $hasException)
- * @method static $this exceptionIfRequestError(bool $hasException)
+ * @method $this withRequestTries(int $tries)
+ * @method static $this withRequestTries(int $tries)
+ * @method $this withRequestException()
+ * @method static $this withRequestException()
+ * @method $this notWithRequestException()
+ * @method static $this notWithRequestException()
  *
  * Global Methods
  *

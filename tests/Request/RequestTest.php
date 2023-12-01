@@ -141,12 +141,12 @@ class RequestTest extends TestCase
         /**
          * @var BuilderInterface $builder
          */
-        $builder = CompanyHubspot::exceptionIfRequestError();
+        $builder = CompanyHubspot::withRequestException();
 
         $request = $builder->request();
 
         $request->removeException();
 
-        $this->assertFalse($request->hasExceptionIfRequestError());
+        $this->assertFalse($request->hasWithRequestException());
     }
 }

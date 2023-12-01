@@ -86,7 +86,7 @@ class ContactCreateOrUpdateByEmailHandlerTest extends TestCase
         /**
          * @var BuilderInterface $builder
          */
-        $builder = $baseResource->exceptionIfRequestError();
+        $builder = $baseResource->withRequestException();
  
         $curl = $this->getMockBuilder(CurlInterface::class)->getMock();
         $curl->method('response')->willReturn(json_encode($result));
@@ -106,7 +106,7 @@ class ContactCreateOrUpdateByEmailHandlerTest extends TestCase
             ->getMock();
 
         $map = [
-            ['exceptionIfRequestError', [false], $mockBuilder],
+            ['withRequestException', [false], $mockBuilder],
             ['create', [$requestBody], $resourceResponse]
         ];
 
@@ -151,11 +151,11 @@ class ContactCreateOrUpdateByEmailHandlerTest extends TestCase
 
         $mockRequest = $this->getMockBuilder(Request::class)
             ->disableOriginalConstructor()
-            ->onlyMethods(['removeException', 'hasExceptionIfRequestError'])
+            ->onlyMethods(['removeException', 'hasWithRequestException'])
             ->getMock();
 
         $map = [
-            ['exceptionIfRequestError', [false], $mockBuilder],
+            ['withRequestException', [false], $mockBuilder],
             ['create', [$requestBody], $resourceResponse]
         ];
 

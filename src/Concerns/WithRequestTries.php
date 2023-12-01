@@ -2,6 +2,6 @@
 
 namespace LTL\Hubspot\Concerns;
 
-interface ExceptionIfRequestError
+interface WithRequestTries
 {
 }

@@ -2,6 +2,7 @@
 namespace LTL\Hubspot\Core\Request;
 
 use LTL\Curl\Interfaces\CurlInterface;
+use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Request\Components\ResourceRequestComponent;
 use LTL\Hubspot\Core\Request\Interfaces\CurlComponentInterface;
 use LTL\Hubspot\Core\Request\Interfaces\HeaderComponentInterface;
@@ -96,7 +97,18 @@ class Request implements RequestInterface
 
     public function removeException(): self
     {
-        $this->resourceRequest->exceptionIfRequestError(false);
+        $this->resourceRequest->notWithRequestException();
+
+        return $this;
+    }
+
+    public function setRequestTries(int $tries): self
+    {
+        if($tries < 0 || $tries > HubspotConfig::TOO_MANY_REQUESTS_TRIES) {
+            throw new HubspotApiException('Max too Many Request tries must be less 15 or more 0');
+        }
+
+        $this->resourceRequest->add('tries', $tries);
 
         return $this;
     }
@@ -132,12 +144,12 @@ class Request implements RequestInterface
         return $this->curl->all();
     }
 
-    public function getTooManyRequestsTries(): int|null
+    public function getRequestsTries(): int
     {
-        return $this->resourceRequest->value('requestTries');
+        return $this->resourceRequest->value('tries');
     }
 
-    public function hasExceptionIfRequestError(): bool
+    public function hasWithRequestException(): bool
     {
         return $this->resourceRequest->value('exception');
     }

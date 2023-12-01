@@ -2,6 +2,6 @@
 
 namespace LTL\Hubspot\Concerns;
 
-interface TooManyRequestsTries
+interface WithRequestException
 {
 }

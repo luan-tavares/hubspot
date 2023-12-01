@@ -4,11 +4,11 @@
 
 require_once __DIR__ .'/__init.php';
 
-use LTL\Hubspot\Concerns\ExceptionIfRequestError;
 use LTL\Hubspot\Concerns\IncludeListFilters;
+use LTL\Hubspot\Concerns\WithRequestException;
 use LTL\Hubspot\Resources\V3\ListHubspot;
 
-$resource = new class extends ListHubspot implements ExceptionIfRequestError, IncludeListFilters {};
+$resource = new class extends ListHubspot implements WithRequestException, IncludeListFilters {};
 
 
 
