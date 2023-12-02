@@ -51,7 +51,7 @@ abstract class Resource implements ResourceInterface
             try {
                 return GlobalComponents::{$name}(...$arguments);
             } catch (TypeError $exception) {
-                throw new HubspotApiException($exception->getMessage());
+                throw new HubspotApiException($exception->getMessage(), $className);
             }
         }
 
@@ -60,7 +60,7 @@ abstract class Resource implements ResourceInterface
         } catch (Error $exception) {
             /**Call with Hubspot abstract class */
 
-            throw new HubspotApiException($exception->getMessage(), $className);
+            throw new HubspotApiException($exception->getMessage());
         }
     }
 
