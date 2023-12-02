@@ -77,16 +77,16 @@
         },
         {
             "name": "luan-tavares/hubspot-request-body",
-            "version": "v1.0.6",
+            "version": "v1.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/luan-tavares/hubspot-request-body.git",
-                "reference": "fb99418a9acd22999fae92ae8c9a3db651c80096"
+                "reference": "fe3ce54195ee635f46a2873f84e175eac0eaef53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/luan-tavares/hubspot-request-body/zipball/fb99418a9acd22999fae92ae8c9a3db651c80096",
-                "reference": "fb99418a9acd22999fae92ae8c9a3db651c80096",
+                "url": "https://api.github.com/repos/luan-tavares/hubspot-request-body/zipball/fe3ce54195ee635f46a2873f84e175eac0eaef53",
+                "reference": "fe3ce54195ee635f46a2873f84e175eac0eaef53",
                 "shasum": ""
             },
             "require": {
@@ -126,9 +126,9 @@
             ],
             "support": {
                 "issues": "https://github.com/luan-tavares/hubspot-request-body/issues",
-                "source": "https://github.com/luan-tavares/hubspot-request-body/tree/v1.0.6"
+                "source": "https://github.com/luan-tavares/hubspot-request-body/tree/v1.0.7"
             },
-            "time": "2023-12-02T22:21:33+00:00"
+            "time": "2023-12-02T23:22:45+00:00"
         },
         {
             "name": "luan-tavares/list-methods",
