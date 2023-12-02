@@ -230,7 +230,7 @@ class RequestConnectionTest extends TestCase
         $expects =[
             'array',
             "LTL\HubspotRequestBody\Resources\HubspotCrmCreateBody"
-        ];
+        ];/** */
 
         $actionSchema = SchemaContainer::getAction(new CompanyHubspot, 'create');
         
