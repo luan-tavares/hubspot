@@ -4,8 +4,63 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0117b21a37316a694555acd971e64fea",
+    "content-hash": "fe0ff4d4865e074f16ffa8b265a91b48",
     "packages": [
+        {
+            "name": "luan-tavares/hubspot-request-body",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/luan-tavares/hubspot-request-body.git",
+                "reference": "108662fe0505c17e4aa0938df607cd12121dceec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/luan-tavares/hubspot-request-body/zipball/108662fe0505c17e4aa0938df607cd12121dceec",
+                "reference": "108662fe0505c17e4aa0938df607cd12121dceec",
+                "shasum": ""
+            },
+            "require": {
+                "nesbot/carbon": "^2.62",
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "larapack/dd": "1.*",
+                "luan-tavares/simple-deploy": "^1.0",
+                "phpunit/phpunit": "^10"
+            },
+            "bin": [
+                "bin/resource"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "LTL\\HubspotRequestBody\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Luan Tavares Lourenço",
+                    "email": "luan.tavares.lourenco@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Hubspot Request Body Constructor",
+            "keywords": [
+                "api",
+                "hubspot",
+                "integration"
+            ],
+            "support": {
+                "issues": "https://github.com/luan-tavares/hubspot-request-body/issues",
+                "source": "https://github.com/luan-tavares/hubspot-request-body/tree/v1.0.0"
+            },
+            "time": "2023-12-02T18:37:35+00:00"
+        },
         {
             "name": "luan-tavares/list-methods",
             "version": "v1.0.5",

@@ -3,7 +3,6 @@
 namespace LTL\Hubspot\Tests\Request;
 
 use LTL\Hubspot\Containers\SchemaContainer;
-use LTL\Hubspot\Core\BodyBuilder\SearchBuilder\SearchBuilder;
 use LTL\Hubspot\Core\Request\Components\AbstractRequestComponent;
 use LTL\Hubspot\Core\Request\Components\HeaderRequestComponent;
 use LTL\Hubspot\Core\Request\RequestArguments;
@@ -13,6 +12,7 @@ use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\RequestFactory;
 use LTL\Hubspot\Resources\V1\OAuthHubspot;
 use LTL\Hubspot\Resources\V3\ContactHubspot;
+use LTL\HubspotRequestBody\Resources\HubspotSearchBody;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
@@ -106,11 +106,9 @@ class ComponentRequestTest extends TestCase
     {
         $resource = new ContactHubspot;
 
-        $request = RequestFactory::build($resource);
-
         $actionSchema = SchemaContainer::getAction($resource, 'search');
 
-        $requestBody = SearchBuilder::filterHas('id')->properties('name');
+        $requestBody = HubspotSearchBody::filterHas('id')->properties('name');
 
         $requestArguments = new RequestArguments($actionSchema, [$requestBody]);
 

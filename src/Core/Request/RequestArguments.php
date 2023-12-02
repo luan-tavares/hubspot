@@ -2,10 +2,10 @@
 
 namespace LTL\Hubspot\Core\Request;
 
-use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
 use LTL\Hubspot\Core\Request\Interfaces\RequestArgumentsInterface;
 use LTL\Hubspot\Core\Schema\Interfaces\ActionSchemaInterface;
 use LTL\Hubspot\Exceptions\HubspotApiException;
+use LTL\HubspotRequestBody\Core\AbstractBody;
 
 class RequestArguments implements RequestArgumentsInterface
 {
@@ -13,7 +13,7 @@ class RequestArguments implements RequestArgumentsInterface
 
     private array $queriesAsParam = [];
 
-    private array|BaseBodyBuilder|null $body = null;
+    private array|AbstractBody|null $body = null;
     
     public function __construct(private ActionSchemaInterface $actionSchema, array $arguments = [])
     {
@@ -52,7 +52,7 @@ class RequestArguments implements RequestArgumentsInterface
     {
         $body = current($reverseArguments);
 
-        if($body instanceof BaseBodyBuilder) {
+        if($body instanceof AbstractBody) {
             return $body->get();
         }
 

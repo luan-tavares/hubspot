@@ -25,9 +25,6 @@
         <testsuite name="Others Suit">
             <directory >./tests/Others</directory>
         </testsuite>
-        <testsuite name="Body Builder Suit">
-            <directory >./tests/BodyBuilder</directory>
-        </testsuite>
         <testsuite name="Handlers Suit">
             <directory >./tests/Handlers</directory>
         </testsuite>
