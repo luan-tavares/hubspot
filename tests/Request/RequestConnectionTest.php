@@ -239,7 +239,6 @@ class RequestConnectionTest extends TestCase
 
     public function testIfBodyTypesWithoutBodyIsNull()
     {
-
         $actionSchema = SchemaContainer::getAction(new CrmObjectHubspot, 'createAssociation');
         
         $this->assertNull($actionSchema->bodyTypes);
