@@ -2,13 +2,11 @@
 
 namespace LTL\Hubspot\Tests\Resource;
 
-use LTL\Hubspot\Concerns\WithEnrollUpdateList;
 use LTL\Hubspot\Concerns\WithHeaders;
 use LTL\Hubspot\Concerns\WithRequestException;
 use LTL\Hubspot\Concerns\WithRequestTries;
 use LTL\Hubspot\Containers\BuilderContainer;
 use LTL\Hubspot\Core\HubspotConfig;
-use LTL\Hubspot\Factories\BuilderFactory;
 use LTL\Hubspot\Resources\V3\ContactHubspot;
 use LTL\Hubspot\Tests\Resource\Concerns\ContactHubspot as ConcernsContactHubspot;
 use PHPUnit\Framework\TestCase;

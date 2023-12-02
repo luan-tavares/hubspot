@@ -3,15 +3,15 @@
 namespace LTL\Hubspot\Resources\V3;
 
 use LTL\Hubspot\Hubspot;
-use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
+use LTL\HubspotRequestBody\Resources as Body;
 
 /**
  * @link https://app.hubspot.com/developer-docs/api?spec=v1/apis/conversations/v3/conversations
  *
- * @method static $this getAllActors(BaseBodyBuilder|array $requestBody) Resolve ActorIds to the underlying actors/participants.
+ * @method static $this getAllActors(array $requestBody) Resolve ActorIds to the underlying actors/participants.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/conversations/v3/conversations
  *
- * @method $this getAllActors(BaseBodyBuilder|array $requestBody) Resolve ActorIds to the underlying actors/participants.
+ * @method $this getAllActors(array $requestBody) Resolve ActorIds to the underlying actors/participants.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/conversations/v3/conversations
  *
  * @method static $this getActor(int|string $actorId) Get a single actor.
@@ -68,10 +68,10 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this getThread(int|string $threadId) Get a single thread.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/conversations/v3/conversations
  *
- * @method static $this updateThread(int|string $threadId, BaseBodyBuilder|array $requestBody) Updates a single thread. Either a thread's status can be updated, or the thread can be restored.
+ * @method static $this updateThread(int|string $threadId, array $requestBody) Updates a single thread. Either a thread's status can be updated, or the thread can be restored.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/conversations/v3/conversations
  *
- * @method $this updateThread(int|string $threadId, BaseBodyBuilder|array $requestBody) Updates a single thread. Either a thread's status can be updated, or the thread can be restored.
+ * @method $this updateThread(int|string $threadId, array $requestBody) Updates a single thread. Either a thread's status can be updated, or the thread can be restored.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/conversations/v3/conversations
  *
  * @method static $this deleteThread(int|string $threadId) Archives a single thread. The thread will be permanently deleted 30 days after placed in an archived state.
@@ -86,10 +86,10 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this getAllMessages(int|string $threadId) Get message history for a thread.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/conversations/v3/conversations
  *
- * @method static $this sendMessage(int|string $threadId, BaseBodyBuilder|array $requestBody) Send a new message on a thread at the current timestamp.
+ * @method static $this sendMessage(int|string $threadId, array $requestBody) Send a new message on a thread at the current timestamp.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/conversations/v3/conversations
  *
- * @method $this sendMessage(int|string $threadId, BaseBodyBuilder|array $requestBody) Send a new message on a thread at the current timestamp.
+ * @method $this sendMessage(int|string $threadId, array $requestBody) Send a new message on a thread at the current timestamp.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/conversations/v3/conversations
  *
  * @method static $this getMessage(int|string $threadId, int|string $messageId) Get a single message.

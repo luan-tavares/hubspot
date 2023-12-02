@@ -3,7 +3,7 @@
 namespace LTL\Hubspot\Resources\V3;
 
 use LTL\Hubspot\Hubspot;
-use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
+use LTL\HubspotRequestBody\Resources as Body;
 
 /**
  * @link https://app.hubspot.com/developer-docs/api?spec=v1/apis/cms/v3/domains

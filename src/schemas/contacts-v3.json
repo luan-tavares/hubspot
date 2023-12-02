@@ -28,11 +28,13 @@
         "create": {
             "path": "objects/contacts",
             "method": "POST",
+            "bodyBuilder": "HubspotCrmCreateBody",
             "description": "Create a contact with the given properties and return a copy of the object, including the ID."
         },
         "update": {
             "path": "objects/contacts/{contactIdOrEmail}",
             "method": "PATCH",
+            "bodyBuilder": "HubspotCrmUpdateBody",
             "description": "Perform a partial update of an contact identified by {contactIdOrEmail}."
         },
         "delete": {
@@ -65,18 +67,21 @@
         "batchDelete": {
             "path": "objects/contacts/batch/archive",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchDeleteBody",
             "description": "Archive a batch of contacts by ID."
         },
         "batchCreate": {
             "path": "objects/contacts/batch/create",
             "method": "POST",
             "description": "Create a batch of contacts.",
+            "bodyBuilder": "HubspotBatchCreateBody",
             "iteratorIndex": "results",
             "afterIndex": null
         },
         "batchRead": {
             "path": "objects/contacts/batch/read",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchReadBody",
             "description": "Read a batch of contacts by internal ID, or unique property values.",
             "iteratorIndex": "results",
             "afterIndex": null
@@ -85,6 +90,7 @@
             "path": "objects/contacts/batch/update",
             "method": "POST",
             "description": "Update a batch of contacts.",
+            "bodyBuilder": "HubspotBatchUpdateBody",
             "iteratorIndex": "results",
             "afterIndex": null
         },
@@ -92,6 +98,7 @@
             "path": "objects/contacts/search",
             "method": "POST",
             "description": "Search contacts.",
+            "bodyBuilder": "HubspotSearchBody",
             "iteratorIndex": "results",
             "afterIndex": "paging.next.after"
         },

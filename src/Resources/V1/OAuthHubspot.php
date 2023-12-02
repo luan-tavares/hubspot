@@ -3,7 +3,7 @@
 namespace LTL\Hubspot\Resources\V1;
 
 use LTL\Hubspot\Hubspot;
-use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
+use LTL\HubspotRequestBody\Resources as Body;
 
 /**
  * @link https://app.hubspot.com/developer-docs/api?spec=v1/apis/auth/v1/oauth
@@ -26,10 +26,10 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this deleteRefreshToken(int|string $token) Delete refresh-token.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/auth/v1/oauth
  *
- * @method static $this createOrRefresh(BaseBodyBuilder|array $requestBody) Install or Refresh App and create token.
+ * @method static $this createOrRefresh(array $requestBody) Install or Refresh App and create token.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/auth/v1/oauth
  *
- * @method $this createOrRefresh(BaseBodyBuilder|array $requestBody) Install or Refresh App and create token.
+ * @method $this createOrRefresh(array $requestBody) Install or Refresh App and create token.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/auth/v1/oauth
  *
  */

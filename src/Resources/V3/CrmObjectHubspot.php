@@ -3,7 +3,7 @@
 namespace LTL\Hubspot\Resources\V3;
 
 use LTL\Hubspot\Hubspot;
-use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
+use LTL\HubspotRequestBody\Resources as Body;
 
 /**
  * @link https://developers.hubspot.com/docs/api/crm/crm-custom-objects
@@ -20,16 +20,16 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this get(int|string $objectType, int|string $objectId) Read an object identified by {objectId}.
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
- * @method static $this create(int|string $objectType, BaseBodyBuilder|array $requestBody) Create a CRM object with the given properties and return a copy of the object, including the ID.
+ * @method static $this create(int|string $objectType, array $requestBody) Create a CRM object with the given properties and return a copy of the object, including the ID.
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
- * @method $this create(int|string $objectType, BaseBodyBuilder|array $requestBody) Create a CRM object with the given properties and return a copy of the object, including the ID.
+ * @method $this create(int|string $objectType, array $requestBody) Create a CRM object with the given properties and return a copy of the object, including the ID.
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
- * @method static $this update(int|string $objectType, int|string $objectId, BaseBodyBuilder|array $requestBody) Perform a partial update of an object identified by {objectId}.
+ * @method static $this update(int|string $objectType, int|string $objectId, array $requestBody) Perform a partial update of an object identified by {objectId}.
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
- * @method $this update(int|string $objectType, int|string $objectId, BaseBodyBuilder|array $requestBody) Perform a partial update of an object identified by {objectId}.
+ * @method $this update(int|string $objectType, int|string $objectId, array $requestBody) Perform a partial update of an object identified by {objectId}.
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
  * @method static $this delete(int|string $objectType, int|string $objectId) Move an object identified by {objectId} to the recycling bin.
@@ -38,34 +38,34 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this delete(int|string $objectType, int|string $objectId) Move an object identified by {objectId} to the recycling bin.
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
- * @method static $this gdprDelete(int|string $objectType, BaseBodyBuilder|array $requestBody) Permanently delete a contact and all associated content to follow GDPR.
+ * @method static $this gdprDelete(int|string $objectType, array $requestBody) Permanently delete a contact and all associated content to follow GDPR.
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
- * @method $this gdprDelete(int|string $objectType, BaseBodyBuilder|array $requestBody) Permanently delete a contact and all associated content to follow GDPR.
+ * @method $this gdprDelete(int|string $objectType, array $requestBody) Permanently delete a contact and all associated content to follow GDPR.
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
- * @method static $this batchRead(int|string $objectType, BaseBodyBuilder|array $requestBody) Read a batch of objects by internal ID, or unique property values.
+ * @method static $this batchRead(int|string $objectType, array $requestBody) Read a batch of objects by internal ID, or unique property values.
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
- * @method $this batchRead(int|string $objectType, BaseBodyBuilder|array $requestBody) Read a batch of objects by internal ID, or unique property values.
+ * @method $this batchRead(int|string $objectType, array $requestBody) Read a batch of objects by internal ID, or unique property values.
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
- * @method static $this batchCreate(int|string $objectType, BaseBodyBuilder|array $requestBody) Create a batch of objects.
+ * @method static $this batchCreate(int|string $objectType, array $requestBody) Create a batch of objects.
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
- * @method $this batchCreate(int|string $objectType, BaseBodyBuilder|array $requestBody) Create a batch of objects.
+ * @method $this batchCreate(int|string $objectType, array $requestBody) Create a batch of objects.
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
- * @method static $this batchUpdate(int|string $objectType, BaseBodyBuilder|array $requestBody) Update a batch of objects.
+ * @method static $this batchUpdate(int|string $objectType, array $requestBody) Update a batch of objects.
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
- * @method $this batchUpdate(int|string $objectType, BaseBodyBuilder|array $requestBody) Update a batch of objects.
+ * @method $this batchUpdate(int|string $objectType, array $requestBody) Update a batch of objects.
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
- * @method static $this batchDelete(int|string $objectType, BaseBodyBuilder|array $requestBody) Archive a batch of objects by ID.
+ * @method static $this batchDelete(int|string $objectType, array $requestBody) Archive a batch of objects by ID.
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
- * @method $this batchDelete(int|string $objectType, BaseBodyBuilder|array $requestBody) Archive a batch of objects by ID.
+ * @method $this batchDelete(int|string $objectType, array $requestBody) Archive a batch of objects by ID.
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
  * @method static $this getAssociations(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType) List associations of an object by type.
@@ -86,16 +86,16 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this removeAssociation(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType, int|string $toObjectId, int|string $associationType) Remove an association between two objects.
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
- * @method static $this search(int|string $objectType, BaseBodyBuilder|array $requestBody) Search objects by {objectType}.
+ * @method static $this search(int|string $objectType, array $requestBody) Search objects by {objectType}.
  * See https://developers.hubspot.com/docs/api/crm/search
  *
- * @method $this search(int|string $objectType, BaseBodyBuilder|array $requestBody) Search objects by {objectType}.
+ * @method $this search(int|string $objectType, array $requestBody) Search objects by {objectType}.
  * See https://developers.hubspot.com/docs/api/crm/search
  *
- * @method static $this merge(int|string $objectType, BaseBodyBuilder|array $requestBody) Merge two objects with same type.
+ * @method static $this merge(int|string $objectType, array $requestBody) Merge two objects with same type.
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
- * @method $this merge(int|string $objectType, BaseBodyBuilder|array $requestBody) Merge two objects with same type.
+ * @method $this merge(int|string $objectType, array $requestBody) Merge two objects with same type.
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
  */

@@ -8,6 +8,7 @@ use LTL\Hubspot\Core\Schema\ActionProperties\AuthenticationActionProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\BaseHeaderActionProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\BaseQueryActionProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\BaseUriActionProperty;
+use LTL\Hubspot\Core\Schema\ActionProperties\BodyTypesProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\DescriptionActionProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\DocumentationActionProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\HandlerActionProperty;
@@ -82,6 +83,9 @@ class ActionSchema implements ActionSchemaInterface
 
     #[HandlerActionProperty]
     private string|null $handler;
+
+    #[BodyTypesProperty]
+    private array|null $bodyTypes;
 
     /**
      * \LTL\Hubspot\Factories\ActionSchemaFactory

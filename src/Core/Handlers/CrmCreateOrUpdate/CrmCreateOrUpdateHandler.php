@@ -2,18 +2,18 @@
 
 namespace LTL\Hubspot\Core\Handlers\CrmCreateOrUpdate;
 
-use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
 use LTL\Hubspot\Core\Builder;
 use LTL\Hubspot\Core\Helpers\GetIdFromErrorMessageHelper;
 use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 use LTL\Hubspot\Exceptions\HubspotApiException;
+use LTL\HubspotRequestBody\Resources\HubspotCrmUpdateBody;
 
 abstract class CrmCreateOrUpdateHandler
 {
     public static function handle(
         Builder $builder,
-        BaseBodyBuilder|array $requestBody,
+        HubspotCrmUpdateBody|array $requestBody,
         int|null|string $idHubspot = null
     ): ResourceInterface {
         
@@ -49,7 +49,7 @@ abstract class CrmCreateOrUpdateHandler
 
     private static function createOrUpdate(
         Builder $builder,
-        BaseBodyBuilder|array $requestBody,
+        HubspotCrmUpdateBody|array $requestBody,
         int|null|string $idHubspot = null
     ): ResourceInterface {
         if (is_null($idHubspot)) {

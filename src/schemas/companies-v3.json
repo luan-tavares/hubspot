@@ -20,11 +20,13 @@
         "create": {
             "path": "objects/companies",
             "method": "POST",
+            "bodyBuilder": "HubspotCrmCreateBody",
             "description": "Create a company with the given properties and return a copy of the object, including the ID."
         },
         "update": {
             "path": "objects/companies/{companyId}",
             "method": "PATCH",
+            "bodyBuilder": "HubspotCrmUpdateBody",
             "description": "Perform a partial update of an company identified by {companyId}."
         },
         "delete": {
@@ -52,11 +54,13 @@
         "batchDelete": {
             "path": "objects/companies/batch/archive",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchDeleteBody",
             "description": "Archive a batch of companies by ID."
         },
         "batchCreate": {
             "path": "objects/companies/batch/create",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchCreateBody",
             "description": "Create a batch of companies.",
             "iteratorIndex": "results",
             "afterIndex": null
@@ -64,6 +68,7 @@
         "batchRead": {
             "path": "objects/companies/batch/read",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchReadBody",
             "description": "Read a batch of companies by internal ID, or unique property values.",
             "iteratorIndex": "results",
             "afterIndex": null
@@ -71,6 +76,7 @@
         "batchUpdate": {
             "path": "objects/companies/batch/update",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchUpdateBody",
             "description": "Update a batch of companies.",
             "iteratorIndex": "results",
             "afterIndex": null
@@ -78,6 +84,7 @@
         "search": {
             "path": "objects/companies/search",
             "method": "POST",
+            "bodyBuilder": "HubspotSearchBody",
             "description": "Search companies.",
             "iteratorIndex": "results",
             "afterIndex": "paging.next.after"

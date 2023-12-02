@@ -32,7 +32,6 @@ $templateWithInterface = file_get_contents($basePath . '/src/stubs/resourceWithI
 
 $templateInterface = file_get_contents($basePath . '/src/stubs/resourceInterface.stub');
 
-$latestTemplate = file_get_contents($basePath . '/src/stubs/latestResource.stub');
 
 $files = glob($basePath .'/src/schemas/*.json');
 
@@ -120,14 +119,6 @@ foreach ($resources as $resource) {
 
     file_put_contents("{$path}/{$document->class}.php", $content);
 
-    /*
-    if ($document->latest ?? false) {
-        $latestContent = $latestTemplate;
-        $latestContent = str_replace('{{class}}', $document->class, $latestContent);
-        $latestContent = str_replace('{{version}}', $document->version, $latestContent);
-        file_put_contents("{$resourcePath}/{$document->class}.php", $latestContent);
-    }
-*/
     $status = str_pad($i, 2, '0', STR_PAD_LEFT) ."▕ {$resource} ";
 
     $size = mb_strlen($status);
@@ -173,7 +164,14 @@ function writeParams(object $actionSchema, string $resource, string $action): st
     $hasBody = $actionSchema->hasBody ?? true;
 
     if (in_array($actionSchema->method, HubspotConfig::METHODS_WITH_BODY)  && $hasBody) {
-        $params[] = 'BaseBodyBuilder|array $requestBody';
+        $bodyType = ['array'];
+
+        if(!is_null($bodyBuilder = @$actionSchema->bodyBuilder)) {
+            $bodyType[] = "Body\\{$bodyBuilder}";
+        }
+        
+        $bodyType = implode('|', $bodyType);
+        $params[] = "{$bodyType} \$requestBody";
     }
 
 
@@ -212,7 +210,9 @@ function getTypes(ReflectionParameter $reflectionParameter): string
     if ($reflectionType instanceof ReflectionUnionType) {
         $types = $reflectionType->getTypes();
         $names = array_map(function ($type) {
-            return $type->getName();
+            $typeName = str_replace('LTL\\HubspotRequestBody\\Resources', 'Body', $type->getName());
+
+            return $typeName;
         }, $types);
 
         return implode('|', $names);

@@ -1,9 +1,0 @@
-<?php
-
-namespace LTL\Hubspot\Resources;
-
-use LTL\Hubspot\Resources\V{{version}}\{{class}} as {{class}}V{{version}};
-
-class {{class}} extends {{class}}V{{version}}
-{
-}

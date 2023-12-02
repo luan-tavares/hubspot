@@ -3,13 +3,13 @@
 namespace LTL\Hubspot\Resources\V2;
 
 use LTL\Hubspot\Hubspot;
-use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
+use LTL\HubspotRequestBody\Resources as Body;
 
 /**
- * @method static $this submit(int|string $portalId, int|string $formGuid, BaseBodyBuilder|array $requestBody) Submit data to a form
+ * @method static $this submit(int|string $portalId, int|string $formGuid, array $requestBody) Submit data to a form
  * See https://legacydocs.hubspot.com/docs/methods/forms/submit_form
  *
- * @method $this submit(int|string $portalId, int|string $formGuid, BaseBodyBuilder|array $requestBody) Submit data to a form
+ * @method $this submit(int|string $portalId, int|string $formGuid, array $requestBody) Submit data to a form
  * See https://legacydocs.hubspot.com/docs/methods/forms/submit_form
  *
  * @method static $this getSubmissions(int|string $formGuid) Get submissions for a form
@@ -24,16 +24,16 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this getFileUploaded(int|string $fileId) Get a file uploaded via form
  * See https://legacydocs.hubspot.com/docs/methods/form-integrations/v1/uploaded-files/signed-url-redirect
  *
- * @method static $this create(BaseBodyBuilder|array $requestBody) Create a new form
+ * @method static $this create(array $requestBody) Create a new form
  * See https://legacydocs.hubspot.com/docs/methods/forms/v2/create_form
  *
- * @method $this create(BaseBodyBuilder|array $requestBody) Create a new form
+ * @method $this create(array $requestBody) Create a new form
  * See https://legacydocs.hubspot.com/docs/methods/forms/v2/create_form
  *
- * @method static $this update(int|string $form_guid, BaseBodyBuilder|array $requestBody) Update an existing form
+ * @method static $this update(int|string $form_guid, array $requestBody) Update an existing form
  * See https://legacydocs.hubspot.com/docs/methods/forms/v2/update_form
  *
- * @method $this update(int|string $form_guid, BaseBodyBuilder|array $requestBody) Update an existing form
+ * @method $this update(int|string $form_guid, array $requestBody) Update an existing form
  * See https://legacydocs.hubspot.com/docs/methods/forms/v2/update_form
  *
  * @method static $this get(int|string $form_guid) Get a form by its unique ID

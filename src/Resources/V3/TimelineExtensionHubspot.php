@@ -3,7 +3,7 @@
 namespace LTL\Hubspot\Resources\V3;
 
 use LTL\Hubspot\Hubspot;
-use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
+use LTL\HubspotRequestBody\Resources as Body;
 
 /**
  * @link https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/timeline
@@ -20,16 +20,16 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this get(int|string $appId, int|string $eventTemplateId) 
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/timeline
  *
- * @method static $this create(int|string $appId, BaseBodyBuilder|array $requestBody) Event templates define the general structure for a custom timeline event. 
+ * @method static $this create(int|string $appId, array $requestBody) Event templates define the general structure for a custom timeline event. 
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/timeline
  *
- * @method $this create(int|string $appId, BaseBodyBuilder|array $requestBody) Event templates define the general structure for a custom timeline event. 
+ * @method $this create(int|string $appId, array $requestBody) Event templates define the general structure for a custom timeline event. 
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/timeline
  *
- * @method static $this update(int|string $appId, int|string $eventTemplateId, BaseBodyBuilder|array $requestBody) Updates an existing template and its tokens.
+ * @method static $this update(int|string $appId, int|string $eventTemplateId, array $requestBody) Updates an existing template and its tokens.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/timeline
  *
- * @method $this update(int|string $appId, int|string $eventTemplateId, BaseBodyBuilder|array $requestBody) Updates an existing template and its tokens.
+ * @method $this update(int|string $appId, int|string $eventTemplateId, array $requestBody) Updates an existing template and its tokens.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/timeline
  *
  * @method static $this delete(int|string $appId, int|string $eventTemplateId) This will delete the event template. All associated events will be removed from search results and the timeline UI.
@@ -38,16 +38,16 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this delete(int|string $appId, int|string $eventTemplateId) This will delete the event template. All associated events will be removed from search results and the timeline UI.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/timeline
  *
- * @method static $this createToken(int|string $appId, int|string $eventTemplateId, BaseBodyBuilder|array $requestBody) Adds a token to an existing event template.
+ * @method static $this createToken(int|string $appId, int|string $eventTemplateId, array $requestBody) Adds a token to an existing event template.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/timeline
  *
- * @method $this createToken(int|string $appId, int|string $eventTemplateId, BaseBodyBuilder|array $requestBody) Adds a token to an existing event template.
+ * @method $this createToken(int|string $appId, int|string $eventTemplateId, array $requestBody) Adds a token to an existing event template.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/timeline
  *
- * @method static $this updateToken(int|string $appId, int|string $eventTemplateId, int|string $tokenName, BaseBodyBuilder|array $requestBody) This will update the existing token on an event template. Name and type can't be changed on existing tokens.
+ * @method static $this updateToken(int|string $appId, int|string $eventTemplateId, int|string $tokenName, array $requestBody) This will update the existing token on an event template. Name and type can't be changed on existing tokens.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/timeline
  *
- * @method $this updateToken(int|string $appId, int|string $eventTemplateId, int|string $tokenName, BaseBodyBuilder|array $requestBody) This will update the existing token on an event template. Name and type can't be changed on existing tokens.
+ * @method $this updateToken(int|string $appId, int|string $eventTemplateId, int|string $tokenName, array $requestBody) This will update the existing token on an event template. Name and type can't be changed on existing tokens.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/timeline
  *
  * @method static $this deleteToken(int|string $appId, int|string $eventTemplateId, int|string $tokenName) This will remove the token from an existing template.
@@ -56,16 +56,16 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this deleteToken(int|string $appId, int|string $eventTemplateId, int|string $tokenName) This will remove the token from an existing template.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/timeline
  *
- * @method static $this createEvent(BaseBodyBuilder|array $requestBody) Creates an instance of a timeline event based on an event template.
+ * @method static $this createEvent(array $requestBody) Creates an instance of a timeline event based on an event template.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/timeline
  *
- * @method $this createEvent(BaseBodyBuilder|array $requestBody) Creates an instance of a timeline event based on an event template.
+ * @method $this createEvent(array $requestBody) Creates an instance of a timeline event based on an event template.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/timeline
  *
- * @method static $this batchCreateEvent(BaseBodyBuilder|array $requestBody) Creates multiple instances of timeline events based on an event template.
+ * @method static $this batchCreateEvent(array $requestBody) Creates multiple instances of timeline events based on an event template.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/timeline
  *
- * @method $this batchCreateEvent(BaseBodyBuilder|array $requestBody) Creates multiple instances of timeline events based on an event template.
+ * @method $this batchCreateEvent(array $requestBody) Creates multiple instances of timeline events based on an event template.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/timeline
  *
  * @method static $this getEvent(int|string $eventTemplateId, int|string $eventId) This returns the previously created event. It contains all existing info for the event, but not necessarily the CRM object.

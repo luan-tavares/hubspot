@@ -3,21 +3,21 @@
 namespace LTL\Hubspot\Resources\V3;
 
 use LTL\Hubspot\Hubspot;
-use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
+use LTL\HubspotRequestBody\Resources as Body;
 
 /**
  * @link https://developers.hubspot.com/docs/api/files/files
  *
- * @method static $this upload(BaseBodyBuilder|array $requestBody) Upload a single file with content specified in request body.
+ * @method static $this upload(array $requestBody) Upload a single file with content specified in request body.
  * See https://developers.hubspot.com/docs/api/files/files
  *
- * @method $this upload(BaseBodyBuilder|array $requestBody) Upload a single file with content specified in request body.
+ * @method $this upload(array $requestBody) Upload a single file with content specified in request body.
  * See https://developers.hubspot.com/docs/api/files/files
  *
- * @method static $this importFromUrl(BaseBodyBuilder|array $requestBody) Asynchronously imports the file at the given URL into the file manager.
+ * @method static $this importFromUrl(array $requestBody) Asynchronously imports the file at the given URL into the file manager.
  * See https://developers.hubspot.com/docs/api/files/files
  *
- * @method $this importFromUrl(BaseBodyBuilder|array $requestBody) Asynchronously imports the file at the given URL into the file manager.
+ * @method $this importFromUrl(array $requestBody) Asynchronously imports the file at the given URL into the file manager.
  * See https://developers.hubspot.com/docs/api/files/files
  *
  * @method static $this checkImport(int|string $taskId) Check the status of requested import.
@@ -38,16 +38,16 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this get(int|string $fileId) Get file by ID.
  * See https://developers.hubspot.com/docs/api/files/files
  *
- * @method static $this update(int|string $fileId, BaseBodyBuilder|array $requestBody) Update properties of file by ID.
+ * @method static $this update(int|string $fileId, array $requestBody) Update properties of file by ID.
  * See https://developers.hubspot.com/docs/api/files/files
  *
- * @method $this update(int|string $fileId, BaseBodyBuilder|array $requestBody) Update properties of file by ID.
+ * @method $this update(int|string $fileId, array $requestBody) Update properties of file by ID.
  * See https://developers.hubspot.com/docs/api/files/files
  *
- * @method static $this replace(int|string $fileId, BaseBodyBuilder|array $requestBody) Replace existing file data with new file data.
+ * @method static $this replace(int|string $fileId, array $requestBody) Replace existing file data with new file data.
  * See https://developers.hubspot.com/docs/api/files/files
  *
- * @method $this replace(int|string $fileId, BaseBodyBuilder|array $requestBody) Replace existing file data with new file data.
+ * @method $this replace(int|string $fileId, array $requestBody) Replace existing file data with new file data.
  * See https://developers.hubspot.com/docs/api/files/files
  *
  * @method static $this delete(int|string $fileId) Delete file by ID.
@@ -68,10 +68,10 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this getPublicUrl(int|string $fileId) Generates signed URL that allows temporary access to a private file.
  * See https://developers.hubspot.com/docs/api/files/files
  *
- * @method static $this createFolder(BaseBodyBuilder|array $requestBody) Creates a folder.
+ * @method static $this createFolder(array $requestBody) Creates a folder.
  * See https://developers.hubspot.com/docs/api/files/files
  *
- * @method $this createFolder(BaseBodyBuilder|array $requestBody) Creates a folder.
+ * @method $this createFolder(array $requestBody) Creates a folder.
  * See https://developers.hubspot.com/docs/api/files/files
  *
  * @method static $this getAllFolders() Search for folders. Does not contain hidden or archived folders.
@@ -80,10 +80,10 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this getAllFolders() Search for folders. Does not contain hidden or archived folders.
  * See https://developers.hubspot.com/docs/api/files/files
  *
- * @method static $this updateFolder(BaseBodyBuilder|array $requestBody) Update properties of folder by given ID.
+ * @method static $this updateFolder(array $requestBody) Update properties of folder by given ID.
  * See https://developers.hubspot.com/docs/api/files/files
  *
- * @method $this updateFolder(BaseBodyBuilder|array $requestBody) Update properties of folder by given ID.
+ * @method $this updateFolder(array $requestBody) Update properties of folder by given ID.
  * See https://developers.hubspot.com/docs/api/files/files
  *
  * @method static $this checkUpdateFolder(int|string $taskId) Check status of folder update. Folder updates happen asynchronously.

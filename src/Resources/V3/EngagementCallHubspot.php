@@ -3,7 +3,7 @@
 namespace LTL\Hubspot\Resources\V3;
 
 use LTL\Hubspot\Hubspot;
-use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
+use LTL\HubspotRequestBody\Resources as Body;
 use LTL\Hubspot\Resources\V3\Interfaces\EngagementInterface;
 
 /**
@@ -21,16 +21,16 @@ use LTL\Hubspot\Resources\V3\Interfaces\EngagementInterface;
  * @method $this get(int|string $callId) Read an note identified by {callId}.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method static $this create(BaseBodyBuilder|array $requestBody) Create a note with the given properties and return a copy of the object, including the ID.
+ * @method static $this create(array $requestBody) Create a note with the given properties and return a copy of the object, including the ID.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method $this create(BaseBodyBuilder|array $requestBody) Create a note with the given properties and return a copy of the object, including the ID.
+ * @method $this create(array $requestBody) Create a note with the given properties and return a copy of the object, including the ID.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method static $this update(int|string $callId, BaseBodyBuilder|array $requestBody) Perform a partial update of an note identified by {callId}.
+ * @method static $this update(int|string $callId, array $requestBody) Perform a partial update of an note identified by {callId}.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method $this update(int|string $callId, BaseBodyBuilder|array $requestBody) Perform a partial update of an note identified by {callId}.
+ * @method $this update(int|string $callId, array $requestBody) Perform a partial update of an note identified by {callId}.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
  * @method static $this delete(int|string $callId) Move an note identified by {callId} to the recycling bin.
@@ -57,46 +57,46 @@ use LTL\Hubspot\Resources\V3\Interfaces\EngagementInterface;
  * @method $this removeAssociation(int|string $callId, int|string $toObjectType, int|string $toObjectId, int|string $associationType) Remove an association between ticket and an object.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method static $this batchDelete(BaseBodyBuilder|array $requestBody) Archive a batch of calls by ID.
+ * @method static $this batchDelete(array $requestBody) Archive a batch of calls by ID.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method $this batchDelete(BaseBodyBuilder|array $requestBody) Archive a batch of calls by ID.
+ * @method $this batchDelete(array $requestBody) Archive a batch of calls by ID.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method static $this batchCreate(BaseBodyBuilder|array $requestBody) Create a batch of calls.
+ * @method static $this batchCreate(array $requestBody) Create a batch of calls.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method $this batchCreate(BaseBodyBuilder|array $requestBody) Create a batch of calls.
+ * @method $this batchCreate(array $requestBody) Create a batch of calls.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method static $this batchRead(BaseBodyBuilder|array $requestBody) Read a batch of calls by internal ID, or unique property values.
+ * @method static $this batchRead(array $requestBody) Read a batch of calls by internal ID, or unique property values.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method $this batchRead(BaseBodyBuilder|array $requestBody) Read a batch of calls by internal ID, or unique property values.
+ * @method $this batchRead(array $requestBody) Read a batch of calls by internal ID, or unique property values.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method static $this batchUpdate(BaseBodyBuilder|array $requestBody) Update a batch of calls.
+ * @method static $this batchUpdate(array $requestBody) Update a batch of calls.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method $this batchUpdate(BaseBodyBuilder|array $requestBody) Update a batch of calls.
+ * @method $this batchUpdate(array $requestBody) Update a batch of calls.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method static $this search(BaseBodyBuilder|array $requestBody) Search calls.
+ * @method static $this search(array $requestBody) Search calls.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method $this search(BaseBodyBuilder|array $requestBody) Search calls.
+ * @method $this search(array $requestBody) Search calls.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method static $this merge(BaseBodyBuilder|array $requestBody) Merge two calls with same type
+ * @method static $this merge(array $requestBody) Merge two calls with same type
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method $this merge(BaseBodyBuilder|array $requestBody) Merge two calls with same type
+ * @method $this merge(array $requestBody) Merge two calls with same type
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method static $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $idHubspot = null) (Handler) Use Create or Update call if id exists.
+ * @method static $this createOrUpdate(Body\HubspotCrmUpdateBody|array $requestBody, string|int|null $idHubspot = null) (Handler) Use Create or Update call if id exists.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $idHubspot = null) (Handler) Use Create or Update call if id exists.
+ * @method $this createOrUpdate(Body\HubspotCrmUpdateBody|array $requestBody, string|int|null $idHubspot = null) (Handler) Use Create or Update call if id exists.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
  * @method static $this importAll(callable $fn) (Handler) Import All Deals using offset and getAll

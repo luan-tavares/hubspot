@@ -3,7 +3,7 @@
 namespace LTL\Hubspot\Resources\V3;
 
 use LTL\Hubspot\Hubspot;
-use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
+use LTL\HubspotRequestBody\Resources as Body;
 
 /**
  * @link https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/lists
@@ -26,16 +26,16 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this get(int|string $listId) Fetch a single list by ILS list ID.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/lists
  *
- * @method static $this create(BaseBodyBuilder|array $requestBody) Create a new list with the provided object list definition..
+ * @method static $this create(array $requestBody) Create a new list with the provided object list definition..
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/lists
  *
- * @method $this create(BaseBodyBuilder|array $requestBody) Create a new list with the provided object list definition..
+ * @method $this create(array $requestBody) Create a new list with the provided object list definition..
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/lists
  *
- * @method static $this updateDefinition(int|string $listId, BaseBodyBuilder|array $requestBody) Update the filter branch definition of a DYNAMIC list. Once updated, the list memberships will be re-evaluated and updated to match the new definition.
+ * @method static $this updateDefinition(int|string $listId, array $requestBody) Update the filter branch definition of a DYNAMIC list. Once updated, the list memberships will be re-evaluated and updated to match the new definition.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/lists
  *
- * @method $this updateDefinition(int|string $listId, BaseBodyBuilder|array $requestBody) Update the filter branch definition of a DYNAMIC list. Once updated, the list memberships will be re-evaluated and updated to match the new definition.
+ * @method $this updateDefinition(int|string $listId, array $requestBody) Update the filter branch definition of a DYNAMIC list. Once updated, the list memberships will be re-evaluated and updated to match the new definition.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/lists
  *
  * @method static $this updateName(int|string $listId, string $newName) Update the name of a list. The name must be globally unique relative to all other public lists in the portal.
@@ -50,16 +50,16 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this delete(int|string $listId) Delete a List.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/lists
  *
- * @method static $this restore(int|string $listId, BaseBodyBuilder|array $requestBody) Restore a previously deleted list by ILS list ID. Deleted lists are eligible to be restored up-to 90-days after the list has been deleted.
+ * @method static $this restore(int|string $listId, array $requestBody) Restore a previously deleted list by ILS list ID. Deleted lists are eligible to be restored up-to 90-days after the list has been deleted.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/lists
  *
- * @method $this restore(int|string $listId, BaseBodyBuilder|array $requestBody) Restore a previously deleted list by ILS list ID. Deleted lists are eligible to be restored up-to 90-days after the list has been deleted.
+ * @method $this restore(int|string $listId, array $requestBody) Restore a previously deleted list by ILS list ID. Deleted lists are eligible to be restored up-to 90-days after the list has been deleted.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/lists
  *
- * @method static $this search(BaseBodyBuilder|array $requestBody) Search lists by list name or page through all lists by providing an empty query value.
+ * @method static $this search(array $requestBody) Search lists by list name or page through all lists by providing an empty query value.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/lists
  *
- * @method $this search(BaseBodyBuilder|array $requestBody) Search lists by list name or page through all lists by providing an empty query value.
+ * @method $this search(array $requestBody) Search lists by list name or page through all lists by providing an empty query value.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/lists
  *
  * @method static $this getMemberships(int|string $listId) Fetch List Memberships Ordered by ID.
@@ -74,28 +74,28 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this deleteAllMemberships(int|string $listId) Remove all of the records from a list. Note: The list is not deleted.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/lists
  *
- * @method static $this addMemberships(int|string $listId, BaseBodyBuilder|array $requestBody) Add the records provided to the list. Records that do not exist or that are already members of the list are ignored.
+ * @method static $this addMemberships(int|string $listId, array $requestBody) Add the records provided to the list. Records that do not exist or that are already members of the list are ignored.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/lists
  *
- * @method $this addMemberships(int|string $listId, BaseBodyBuilder|array $requestBody) Add the records provided to the list. Records that do not exist or that are already members of the list are ignored.
+ * @method $this addMemberships(int|string $listId, array $requestBody) Add the records provided to the list. Records that do not exist or that are already members of the list are ignored.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/lists
  *
- * @method static $this addAndRemoveMemberships(int|string $listId, BaseBodyBuilder|array $requestBody) Add and/or remove records that have already been created in the system to and/or from a list.
+ * @method static $this addAndRemoveMemberships(int|string $listId, array $requestBody) Add and/or remove records that have already been created in the system to and/or from a list.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/lists
  *
- * @method $this addAndRemoveMemberships(int|string $listId, BaseBodyBuilder|array $requestBody) Add and/or remove records that have already been created in the system to and/or from a list.
+ * @method $this addAndRemoveMemberships(int|string $listId, array $requestBody) Add and/or remove records that have already been created in the system to and/or from a list.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/lists
  *
- * @method static $this addMembershipsFromList(int|string $listId, int|string $sourceListId, BaseBodyBuilder|array $requestBody) Add All Records from a Source List to a Destination List.
+ * @method static $this addMembershipsFromList(int|string $listId, int|string $sourceListId, array $requestBody) Add All Records from a Source List to a Destination List.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/lists
  *
- * @method $this addMembershipsFromList(int|string $listId, int|string $sourceListId, BaseBodyBuilder|array $requestBody) Add All Records from a Source List to a Destination List.
+ * @method $this addMembershipsFromList(int|string $listId, int|string $sourceListId, array $requestBody) Add All Records from a Source List to a Destination List.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/lists
  *
- * @method static $this deleteMemberships(int|string $listId, BaseBodyBuilder|array $requestBody) Remove the records provided from the list. Records that do not exist or that are not members of the list are ignored.
+ * @method static $this deleteMemberships(int|string $listId, array $requestBody) Remove the records provided from the list. Records that do not exist or that are not members of the list are ignored.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/lists
  *
- * @method $this deleteMemberships(int|string $listId, BaseBodyBuilder|array $requestBody) Remove the records provided from the list. Records that do not exist or that are not members of the list are ignored.
+ * @method $this deleteMemberships(int|string $listId, array $requestBody) Remove the records provided from the list. Records that do not exist or that are not members of the list are ignored.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/lists
  *
  */

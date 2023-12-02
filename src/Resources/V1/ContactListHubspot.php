@@ -3,7 +3,7 @@
 namespace LTL\Hubspot\Resources\V1;
 
 use LTL\Hubspot\Hubspot;
-use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
+use LTL\HubspotRequestBody\Resources as Body;
 
 /**
  * @method static $this getAll() Get all contact lists.
@@ -12,16 +12,16 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this getAll() Get all contact lists.
  * See https://legacydocs.hubspot.com/docs/methods/lists/get_lists
  *
- * @method static $this create(BaseBodyBuilder|array $requestBody) Create a new contact list.
+ * @method static $this create(array $requestBody) Create a new contact list.
  * See https://legacydocs.hubspot.com/docs/methods/lists/create_list
  *
- * @method $this create(BaseBodyBuilder|array $requestBody) Create a new contact list.
+ * @method $this create(array $requestBody) Create a new contact list.
  * See https://legacydocs.hubspot.com/docs/methods/lists/create_list
  *
- * @method static $this update(int|string $listId, BaseBodyBuilder|array $requestBody) Update a contact list.
+ * @method static $this update(int|string $listId, array $requestBody) Update a contact list.
  * See https://legacydocs.hubspot.com/docs/methods/lists/update_list
  *
- * @method $this update(int|string $listId, BaseBodyBuilder|array $requestBody) Update a contact list.
+ * @method $this update(int|string $listId, array $requestBody) Update a contact list.
  * See https://legacydocs.hubspot.com/docs/methods/lists/update_list
  *
  * @method static $this get(int|string $listId) Get a contact list by its unique ID.
@@ -66,16 +66,16 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this getRecentlyContacts(int|string $listId) Get recently added contacts from a list.
  * See https://legacydocs.hubspot.com/docs/methods/lists/get_list_contacts_recent
  *
- * @method static $this addContacts(int|string $listId, BaseBodyBuilder|array $requestBody) Add existing contacts to a list.
+ * @method static $this addContacts(int|string $listId, array $requestBody) Add existing contacts to a list.
  * See https://legacydocs.hubspot.com/docs/methods/lists/get_list_contacts_recent
  *
- * @method $this addContacts(int|string $listId, BaseBodyBuilder|array $requestBody) Add existing contacts to a list.
+ * @method $this addContacts(int|string $listId, array $requestBody) Add existing contacts to a list.
  * See https://legacydocs.hubspot.com/docs/methods/lists/get_list_contacts_recent
  *
- * @method static $this removeContacts(int|string $listId, BaseBodyBuilder|array $requestBody) Remove an existing contact from a list.
+ * @method static $this removeContacts(int|string $listId, array $requestBody) Remove an existing contact from a list.
  * See https://legacydocs.hubspot.com/docs/methods/lists/remove_contact_from_list
  *
- * @method $this removeContacts(int|string $listId, BaseBodyBuilder|array $requestBody) Remove an existing contact from a list.
+ * @method $this removeContacts(int|string $listId, array $requestBody) Remove an existing contact from a list.
  * See https://legacydocs.hubspot.com/docs/methods/lists/remove_contact_from_list
  *
  */

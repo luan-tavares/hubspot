@@ -3,7 +3,7 @@
 namespace LTL\Hubspot\Resources\V3;
 
 use LTL\Hubspot\Hubspot;
-use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
+use LTL\HubspotRequestBody\Resources as Body;
 
 /**
  * @link https://developers.hubspot.com/docs/api/crm/deals
@@ -20,16 +20,16 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this get(int|string $dealId) Read an deal identified by {dealId}.
  * See https://developers.hubspot.com/docs/api/crm/deals
  *
- * @method static $this create(BaseBodyBuilder|array $requestBody) Create a deal with the given properties and return a copy of the object, including the ID.
+ * @method static $this create(array $requestBody) Create a deal with the given properties and return a copy of the object, including the ID.
  * See https://developers.hubspot.com/docs/api/crm/deals
  *
- * @method $this create(BaseBodyBuilder|array $requestBody) Create a deal with the given properties and return a copy of the object, including the ID.
+ * @method $this create(array $requestBody) Create a deal with the given properties and return a copy of the object, including the ID.
  * See https://developers.hubspot.com/docs/api/crm/deals
  *
- * @method static $this update(int|string $dealId, BaseBodyBuilder|array $requestBody) Perform a partial update of an deal identified by {dealId}.
+ * @method static $this update(int|string $dealId, array $requestBody) Perform a partial update of an deal identified by {dealId}.
  * See https://developers.hubspot.com/docs/api/crm/deals
  *
- * @method $this update(int|string $dealId, BaseBodyBuilder|array $requestBody) Perform a partial update of an deal identified by {dealId}.
+ * @method $this update(int|string $dealId, array $requestBody) Perform a partial update of an deal identified by {dealId}.
  * See https://developers.hubspot.com/docs/api/crm/deals
  *
  * @method static $this delete(int|string $dealId) Move an deal identified by {dealId} to the recycling bin.
@@ -44,10 +44,10 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this getAssociations(int|string $dealId, int|string $toObjectType) List associations of a deal by type.
  * See https://developers.hubspot.com/docs/api/crm/deals
  *
- * @method static $this createAssociation(int|string $dealId, int|string $toObjectType, int|string $toObjectId, int|string $associationType, BaseBodyBuilder|array $requestBody) Associate a deal with another object.
+ * @method static $this createAssociation(int|string $dealId, int|string $toObjectType, int|string $toObjectId, int|string $associationType, array $requestBody) Associate a deal with another object.
  * See https://developers.hubspot.com/docs/api/crm/deals
  *
- * @method $this createAssociation(int|string $dealId, int|string $toObjectType, int|string $toObjectId, int|string $associationType, BaseBodyBuilder|array $requestBody) Associate a deal with another object.
+ * @method $this createAssociation(int|string $dealId, int|string $toObjectType, int|string $toObjectId, int|string $associationType, array $requestBody) Associate a deal with another object.
  * See https://developers.hubspot.com/docs/api/crm/deals
  *
  * @method static $this removeAssociation(int|string $dealId, int|string $toObjectType, int|string $toObjectId, int|string $associationType) Remove an association between a deal and an object.
@@ -56,46 +56,46 @@ use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
  * @method $this removeAssociation(int|string $dealId, int|string $toObjectType, int|string $toObjectId, int|string $associationType) Remove an association between a deal and an object.
  * See https://developers.hubspot.com/docs/api/crm/deals
  *
- * @method static $this batchDelete(BaseBodyBuilder|array $requestBody) Archive a batch of deals by ID.
+ * @method static $this batchDelete(array $requestBody) Archive a batch of deals by ID.
  * See https://developers.hubspot.com/docs/api/crm/deals
  *
- * @method $this batchDelete(BaseBodyBuilder|array $requestBody) Archive a batch of deals by ID.
+ * @method $this batchDelete(array $requestBody) Archive a batch of deals by ID.
  * See https://developers.hubspot.com/docs/api/crm/deals
  *
- * @method static $this batchCreate(BaseBodyBuilder|array $requestBody) Create a batch of deals.
+ * @method static $this batchCreate(array $requestBody) Create a batch of deals.
  * See https://developers.hubspot.com/docs/api/crm/deals
  *
- * @method $this batchCreate(BaseBodyBuilder|array $requestBody) Create a batch of deals.
+ * @method $this batchCreate(array $requestBody) Create a batch of deals.
  * See https://developers.hubspot.com/docs/api/crm/deals
  *
- * @method static $this batchRead(BaseBodyBuilder|array $requestBody) Read a batch of deals by internal ID, or unique property values.
+ * @method static $this batchRead(array $requestBody) Read a batch of deals by internal ID, or unique property values.
  * See https://developers.hubspot.com/docs/api/crm/deals
  *
- * @method $this batchRead(BaseBodyBuilder|array $requestBody) Read a batch of deals by internal ID, or unique property values.
+ * @method $this batchRead(array $requestBody) Read a batch of deals by internal ID, or unique property values.
  * See https://developers.hubspot.com/docs/api/crm/deals
  *
- * @method static $this batchUpdate(BaseBodyBuilder|array $requestBody) Update a batch of deals.
+ * @method static $this batchUpdate(array $requestBody) Update a batch of deals.
  * See https://developers.hubspot.com/docs/api/crm/deals
  *
- * @method $this batchUpdate(BaseBodyBuilder|array $requestBody) Update a batch of deals.
+ * @method $this batchUpdate(array $requestBody) Update a batch of deals.
  * See https://developers.hubspot.com/docs/api/crm/deals
  *
- * @method static $this search(BaseBodyBuilder|array $requestBody) Search deals.
+ * @method static $this search(array $requestBody) Search deals.
  * See https://developers.hubspot.com/docs/api/crm/deals
  *
- * @method $this search(BaseBodyBuilder|array $requestBody) Search deals.
+ * @method $this search(array $requestBody) Search deals.
  * See https://developers.hubspot.com/docs/api/crm/deals
  *
- * @method static $this merge(BaseBodyBuilder|array $requestBody) Merge two deals with same type.
+ * @method static $this merge(array $requestBody) Merge two deals with same type.
  * See https://developers.hubspot.com/docs/api/crm/deals
  *
- * @method $this merge(BaseBodyBuilder|array $requestBody) Merge two deals with same type.
+ * @method $this merge(array $requestBody) Merge two deals with same type.
  * See https://developers.hubspot.com/docs/api/crm/deals
  *
- * @method static $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $idHubspot = null) (Handler) Use Create or Update deal if id is not null.
+ * @method static $this createOrUpdate(Body\HubspotCrmUpdateBody|array $requestBody, string|int|null $idHubspot = null) (Handler) Use Create or Update deal if id is not null.
  * See https://developers.hubspot.com/docs/api/crm/deals
  *
- * @method $this createOrUpdate(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $idHubspot = null) (Handler) Use Create or Update deal if id is not null.
+ * @method $this createOrUpdate(Body\HubspotCrmUpdateBody|array $requestBody, string|int|null $idHubspot = null) (Handler) Use Create or Update deal if id is not null.
  * See https://developers.hubspot.com/docs/api/crm/deals
  *
  * @method static $this importAll(callable $fn) (Handler) Import All Deals using offset and getAll

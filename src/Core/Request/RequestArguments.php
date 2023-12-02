@@ -52,17 +52,20 @@ class RequestArguments implements RequestArgumentsInterface
     {
         $body = current($reverseArguments);
 
-        if($body instanceof AbstractBody) {
-            return $body->get();
-        }
-
         if(is_array($body)) {
             return $body;
         }
 
-        throw new HubspotApiException(
-            '"'. $this->actionSchema->resourceClass ."::{$this->actionSchema}(...)\" request body (last param) must be array or Body Object, ". gettype($body) .' given'
-        );
+        if($body instanceof AbstractBody) {
+            if(in_array($body::class, $this->actionSchema->bodyTypes)) {
+                return $body->get();
+            }
+        }
+
+        $method = '"'. $this->actionSchema->resourceClass ."::{$this->actionSchema}(...)\"";
+        $types = implode('|', $this->actionSchema->bodyTypes);
+
+        throw new HubspotApiException("{$method} \$requestBody must be {$types}.");
     }
 
     public function body(): array|null
