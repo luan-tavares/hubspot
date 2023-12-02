@@ -14,8 +14,11 @@ use LTL\Hubspot\Core\Request\RequestArguments;
 use LTL\Hubspot\Core\Request\RequestConnection;
 use LTL\Hubspot\Core\Request\RequestUri;
 use LTL\Hubspot\Exceptions\HubspotApiException;
+use LTL\Hubspot\Factories\ActionSchemaFactory;
 use LTL\Hubspot\Factories\RequestFactory;
+use LTL\Hubspot\Resources\V3\CompanyHubspot;
 use LTL\Hubspot\Resources\V3\ContactHubspot;
+use LTL\Hubspot\Resources\V3\CrmObjectHubspot;
 use LTL\Hubspot\Resources\V3\FileHubspot;
 use LTL\Hubspot\Resources\V3\HubDbHubspot;
 use PHPUnit\Framework\TestCase;
@@ -217,11 +220,29 @@ class RequestConnectionTest extends TestCase
 
         $actionSchema = SchemaContainer::getAction($this->resource, 'update');
 
-        $this->expectExceptionMessage(
-            '"'. $actionSchema->resourceClass ."::{$actionSchema}(...)\" request body (last param) must be array or Body Object, {$requestBodyType} given"
-        );
+        $this->expectException(HubspotApiException::class);
         
         new RequestArguments($actionSchema, $params);
+    }
+
+    public function testIfBodyTypesIsCorrect()
+    {
+        $expects =[
+            'array',
+            "LTL\HubspotRequestBody\Resources\HubspotCrmCreateBody"
+        ];
+
+        $actionSchema = SchemaContainer::getAction(new CompanyHubspot, 'create');
+        
+        $this->assertEquals($expects, $actionSchema->bodyTypes);
+    }
+
+    public function testIfBodyTypesWithoutBodyIsNull()
+    {
+
+        $actionSchema = SchemaContainer::getAction(new CrmObjectHubspot, 'createAssociation');
+        
+        $this->assertNull($actionSchema->bodyTypes);
     }
 
     public function testIfRecursiveCurlWithoutTooManyRequestsIsCorrect()

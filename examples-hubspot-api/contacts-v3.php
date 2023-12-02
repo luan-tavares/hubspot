@@ -38,10 +38,9 @@ dd(ContactHubspot::limit(10)->createOrUpdate([
     ]
 ], null));*/
 
-$requestBody = HubspotSearchBody::filterEqual('hs_createdate', 5)
-    ->sortDesc('hs_createdate')->sortDesc('hs_updated')
-    ->after(20)->get();
+$requestBody = HubspotSearchBody::filterContains('company', 'TOTVS')->sortDesc('hs_updated');
 
-dd($requestBody);
 
 $contacts = ContactHubspot::search($requestBody);
+
+dd($contacts, $requestBody);

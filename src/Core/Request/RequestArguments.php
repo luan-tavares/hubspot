@@ -62,7 +62,7 @@ class RequestArguments implements RequestArgumentsInterface
             }
         }
 
-        $method = '"'. $this->actionSchema->resourceClass ."::{$this->actionSchema}(...)\"";
+        $method = "\"{$this->actionSchema->resourceClass}::{$this->actionSchema}(...)\"";
         $types = implode('|', $this->actionSchema->bodyTypes);
 
         throw new HubspotApiException("{$method} \$requestBody must be {$types}.");

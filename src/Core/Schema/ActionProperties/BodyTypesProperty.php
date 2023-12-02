@@ -9,6 +9,10 @@ class BodyTypesProperty extends ActionProperty
 {
     protected function parse(object $actionSchema): array|null
     {
+        if (isset($actionSchema->handler)) {
+            return null;
+        }
+
         if (!in_array($actionSchema->method, HubspotConfig::METHODS_WITH_BODY)) {
             return null;
         }
@@ -21,7 +25,7 @@ class BodyTypesProperty extends ActionProperty
 
         $body = ['array'];
 
-        if(!is_null($bodyBuilder = $actionSchema->bodyBuilder)) {
+        if(!is_null($bodyBuilder = @$actionSchema->bodyBuilder)) {
             $body[] = "LTL\\HubspotRequestBody\\Resources\\{$bodyBuilder}";
         }
 
