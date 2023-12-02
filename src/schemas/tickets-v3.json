@@ -20,11 +20,13 @@
         "create": {
             "path": "objects/tickets",
             "method": "POST",
+            "bodyBuilder": "HubspotCrmCreateBody",
             "description": "Create a ticket with the given properties and return a copy of the object, including the ID."
         },
         "update": {
             "path": "objects/tickets/{ticketId}",
             "method": "PATCH",
+            "bodyBuilder": "HubspotCrmUpdateBody",
             "description": "Perform a partial update of an ticket identified by {ticketId}."
         },
         "delete": {
@@ -52,11 +54,13 @@
         "batchDelete": {
             "path": "objects/tickets/batch/archive",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchDeleteBody",
             "description": "Archive a batch of tickets by ID."
         },
         "batchCreate": {
             "path": "objects/tickets/batch/create",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchCreateBody",
             "description": "Create a batch of tickets.",
             "iteratorIndex": "results",
             "afterIndex": null
@@ -64,6 +68,7 @@
         "batchRead": {
             "path": "objects/tickets/batch/read",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchReadBody",
             "description": "Read a batch of tickets by internal ID, or unique property values.",
             "iteratorIndex": "results",
             "afterIndex": null
@@ -71,6 +76,7 @@
         "batchUpdate": {
             "path": "objects/tickets/batch/update",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchUpdateBody",
             "description": "Update a batch of tickets.",
             "iteratorIndex": "results",
             "afterIndex": null
@@ -78,6 +84,7 @@
         "search": {
             "path": "objects/tickets/search",
             "method": "POST",
+            "bodyBuilder": "HubspotSearchBody",
             "description": "Search tickets.",
             "iteratorIndex": "results",
             "afterIndex": "paging.next.after"

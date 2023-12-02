@@ -20,11 +20,13 @@
         "create": {
             "path": "objects/deals",
             "method": "POST",
+            "bodyBuilder": "HubspotCrmCreateBody",
             "description": "Create a deal with the given properties and return a copy of the object, including the ID."
         },
         "update": {
             "path": "objects/deals/{dealId}",
             "method": "PATCH",
+            "bodyBuilder": "HubspotCrmUpdateBody",
             "description": "Perform a partial update of an deal identified by {dealId}."
         },
         "delete": {
@@ -52,18 +54,21 @@
         "batchDelete": {
             "path": "objects/deals/batch/archive",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchDeleteBody",
             "description": "Archive a batch of deals by ID."
         },
         "batchCreate": {
             "path": "objects/deals/batch/create",
             "method": "POST",
             "description": "Create a batch of deals.",
+            "bodyBuilder": "HubspotBatchCreateBody",
             "iteratorIndex": "results",
             "afterIndex": null
         },
         "batchRead": {
             "path": "objects/deals/batch/read",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchReadBody",
             "description": "Read a batch of deals by internal ID, or unique property values.",
             "iteratorIndex": "results",
             "afterIndex": null
@@ -72,6 +77,7 @@
             "path": "objects/deals/batch/update",
             "method": "POST",
             "description": "Update a batch of deals.",
+            "bodyBuilder": "HubspotBatchUpdateBody",
             "iteratorIndex": "results",
             "afterIndex": null
         },
@@ -79,6 +85,7 @@
             "path": "objects/deals/search",
             "method": "POST",
             "description": "Search deals.",
+            "bodyBuilder": "HubspotSearchBody",
             "iteratorIndex": "results",
             "afterIndex": "paging.next.after"
         },

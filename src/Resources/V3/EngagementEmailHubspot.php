@@ -21,16 +21,16 @@ use LTL\Hubspot\Resources\V3\Interfaces\EngagementInterface;
  * @method $this get(int|string $emailId) Read an note identified by {emailId}.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/emails
  *
- * @method static $this create(array $requestBody) Create a note with the given properties and return a copy of the object, including the ID.
+ * @method static $this create(array|Body\HubspotCrmCreateBody $requestBody) Create a note with the given properties and return a copy of the object, including the ID.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/emails
  *
- * @method $this create(array $requestBody) Create a note with the given properties and return a copy of the object, including the ID.
+ * @method $this create(array|Body\HubspotCrmCreateBody $requestBody) Create a note with the given properties and return a copy of the object, including the ID.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/emails
  *
- * @method static $this update(int|string $emailId, array $requestBody) Perform a partial update of an note identified by {emailId}.
+ * @method static $this update(int|string $emailId, array|Body\HubspotCrmUpdateBody $requestBody) Perform a partial update of an note identified by {emailId}.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/emails
  *
- * @method $this update(int|string $emailId, array $requestBody) Perform a partial update of an note identified by {emailId}.
+ * @method $this update(int|string $emailId, array|Body\HubspotCrmUpdateBody $requestBody) Perform a partial update of an note identified by {emailId}.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/emails
  *
  * @method static $this delete(int|string $emailId) Move an note identified by {emailId} to the recycling bin.
@@ -57,34 +57,34 @@ use LTL\Hubspot\Resources\V3\Interfaces\EngagementInterface;
  * @method $this removeAssociation(int|string $emailId, int|string $toObjectType, int|string $toObjectId, int|string $associationType) Remove an association between ticket and an object.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/emails
  *
- * @method static $this batchDelete(array $requestBody) Archive a batch of emails by ID.
+ * @method static $this batchDelete(array|Body\HubspotBatchDeleteBody $requestBody) Archive a batch of emails by ID.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/emails
  *
- * @method $this batchDelete(array $requestBody) Archive a batch of emails by ID.
+ * @method $this batchDelete(array|Body\HubspotBatchDeleteBody $requestBody) Archive a batch of emails by ID.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/emails
  *
- * @method static $this batchCreate(array $requestBody) Create a batch of emails.
+ * @method static $this batchCreate(array|Body\HubspotBatchCreateBody $requestBody) Create a batch of emails.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/emails
  *
- * @method $this batchCreate(array $requestBody) Create a batch of emails.
+ * @method $this batchCreate(array|Body\HubspotBatchCreateBody $requestBody) Create a batch of emails.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/emails
  *
- * @method static $this batchRead(array $requestBody) Read a batch of emails by internal ID, or unique property values.
+ * @method static $this batchRead(array|Body\HubspotBatchReadBody $requestBody) Read a batch of emails by internal ID, or unique property values.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/emails
  *
- * @method $this batchRead(array $requestBody) Read a batch of emails by internal ID, or unique property values.
+ * @method $this batchRead(array|Body\HubspotBatchReadBody $requestBody) Read a batch of emails by internal ID, or unique property values.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/emails
  *
- * @method static $this batchUpdate(array $requestBody) Update a batch of emails.
+ * @method static $this batchUpdate(array|Body\HubspotBatchUpdateBody $requestBody) Update a batch of emails.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/emails
  *
- * @method $this batchUpdate(array $requestBody) Update a batch of emails.
+ * @method $this batchUpdate(array|Body\HubspotBatchUpdateBody $requestBody) Update a batch of emails.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/emails
  *
- * @method static $this search(array $requestBody) Search emails.
+ * @method static $this search(array|Body\HubspotSearchBody $requestBody) Search emails.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/emails
  *
- * @method $this search(array $requestBody) Search emails.
+ * @method $this search(array|Body\HubspotSearchBody $requestBody) Search emails.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/emails
  *
  * @method static $this merge(array $requestBody) Merge two emails with same type

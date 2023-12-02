@@ -33,11 +33,13 @@
         "create": {
             "path": "objects/tasks",
             "method": "POST",
+            "bodyBuilder": "HubspotCrmCreateBody",
             "description": "Create a note with the given properties and return a copy of the object, including the ID."
         },
         "update": {
             "path": "objects/tasks/{taskId}",
             "method": "PATCH",
+            "bodyBuilder": "HubspotCrmUpdateBody",
             "description": "Perform a partial update of an note identified by {taskId}."
         },
         "delete": {
@@ -66,11 +68,13 @@
         "batchDelete": {
             "path": "objects/tasks/batch/archive",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchDeleteBody",
             "description": "Archive a batch of tasks by ID."
         },
         "batchCreate": {
             "path": "objects/tasks/batch/create",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchCreateBody",
             "description": "Create a batch of tasks.",
             "iteratorIndex": "results",
             "afterIndex": null
@@ -78,6 +82,7 @@
         "batchRead": {
             "path": "objects/tasks/batch/read",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchReadBody",
             "description": "Read a batch of tasks by internal ID, or unique property values.",
             "iteratorIndex": "results",
             "afterIndex": null
@@ -85,6 +90,7 @@
         "batchUpdate": {
             "path": "objects/tasks/batch/update",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchUpdateBody",
             "description": "Update a batch of tasks.",
             "iteratorIndex": "results",
             "afterIndex": null
@@ -92,6 +98,7 @@
         "search": {
             "path": "objects/tasks/search",
             "method": "POST",
+            "bodyBuilder": "HubspotSearchBody",
             "description": "Search tasks.",
             "iteratorIndex": "results",
             "afterIndex": "paging.next.after"

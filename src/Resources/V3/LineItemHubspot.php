@@ -20,16 +20,16 @@ use LTL\HubspotRequestBody\Resources as Body;
  * @method $this get(int|string $lineItemId) Read an line item identified by {lineItemId}.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method static $this create(array $requestBody) Create a line item with the given properties and return a copy of the object, including the ID.
+ * @method static $this create(array|Body\HubspotCrmCreateBody $requestBody) Create a line item with the given properties and return a copy of the object, including the ID.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method $this create(array $requestBody) Create a line item with the given properties and return a copy of the object, including the ID.
+ * @method $this create(array|Body\HubspotCrmCreateBody $requestBody) Create a line item with the given properties and return a copy of the object, including the ID.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method static $this update(int|string $lineItemId, array $requestBody) Perform a partial update of an line item identified by {lineItemId}.
+ * @method static $this update(int|string $lineItemId, array|Body\HubspotCrmUpdateBody $requestBody) Perform a partial update of an line item identified by {lineItemId}.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method $this update(int|string $lineItemId, array $requestBody) Perform a partial update of an line item identified by {lineItemId}.
+ * @method $this update(int|string $lineItemId, array|Body\HubspotCrmUpdateBody $requestBody) Perform a partial update of an line item identified by {lineItemId}.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
  * @method static $this delete(int|string $lineItemId) Move an line item identified by {lineItemId} to the recycling bin.
@@ -56,34 +56,34 @@ use LTL\HubspotRequestBody\Resources as Body;
  * @method $this removeAssociation(int|string $lineItemId, int|string $toObjectType, int|string $toObjectId, int|string $associationType) Remove an association between line items and an object.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method static $this batchDelete(array $requestBody) Archive a batch of line items by ID.
+ * @method static $this batchDelete(array|Body\HubspotBatchDeleteBody $requestBody) Archive a batch of line items by ID.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method $this batchDelete(array $requestBody) Archive a batch of line items by ID.
+ * @method $this batchDelete(array|Body\HubspotBatchDeleteBody $requestBody) Archive a batch of line items by ID.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method static $this batchCreate(array $requestBody) Create a batch of line items.
+ * @method static $this batchCreate(array|Body\HubspotBatchCreateBody $requestBody) Create a batch of line items.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method $this batchCreate(array $requestBody) Create a batch of line items.
+ * @method $this batchCreate(array|Body\HubspotBatchCreateBody $requestBody) Create a batch of line items.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method static $this batchRead(array $requestBody) Read a batch of line items by internal ID, or unique property values.
+ * @method static $this batchRead(array|Body\HubspotBatchReadBody $requestBody) Read a batch of line items by internal ID, or unique property values.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method $this batchRead(array $requestBody) Read a batch of line items by internal ID, or unique property values.
+ * @method $this batchRead(array|Body\HubspotBatchReadBody $requestBody) Read a batch of line items by internal ID, or unique property values.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method static $this batchUpdate(array $requestBody) Update a batch of line items.
+ * @method static $this batchUpdate(array|Body\HubspotBatchUpdateBody $requestBody) Update a batch of line items.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method $this batchUpdate(array $requestBody) Update a batch of line items.
+ * @method $this batchUpdate(array|Body\HubspotBatchUpdateBody $requestBody) Update a batch of line items.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method static $this search(array $requestBody) Search line items.
+ * @method static $this search(array|Body\HubspotSearchBody $requestBody) Search line items.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method $this search(array $requestBody) Search line items.
+ * @method $this search(array|Body\HubspotSearchBody $requestBody) Search line items.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
  * @method static $this merge(array $requestBody) Merge two line items with same type.

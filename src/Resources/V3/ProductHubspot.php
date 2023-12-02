@@ -20,16 +20,16 @@ use LTL\HubspotRequestBody\Resources as Body;
  * @method $this get(int|string $productId) Read an product identified by {productId}.
  * See https://developers.hubspot.com/docs/api/crm/products
  *
- * @method static $this create(array $requestBody) Create a product with the given properties and return a copy of the object, including the ID.
+ * @method static $this create(array|Body\HubspotCrmCreateBody $requestBody) Create a product with the given properties and return a copy of the object, including the ID.
  * See https://developers.hubspot.com/docs/api/crm/products
  *
- * @method $this create(array $requestBody) Create a product with the given properties and return a copy of the object, including the ID.
+ * @method $this create(array|Body\HubspotCrmCreateBody $requestBody) Create a product with the given properties and return a copy of the object, including the ID.
  * See https://developers.hubspot.com/docs/api/crm/products
  *
- * @method static $this update(int|string $productId, array $requestBody) Perform a partial update of an product identified by {productId}.
+ * @method static $this update(int|string $productId, array|Body\HubspotCrmUpdateBody $requestBody) Perform a partial update of an product identified by {productId}.
  * See https://developers.hubspot.com/docs/api/crm/products
  *
- * @method $this update(int|string $productId, array $requestBody) Perform a partial update of an product identified by {productId}.
+ * @method $this update(int|string $productId, array|Body\HubspotCrmUpdateBody $requestBody) Perform a partial update of an product identified by {productId}.
  * See https://developers.hubspot.com/docs/api/crm/products
  *
  * @method static $this delete(int|string $productId) Move an product identified by {productId} to the recycling bin.
@@ -56,34 +56,34 @@ use LTL\HubspotRequestBody\Resources as Body;
  * @method $this removeAssociation(int|string $productId, int|string $toObjectType, int|string $toObjectId, int|string $associationType) Remove an association between products and an object.
  * See https://developers.hubspot.com/docs/api/crm/products
  *
- * @method static $this batchDelete(array $requestBody) Archive a batch of products by ID.
+ * @method static $this batchDelete(array|Body\HubspotBatchDeleteBody $requestBody) Archive a batch of products by ID.
  * See https://developers.hubspot.com/docs/api/crm/products
  *
- * @method $this batchDelete(array $requestBody) Archive a batch of products by ID.
+ * @method $this batchDelete(array|Body\HubspotBatchDeleteBody $requestBody) Archive a batch of products by ID.
  * See https://developers.hubspot.com/docs/api/crm/products
  *
- * @method static $this batchCreate(array $requestBody) Create a batch of products.
+ * @method static $this batchCreate(array|Body\HubspotBatchCreateBody $requestBody) Create a batch of products.
  * See https://developers.hubspot.com/docs/api/crm/products
  *
- * @method $this batchCreate(array $requestBody) Create a batch of products.
+ * @method $this batchCreate(array|Body\HubspotBatchCreateBody $requestBody) Create a batch of products.
  * See https://developers.hubspot.com/docs/api/crm/products
  *
- * @method static $this batchRead(array $requestBody) Read a batch of products by internal ID, or unique property values.
+ * @method static $this batchRead(array|Body\HubspotBatchReadBody $requestBody) Read a batch of products by internal ID, or unique property values.
  * See https://developers.hubspot.com/docs/api/crm/products
  *
- * @method $this batchRead(array $requestBody) Read a batch of products by internal ID, or unique property values.
+ * @method $this batchRead(array|Body\HubspotBatchReadBody $requestBody) Read a batch of products by internal ID, or unique property values.
  * See https://developers.hubspot.com/docs/api/crm/products
  *
- * @method static $this batchUpdate(array $requestBody) Update a batch of products.
+ * @method static $this batchUpdate(array|Body\HubspotBatchUpdateBody $requestBody) Update a batch of products.
  * See https://developers.hubspot.com/docs/api/crm/products
  *
- * @method $this batchUpdate(array $requestBody) Update a batch of products.
+ * @method $this batchUpdate(array|Body\HubspotBatchUpdateBody $requestBody) Update a batch of products.
  * See https://developers.hubspot.com/docs/api/crm/products
  *
- * @method static $this search(array $requestBody) Search products.
+ * @method static $this search(array|Body\HubspotSearchBody $requestBody) Search products.
  * See https://developers.hubspot.com/docs/api/crm/products
  *
- * @method $this search(array $requestBody) Search products.
+ * @method $this search(array|Body\HubspotSearchBody $requestBody) Search products.
  * See https://developers.hubspot.com/docs/api/crm/products
  *
  * @method static $this merge(array $requestBody) Merge two products with same type.

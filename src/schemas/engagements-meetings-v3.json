@@ -36,11 +36,13 @@
         "create": {
             "path": "objects/meetings",
             "method": "POST",
+            "bodyBuilder": "HubspotCrmCreateBody",
             "description": "Create a note with the given properties and return a copy of the object, including the ID."
         },
         "update": {
             "path": "objects/meetings/{meetingId}",
             "method": "PATCH",
+            "bodyBuilder": "HubspotCrmUpdateBody",
             "description": "Perform a partial update of an note identified by {meetingId}."
         },
         "delete": {
@@ -69,11 +71,13 @@
         "batchDelete": {
             "path": "objects/meetings/batch/archive",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchDeleteBody",
             "description": "Archive a batch of meetings by ID."
         },
         "batchCreate": {
             "path": "objects/meetings/batch/create",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchCreateBody",
             "description": "Create a batch of meetings.",
             "iteratorIndex": "results",
             "afterIndex": null
@@ -81,6 +85,7 @@
         "batchRead": {
             "path": "objects/meetings/batch/read",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchReadBody",
             "description": "Read a batch of meetings by internal ID, or unique property values.",
             "iteratorIndex": "results",
             "afterIndex": null
@@ -88,6 +93,7 @@
         "batchUpdate": {
             "path": "objects/meetings/batch/update",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchUpdateBody",
             "description": "Update a batch of meetings.",
             "iteratorIndex": "results",
             "afterIndex": null
@@ -95,6 +101,7 @@
         "search": {
             "path": "objects/meetings/search",
             "method": "POST",
+            "bodyBuilder": "HubspotSearchBody",
             "description": "Search meetings.",
             "iteratorIndex": "results",
             "afterIndex": "paging.next.after"

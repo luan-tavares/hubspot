@@ -31,11 +31,13 @@
         "create": {
             "path": "objects/communications",
             "method": "POST",
+            "bodyBuilder": "HubspotCrmCreateBody",
             "description": "Create a note with the given properties and return a copy of the object, including the ID."
         },
         "update": {
             "path": "objects/communications/{communicationId}",
             "method": "PATCH",
+            "bodyBuilder": "HubspotCrmUpdateBody",
             "description": "Perform a partial update of an note identified by {communicationId}."
         },
         "delete": {
@@ -64,11 +66,13 @@
         "batchDelete": {
             "path": "objects/communications/batch/archive",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchDeleteBody",
             "description": "Archive a batch of calls by ID."
         },
         "batchCreate": {
             "path": "objects/communications/batch/create",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchCreateBody",
             "description": "Create a batch of calls.",
             "iteratorIndex": "results",
             "afterIndex": null
@@ -76,6 +80,7 @@
         "batchRead": {
             "path": "objects/communications/batch/read",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchReadBody",
             "description": "Read a batch of calls by internal ID, or unique property values.",
             "iteratorIndex": "results",
             "afterIndex": null
@@ -83,6 +88,7 @@
         "batchUpdate": {
             "path": "objects/communications/batch/update",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchUpdateBody",
             "description": "Update a batch of calls.",
             "iteratorIndex": "results",
             "afterIndex": null
@@ -90,6 +96,7 @@
         "search": {
             "path": "objects/communications/search",
             "method": "POST",
+            "bodyBuilder": "HubspotSearchBody",
             "description": "Search calls.",
             "iteratorIndex": "results",
             "afterIndex": "paging.next.after"

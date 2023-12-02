@@ -21,16 +21,16 @@ use LTL\Hubspot\Resources\V3\Interfaces\EngagementInterface;
  * @method $this get(int|string $meetingId) Read an note identified by {meetingId}.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/meetings
  *
- * @method static $this create(array $requestBody) Create a note with the given properties and return a copy of the object, including the ID.
+ * @method static $this create(array|Body\HubspotCrmCreateBody $requestBody) Create a note with the given properties and return a copy of the object, including the ID.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/meetings
  *
- * @method $this create(array $requestBody) Create a note with the given properties and return a copy of the object, including the ID.
+ * @method $this create(array|Body\HubspotCrmCreateBody $requestBody) Create a note with the given properties and return a copy of the object, including the ID.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/meetings
  *
- * @method static $this update(int|string $meetingId, array $requestBody) Perform a partial update of an note identified by {meetingId}.
+ * @method static $this update(int|string $meetingId, array|Body\HubspotCrmUpdateBody $requestBody) Perform a partial update of an note identified by {meetingId}.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/meetings
  *
- * @method $this update(int|string $meetingId, array $requestBody) Perform a partial update of an note identified by {meetingId}.
+ * @method $this update(int|string $meetingId, array|Body\HubspotCrmUpdateBody $requestBody) Perform a partial update of an note identified by {meetingId}.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/meetings
  *
  * @method static $this delete(int|string $meetingId) Move an note identified by {meetingId} to the recycling bin.
@@ -57,34 +57,34 @@ use LTL\Hubspot\Resources\V3\Interfaces\EngagementInterface;
  * @method $this removeAssociation(int|string $meetingId, int|string $toObjectType, int|string $toObjectId, int|string $associationType) Remove an association between ticket and an object.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/meetings
  *
- * @method static $this batchDelete(array $requestBody) Archive a batch of meetings by ID.
+ * @method static $this batchDelete(array|Body\HubspotBatchDeleteBody $requestBody) Archive a batch of meetings by ID.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/meetings
  *
- * @method $this batchDelete(array $requestBody) Archive a batch of meetings by ID.
+ * @method $this batchDelete(array|Body\HubspotBatchDeleteBody $requestBody) Archive a batch of meetings by ID.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/meetings
  *
- * @method static $this batchCreate(array $requestBody) Create a batch of meetings.
+ * @method static $this batchCreate(array|Body\HubspotBatchCreateBody $requestBody) Create a batch of meetings.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/meetings
  *
- * @method $this batchCreate(array $requestBody) Create a batch of meetings.
+ * @method $this batchCreate(array|Body\HubspotBatchCreateBody $requestBody) Create a batch of meetings.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/meetings
  *
- * @method static $this batchRead(array $requestBody) Read a batch of meetings by internal ID, or unique property values.
+ * @method static $this batchRead(array|Body\HubspotBatchReadBody $requestBody) Read a batch of meetings by internal ID, or unique property values.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/meetings
  *
- * @method $this batchRead(array $requestBody) Read a batch of meetings by internal ID, or unique property values.
+ * @method $this batchRead(array|Body\HubspotBatchReadBody $requestBody) Read a batch of meetings by internal ID, or unique property values.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/meetings
  *
- * @method static $this batchUpdate(array $requestBody) Update a batch of meetings.
+ * @method static $this batchUpdate(array|Body\HubspotBatchUpdateBody $requestBody) Update a batch of meetings.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/meetings
  *
- * @method $this batchUpdate(array $requestBody) Update a batch of meetings.
+ * @method $this batchUpdate(array|Body\HubspotBatchUpdateBody $requestBody) Update a batch of meetings.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/meetings
  *
- * @method static $this search(array $requestBody) Search meetings.
+ * @method static $this search(array|Body\HubspotSearchBody $requestBody) Search meetings.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/meetings
  *
- * @method $this search(array $requestBody) Search meetings.
+ * @method $this search(array|Body\HubspotSearchBody $requestBody) Search meetings.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/meetings
  *
  * @method static $this merge(array $requestBody) Merge two meetings with same type

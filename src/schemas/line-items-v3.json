@@ -20,11 +20,13 @@
         "create": {
             "path": "objects/line_items",
             "method": "POST",
+            "bodyBuilder": "HubspotCrmCreateBody",
             "description": "Create a line item with the given properties and return a copy of the object, including the ID."
         },
         "update": {
             "path": "objects/line_items/{lineItemId}",
             "method": "PATCH",
+            "bodyBuilder": "HubspotCrmUpdateBody",
             "description": "Perform a partial update of an line item identified by {lineItemId}."
         },
         "delete": {
@@ -52,11 +54,13 @@
         "batchDelete": {
             "path": "objects/line_items/batch/archive",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchDeleteBody",
             "description": "Archive a batch of line items by ID."
         },
         "batchCreate": {
             "path": "objects/line_items/batch/create",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchCreateBody",
             "description": "Create a batch of line items.",
             "iteratorIndex": "results",
             "afterIndex": null
@@ -64,6 +68,7 @@
         "batchRead": {
             "path": "objects/line_items/batch/read",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchReadBody",
             "description": "Read a batch of line items by internal ID, or unique property values.",
             "iteratorIndex": "results",
             "afterIndex": null
@@ -71,6 +76,7 @@
         "batchUpdate": {
             "path": "objects/line_items/batch/update",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchUpdateBody",
             "description": "Update a batch of line items.",
             "iteratorIndex": "results",
             "afterIndex": null
@@ -78,6 +84,7 @@
         "search": {
             "path": "objects/line_items/search",
             "method": "POST",
+            "bodyBuilder": "HubspotSearchBody",
             "description": "Search line items.",
             "iteratorIndex": "results",
             "afterIndex": "paging.next.after"

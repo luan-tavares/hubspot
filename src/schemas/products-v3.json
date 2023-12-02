@@ -20,11 +20,13 @@
         "create": {
             "path": "objects/products",
             "method": "POST",
+            "bodyBuilder": "HubspotCrmCreateBody",
             "description": "Create a product with the given properties and return a copy of the object, including the ID."
         },
         "update": {
             "path": "objects/products/{productId}",
             "method": "PATCH",
+            "bodyBuilder": "HubspotCrmUpdateBody",
             "description": "Perform a partial update of an product identified by {productId}."
         },
         "delete": {
@@ -52,11 +54,13 @@
         "batchDelete": {
             "path": "objects/products/batch/archive",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchDeleteBody",
             "description": "Archive a batch of products by ID."
         },
         "batchCreate": {
             "path": "objects/products/batch/create",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchCreateBody",
             "description": "Create a batch of products.",
             "iteratorIndex": "results",
             "afterIndex": null
@@ -64,6 +68,7 @@
         "batchRead": {
             "path": "objects/products/batch/read",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchReadBody",
             "description": "Read a batch of products by internal ID, or unique property values.",
             "iteratorIndex": "results",
             "afterIndex": null
@@ -71,6 +76,7 @@
         "batchUpdate": {
             "path": "objects/products/batch/update",
             "method": "POST",
+            "bodyBuilder": "HubspotBatchUpdateBody",
             "description": "Update a batch of products.",
             "iteratorIndex": "results",
             "afterIndex": null
@@ -78,6 +84,7 @@
         "search": {
             "path": "objects/products/search",
             "method": "POST",
+            "bodyBuilder": "HubspotSearchBody",
             "description": "Search products.",
             "iteratorIndex": "results",
             "afterIndex": "paging.next.after"
