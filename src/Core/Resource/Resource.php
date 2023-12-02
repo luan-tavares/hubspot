@@ -38,7 +38,7 @@ abstract class Resource implements ResourceInterface
             return BuilderContainer::get($this)->{$name}(...$arguments);
         } catch (TypeError|Error $exception) {
             $className = removeFromAnonymousClassName(static::class);
-
+ 
             throw new HubspotApiException($exception->getMessage(), $className);
         }
     }
