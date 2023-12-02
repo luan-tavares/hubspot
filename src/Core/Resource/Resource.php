@@ -39,7 +39,7 @@ abstract class Resource implements ResourceInterface
         } catch (TypeError|Error $exception) {
             $className = removeFromAnonymousClassName(static::class);
  
-            throw new HubspotApiException($exception->getMessage(), $className);
+            throw new HubspotApiException($exception->getMessage());
         }
     }
 
@@ -51,7 +51,7 @@ abstract class Resource implements ResourceInterface
             try {
                 return GlobalComponents::{$name}(...$arguments);
             } catch (TypeError $exception) {
-                throw new HubspotApiException($exception->getMessage(), $className);
+                throw new HubspotApiException($exception->getMessage());
             }
         }
 
