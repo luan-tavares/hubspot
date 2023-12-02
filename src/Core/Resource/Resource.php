@@ -36,7 +36,7 @@ abstract class Resource implements ResourceInterface
     {
         try {
             return BuilderContainer::get($this)->{$name}(...$arguments);
-        } catch (TypeError $exception) {
+        } catch (TypeError|Error $exception) {
             $className = removeFromAnonymousClassName(static::class);
 
             throw new HubspotApiException($exception->getMessage(), $className);
@@ -59,8 +59,8 @@ abstract class Resource implements ResourceInterface
             return call_user_func_array([(new static), $name], $arguments);
         } catch (Error $exception) {
             /**Call with Hubspot abstract class */
-            
-            throw new HubspotApiException("Static method {$className}::{$name}(...) not exists!", $className);
+
+            throw new HubspotApiException($exception->getMessage(), $className);
         }
     }
 

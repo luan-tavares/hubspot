@@ -11,6 +11,10 @@ use LTL\HubspotRequestBody\Resources\HubspotCrmCreateBody;
 use LTL\HubspotRequestBody\Resources\HubspotCrmUpdateBody;
 use LTL\HubspotRequestBody\Resources\HubspotSearchBody;
 
+ContactHubspot::importAll(function (ContactHubspot $resource) {
+    dd($resource);
+});
+
 /*$a = new class extends ContactHubspot implements WithRequestTries, WithRequestException {
 
 };
