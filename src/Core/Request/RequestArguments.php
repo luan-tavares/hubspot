@@ -36,16 +36,33 @@ class RequestArguments implements RequestArgumentsInterface
         $reverseArguments = array_reverse($arguments);
 
         foreach ($params as $name) {
-            $this->params[$name] = array_pop($reverseArguments);
+            $item = array_pop($reverseArguments);
+            $this->verifyQueryType($item, $name);
+            $this->params[$name] = $item;
         }
         
         foreach ($queryParams as $name) {
-            $this->queriesAsParam[$name] = array_pop($reverseArguments);
+            $item = array_pop($reverseArguments);
+            $this->verifyQueryType($item, $name);
+            $this->queriesAsParam[$name] = $item;
         }
 
         if($hasBody) {
             $this->body = $this->resolveBody($reverseArguments);
         }
+    }
+
+    private function verifyQueryType(mixed $value, string $name): void
+    {
+        if(is_string($value) || is_integer($value)) {
+            return;
+        }
+
+        $type = gettype($value);
+
+        $action = $this->actionSchema->action;
+
+        throw new HubspotApiException("MEthod {$action} param \"{$name}\" must be int|string, {$type} given");
     }
 
     private function resolveBody(array $reverseArguments): array
@@ -61,11 +78,14 @@ class RequestArguments implements RequestArgumentsInterface
                 return $body->get();
             }
         }
-
-        $method = "\"{$this->actionSchema->resourceClass}::{$this->actionSchema}(...)\"";
+        
         $types = implode('|', $this->actionSchema->bodyTypes);
 
-        throw new HubspotApiException("{$method} \$requestBody must be {$types}.");
+        $type = getType($body);
+
+        $action = $this->actionSchema->action;
+
+        throw new HubspotApiException("Method \"{$action}\" param \"requestBody\" must be {$types}, {$type} given");
     }
 
     public function body(): array|null

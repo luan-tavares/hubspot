@@ -3,6 +3,7 @@
 namespace LTL\Hubspot\Core\Resource;
 
 use Error;
+use ErrorException;
 use LTL\Hubspot\Containers\BuilderContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Globals\GlobalComponents;
@@ -36,9 +37,8 @@ abstract class Resource implements ResourceInterface
     {
         try {
             return BuilderContainer::get($this)->{$name}(...$arguments);
-        } catch (TypeError|Error $exception) {
-            $className = removeFromAnonymousClassName(static::class);
- 
+        } catch (Error $exception) {
+            /** Call errors inside closures */
             throw new HubspotApiException($exception->getMessage());
         }
     }

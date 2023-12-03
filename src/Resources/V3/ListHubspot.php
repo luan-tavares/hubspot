@@ -38,10 +38,10 @@ use LTL\HubspotRequestBody\Resources as Body;
  * @method $this updateDefinition(int|string $listId, array $requestBody) Update the filter branch definition of a DYNAMIC list. Once updated, the list memberships will be re-evaluated and updated to match the new definition.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/lists
  *
- * @method static $this updateName(int|string $listId, string $newName) Update the name of a list. The name must be globally unique relative to all other public lists in the portal.
+ * @method static $this updateName(int|string $listId, string|int $newName) Update the name of a list. The name must be globally unique relative to all other public lists in the portal.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/lists
  *
- * @method $this updateName(int|string $listId, string $newName) Update the name of a list. The name must be globally unique relative to all other public lists in the portal.
+ * @method $this updateName(int|string $listId, string|int $newName) Update the name of a list. The name must be globally unique relative to all other public lists in the portal.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/lists
  *
  * @method static $this delete(int|string $listId) Delete a List.

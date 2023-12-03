@@ -157,7 +157,7 @@ function writeParams(object $actionSchema, string $resource, string $action): st
 
     if(!is_null($queryAsParams = @$actionSchema->queryAsParam)) {
         foreach ($queryAsParams as $query => $param) {
-            $params[] = "string \${$param}";
+            $params[] = "string|int \${$param}";
         }
     }
 

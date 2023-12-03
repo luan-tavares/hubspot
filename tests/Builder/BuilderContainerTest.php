@@ -84,7 +84,7 @@ class BuilderContainerTest extends TestCase
             $memory = memory_get_peak_usage();
         }
 
-        $this->assertEquals($memoryDiff, 0);
+        $this->assertEquals(0, $memoryDiff);
     }
 
     public function testIfBuilderContainerDestroyAbstractRequestComponents()

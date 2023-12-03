@@ -14,7 +14,7 @@ class A
 
 $a = new CompanyHubspot;
 
-
+$a->update('11', '');
 
 $a->importAll(function ($company) {
     new A;

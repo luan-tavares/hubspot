@@ -52,4 +52,28 @@ class RequestArgumentsTest extends TestCase
 
         new RequestArguments($actionSchema, $arguments);
     }
+
+    public function testIfWrongParamTypeThrowException()
+    {
+        $arguments = [[], 'name'];
+
+        $baseResource = new ListHubspot;
+        $actionSchema = SchemaContainer::getAction($baseResource, 'updateName');
+
+        $this->expectException(HubspotApiException::class);
+
+        new RequestArguments($actionSchema, $arguments);
+    }
+
+    public function testIfWrongQueryAsParamTypeThrowException()
+    {
+        $arguments = ['111', []];
+
+        $baseResource = new ListHubspot;
+        $actionSchema = SchemaContainer::getAction($baseResource, 'updateName');
+
+        $this->expectException(HubspotApiException::class);
+
+        new RequestArguments($actionSchema, $arguments);
+    }
 }
