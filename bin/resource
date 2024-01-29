@@ -55,12 +55,20 @@ foreach ($resources as $resource) {
 
 
     if(@$document->interface !== true) {
+        $interfaceClass = @$document->interfaceClass;
 
-        if(@$document->interfaceClass === null) {
+        if($interfaceClass === null) {
             $content = $template;
         } else {
             $content = $templateWithInterface;
-            $content = str_replace('{{interface}}', $document->interfaceClass, $content);
+
+            if(gettype($interfaceClass) === 'array') {
+                $replaceInterface = implode(', ', $document->interfaceClass);
+            } else {
+                $replaceInterface = $document->interfaceClass;
+            }
+
+            $content = str_replace('{{interface}}', $replaceInterface, $content);
         }
         $content = str_replace('{{name}}', $resource, $content);
 

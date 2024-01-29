@@ -4,6 +4,7 @@ namespace LTL\Hubspot\Resources\V3;
 
 use LTL\Hubspot\Hubspot;
 use LTL\HubspotRequestBody\Resources as Body;
+use LTL\Hubspot\Resources\V3\Interfaces\{CrmHubspotInterface};
 
 /**
  * @link https://developers.hubspot.com/docs/api/crm/tickets
@@ -98,8 +99,14 @@ use LTL\HubspotRequestBody\Resources as Body;
  * @method $this createOrUpdate(Body\HubspotCrmUpdateBody|array $requestBody, string|int|null $idHubspot = null) (Handler) Use Create or Update ticket if id exists.
  * See https://developers.hubspot.com/docs/api/crm/tickets
  *
+ * @method static $this importAll(callable $fn) (Handler) Import All Deals using offset and getAll
+ * See https://developers.hubspot.com/docs/api/crm/tickets
+ *
+ * @method $this importAll(callable $fn) (Handler) Import All Deals using offset and getAll
+ * See https://developers.hubspot.com/docs/api/crm/tickets
+ *
  */
-class TicketHubspot extends Hubspot
+class TicketHubspot extends Hubspot implements CrmHubspotInterface
 {
     protected string $resource = "tickets-v3";
 

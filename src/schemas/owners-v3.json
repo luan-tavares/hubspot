@@ -16,6 +16,10 @@
             "path": "owners/{ownerId}",
             "method": "GET",
             "description": "Read an owner identified by {ownerId}."
+        },
+        "importAll": {
+            "handler": "import_all",
+            "description": "(Handler) Import All Contacts using offset and getAll"
         }
     }
 }

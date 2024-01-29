@@ -4,6 +4,7 @@ namespace LTL\Hubspot\Resources\V3;
 
 use LTL\Hubspot\Hubspot;
 use LTL\HubspotRequestBody\Resources as Body;
+use LTL\Hubspot\Resources\V3\Interfaces\{CrmHubspotInterface};
 
 /**
  * @link https://developers.hubspot.com/docs/api/crm/companies
@@ -105,7 +106,7 @@ use LTL\HubspotRequestBody\Resources as Body;
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
  */
-class CompanyHubspot extends Hubspot
+class CompanyHubspot extends Hubspot implements CrmHubspotInterface
 {
     protected string $resource = "companies-v3";
 

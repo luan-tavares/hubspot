@@ -4,6 +4,7 @@
     "documentation": "https://developers.hubspot.com/docs/api/crm/deals",
     "version": 3,
     "latest": true,
+    "interfaceClass": "CrmHubspotInterface",
     "actions": {
         "getAll": {
             "path": "objects/deals",

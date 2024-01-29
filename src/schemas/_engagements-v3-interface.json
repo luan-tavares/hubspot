@@ -1,6 +1,6 @@
 {
     "interface": true,
-    "class": "EngagementInterface",
+    "class": "EngagementHubspotInterface",
     "version": 3,
     "actions": {
         "getAll": {
@@ -29,22 +29,6 @@
             "path": "objects/tasks/{taskId}",
             "method": "DELETE",
             "description": "Move an note identified by {taskId} to the recycling bin."
-        },
-        "getAssociations": {
-            "path": "objects/tasks/{taskId}/associations/{toObjectType}",
-            "method": "GET",
-            "description": "List associations of a note by type."
-        },
-        "createAssociation": {
-            "path": "objects/tasks/{taskId}/associations/{toObjectType}/{toObjectId}/{associationType}",
-            "method": "PUT",
-            "hasBody": false,
-            "description": "Associate a note with another object."
-        },
-        "removeAssociation": {
-            "path": "objects/tasks/{taskId}/associations/{toObjectType}/{toObjectId}/{associationType}",
-            "method": "DELETE",
-            "description": "Remove an association between ticket and an object."
         },
         "batchDelete": {
             "path": "objects/tasks/batch/archive",

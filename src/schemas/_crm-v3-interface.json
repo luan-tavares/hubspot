@@ -1,0 +1,77 @@
+{
+    "interface": true,
+    "class": "CrmHubspotInterface",
+    "version": 3,
+    "actions": {
+        "getAll": {
+            "path": "objects/tasks",
+            "method": "GET",
+            "description": "Read a page."
+        },
+        "get": {
+            "path": "objects/tasks/{taskId}",
+            "method": "GET",
+            "description": "Get one."
+        },
+        "create": {
+            "path": "objects/tasks",
+            "method": "POST",
+            "bodyBuilder": "HubspotCrmCreateBody",
+            "description": "Create."
+        },
+        "update": {
+            "path": "objects/tasks/{taskId}",
+            "method": "PATCH",
+            "bodyBuilder": "HubspotCrmUpdateBody",
+            "description": "Update."
+        },
+        "delete": {
+            "path": "objects/tasks/{taskId}",
+            "method": "DELETE",
+            "description": "Delete."
+        },
+        "batchDelete": {
+            "path": "objects/tasks/batch/archive",
+            "method": "POST",
+            "bodyBuilder": "HubspotBatchDeleteBody",
+            "description": "Archive a batch."
+        },
+        "batchCreate": {
+            "path": "objects/tasks/batch/create",
+            "method": "POST",
+            "bodyBuilder": "HubspotBatchCreateBody",
+            "description": "Create a batch."
+        },
+        "batchRead": {
+            "path": "objects/tasks/batch/read",
+            "method": "POST",
+            "bodyBuilder": "HubspotBatchReadBody",
+            "description": "Read a batch."
+        },
+        "batchUpdate": {
+            "path": "objects/tasks/batch/update",
+            "method": "POST",
+            "bodyBuilder": "HubspotBatchUpdateBody",
+            "description": "Update a batch."
+        },
+        "search": {
+            "path": "objects/tasks/search",
+            "method": "POST",
+            "bodyBuilder": "HubspotSearchBody",
+            "description": "Search."
+        },
+        "merge": {
+            "path": "objects/tasks/merge",
+            "method": "POST",
+            "description": "Merge two objects."
+        },
+        "createOrUpdate": {
+            "handler": "create_or_update",
+            "description": "(Handler) Use Create or Update if id exists."
+        },
+        "importAll": {
+            "handler": "import_all",
+            "description": "(Handler) Import All using offset and getAll"
+        }
+    }
+}

@@ -4,7 +4,10 @@
     "documentation": "https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/notes",
     "version": 3,
     "latest": true,
-    "interfaceClass": "EngagementInterface",
+    "interfaceClass": [
+        "EngagementHubspotInterface",
+        "CrmHubspotInterface"
+    ],
     "defaultProperties": [
         "hs_timestamp",
         "hs_note_body",

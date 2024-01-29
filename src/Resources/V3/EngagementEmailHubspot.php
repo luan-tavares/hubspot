@@ -4,7 +4,7 @@ namespace LTL\Hubspot\Resources\V3;
 
 use LTL\Hubspot\Hubspot;
 use LTL\HubspotRequestBody\Resources as Body;
-use LTL\Hubspot\Resources\V3\Interfaces\EngagementInterface;
+use LTL\Hubspot\Resources\V3\Interfaces\{EngagementHubspotInterface, CrmHubspotInterface};
 
 /**
  * @link https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/emails
@@ -106,7 +106,7 @@ use LTL\Hubspot\Resources\V3\Interfaces\EngagementInterface;
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/emails
  *
  */
-class EngagementEmailHubspot extends Hubspot implements EngagementInterface
+class EngagementEmailHubspot extends Hubspot implements EngagementHubspotInterface, CrmHubspotInterface
 {
     protected string $resource = "engagements-emails-v3";
 

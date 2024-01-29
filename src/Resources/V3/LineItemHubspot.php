@@ -4,6 +4,7 @@ namespace LTL\Hubspot\Resources\V3;
 
 use LTL\Hubspot\Hubspot;
 use LTL\HubspotRequestBody\Resources as Body;
+use LTL\Hubspot\Resources\V3\Interfaces\{CrmHubspotInterface};
 
 /**
  * @link https://developers.hubspot.com/docs/api/crm/line-items
@@ -99,7 +100,7 @@ use LTL\HubspotRequestBody\Resources as Body;
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
  */
-class LineItemHubspot extends Hubspot
+class LineItemHubspot extends Hubspot implements CrmHubspotInterface
 {
     protected string $resource = "line-items-v3";
 

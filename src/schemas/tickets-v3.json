@@ -4,6 +4,7 @@
     "documentation": "https://developers.hubspot.com/docs/api/crm/tickets",
     "version": 3,
     "latest": true,
+    "interfaceClass": "CrmHubspotInterface",
     "actions": {
         "getAll": {
             "path": "objects/tickets",
@@ -97,6 +98,10 @@
         "createOrUpdate": {
             "handler": "create_or_update",
             "description": "(Handler) Use Create or Update ticket if id exists."
+        },
+        "importAll": {
+            "handler": "import_all",
+            "description": "(Handler) Import All Deals using offset and getAll"
         }
     }
 }

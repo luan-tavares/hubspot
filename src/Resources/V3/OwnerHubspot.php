@@ -20,6 +20,12 @@ use LTL\HubspotRequestBody\Resources as Body;
  * @method $this get(int|string $ownerId) Read an owner identified by {ownerId}.
  * See https://developers.hubspot.com/docs/api/crm/owners
  *
+ * @method static $this importAll(callable $fn) (Handler) Import All Contacts using offset and getAll
+ * See https://developers.hubspot.com/docs/api/crm/owners
+ *
+ * @method $this importAll(callable $fn) (Handler) Import All Contacts using offset and getAll
+ * See https://developers.hubspot.com/docs/api/crm/owners
+ *
  */
 class OwnerHubspot extends Hubspot
 {
