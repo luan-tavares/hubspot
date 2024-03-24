@@ -36,6 +36,11 @@
             "method": "POST",
             "description": "Batch create associations for objects."
         },
+        "batchCreateDefault": {
+            "path": "associations/{fromObjectType}/{toObjectType}/batch/associate/default",
+            "method": "POST",
+            "description": "Create the default (most generic) association type between two object types."
+        },
         "batchGet": {
             "path": "associations/{fromObjectType}/{toObjectType}/batch/read",
             "method": "POST",

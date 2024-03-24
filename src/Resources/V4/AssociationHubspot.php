@@ -44,6 +44,12 @@ use LTL\HubspotRequestBody\Resources as Body;
  * @method $this batchCreate(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Batch create associations for objects.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
+ * @method static $this batchCreateDefault(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Create the default (most generic) association type between two object types.
+ * See https://developers.hubspot.com/docs/api/crm/associations/v4
+ *
+ * @method $this batchCreateDefault(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Create the default (most generic) association type between two object types.
+ * See https://developers.hubspot.com/docs/api/crm/associations/v4
+ *
  * @method static $this batchGet(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Batch read associations for objects to specific object type.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
