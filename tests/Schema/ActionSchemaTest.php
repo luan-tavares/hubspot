@@ -19,7 +19,7 @@ class ActionSchemaTest extends TestCase
 
         $this->assertEquals(
             (string) $object,
-            '- '. OwnerHubspot::class ."::getAll()\n- ". OwnerHubspot::class ."::get()\n\n"
+            '- '. OwnerHubspot::class ."::getAll()\n- ". OwnerHubspot::class ."::get()\n- ". OwnerHubspot::class ."::importAll()\n\n"
         );
     }
 
