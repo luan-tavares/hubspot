@@ -2,7 +2,6 @@
 
 namespace LTL\Hubspot\Tests\Schema;
 
-use Exception;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Schema\ActionSchema;
 use LTL\Hubspot\Exceptions\HubspotApiException;

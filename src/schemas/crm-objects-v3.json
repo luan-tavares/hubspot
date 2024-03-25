@@ -50,19 +50,25 @@
             "path": "objects/{objectType}/batch/create",
             "method": "POST",
             "bodyBuilder": "HubspotBatchCreateBody",
-            "description": "Create a batch of objects."
+            "description": "Create a batch of objects.",
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         },
         "batchRead": {
             "path": "objects/{objectType}/batch/read",
             "method": "POST",
             "bodyBuilder": "HubspotBatchReadBody",
-            "description": "Read a batch of objects by internal ID, or unique property values."
+            "description": "Read a batch of objects by internal ID, or unique property values.",
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         },
         "batchUpdate": {
             "path": "objects/{objectType}/batch/update",
             "method": "POST",
             "bodyBuilder": "HubspotBatchUpdateBody",
-            "description": "Update a batch of objects."
+            "description": "Update a batch of objects.",
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
         },
         "getAssociations": {
             "path": "objects/{fromObjectType}/{fromObjectId}/associations/{toObjectType}",
