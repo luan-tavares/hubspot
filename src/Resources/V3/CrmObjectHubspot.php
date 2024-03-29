@@ -4,7 +4,6 @@ namespace LTL\Hubspot\Resources\V3;
 
 use LTL\Hubspot\Hubspot;
 use LTL\HubspotRequestBody\Resources as Body;
-use LTL\Hubspot\Resources\V3\Interfaces\{CrmHubspotInterface};
 
 /**
  * @link https://developers.hubspot.com/docs/api/crm/crm-custom-objects
@@ -106,7 +105,7 @@ use LTL\Hubspot\Resources\V3\Interfaces\{CrmHubspotInterface};
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
  */
-class CrmObjectHubspot extends Hubspot implements CrmHubspotInterface
+class CrmObjectHubspot extends Hubspot
 {
     protected string $resource = "crm-objects-v3";
 
