@@ -101,6 +101,10 @@
             "path": "objects/{objectType}/merge",
             "method": "POST",
             "description": "Merge two objects with same type."
+        },
+        "importAll": {
+            "handler": "crm_object_import_all",
+            "description": "(Handler) Import All Objects using offset and getAll"
         }
     }
 }

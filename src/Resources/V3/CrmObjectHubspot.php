@@ -99,6 +99,12 @@ use LTL\Hubspot\Resources\V3\Interfaces\{CrmHubspotInterface};
  * @method $this merge(int|string $objectType, array $requestBody) Merge two objects with same type.
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
+ * @method static $this importAll(string $objectType, callable $fn) (Handler) Import All Objects using offset and getAll
+ * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
+ *
+ * @method $this importAll(string $objectType, callable $fn) (Handler) Import All Objects using offset and getAll
+ * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
+ *
  */
 class CrmObjectHubspot extends Hubspot implements CrmHubspotInterface
 {
