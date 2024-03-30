@@ -4,21 +4,24 @@
 
 require_once __DIR__ .'/__init.php';
 
-use LTL\Hubspot\Hubspot;
 use LTL\Hubspot\Resources\V3\CompanyHubspot;
 
 $after = $i = $memory = 0;
 
+//dd(CompanyHubspot::get(140053003));
+
+dd(CompanyHubspot::propertiesWithHistory('name')->associations('contact')->get(19740053003));
+
 /** */
 while (true) {
-    CompanyHubspot::limit(10);
-    $companies = CompanyHubspot::after($after)
-        ->withRequestException()
-        ->withRequestTries(5)
-        ->limit(100)
-        ->getAll();
+    $companies = CompanyHubspot::limit(2);
+    $companies = $companies->after($after)->getAll();
 
-    dd($companies->empty());
+    foreach ($companies as $company) {
+        dd($company);
+    }
+
+    dd($companies->createdAt);
     
     dump($companies->map(function ($company) use (&$i) {
         $i++;

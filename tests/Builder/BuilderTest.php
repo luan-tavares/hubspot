@@ -8,7 +8,6 @@ use LTL\Hubspot\Core\Globals\ApikeyGlobal;
 use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
 use LTL\Hubspot\Core\Request\Request;
 use LTL\Hubspot\Exceptions\HubspotApiException;
-use LTL\Hubspot\Factories\ActionSchemaFactory;
 use LTL\Hubspot\Factories\BuilderFactory;
 use LTL\Hubspot\Resources\V3\ContactHubspot;
 use PHPUnit\Framework\TestCase;

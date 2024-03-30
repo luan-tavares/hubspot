@@ -4,7 +4,7 @@ namespace LTL\Hubspot\Core\Response\Interfaces;
 
 use Countable;
 use IteratorAggregate;
-use LTL\Hubspot\Core\Response\Interfaces\ResponseRepositoryInterface;
+use LTL\Hubspot\Core\Response\Interfaces\ResponseDataInterface;
 use LTL\Hubspot\Interfaces\ArrayableInterface;
 use LTL\Hubspot\Interfaces\JsonableInterface;
 use Override;
@@ -19,10 +19,10 @@ interface ResponseInterface extends ArrayableInterface, JsonableInterface, Itera
     public function isInvalidEmailError(): bool;
     public function getDocumentation(): string|null;
     public function getHeaders(): array|null;
-    public function getAfterIndex(): string|null;
-    public function getIteratorIndex(): string|null;
+    public function getResult(): array|object|null;
+    public function getAfter(): int|string|null;
     public function empty(): bool;
 
     #[Override]
-    public function getIterator(): ResponseRepositoryInterface;
+    public function getIterator(): ResponseDataInterface;
 }

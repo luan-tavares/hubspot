@@ -7,10 +7,9 @@ use LTL\Hubspot\Core\Builder;
 use LTL\Hubspot\Core\BuilderInterface;
 use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
-use LTL\Hubspot\Interfaces\FactoryInterface;
 use ReflectionClass;
 
-abstract class BuilderFactory implements FactoryInterface
+abstract class BuilderFactory
 {
     public static function build(ResourceInterface $baseResource, RequestInterface $request): BuilderInterface
     {

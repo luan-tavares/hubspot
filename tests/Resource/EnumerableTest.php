@@ -2,34 +2,28 @@
 
 namespace LTL\Hubspot\Tests\Resource;
 
+use LTL\Curl\Curl;
+use LTL\Curl\Interfaces\CurlInterface;
+use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
 use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Factories\ResourceFactory;
-use LTL\Hubspot\Factories\ResponseRepositoryFactory;
 use LTL\Hubspot\Resources\V3\ContactHubspot;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class EnumerableTest extends TestCase
 {
-    private ResourceInterface $resource;
-    
     private function resource(array $items): ResourceInterface
     {
-        $response = $this->getMockBuilder(Response::class)->disableOriginalConstructor()->getMock();
-        $response->method('toJson')->willReturn(json_encode($items));
-        $response->method('getIteratorIndex')->willReturn('results');
-        
-        /**
-         * @var ResponseInterface $response
-         */
-        $ResponseRepository = ResponseRepositoryFactory::build($response);
+        $curl = $this->getMockBuilder(Curl::class)->getMock();
+        $curl->method('response')->willReturn(json_encode($items));
+        $curl->method('error')->willReturn(false);
 
-        /**
-         * @var MockObject $response
-         */
-        $response->method('getIterator')->willReturn($ResponseRepository);
+        $actionSchema = SchemaContainer::getAction(new ContactHubspot, 'getAll');
+        
+        /** @var CurlInterface $curl */
+        $response = new Response($curl, $actionSchema);
 
         /**
          * @var ResponseInterface $response
@@ -41,136 +35,145 @@ class EnumerableTest extends TestCase
     {
         $resource = $this->resource([
             'results' => [
-                'a' => 4,
-                'b' => 5,
-                'd' => ['a' => 5],
+                4,
+                5,
             ]
         ]);
 
-        $result = $resource->map(function ($item, $key) {
-            return $item;
+        $result = $resource->map(function ($item) {
+            return $item . '0';
         });
 
         $this->assertEquals($result, [
-            4,
-            5,
-            (object) ['a' => 5],
+            '40',
+            '50',
         ]);
     }
 
     public function testMapAndFilterIsCorrect()
     {
+        $expected = [4, 5];
+
         $resource = $this->resource([
             'results' => [
-                'a' => 4,
-                'b' => 5,
-                'd' => ['a' => 5],
+                4,
+                5,
+                ['a' => 5],
             ]
         ]);
 
-        $result = $resource->mapAndFilter(function ($item, $key) {
-            if ($key === 'a') {
+        $result = $resource->mapAndFilter(function ($item) {
+            if (is_object($item)) {
                 return;
             }
 
             return $item;
         });
 
-        $this->assertEquals($result, [
-            5,
-            (object) ['a' => 5],
-        ]);
+        $this->assertEquals($expected, $result);
     }
 
     public function testMapWithKeysIsCorrect()
     {
+        $expected = [
+            'a::' => 5,
+            'b::' => 5,
+        ];
+        
         $resource = $this->resource([
             'results' => [
-                'a' => 4,
-                'b' => 5,
-                'd' => ['a' => 5],
+                ['a' => 'a', 'b' => 5],
+                ['a' => 'b', 'b' => 5],
             ]
         ]);
         
         $result = $resource->mapWithKeys(function ($item, $key) {
-            return [($key . '::') => $item];
+            return [($item->a . '::') => $item->b];
         });
 
-        $this->assertEquals($result, [
-            'a::' => 4,
-            'b::' => 5,
-            'd::' => (object) ['a' => 5],
-        ]);
+        $this->assertEquals($expected, $result);
     }
 
     public function testMapWithKeysAndFilterIsCorrect()
     {
+        $expected = [
+            '1::' => 5,
+            '2::' => 8
+        ];
+
         $resource = $this->resource([
             'results' => [
-                'a' => 4,
-                'b' => 5,
-                'd' => ['a' => 5],
+                4,
+                5,
+                8
             ]
         ]);
 
         $result = $resource->mapWithKeysAndFilter(function ($item, $key) {
-            if ($key === 'b') {
+            if ($key === 0) {
                 return null;
             }
 
             return [($key . '::') => $item];
         });
 
-        $this->assertEquals($result, [
-            'a::' => 4,
-            'd::' => (object) ['a' => 5]
-        ]);
+        $this->assertEquals($expected, $result);
     }
 
     public function testFilterIsCorrect()
     {
+        $expected = [
+            5,
+            8
+        ];
+        
         $resource = $this->resource([
             'results' => [
-                'a' => 4,
-                'b' => 5,
-                'd' => ['a' => 5],
+                4,
+                5,
+                8
             ]
         ]);
 
         $result = $resource->filter(function ($item, $key) {
-            return $item !== 4;
+            return $key !== 0;
         });
 
-        $this->assertEquals($result, [
-            'b' => 5,
-            'd' => (object) ['a' => 5]
-        ]);
+        $this->assertEquals($expected, array_values($result));
     }
 
     public function testMapReduceIsCorrect()
     {
+        $expected = 17;
+        
         $resource = $this->resource([
             'results' => [
-                'a' => 4,
-                'b' => 5,
-                'd' => ['a' => 5],
+                4,
+                5,
+                8
             ]
         ]);
         
         $result = $resource->reduce(function ($before, $item, $key) {
-            return ($before === '')?($key):($before .'-'. $key);
-        }, '');
+            return $before + $item;
+        }, 0);
 
-        $this->assertEquals($result, 'a-b-d');
+        $this->assertEquals($expected, $result);
     }
 
     public function testEachIsCorrect()
     {
+        $expected = [
+            4,
+            5,
+            (object) ['a' => 5]
+        ];
+        
         $resource = $this->resource([
             'results' => [
-                'a' => 4,
-                'b' => 5,
-                'd' => ['a' => 5],
+                4,
+                5,
+                ['a' => 5]
             ]
         ]);
         
@@ -180,10 +183,6 @@ class EnumerableTest extends TestCase
             $result[] = $item;
         });
 
-        $this->assertEquals([
-            4,
-            5,
-            (object) ['a' => 5]
-        ], $result);
+        $this->assertEquals($expected, $result);
     }
 }

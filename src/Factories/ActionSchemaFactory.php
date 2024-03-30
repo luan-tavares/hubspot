@@ -33,7 +33,7 @@ abstract class ActionSchemaFactory
 
     private static function castProperty(object $actionObject, ReflectionProperty $reflectionProperty): ActionProperty
     {
-        $cast = $reflectionProperty->getAttributes()[0]->getName();
+        $cast = current($reflectionProperty->getAttributes())->getName();
 
         return (new $cast($actionObject));
     }

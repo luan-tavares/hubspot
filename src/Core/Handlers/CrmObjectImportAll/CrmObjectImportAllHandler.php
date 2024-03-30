@@ -18,17 +18,21 @@ abstract class CrmObjectImportAllHandler
             if ($after != 0) {
                 $builder->after($after);
             }
-            $resource = $builder->getAll($objectType);
+
+            /**
+             * @var ResourceInterface $resourceHubspot
+             */
+            $resourceHubspot = $builder->getAll($objectType);
            
-            $after = $resource->after;
+            $after = $resourceHubspot->getAfter();
             
-            $fn($resource);
+            $fn($resourceHubspot);
 
             if (is_null($after)) {
                 break;
             }
         }
 
-        return $resource;
+        return $resourceHubspot;
     }
 }

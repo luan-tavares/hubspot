@@ -5,10 +5,9 @@ namespace LTL\Hubspot\Factories;
 use LTL\Hubspot\Containers\SingletonContainer;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
-use LTL\Hubspot\Interfaces\FactoryInterface;
 use ReflectionClass;
 
-abstract class ResourceFactory implements FactoryInterface
+abstract class ResourceFactory
 {
     public static function build(ResourceInterface $baseResource, ResponseInterface $response): ResourceInterface
     {

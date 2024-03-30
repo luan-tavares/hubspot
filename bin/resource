@@ -23,6 +23,7 @@ require $dir.'/autoload.php';
 use LTL\Hubspot\Core\Handlers\Handlers;
 use LTL\Hubspot\Core\Handlers\HandlersProvider;
 use LTL\Hubspot\Core\HubspotConfig;
+use LTL\Hubspot\Core\Schema\ResourceSchema;
 
 $basePath = HubspotConfig::BASE_PATH;
 
@@ -48,6 +49,8 @@ foreach ($resources as $resource) {
     $j = 0;
     $document = json_decode(file_get_contents($basePath . "/src/schemas/{$resource}.json"));
 
+
+
     $documentation = $document->documentation ?? null;
 
     $resourcePath = "{$basePath}/src/Resources";
@@ -55,6 +58,7 @@ foreach ($resources as $resource) {
 
 
     if(@$document->interface !== true) {
+
         $interfaceClass = @$document->interfaceClass;
 
         if($interfaceClass === null) {
@@ -84,6 +88,8 @@ foreach ($resources as $resource) {
     if ($documentation) {
         $doc .= " * @link {$documentation}\n *\n";
     }
+
+
     
     foreach ($document->actions as $action => $actionSchema) {
         $j++;
@@ -108,6 +114,39 @@ foreach ($resources as $resource) {
             $doc .= " * See {$methodDocumentation}\n";
         }
         $doc .= " *\n";
+    }
+
+    if(!is_null($object = @$document->object)) {
+        $classObject = 'LTL\\Hubspot\\Objects\\'. $object;
+        $reflectionClass = new ReflectionClass($classObject);
+
+        $doc .= " * @method \\Iterator<int, {$classObject}> getIterator()\n *\n";
+        
+        $reflectionProperties = $reflectionClass->getProperties(ReflectionProperty::IS_PUBLIC|ReflectionProperty::IS_READONLY);
+
+        foreach ($reflectionProperties as $reflectionProperty) {
+            $reflectionType = $reflectionProperty->getType();
+            $name = $reflectionProperty->getName();
+            $a = '';
+
+            if ($reflectionType instanceof ReflectionUnionType) {
+                $types = $reflectionType->getTypes();
+                $names = array_map(function (ReflectionNamedType $type) {
+                    return  $type->getName();
+                }, $types);
+        
+                $a =  implode('|', $names);
+            } else {
+                $a = $reflectionType->getName();
+
+                if($reflectionType->allowsNull()) {
+                    $a .= '|null';
+                }
+            }
+    
+            $doc .= " * @property {$a} \${$name}\n";
+            
+        }
     }
 
     $content = str_replace('{{docs}}', $doc, $content);

@@ -19,6 +19,7 @@ namespace LTL\Hubspot\Core\Schema\Interfaces;
  * @property string|null $handler
  * @property array|null $queryAsParam
  * @property array|null $bodyTypes
+ * @property string|null $object
  */
 interface ActionSchemaInterface
 {

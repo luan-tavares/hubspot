@@ -9,12 +9,15 @@
             "path": "associations/{fromObjectType}/{toObjectType}/labels",
             "method": "GET",
             "description": "Returns all association types between two object types.",
-            "iteratorIndex": "results"
+            "iteratorIndex": "results",
+            "object": "AssociationDefinitionObject"
         },
         "createDefinition": {
             "path": "associations/{fromObjectType}/{toObjectType}/labels",
             "method": "POST",
-            "description": "Create a user defined association definition."
+            "description": "Create a user defined association definition.",
+            "iteratorIndex": "results",
+            "object": "AssociationDefinitionObject"
         },
         "updateDefinition": {
             "path": "associations/{fromObjectType}/{toObjectType}/labels",
@@ -34,7 +37,8 @@
         "batchCreate": {
             "path": "associations/{fromObjectType}/{toObjectType}/batch/create",
             "method": "POST",
-            "description": "Batch create associations for objects."
+            "description": "Batch create associations for objects.",
+            "object": "AssociationObject"
         },
         "batchCreateDefault": {
             "path": "associations/{fromObjectType}/{toObjectType}/batch/associate/default",

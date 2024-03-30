@@ -24,8 +24,16 @@ class ResourceArrayAccessTest extends TestCase
     {
         $this->result = [
             'results' => [
-                'a' => 4,
-                'd' => 'teste',
+                [
+                    'typeId' => 5,
+                    'label' => 'test_label',
+                    'category' => 'HUBSPOT_DEFINED'
+                ],
+                [
+                    'typeId' => 5,
+                    'label' => 'test_label',
+                    'category' => 'HUBSPOT_DEFINED'
+                ]
             ],
             'paging' => [
                 'next' => [

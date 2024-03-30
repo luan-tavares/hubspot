@@ -25,17 +25,21 @@ abstract class AssociationImportAllHandler
             if ($after != 0) {
                 $builder->after($after);
             }
-            $hubspotRequest = $builder->getAll($fromObjectType, $fromObjectId, $toObjectType);
+
+            /**
+             * @var ResourceInterface $resourceHubspot
+             */
+            $resourceHubspot = $builder->getAll($fromObjectType, $fromObjectId, $toObjectType);
            
-            $after = $hubspotRequest->after;
+            $after = $resourceHubspot->getAfter();
             
-            $fn($hubspotRequest);
+            $fn($resourceHubspot);
 
             if (is_null($after)) {
                 break;
             }
         }
 
-        return $hubspotRequest;
+        return $resourceHubspot;
     }
 }

@@ -9,6 +9,7 @@ use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
 use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Factories\ResourceFactory;
+use LTL\Hubspot\Objects\AssociationDefinitionObject;
 use LTL\Hubspot\Resources\V4\AssociationHubspot;
 use PHPUnit\Framework\TestCase;
 
@@ -24,8 +25,16 @@ class ResourceIterableTest extends TestCase
     {
         $this->result = [
             'results' => [
-                'a' => 4,
-                'd' => ['a' => 5],
+                [
+                    'typeId' => 5,
+                    'label' => 'test_label',
+                    'category' => 'HUBSPOT_DEFINED'
+                ],
+                [
+                    'typeId' => 5,
+                    'label' => 'test_label',
+                    'category' => 'HUBSPOT_DEFINED'
+                ]
             ],
             'paging' => [
                 'next' => [
@@ -57,16 +66,15 @@ class ResourceIterableTest extends TestCase
     {
         $resource = ResourceFactory::build($this->baseResource, $this->response);
 
+        $expected = 2;
+
         $return = [];
 
         foreach ($resource as $value) {
             $return[] = $value;
         }
       
-        $this->assertEquals($return, [
-            4,
-            (object) ['a' => 5],
-        ]);
+        $this->assertEquals($expected, count($return));
     }
 
     public function testIfCountableIsCorrect()

@@ -4,27 +4,18 @@ use LTL\Hubspot\Resources\V4\AssociationHubspot;
 
 require_once __DIR__ .'/__init.php';
 
+dd(AssociationHubspot::updateDefinition('contacts', 'companies', [
+    'inverseLabel' => 'stringssssa',
+    'associationTypeId' => 269,
+    'label' => 'strsing'
+]));
 
-// dd(
-//     AssociationHubspot::deleteDefinition(
-//         '2-4031056',
-//         'deals',
-//         181
-//     ),
-//     AssociationHubspot::updateDefinition(
-//         'deals',
-//         '2-4031056',
-//         [
-//             'label' => 'teste_adm_to_deal',
-//             'associationTypeId' => 158
-//         ]
-//     )
-// );
-/*dasdsad*/
-
-AssociationHubspot::importAll(function ($resource) {
-
+AssociationHubspot::importAll('0-2', '19435281054', '0-1', function (AssociationHubspot $resource) {
+    dd($resource);
+    foreach ($resource as $associationObject) {
+        dd($associationObject);
+    }
 });
 
-// dump(AssociationHubspot::getDefinition('contacts', 'deals'));
+
 dump(AssociationHubspot::createDefinition('d', 'dsd', ['s' => 5]));

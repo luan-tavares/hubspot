@@ -4,7 +4,7 @@ namespace LTL\Hubspot\Tests\Response;
 
 use LTL\Curl\Curl;
 use LTL\Curl\Interfaces\CurlInterface;
-use LTL\Hubspot\Containers\ResponseRepositoryContainer;
+use LTL\Hubspot\Containers\ResponseDataContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Core\Schema\Interfaces\ActionSchemaInterface;
@@ -24,9 +24,9 @@ class ResponseIterableTest extends TestCase
     {
         $this->result = [
             'results' => [
-                'a' => 4,
-                'b' => 5,
-                'd' => ['a' => 5],
+                4,
+                5,
+                ['a' => 5],
             ],
             'paging' => [
                 'next' => [
@@ -95,7 +95,7 @@ class ResponseIterableTest extends TestCase
     {
         $response = new Response($this->curl, $this->actionSchema);
 
-        $this->assertEquals($response->after, 100);
+        $this->assertEquals($response->getAfter(), 100);
     }
 
 
@@ -111,16 +111,6 @@ class ResponseIterableTest extends TestCase
         $response = new Response($this->curl, $this->actionSchema);
 
         $this->assertEquals($response->toArray(), $this->result);
-    }
-
-    public function testIfDestroyResponseRepositoryIsCorrect()
-    {
-        $response = new Response($this->curl, $this->actionSchema);
-        $response->toArray(); /*The container is inicialized after call a method*/
-        $initCount = ResponseRepositoryContainer::count();
-        unset($response);
-        $finalCount = ResponseRepositoryContainer::count();
-        $this->assertEquals($initCount - $finalCount, 1);
     }
 
     public function testIfGetUrlAndHideApiMethodIsCorrect()

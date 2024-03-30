@@ -1,25 +1,20 @@
 <?php
 namespace LTL\Hubspot\Core\Response;
 
-use LTL\Hubspot\Core\Response\Interfaces\ResponseRepositoryInterface;
+use LTL\Hubspot\Core\Response\Interfaces\ResponseDataInterface;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 
-/**
- * @property string|int $after
- */
-class ResponseRepository implements ResponseRepositoryInterface
+class ResponseData implements ResponseDataInterface
 {
-    private object|array|null $object;
+    private object|array|null $result;
 
-    private array $array;
-
-    private array|null $iterator;
+    private string $raw;
 
     private string|int|null $after;
 
     private function __construct()
     {
-        /** LTL\Hubspot\Factories\ResponseRepositoryFactory */
+        /** LTL\Hubspot\Factories\ResponseDataFactory */
     }
 
     private function __clone()
@@ -28,21 +23,17 @@ class ResponseRepository implements ResponseRepositoryInterface
 
     public function __isset($property): bool
     {
-        if (!is_object($this->object)) {
+        if (!is_object($this->result)) {
             return false;
         }
 
-        return property_exists($this->object, $property);
+        return property_exists($this->result, $property);
     }
 
     public function __get($property)
     {
-        if ($property === 'after') {
-            return $this->after;
-        }
-
         if (isset($this->{$property})) {
-            return $this->object->{$property};
+            return $this->result->{$property};
         }
 
         return null;
@@ -50,7 +41,7 @@ class ResponseRepository implements ResponseRepositoryInterface
 
     private function verifyIterable(): void
     {
-        if (!is_null($this->iterator)) {
+        if (is_array($this->result)) {
             return;
         }
 
@@ -61,19 +52,31 @@ class ResponseRepository implements ResponseRepositoryInterface
         );
     }
 
-    public function after(): string|int|null
+    public function toArray(): array
+    {
+        return json_decode($this->raw, true) ?? [];
+    }
+
+    public function getRaw(): string
+    {
+        return $this->raw;
+    }
+
+    public function getResult(): object|array|null
+    {
+        return $this->result;
+    }
+
+    public function getAfter(): string|int|null
     {
         return $this->after;
     }
 
-    public function toArray(): array
-    {
-        return $this->array;
-    }
+    /**JsonSerializable */
 
     public function jsonSerialize(): mixed
     {
-        return $this->array;
+        return $this->toArray();
     }
 
     /**Countable */
@@ -82,7 +85,7 @@ class ResponseRepository implements ResponseRepositoryInterface
     {
         $this->verifyIterable();
 
-        return count($this->iterator);
+        return count($this->result);
     }
 
     /**Iterable */
@@ -91,26 +94,26 @@ class ResponseRepository implements ResponseRepositoryInterface
     {
         $this->verifyIterable();
 
-        reset($this->iterator);
+        reset($this->result);
     }
     
     public function current(): object|int
     {
-        return current($this->iterator);
+        return current($this->result);
     }
     
     public function key(): mixed
     {
-        return key($this->iterator);
+        return key($this->result);
     }
     
     public function next(): void
     {
-        next($this->iterator);
+        next($this->result);
     }
     
     public function valid(): bool
     {
-        return !is_null(key($this->iterator));
+        return !is_null(key($this->result));
     }
 }

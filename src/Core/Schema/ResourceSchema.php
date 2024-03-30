@@ -37,6 +37,7 @@ class ResourceSchema implements ResourceSchemaInterface
             $this->actions[$action]->schemaHasAuthentication = $schema->authentication ?? true;
             $this->actions[$action]->schemaDocumentation = $schema->documentation ?? '';
             $this->actions[$action]->defaultProperties = $schema->defaultProperties ?? null;
+            $this->actions[$action]->schemaObject = $schema->object ?? null;
         }
     }
 

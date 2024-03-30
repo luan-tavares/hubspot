@@ -11,24 +11,28 @@
             "method": "GET",
             "description": "Read a page of companies. Control what is returned via the properties query param.",
             "iteratorIndex": "results",
-            "afterIndex": "paging.next.after"
+            "afterIndex": "paging.next.after",
+            "object": "CrmObject"
         },
         "get": {
             "path": "objects/companies/{companyId}",
             "method": "GET",
-            "description": "Read an company identified by {companyId}."
+            "description": "Read an company identified by {companyId}.",
+            "object": "CrmObject"
         },
         "create": {
             "path": "objects/companies",
             "method": "POST",
             "bodyBuilder": "HubspotCrmCreateBody",
-            "description": "Create a company with the given properties and return a copy of the object, including the ID."
+            "description": "Create a company with the given properties and return a copy of the object, including the ID.",
+            "object": "CrmObject"
         },
         "update": {
             "path": "objects/companies/{companyId}",
             "method": "PATCH",
             "bodyBuilder": "HubspotCrmUpdateBody",
-            "description": "Perform a partial update of an company identified by {companyId}."
+            "description": "Perform a partial update of an company identified by {companyId}.",
+            "object": "CrmObject"
         },
         "delete": {
             "path": "objects/companies/{companyId}",
@@ -64,7 +68,8 @@
             "bodyBuilder": "HubspotBatchCreateBody",
             "description": "Create a batch of companies.",
             "iteratorIndex": "results",
-            "afterIndex": null
+            "afterIndex": null,
+            "object": "CrmObject"
         },
         "batchRead": {
             "path": "objects/companies/batch/read",
@@ -72,7 +77,8 @@
             "bodyBuilder": "HubspotBatchReadBody",
             "description": "Read a batch of companies by internal ID, or unique property values.",
             "iteratorIndex": "results",
-            "afterIndex": null
+            "afterIndex": null,
+            "object": "CrmObject"
         },
         "batchUpdate": {
             "path": "objects/companies/batch/update",
@@ -80,7 +86,8 @@
             "bodyBuilder": "HubspotBatchUpdateBody",
             "description": "Update a batch of companies.",
             "iteratorIndex": "results",
-            "afterIndex": null
+            "afterIndex": null,
+            "object": "CrmObject"
         },
         "search": {
             "path": "objects/companies/search",
@@ -88,7 +95,8 @@
             "bodyBuilder": "HubspotSearchBody",
             "description": "Search companies.",
             "iteratorIndex": "results",
-            "afterIndex": "paging.next.after"
+            "afterIndex": "paging.next.after",
+            "object": "CrmObject"
         },
         "merge": {
             "path": "objects/companies/merge",

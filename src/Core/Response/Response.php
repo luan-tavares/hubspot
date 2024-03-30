@@ -3,62 +3,57 @@
 namespace LTL\Hubspot\Core\Response;
 
 use LTL\Curl\Interfaces\CurlInterface;
-use LTL\Hubspot\Containers\ResponseRepositoryContainer;
 use LTL\Hubspot\Core\Globals\ApikeyGlobal;
 use LTL\Hubspot\Core\HubspotConfig;
+use LTL\Hubspot\Core\Response\Interfaces\ResponseDataInterface;
 use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
-use LTL\Hubspot\Core\Response\Interfaces\ResponseRepositoryInterface;
 use LTL\Hubspot\Core\Schema\Interfaces\ActionSchemaInterface;
+use LTL\Hubspot\Factories\ResponseDataFactory;
 
-/**
- * @property string|int $after
- */
 class Response implements ResponseInterface
 {
     private array|null $headers;
-   
-    private string $rawResponse;
 
     private int $status;
 
     private string $uri;
 
-    public function __construct(CurlInterface $curl, private ActionSchemaInterface $actionSchema)
+    private string|null $documentation;
+
+    private ResponseDataInterface $data;
+
+    public function __construct(CurlInterface $curl, ActionSchemaInterface $actionSchema)
     {
         $this->status = $curl->status();
-        $this->rawResponse = $curl->response();
+        $this->documentation = $actionSchema->documentation;
         $this->uri = ApikeyGlobal::uriMask($curl->uri());
         $this->headers = $curl->headers();
-    }
-
-    public function __destruct()
-    {
-        ResponseRepositoryContainer::destroy($this);
+        $this->data = ResponseDataFactory::build($actionSchema, $curl);
     }
 
     public function __get($property)
     {
-        return ResponseRepositoryContainer::get($this)->{$property};
+        return $this->data->{$property};
     }
 
-    public function getAfterIndex(): string|null
+    public function getAfter(): int|string|null
     {
-        return $this->actionSchema->afterIndex;
-    }
-
-    public function getIteratorIndex(): string|null
-    {
-        return $this->actionSchema->iteratorIndex;
+        return $this->data->getAfter();
     }
 
     public function toArray(): array
     {
-        return ResponseRepositoryContainer::get($this)->toArray();
+        return $this->data->toArray();
+    }
+
+    public function getResult(): array|object|null
+    {
+        return $this->data->getResult();
     }
 
     public function toJson(): string
     {
-        return $this->rawResponse;
+        return $this->data->getRaw();
     }
 
     public function getStatus(): int
@@ -73,7 +68,7 @@ class Response implements ResponseInterface
 
     public function getDocumentation(): string|null
     {
-        return $this->actionSchema->documentation;
+        return $this->documentation;
     }
 
     public function getHeaders(): array|null
@@ -102,21 +97,21 @@ class Response implements ResponseInterface
             return false;
         }
 
-        if (!strpos($this->rawResponse, 'INVALID_EMAIL')) {
+        if (!strpos($this->data->getRaw(), 'INVALID_EMAIL')) {
             return false;
         }
 
         return true;
     }
 
-    public function getIterator(): ResponseRepositoryInterface
+    public function getIterator(): ResponseDataInterface
     {
-        return ResponseRepositoryContainer::get($this);
+        return $this->data;
     }
 
     public function count(): int
     {
-        return count(ResponseRepositoryContainer::get($this));
+        return count($this->data);
     }
 
     public function empty(): bool

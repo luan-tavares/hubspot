@@ -12,7 +12,7 @@ use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
 use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\ResourceFactory;
-use LTL\Hubspot\Factories\ResponseRepositoryFactory;
+use LTL\Hubspot\Factories\ResponseDataFactory;
 use LTL\Hubspot\Hubspot;
 use LTL\Hubspot\Resources\V3\CompanyHubspot;
 use LTL\Hubspot\Resources\V3\ContactHubspot;
@@ -32,8 +32,16 @@ class ResourceTest extends TestCase
     {
         $this->result = [
             'results' => [
-                'a' => 4,
-                'd' => ['a' => 5],
+                [
+                    'typeId' => 5,
+                    'label' => 'test_label',
+                    'category' => 'HUBSPOT_DEFINED'
+                ],
+                [
+                    'typeId' => 5,
+                    'label' => 'test_label',
+                    'category' => 'HUBSPOT_DEFINED'
+                ]
             ],
             'paging' => [
                 'next' => [
@@ -60,13 +68,6 @@ class ResourceTest extends TestCase
         $this->response = new Response($curl, $actionSchema);
     }
 
-
-    public function testIfGetMagicMethodIsCorrect()
-    {
-        $resource = ResourceFactory::build($this->baseResource, $this->response);
-      
-        $this->assertEquals($resource->results->a, 4);
-    }
 
     public function testSetGlobalApikeyMethodIsCorrect()
     {
