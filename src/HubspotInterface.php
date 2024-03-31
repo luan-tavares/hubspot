@@ -84,6 +84,13 @@ use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
  * @method $this notWithRequestException() 
  * @method static $this notWithRequestException() 
  *
+ * Response Type Methods
+ *
+ * @method $this withObjectResponse() 
+ * @method static $this withObjectResponse() 
+ * @method $this notWithObjectResponse() 
+ * @method static $this notWithObjectResponse() 
+ *
  * Global Methods
  *
  * @method static $this setGlobalApikey(string $apikey) 

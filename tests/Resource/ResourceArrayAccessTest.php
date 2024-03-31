@@ -5,8 +5,8 @@ namespace LTL\Hubspot\Tests\Resource;
 use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
-use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
-use LTL\Hubspot\Core\Response\Response;
+use LTL\Hubspot\Core\Response\RequestInfoObject;
+use LTL\Hubspot\Core\Schema\Interfaces\ActionSchemaInterface;
 use LTL\Hubspot\Factories\ResourceFactory;
 use LTL\Hubspot\Resources\V3\ContactHubspot;
 use LTL\Hubspot\Resources\V4\AssociationHubspot;
@@ -14,11 +14,9 @@ use PHPUnit\Framework\TestCase;
 
 class ResourceArrayAccessTest extends TestCase
 {
-    private ResponseInterface|null $response;
-
     private array $result;
 
-    private ResourceInterface $baseResource;
+    private AssociationHubspot $resource;
 
     protected function setUp(): void
     {
@@ -43,28 +41,26 @@ class ResourceArrayAccessTest extends TestCase
             'big' => array_fill(0, 150, 'TATAKAE')
         ];
 
-        $this->response = null;
+        $requestInfoObject = new RequestInfoObject([
+            'hasObject' => false
+        ]);
 
         $curl = $this->getMockBuilder(CurlInterface::class)->disableOriginalConstructor()->getMock();
         $curl->method('response')->willReturn(json_encode($this->result));
+               
+        $actionSchema = SchemaContainer::getAction(new AssociationHubspot, 'getDefinition');
 
-        $this->baseResource = new AssociationHubspot;
-        $actionSchema = SchemaContainer::getAction($this->baseResource, 'getDefinition');
-
-        /**
-         * @var CurlInterface $curl
-         */
-        $this->response = new Response($curl, $actionSchema);
+        /** @var CurlInterface $curl */
+        $this->resource = ResourceFactory::build($actionSchema, $curl, $requestInfoObject);
     }
 
 
     public function testIfArrayOffsetSetNotIncludeItem()
     {
-        $resource = ResourceFactory::build($this->baseResource, $this->response);
 
-        $resource->offsetSet('foo', 'bar');
+        $this->resource->offsetSet('foo', 'bar');
       
-        $this->assertFalse($resource->offsetExists('foo'));
+        $this->assertFalse($this->resource->offsetExists('foo'));
     }
 
     public function testIfArrayOffsetSetMethodIsCalled()
@@ -78,44 +74,34 @@ class ResourceArrayAccessTest extends TestCase
 
     public function testIfArrayOffsetExistsInExistsItemIsTrue()
     {
-        $resource = ResourceFactory::build($this->baseResource, $this->response);
-      
-        $this->assertTrue(isset($resource['results']));
+        $this->assertTrue(isset($this->resource['results']));
     }
 
     public function testIfArrayOffsetExistsInNoExistsItemIsFalse()
     {
-        $resource = ResourceFactory::build($this->baseResource, $this->response);
-
-        $resource['teste'] = 5;
+        $this->resource['teste'] = 5;
       
-        $this->assertFalse(isset($resource['teste']));
+        $this->assertFalse(isset($this->resource['teste']));
     }
 
     public function testIfArrayOffsetExistsMethodInNoExistsItemIsFalse()
     {
-        $resource = ResourceFactory::build($this->baseResource, $this->response);
-
-        $resource['teste'] = 5;
+        $this->resource['teste'] = 5;
       
-        $this->assertFalse($resource->offsetExists('teste'));
+        $this->assertFalse($this->resource->offsetExists('teste'));
     }
 
     public function testIfArrayOffsetUnsetNotDeleteItem()
     {
-        $resource = ResourceFactory::build($this->baseResource, $this->response);
+        unset($this->resource['results']);
 
-        unset($resource['results']);
-
-        $resource->offsetUnset('results');
+        $this->resource->offsetUnset('results');
       
-        $this->assertEquals($resource['results'], $this->result['results']);
+        $this->assertEquals($this->resource['results'], $this->result['results']);
     }
 
     public function testIfOffsetGetNotExistsThrownHubspotApiExecptionMessage()
     {
-        $resource = ResourceFactory::build($this->baseResource, $this->response);
-
         $index = 'unknow';
 
         $response = mb_strimwidth(json_encode($this->result), 0, 150, ' ...');
@@ -124,6 +110,6 @@ class ResourceArrayAccessTest extends TestCase
        
         $this->expectExceptionMessage($expectedMessage);
       
-        $resource[$index];
+        $this->resource[$index];
     }
 }

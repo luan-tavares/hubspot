@@ -3,12 +3,13 @@ namespace LTL\Hubspot\Core\Request;
 
 use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Core\HubspotConfig;
-use LTL\Hubspot\Core\Request\Components\ResourceRequestComponent;
 use LTL\Hubspot\Core\Request\Interfaces\CurlComponentInterface;
 use LTL\Hubspot\Core\Request\Interfaces\HeaderComponentInterface;
 use LTL\Hubspot\Core\Request\Interfaces\QueryComponentInterface;
 use LTL\Hubspot\Core\Request\Interfaces\RequestArgumentsInterface;
 use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
+use LTL\Hubspot\Core\Request\Interfaces\ResourceRequestComponentInterface;
+use LTL\Hubspot\Core\Request\Interfaces\ResponseRequestComponentInterface;
 use LTL\Hubspot\Core\Request\RequestComponentsList;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 use LTL\Hubspot\Core\Schema\Interfaces\ActionSchemaInterface;
@@ -22,7 +23,9 @@ class Request implements RequestInterface
 
     private CurlComponentInterface $curl;
 
-    private ResourceRequestComponent $resourceRequest;
+    private ResourceRequestComponentInterface $resourceRequest;
+
+    private ResponseRequestComponentInterface $responseRequest;
 
     private ResourceInterface $resource;
     
@@ -37,20 +40,10 @@ class Request implements RequestInterface
 
     public function __call($method, $arguments)
     {
-        if (in_array($method, $this->query->getMethods())) {
-            return $this->query->{$method}(...$arguments);
-        }
- 
-        if (in_array($method, $this->header->getMethods())) {
-            return $this->header->{$method}(...$arguments);
-        }
-
-        if (in_array($method, $this->curl->getMethods())) {
-            return $this->curl->{$method}(...$arguments);
-        }
-
-        if (in_array($method, $this->resourceRequest->getMethods())) {
-            return $this->resourceRequest->{$method}(...$arguments);
+        foreach (RequestComponentsList::ALL as $property => $className) {
+            if (in_array($method, $this->{$property}->getMethods())) {
+                return $this->{$property}->{$method}(...$arguments);
+            }
         }
 
         $className = removeFromAnonymousClassName($this->resource::class);
@@ -78,6 +71,8 @@ class Request implements RequestInterface
             $this->{$property}->boot();
         }
     }
+
+    /** */
 
     public function addUriArguments(RequestArgumentsInterface $requestArguments): self
     {
@@ -144,6 +139,11 @@ class Request implements RequestInterface
     public function getCurlParams(): array
     {
         return $this->curl->all();
+    }
+
+    public function getResponseRequest(): array
+    {
+        return $this->responseRequest->all();
     }
 
     public function getRequestsTries(): int

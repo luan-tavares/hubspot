@@ -11,7 +11,6 @@ namespace LTL\Hubspot\Core\Schema\Interfaces;
  * @property string|null $description
  * @property string|null $iteratorIndex
  * @property string|null $afterIndex
- * @property string|null $documentation
  * @property string $resourceClass
  * @property string $baseUri
  * @property string $method

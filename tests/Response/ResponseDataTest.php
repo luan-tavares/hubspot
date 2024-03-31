@@ -4,19 +4,40 @@ namespace LTL\Hubspot\Tests\Response;
 
 use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Containers\SchemaContainer;
+use LTL\Hubspot\Core\Response\RequestInfoObject;
+use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Core\Schema\Interfaces\ActionSchemaInterface;
 use LTL\Hubspot\Exceptions\HubspotApiException;
-use LTL\Hubspot\Factories\ResponseDataFactory;
 use LTL\Hubspot\Resources\V3\CompanyHubspot;
 use LTL\Hubspot\Resources\V4\AssociationHubspot;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class ResponseDataTest extends TestCase
 {
-    private MockObject $curl;
+    private CurlInterface $curl;
 
-    private array $result;
+    private array $result = [
+        'a' => 'b',
+        'results' => [
+            [
+                'typeId' => 5,
+                'label' => 'test_ssslabel',
+                'category' => 'HUBSPOT_DEFINED'
+            ],
+            [
+                'typeId' => 15,
+                'label' => 'test_label',
+                'category' => 'HUBSPOT_DEFINED'
+            ]
+        ],
+        'paging' => [
+            'next' => [
+                'after' => 123456
+            ]
+        ]
+    ];
+
+    private RequestInfoObject $requestInfoObject;
 
     private array $oneResult = [
         'id' => 123,
@@ -32,29 +53,18 @@ class ResponseDataTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->result = [
-            'a' => 'b',
-            'results' => [
-                [
-                    'typeId' => 5,
-                    'label' => 'test_label',
-                    'category' => 'HUBSPOT_DEFINED'
-                ],
-                [
-                    'typeId' => 15,
-                    'label' => 'test_label',
-                    'category' => 'HUBSPOT_DEFINED'
-                ]
-            ],
-            'paging' => [
-                'next' => [
-                    'after' => 123456
-                ]
-            ]
-        ];
+        $this->requestInfoObject = new RequestInfoObject([
+            'hasObject' => true
+        ]);
 
-        $this->curl = $this->getMockBuilder(CurlInterface::class)->disableOriginalConstructor()->getMock();
-        $this->curl->method('response')->willReturn(json_encode($this->result));
+        $curl = $this->getMockBuilder(CurlInterface::class)->disableOriginalConstructor()->getMock();
+        $curl->method('response')->willReturn(json_encode($this->result));
+        $curl->method('status')->willReturn(200);
+        $curl->method('uri')->willReturn('');
+        $curl->method('headers')->willReturn(null);
+        $curl->method('error')->willReturn(false);
+
+        $this->curl = $curl;
 
         $this->actionSchema = SchemaContainer::getAction(new AssociationHubspot, 'getDefinition');
     }
@@ -62,14 +72,12 @@ class ResponseDataTest extends TestCase
 
     public function testIfIterableObjectIsCorrect()
     {
-        /** @var CurlInterface $curl */
-        $curl = $this->curl;
-
-        $responseData = ResponseDataFactory::build($this->actionSchema, $curl);
+        $response = new Response($this->curl, $this->actionSchema, $this->requestInfoObject);
+       
   
         $return = [];
-
-        foreach ($responseData as $data) {
+        
+        foreach ($response as $data) {
             $return[] = $data->typeId;
         }
 
@@ -83,36 +91,27 @@ class ResponseDataTest extends TestCase
 
     public function testIfCountableObjectIsCorrect()
     {
-        /** @var CurlInterface $curl */
-        $curl = $this->curl;
+        $response = new Response($this->curl, $this->actionSchema, $this->requestInfoObject);
 
-        $responseData = ResponseDataFactory::build($this->actionSchema, $curl);
-
-        $this->assertEquals(count($this->result['results']), count($responseData));
+        $this->assertEquals(count($this->result['results']), count($response));
     }
 
     public function testIfJsonSerializableResponseDataIsCorrect()
     {
-        /** @var CurlInterface $curl */
-        $curl = $this->curl;
-
-        $responseData = ResponseDataFactory::build($this->actionSchema, $curl);
+        $response = new Response($this->curl, $this->actionSchema, $this->requestInfoObject);
 
         $this->assertEquals(
             json_encode($this->result),
-            json_encode($responseData)
+            json_encode($response)
         );
     }
 
     public function testIftoArrayResponseDataIsCorrect()
     {
-        /** @var CurlInterface $curl */
-        $curl = $this->curl;
-
-        $responseData = ResponseDataFactory::build($this->actionSchema, $curl);
+        $response = new Response($this->curl, $this->actionSchema, $this->requestInfoObject);
 
         $this->assertEquals(
-            $responseData->toArray(),
+            $response->toArray(),
             $this->result
         );
     }
@@ -153,11 +152,11 @@ class ResponseDataTest extends TestCase
         $actionSchema = SchemaContainer::getAction(new CompanyHubspot, 'getAll');
 
         /** @var CurlInterface $curl */
-        $responseData = ResponseDataFactory::build($actionSchema, $curl);
+        $response = new Response($curl, $actionSchema, $this->requestInfoObject);
        
         $this->assertEquals(
             $result['paging']['next']['after'],
-            $responseData->getAfter()
+            $response->getAfter()
         );
     }
 
@@ -169,11 +168,11 @@ class ResponseDataTest extends TestCase
         $actionSchema = SchemaContainer::getAction(new CompanyHubspot, 'get');
 
         /** @var CurlInterface $curl */
-        $responseData = ResponseDataFactory::build($actionSchema, $curl);
+        $response = new Response($curl, $actionSchema, $this->requestInfoObject);
        
         $this->assertEquals(
             $this->oneResult['id'],
-            $responseData->id
+            $response->id
         );
     }
 
@@ -185,9 +184,9 @@ class ResponseDataTest extends TestCase
         $actionSchema = SchemaContainer::getAction(new CompanyHubspot, 'get');
 
         /** @var CurlInterface $curl */
-        $responseData = ResponseDataFactory::build($actionSchema, $curl);
+        $response = new Response($curl, $actionSchema, $this->requestInfoObject);
        
-        $this->assertTrue(isset($responseData->id));
+        $this->assertTrue(isset($response->id));
     }
 
     public function testIfNotIterableResponseDataThrowException()
@@ -198,15 +197,15 @@ class ResponseDataTest extends TestCase
         $actionSchema = SchemaContainer::getAction(new CompanyHubspot, 'get');
 
         /** @var CurlInterface $curl */
-        $responseData = ResponseDataFactory::build($actionSchema, $curl);
+        $response = new Response($curl, $actionSchema, $this->requestInfoObject);
 
-        $response = mb_strimwidth(json_encode($this->oneResult), 0, 150, ' ...');
+        $responseError = mb_strimwidth(json_encode($this->oneResult), 0, 150, ' ...');
 
         $this->expectExceptionMessage(
-            "Resource response is not iterable or countable:\n\n{$response}\n\n"
+            "Resource response is not iterable or countable:\n\n{$responseError}\n\n"
         );
 
-        foreach ($responseData as $value) {
+        foreach ($response as $value) {
         }
     }
 
@@ -218,11 +217,11 @@ class ResponseDataTest extends TestCase
         $actionSchema = SchemaContainer::getAction(new CompanyHubspot, 'get');
 
         /** @var CurlInterface $curl */
-        $responseData = ResponseDataFactory::build($actionSchema, $curl);
+        $response = new Response($curl, $actionSchema, $this->requestInfoObject);
 
         $this->expectException(HubspotApiException::class);
 
-        count($responseData);
+        count($response);
     }
 
     public function testIfNotCountableResponseDataThrowExceptionMessage()
@@ -233,26 +232,23 @@ class ResponseDataTest extends TestCase
         $actionSchema = SchemaContainer::getAction(new CompanyHubspot, 'get');
 
         /** @var CurlInterface $curl */
-        $responseData = ResponseDataFactory::build($actionSchema, $curl);
+        $response = new Response($curl, $actionSchema, $this->requestInfoObject);
 
-        $responseSlice = mb_strimwidth(json_encode($this->oneResult), 0, 150, ' ...');
+        $responseError = mb_strimwidth(json_encode($this->oneResult), 0, 150, ' ...');
 
         $this->expectExceptionMessage(
-            "Resource response is not iterable or countable:\n\n{$responseSlice}\n\n"
+            "Resource response is not iterable or countable:\n\n{$responseError}\n\n"
         );
 
-        count($responseData);
+        count($response);
     }
 
     public function testIfArrayResponseTransformInObject()
     {
-        /** @var CurlInterface $curl */
-        $curl = $this->curl;
-
-        $responseData = ResponseDataFactory::build($this->actionSchema, $curl);
+        $response = new Response($this->curl, $this->actionSchema, $this->requestInfoObject);
 
         $result = [];
-        foreach ($responseData as $value) {
+        foreach ($response as $value) {
             $result[] = $value->typeId;
         }
        
@@ -273,12 +269,12 @@ class ResponseDataTest extends TestCase
         /**
          * @var CurlInterface $curl
          */
-        $responseData = ResponseDataFactory::build($actionSchema, $curl);
+        $response = new Response($curl, $actionSchema, $this->requestInfoObject);
        
-        $this->assertEquals($responseData->toArray(), []);
+        $this->assertEquals($response->toArray(), []);
     }
 
-    public function testIfMagicGetMethodReturnNullIfResponseIsNull()
+    public function testIfMagicGetMethodReturnException()
     {
         $curl = $this->getMockBuilder(CurlInterface::class)->disableOriginalConstructor()->getMock();
         $curl->method('response')->willReturn('Not Found');
@@ -289,9 +285,11 @@ class ResponseDataTest extends TestCase
         /**
          * @var CurlInterface $curl
          */
-        $responseData = ResponseDataFactory::build($actionSchema, $curl);
+        $response = new Response($curl, $actionSchema, $this->requestInfoObject);
+
+        $this->expectException(HubspotApiException::class);
        
-        $this->assertNull($responseData->anotherProperty);
+        $response->anotherProperty;
     }
 
     public function testIfIssetMagicMethodIsFalseIfResponseIsNull()
@@ -305,8 +303,8 @@ class ResponseDataTest extends TestCase
         /**
          * @var CurlInterface $curl
          */
-        $responseData = ResponseDataFactory::build($actionSchema, $curl);
+        $response = new Response($curl, $actionSchema, $this->requestInfoObject);
        
-        $this->assertFalse(isset($responseData->anotherProperty));
+        $this->assertFalse(isset($response->anotherProperty));
     }
 }

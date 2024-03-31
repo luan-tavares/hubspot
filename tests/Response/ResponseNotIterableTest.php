@@ -5,6 +5,7 @@ namespace LTL\Hubspot\Tests\Response;
 use LTL\Curl\Curl;
 use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Containers\SchemaContainer;
+use LTL\Hubspot\Core\Response\RequestInfoObject;
 use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Core\Schema\Interfaces\ActionSchemaInterface;
 use LTL\Hubspot\Exceptions\HubspotApiException;
@@ -16,6 +17,8 @@ class ResponseNotIterableTest extends TestCase
     private CurlInterface $curl;
 
     private ActionSchemaInterface $actionSchema;
+
+    private RequestInfoObject $requestInfoObject;
 
     private array $result;
 
@@ -35,13 +38,16 @@ class ResponseNotIterableTest extends TestCase
         $this->curl = $curl;
 
         $this->actionSchema = SchemaContainer::getAction(new ContactHubspot, 'get');
+
+        $this->requestInfoObject = new RequestInfoObject([
+            'hasObject' => false
+        ]);
     }
 
     public function testIfNotIterableThrowHubspotApiException()
     {
-        $response = new Response($this->curl, $this->actionSchema);
-
-       
+        $response = new Response($this->curl, $this->actionSchema, $this->requestInfoObject);
+ 
         $this->expectException(HubspotApiException::class);
 
         foreach ($response as $value) {
@@ -51,7 +57,7 @@ class ResponseNotIterableTest extends TestCase
 
     public function testIfNotIterableThrowException()
     {
-        $response = new Response($this->curl, $this->actionSchema);
+        $response = new Response($this->curl, $this->actionSchema, $this->requestInfoObject);
 
         $responseSlice = mb_strimwidth(json_encode($this->result), 0, 150, ' ...');
 
@@ -65,7 +71,7 @@ class ResponseNotIterableTest extends TestCase
 
     public function testIfCountableThrowException()
     {
-        $response = new Response($this->curl, $this->actionSchema);
+        $response = new Response($this->curl, $this->actionSchema, $this->requestInfoObject);
 
         $responseSlice = mb_strimwidth(json_encode($this->result), 0, 150, ' ...');
 
@@ -78,7 +84,7 @@ class ResponseNotIterableTest extends TestCase
 
     public function testIfCountableThrowHubspotApiException()
     {
-        $response = new Response($this->curl, $this->actionSchema);
+        $response = new Response($this->curl, $this->actionSchema, $this->requestInfoObject);
 
         $this->expectException(HubspotApiException::class);
 
@@ -87,8 +93,8 @@ class ResponseNotIterableTest extends TestCase
 
     public function testIfAfterPropertyObjectIsNull()
     {
-        $response = new Response($this->curl, $this->actionSchema);
+        $response = new Response($this->curl, $this->actionSchema, $this->requestInfoObject);
 
-        $this->assertNull($response->after);
+        $this->assertNull($response->getAfter());
     }
 }

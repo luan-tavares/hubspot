@@ -7,6 +7,7 @@ use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Globals\ApikeyGlobal;
 use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
 use LTL\Hubspot\Core\Request\Request;
+use LTL\Hubspot\Core\Response\RequestInfoObject;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\BuilderFactory;
 use LTL\Hubspot\Resources\V3\ContactHubspot;
@@ -50,7 +51,9 @@ class BuilderTest extends TestCase
         $resource = new ContactHubspot;
 
         $requestMock = $this->getMockBuilder(Request::class)->disableOriginalConstructor()->getMock();
-
+        $requestMock->method('getResponseRequest')->willReturn([
+            'hasObject' => false
+        ]);
         $requestMock->expects($this->exactly(1))->method('connect');
 
         /**

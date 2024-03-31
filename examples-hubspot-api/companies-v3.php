@@ -10,7 +10,15 @@ $after = $i = $memory = 0;
 
 //dd(CompanyHubspot::get(140053003));
 
-dd(CompanyHubspot::propertiesWithHistory('name')->associations('contact')->get(19740053003));
+class B extends CompanyHubspot
+{
+
+}
+$a = new class extends CompanyHubspot {
+
+};
+
+dd(B::propertiesWithHistory('name')->associations('contact')->getAll());
 
 /** */
 while (true) {

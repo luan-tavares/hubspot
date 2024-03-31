@@ -2,19 +2,27 @@
 
 namespace LTL\Hubspot\Factories;
 
+use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Containers\SingletonContainer;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
-use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
+use LTL\Hubspot\Core\Response\RequestInfoObject;
+use LTL\Hubspot\Core\Response\Response;
+use LTL\Hubspot\Core\Schema\Interfaces\ActionSchemaInterface;
 use ReflectionClass;
 
 abstract class ResourceFactory
 {
-    public static function build(ResourceInterface $baseResource, ResponseInterface $response): ResourceInterface
-    {
+    public static function build(
+        ActionSchemaInterface $actionSchema,
+        CurlInterface $curl,
+        RequestInfoObject $requestInfoObject
+    ): ResourceInterface {
+        $response = new Response($curl, $actionSchema, $requestInfoObject);
+
         /**
          * @var ReflectionClass $reflectionClass
          */
-        $reflectionClass = SingletonContainer::get($baseResource::class, function ($class) {
+        $reflectionClass = SingletonContainer::get($actionSchema->resourceClass, function ($class) {
             return new ReflectionClass($class);
         });
 

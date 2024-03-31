@@ -4,61 +4,76 @@ namespace LTL\Hubspot\Core\Response;
 
 use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Core\Globals\ApikeyGlobal;
-use LTL\Hubspot\Core\HubspotConfig;
-use LTL\Hubspot\Core\Response\Interfaces\ResponseDataInterface;
 use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
+use LTL\Hubspot\Core\Response\StatusResponse;
 use LTL\Hubspot\Core\Schema\Interfaces\ActionSchemaInterface;
-use LTL\Hubspot\Factories\ResponseDataFactory;
+use LTL\Hubspot\Exceptions\HubspotApiException;
 
 class Response implements ResponseInterface
 {
     private array|null $headers;
 
-    private int $status;
+    private StatusResponse $status;
 
     private string $uri;
 
-    private string|null $documentation;
+    private object|array|null $result;
 
-    private ResponseDataInterface $data;
+    private string $raw;
 
-    public function __construct(CurlInterface $curl, ActionSchemaInterface $actionSchema)
+    private string|int|null $after;
+
+    public function __construct(CurlInterface $curl, ActionSchemaInterface $actionSchema, RequestInfoObject $requestInfoObject)
     {
-        $this->status = $curl->status();
-        $this->documentation = $actionSchema->documentation;
+        $raw = $curl->response();
+        $this->status = new StatusResponse($curl->status(), $raw);
         $this->uri = ApikeyGlobal::uriMask($curl->uri());
         $this->headers = $curl->headers();
-        $this->data = ResponseDataFactory::build($actionSchema, $curl);
+        $this->raw = $raw;
+
+        $responseObject = new ResponseObject($actionSchema, $curl, $requestInfoObject);
+
+        $this->result = $responseObject->result;
+        $this->after = $responseObject->after;
     }
 
     public function __get($property)
     {
-        return $this->data->{$property};
+        if(!is_null($value = @$this->result->{$property})) {
+            return $value;
+        }
+      
+        throw new HubspotApiException("Property {$property} not exists in response");
+        
+    }
+
+    public function __isset($property): bool
+    {
+        if (!is_object($this->result)) {
+            return false;
+        }
+
+        return property_exists($this->result, $property);
     }
 
     public function getAfter(): int|string|null
     {
-        return $this->data->getAfter();
+        return $this->after;
     }
 
     public function toArray(): array
     {
-        return $this->data->toArray();
-    }
-
-    public function getResult(): array|object|null
-    {
-        return $this->data->getResult();
+        return json_decode($this->raw, true) ?? [];
     }
 
     public function toJson(): string
     {
-        return $this->data->getRaw();
+        return $this->raw;
     }
 
-    public function getStatus(): int
+    public function getResult(): array|object|null
     {
-        return $this->status;
+        return $this->result;
     }
 
     public function getUri(): string
@@ -66,52 +81,96 @@ class Response implements ResponseInterface
         return $this->uri;
     }
 
-    public function getDocumentation(): string|null
-    {
-        return $this->documentation;
-    }
-
     public function getHeaders(): array|null
     {
         return $this->headers;
     }
 
+    /**Status */
+
+    public function getStatus(): int
+    {
+        return $this->status->get();
+    }
+
     public function hasErrors(): bool
     {
-        return ($this->status < 200 || $this->status >= 300);
+        return $this->status->hasErrors();
     }
 
     public function isMultiStatus(): bool
     {
-        return ($this->status === HubspotConfig::MULTI_STATUS_CODE);
+        return $this->status->isMultiStatus();
     }
 
     public function isTooManyRequestsError(): bool
     {
-        return ($this->status === HubspotConfig::TOO_MANY_REQUESTS_ERROR_CODE);
+        return $this->status->isTooManyRequestsError();
     }
 
     public function isInvalidEmailError(): bool
     {
-        if (!$this->hasErrors()) {
-            return false;
-        }
-
-        if (!strpos($this->data->getRaw(), 'INVALID_EMAIL')) {
-            return false;
-        }
-
-        return true;
+        return $this->status->isInvalidEmailError();
     }
 
-    public function getIterator(): ResponseDataInterface
+    /**JsonSerializable */
+
+    public function jsonSerialize(): mixed
     {
-        return $this->data;
+        return $this->toArray();
     }
+
+    /** */
+
+    private function verifyIterable(): void
+    {
+        if (is_array($this->result)) {
+            return;
+        }
+
+        $response = mb_strimwidth(json_encode($this), 0, 150, ' ...');
+
+        throw new HubspotApiException(
+            "Resource response is not iterable or countable:\n\n{$response}\n\n"
+        );
+    }
+
+    /**Iterator */
+
+    public function rewind(): void
+    {
+        $this->verifyIterable();
+
+        reset($this->result);
+    }
+    
+    public function current(): object|int
+    {
+        return current($this->result);
+    }
+    
+    public function key(): mixed
+    {
+        return key($this->result);
+    }
+    
+    public function next(): void
+    {
+        next($this->result);
+    }
+    
+    public function valid(): bool
+    {
+        return !is_null(key($this->result));
+    }
+
+    /**Countable */
 
     public function count(): int
     {
-        return count($this->data);
+        $this->verifyIterable();
+
+        return count($this->result);
     }
 
     public function empty(): bool

@@ -8,9 +8,8 @@ use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Builder;
 use LTL\Hubspot\Core\BuilderInterface;
 use LTL\Hubspot\Core\Handlers\CrmCreateOrUpdate\CrmCreateOrUpdateHandler;
-use LTL\Hubspot\Core\Handlers\Handlers;
 use LTL\Hubspot\Core\Request\Request;
-use LTL\Hubspot\Core\Response\Response;
+use LTL\Hubspot\Core\Response\RequestInfoObject;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\RequestFactory;
 use LTL\Hubspot\Factories\ResourceFactory;
@@ -19,9 +18,13 @@ use PHPUnit\Framework\TestCase;
 
 class CrmCreateOrUpdateTest extends TestCase
 {
+    private RequestInfoObject $requestInfoObject;
 
     protected function setUp(): void
     {
+        $this->requestInfoObject = new RequestInfoObject([
+            'hasObject' => false
+        ]);
     }
 
     public function testIfCrmCreateOrUpdateHandlerNameIsCorrect()
@@ -45,13 +48,13 @@ class CrmCreateOrUpdateTest extends TestCase
         $curl->method('response')->willReturn(json_encode($result));
         $curl->method('status')->willReturn(404);
 
+ 
+        $actionSchema = SchemaContainer::getAction($baseResource, 'create');
+     
         /**
          * @var CurlInterface $curl
          */
-        $actionSchema = SchemaContainer::getAction($baseResource, 'create');
-        $response = new Response($curl, $actionSchema);
-     
-        $resourceCreate = ResourceFactory::build($baseResource, $response);
+        $resourceCreate = ResourceFactory::build($actionSchema, $curl, $this->requestInfoObject);
 
         $request = RequestFactory::build($baseResource);
 
@@ -98,11 +101,12 @@ class CrmCreateOrUpdateTest extends TestCase
         $curl->method('response')->willReturn(json_encode($result));
         $curl->method('status')->willReturn(404);
 
+        $actionSchema = SchemaContainer::getAction($baseResource, 'create');
+
         /**
          * @var CurlInterface $curl
          */
-        $response = new Response($curl, SchemaContainer::getAction($baseResource, 'create'));
-        $resourceResponse = ResourceFactory::build($baseResource, $response);
+        $resourceResponse = ResourceFactory::build($actionSchema, $curl, $this->requestInfoObject);
  
         $requestBody = ['properties'=>['email' => 'lorem@ipsum.com']];
 
@@ -144,12 +148,11 @@ class CrmCreateOrUpdateTest extends TestCase
         $curl->method('response')->willReturn(json_encode($result));
         $curl->method('status')->willReturn(200);
 
+        $actionSchema = SchemaContainer::getAction($baseResource, 'update');
         /**
          * @var CurlInterface $curl
          */
-        $actionSchema = SchemaContainer::getAction($baseResource, 'update');
-        $response = new Response($curl, $actionSchema);
-        $resourceUpdate = ResourceFactory::build($baseResource, $response);
+        $resource = ResourceFactory::build($actionSchema, $curl, $this->requestInfoObject);
 
         $request = RequestFactory::build($baseResource);
 
@@ -159,7 +162,7 @@ class CrmCreateOrUpdateTest extends TestCase
             ->getMock();
 
         $builder->method('request')->willReturn($request);
-        $builder->expects($this->once())->method('__call')->willReturn($resourceUpdate);
+        $builder->expects($this->once())->method('__call')->willReturn($resource);
 
         /**
          * @var BuilderInterface $builder
@@ -174,7 +177,8 @@ class CrmCreateOrUpdateTest extends TestCase
     public function testIfChangeExceptionOnRequestErrorToFalse()
     {
         $result = [
-            'id' => 1
+            'id' => 1,
+            'message' => 'error'
         ];
 
         $baseResource = new ContactHubspot;
@@ -182,12 +186,14 @@ class CrmCreateOrUpdateTest extends TestCase
         $curl = $this->getMockBuilder(CurlInterface::class)->getMock();
         $curl->method('response')->willReturn(json_encode($result));
         $curl->method('status')->willReturn(404);
+        $curl->method('error')->willReturn(true);
 
+        $actionSchema = SchemaContainer::getAction($baseResource, 'create');
+        
         /**
          * @var CurlInterface $curl
          */
-        $response = new Response($curl, SchemaContainer::getAction($baseResource, 'create'));
-        $resourceResponse = ResourceFactory::build($baseResource, $response);
+        $resource = ResourceFactory::build($actionSchema, $curl, $this->requestInfoObject);
  
         $requestBody = ['properties'=>['email' => 'lorem@ipsum.com']];
 
@@ -203,8 +209,8 @@ class CrmCreateOrUpdateTest extends TestCase
 
         $map = [
             ['withRequestException', [false], $mockBuilder],
-            ['create', [$requestBody], $resourceResponse],
-            ['update', [1 ,$requestBody], $resourceResponse]
+            ['create', [$requestBody], $resource],
+            ['update', [1 ,$requestBody], $resource]
         ];
 
         $mockBuilder->method('request')->willReturn($mockRequest);

@@ -4,10 +4,11 @@ namespace LTL\Hubspot\Tests\Response;
 
 use LTL\Curl\Curl;
 use LTL\Curl\Interfaces\CurlInterface;
-use LTL\Hubspot\Containers\ResponseDataContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
+use LTL\Hubspot\Core\Response\RequestInfoObject;
 use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Core\Schema\Interfaces\ActionSchemaInterface;
+use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Resources\V3\CompanyHubspot;
 use LTL\Hubspot\Resources\V3\HubDbHubspot;
 use PHPUnit\Framework\TestCase;
@@ -18,29 +19,33 @@ class ResponseIterableTest extends TestCase
 
     private ActionSchemaInterface $actionSchema;
 
-    private array $result;
+    private RequestInfoObject $requestInfoObject;
+
+    private array $result = [
+        'results' => [
+            4,
+            5,
+            ['a' => 5],
+        ],
+        'paging' => [
+            'next' => [
+                'after' => 100
+            ]
+        ]
+    ];
 
     protected function setUp(): void
     {
-        $this->result = [
-            'results' => [
-                4,
-                5,
-                ['a' => 5],
-            ],
-            'paging' => [
-                'next' => [
-                    'after' => 100
-                ]
-            ]
-        ];
-
         $curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
         $curl->method('status')->willReturn(400);
         $curl->method('response')->willReturn(json_encode($this->result));
         $curl->method('uri')
             ->willReturn('https://test.com/api?hapikey=12345678-1234-1234-1234-abcde1234567');
         $curl->method('headers')->willReturn(['Content-Type' => 'application/json;charset=utf-8']);
+
+        $this->requestInfoObject = new RequestInfoObject([
+            'hasObject' => false
+        ]);
 
         $this->curl = $curl;
 
@@ -52,7 +57,7 @@ class ResponseIterableTest extends TestCase
 
     public function testIfIterableIsCorrect()
     {
-        $response = new Response($this->curl, $this->actionSchema);
+        $response = new Response($this->curl, $this->actionSchema, $this->requestInfoObject);
 
         foreach ($response as $value) {
             $return[] = $value;
@@ -67,7 +72,7 @@ class ResponseIterableTest extends TestCase
 
     public function testIfCountableIsCorrect()
     {
-        $response = new Response($this->curl, $this->actionSchema);
+        $response = new Response($this->curl, $this->actionSchema, $this->requestInfoObject);
       
         $this->assertEquals(count($response), count($this->result['results']));
     }
@@ -78,44 +83,46 @@ class ResponseIterableTest extends TestCase
             'results' => [],
         ];
 
-        $curlMock = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
-        $curlMock->method('response')->willReturn(json_encode($result));
+        $curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
+        $curl->method('response')->willReturn(json_encode($result));
         
         $actionSchema = SchemaContainer::getAction(new CompanyHubspot, 'getAll');
 
         /**
-         * @var CurlInterface $curlMock
+         * @var CurlInterface $curl
          */
-        $response = new Response($curlMock, $actionSchema);
+        $response = new Response($curl, $actionSchema, $this->requestInfoObject);
       
         $this->assertTrue($response->empty());
     }
 
     public function testIfGetMagicCatchAfterIsCorrect()
     {
-        $response = new Response($this->curl, $this->actionSchema);
+        $response = new Response($this->curl, $this->actionSchema, $this->requestInfoObject);
 
         $this->assertEquals($response->getAfter(), 100);
     }
 
 
-    public function testIfGetMagicUnknowPropertyIsNull()
+    public function testIfGetMagicUnknowPropertyThrowException()
     {
-        $response = new Response($this->curl, $this->actionSchema);
+        $response = new Response($this->curl, $this->actionSchema, $this->requestInfoObject);
 
-        $this->assertNull($response->unknowProperty);
+        $this->expectException(HubspotApiException::class);
+
+        $response->unknowProperty;
     }
 
     public function testIftoArrayMethodIsCorrect()
     {
-        $response = new Response($this->curl, $this->actionSchema);
+        $response = new Response($this->curl, $this->actionSchema, $this->requestInfoObject);
 
         $this->assertEquals($response->toArray(), $this->result);
     }
 
     public function testIfGetUrlAndHideApiMethodIsCorrect()
     {
-        $response = new Response($this->curl, $this->actionSchema);
+        $response = new Response($this->curl, $this->actionSchema, $this->requestInfoObject);
 
         $this->assertEquals(
             $response->getUri(),
@@ -125,7 +132,7 @@ class ResponseIterableTest extends TestCase
 
     public function testIfGetStatusMethodIsCorrect()
     {
-        $response = new Response($this->curl, $this->actionSchema);
+        $response = new Response($this->curl, $this->actionSchema, $this->requestInfoObject);
 
         $this->assertEquals(
             $response->getStatus(),
@@ -133,19 +140,11 @@ class ResponseIterableTest extends TestCase
         );
     }
 
-    public function testIfGetDocumentationMethodIsCorrect()
-    {
-        $response = new Response($this->curl, $this->actionSchema);
-
-        $this->assertEquals(
-            $response->getDocumentation(),
-            'https://developers.hubspot.com/docs/api/cms/hubdb'
-        );
-    }
 
     public function testIfGetHeadersMethodIsCorrect()
     {
-        $response = new Response($this->curl, $this->actionSchema);
+        $response = new Response($this->curl, $this->actionSchema, $this->requestInfoObject);
+
         $this->assertEquals(
             $response->getHeaders(),
             ['Content-Type' => 'application/json;charset=utf-8']
@@ -154,7 +153,8 @@ class ResponseIterableTest extends TestCase
 
     public function testIfHasErrorsMethodIsCorrect()
     {
-        $response = new Response($this->curl, $this->actionSchema);
+        $response = new Response($this->curl, $this->actionSchema, $this->requestInfoObject);
+     
         $this->assertEquals(
             $response->hasErrors(),
             true

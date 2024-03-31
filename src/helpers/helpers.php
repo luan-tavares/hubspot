@@ -38,6 +38,6 @@ if (!function_exists('hubspotEnv')) {
 if (!function_exists('removeFromAnonymousClassName')) {
     function removeFromAnonymousClassName(string $className)
     {
-        return preg_replace('/[\x00-\x1F\x7F](.*)\$0/', '', $className);
+        return preg_replace('/\@anonymous(.*)\$\d/', '', $className);
     }
 }

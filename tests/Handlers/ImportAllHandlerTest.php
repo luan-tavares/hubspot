@@ -8,6 +8,7 @@ use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Builder;
 use LTL\Hubspot\Core\BuilderInterface;
 use LTL\Hubspot\Core\Handlers\Handlers;
+use LTL\Hubspot\Core\Response\RequestInfoObject;
 use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Factories\ResourceFactory;
 use LTL\Hubspot\Resources\V3\ContactHubspot;
@@ -15,11 +16,14 @@ use PHPUnit\Framework\TestCase;
 
 class ImportAllHandlerTest extends TestCase
 {
+    private RequestInfoObject $requestInfoObject;
 
     protected function setUp(): void
     {
+        $this->requestInfoObject = new RequestInfoObject([
+            'hasObject' => false
+        ]);
     }
-
     public function testIfImportAllHandlerNameIsCorrect()
     {
         $baseResource = new ContactHubspot;
@@ -60,8 +64,7 @@ class ImportAllHandlerTest extends TestCase
         /**
          * @var CurlInterface $curl1
          */
-        $response = new Response($curl1, $actionSchema);
-        $resource1 = ResourceFactory::build($baseResource, $response);
+        $resource1 = ResourceFactory::build($actionSchema, $curl1, $this->requestInfoObject);
         $mockResource1 = $this->getMockBuilder(ContactHubspot::class)
             ->onlyMethods(['__call'])
             ->getMock();
@@ -75,8 +78,7 @@ class ImportAllHandlerTest extends TestCase
         /**
          * @var CurlInterface $curl2
          */
-        $response = new Response($curl2, $actionSchema);
-        $resource2 = ResourceFactory::build($baseResource, $response);
+        $resource2 = ResourceFactory::build($actionSchema, $curl2, $this->requestInfoObject);
         $mockResource2 = $this->getMockBuilder(ContactHubspot::class)
             ->onlyMethods(['__call'])
             ->getMock();

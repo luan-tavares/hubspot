@@ -7,7 +7,7 @@ use LTL\Hubspot\Core\BuilderInterface;
 use LTL\Hubspot\Core\Handlers\Handlers;
 use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
-use LTL\Hubspot\Core\Response\Response;
+use LTL\Hubspot\Core\Response\RequestInfoObject;
 use LTL\Hubspot\Factories\ResourceFactory;
 
 class Builder implements BuilderInterface
@@ -45,6 +45,7 @@ class Builder implements BuilderInterface
         if (!isset($this->request)) {
             return;
         }
+        
         $this->request->destroyComponents();
     }
 
@@ -68,8 +69,10 @@ class Builder implements BuilderInterface
             return Handlers::call($this, $handler, $arguments);
         }
 
+        $dto = new RequestInfoObject($this->request->getResponseRequest());
+
         $curl = $this->request->connect($actionSchema, $arguments);
 
-        return ResourceFactory::build($this->baseResource, new Response($curl, $actionSchema));
+        return ResourceFactory::build($actionSchema, $curl, $dto);
     }
 }

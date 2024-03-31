@@ -27,6 +27,7 @@ use LTL\Hubspot\Core\Request\Interfaces\CurlComponentInterface;
 use LTL\Hubspot\Core\Request\Interfaces\HeaderComponentInterface;
 use LTL\Hubspot\Core\Request\Interfaces\QueryComponentInterface;
 use LTL\Hubspot\Core\Request\Interfaces\ResourceRequestComponentInterface;
+use LTL\Hubspot\Core\Request\Interfaces\ResponseRequestComponentInterface;
 use LTL\Hubspot\Hubspot;
 use LTL\Hubspot\HubspotInterface;
 
@@ -80,6 +81,7 @@ $doc .= generateDoc(QueryComponentInterface::class, 'Uri Query Methods');
 $doc .= generateDoc(HeaderComponentInterface::class, 'Uri Header Methods');
 $doc .= generateDoc(CurlComponentInterface::class, 'Uri Curl Methods');
 $doc .= generateDoc(ResourceRequestComponentInterface::class, 'Others Resources Methods');
+$doc .= generateDoc(ResponseRequestComponentInterface::class, 'Response Type Methods');
 $doc .= generateDoc(GlobalComponentInterface::class, 'Global Methods', true);
 $doc .= '*/';
 

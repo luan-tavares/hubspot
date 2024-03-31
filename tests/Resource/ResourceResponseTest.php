@@ -8,6 +8,7 @@ use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
+use LTL\Hubspot\Core\Response\RequestInfoObject;
 use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\ResourceFactory;
@@ -17,155 +18,132 @@ use PHPUnit\Framework\TestCase;
 
 class ResourceResponseTest extends TestCase
 {
-    private ResponseInterface|null $response;
+    private ResourceInterface $resource;
 
-    private ResourceInterface $baseResource;
+    private array $result = [
+        'results' => [
+            [
+                'typeId' => 5,
+                'label' => 'test_label',
+                'category' => 'HUBSPOT_DEFINED'
+            ],
+            [
+                'typeId' => 5,
+                'label' => 'test_label',
+                'category' => 'HUBSPOT_DEFINED'
+            ]
+        ],
+        'paging' => [
+            'next' => [
+                'after' => 100
+            ]
+        ]
+    ];
 
-    private array $result;
+    private RequestInfoObject $requestInfoObject;
 
     protected function setUp(): void
     {
-        $this->result = [
-            'results' => [
-                [
-                    'typeId' => 5,
-                    'label' => 'test_label',
-                    'category' => 'HUBSPOT_DEFINED'
-                ],
-                [
-                    'typeId' => 5,
-                    'label' => 'test_label',
-                    'category' => 'HUBSPOT_DEFINED'
-                ]
-            ],
-            'paging' => [
-                'next' => [
-                    'after' => 100
-                ]
-            ]
-        ];
-
-        $this->response = null;
-
         $curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
         $curl->method('status')->willReturn(202);
         $curl->method('response')->willReturn(json_encode($this->result));
         $curl->method('uri')->willReturn('https://test.com/api?hapikey=12345678-1234-1234-1234-abcde1234567');
         $curl->method('headers')->willReturn(['Content-Type' => 'application/json;charset=utf-8']);
 
-        $this->baseResource = new AssociationHubspot;
-        $actionSchema = SchemaContainer::getAction($this->baseResource, 'getDefinition');
+        $this->requestInfoObject = new RequestInfoObject([
+            'hasObject' => false
+        ]);
+        
+        $actionSchema = SchemaContainer::getAction(new AssociationHubspot, 'getDefinition');
 
         /**
          * @var CurlInterface $curl
          */
-        $this->response = new Response($curl, $actionSchema);
+        $this->resource = ResourceFactory::build($actionSchema, $curl, $this->requestInfoObject);
     }
 
 
     public function testToArrayMethodIsCorrect()
     {
-        $resource = ResourceFactory::build($this->baseResource, $this->response);
-      
-        $this->assertEquals($resource->toArray(), $this->result);
+        $this->assertEquals($this->resource->toArray(), $this->result);
     }
 
     public function testToArrayMethodThrowExceptionIfCallBeforeRequest()
     {
-        $resource = new AssociationHubspot;
+        $this->resource = new AssociationHubspot;
 
         $this->expectExceptionMessage(
-            $resource::class ."::toArray() must not be used before actions:\n\n". SchemaContainer::get($resource)
+            $this->resource::class ."::toArray() must not be used before actions:\n\n". SchemaContainer::get($this->resource)
         );
       
-        $resource->toArray();
+        $this->resource->toArray();
     }
 
     public function testToJsonMethodIsCorrect()
     {
-        $resource = ResourceFactory::build($this->baseResource, $this->response);
+        
       
-        $this->assertEquals($resource->toJson(), json_encode($this->result));
+        $this->assertEquals($this->resource->toJson(), json_encode($this->result));
     }
 
     public function testToJsonMethodThrowExceptionIfCallBeforeRequest()
     {
-        $resource = new AssociationHubspot;
+        $this->resource = new AssociationHubspot;
 
         $this->expectExceptionMessage(
-            $resource::class ."::toJson() must not be used before actions:\n\n". SchemaContainer::get($resource)
+            $this->resource::class ."::toJson() must not be used before actions:\n\n". SchemaContainer::get($this->resource)
         );
       
-        $resource->toJson();
+        $this->resource->toJson();
     }
 
     public function testStatusMethodIsCorrect()
     {
-        $resource = ResourceFactory::build($this->baseResource, $this->response);
+        
       
-        $this->assertEquals($resource->status(), 202);
+        $this->assertEquals($this->resource->status(), 202);
     }
 
     public function testStatusMethodThrowExceptionIfCallBeforeRequest()
     {
-        $resource = new AssociationHubspot;
+        $this->resource = new AssociationHubspot;
 
         $this->expectExceptionMessage(
-            $resource::class ."::status() must not be used before actions:\n\n". SchemaContainer::get($resource)
+            $this->resource::class ."::status() must not be used before actions:\n\n". SchemaContainer::get($this->resource)
         );
       
-        $resource->status();
-    }
-
-    public function testDocumentationMethodIsCorrect()
-    {
-        $resource = ResourceFactory::build($this->baseResource, $this->response);
-      
-        $this->assertEquals($resource->documentation(), 'https://developers.hubspot.com/docs/api/crm/associations/v4');
-    }
-
-    public function testDocumentationMethodThrowExceptionIfCallBeforeRequest()
-    {
-        $resource = new AssociationHubspot;
-
-        $this->expectExceptionMessage(
-            $resource::class ."::documentation() must not be used before actions:\n\n". SchemaContainer::get($resource)
-        );
-      
-        $resource->documentation();
+        $this->resource->status();
     }
 
     public function testHeadersMethodIsCorrect()
     {
-        $resource = ResourceFactory::build($this->baseResource, $this->response);
+        
       
-        $this->assertEquals($resource->headers(), ['Content-Type' => 'application/json;charset=utf-8']);
+        $this->assertEquals($this->resource->headers(), ['Content-Type' => 'application/json;charset=utf-8']);
     }
 
     public function testHeadersMethodThrowExceptionIfCallBeforeRequest()
     {
-        $resource = new AssociationHubspot;
+        $this->resource = new AssociationHubspot;
 
         $this->expectExceptionMessage(
-            $resource::class ."::headers() must not be used before actions:\n\n". SchemaContainer::get($resource)
+            $this->resource::class ."::headers() must not be used before actions:\n\n". SchemaContainer::get($this->resource)
         );
       
-        $resource->headers();
+        $this->resource->headers();
     }
 
     public function testErrorMethodWith199StatusIsTrue()
     {
         $curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
         $curl->method('status')->willReturn(199);
-      
-        $resource = new ContactHubspot;
 
-        $actionSchema = SchemaContainer::getAction($resource, 'getAll');
+        $actionSchema = SchemaContainer::getAction(new ContactHubspot, 'getAll');
 
         /**
          * @var CurlInterface $curl
          */
-        $object = ResourceFactory::build($resource, new Response($curl, $actionSchema));
+        $object = ResourceFactory::build($actionSchema, $curl, $this->requestInfoObject);
   
         $this->assertTrue($object->error());
     }
@@ -175,14 +153,12 @@ class ResourceResponseTest extends TestCase
         $curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
         $curl->method('status')->willReturn(200);
       
-        $resource = new ContactHubspot;
-
-        $actionSchema = SchemaContainer::getAction($resource, 'getAll');
+        $actionSchema = SchemaContainer::getAction(new ContactHubspot, 'getAll');
 
         /**
          * @var CurlInterface $curl
          */
-        $object = ResourceFactory::build($resource, new Response($curl, $actionSchema));
+        $object = ResourceFactory::build($actionSchema, $curl, $this->requestInfoObject);
 
    
         $this->assertFalse($object->error());
@@ -194,14 +170,12 @@ class ResourceResponseTest extends TestCase
         $curl->method('status')->willReturn(202);
         $curl->method('error')->willReturn(false);
       
-        $resource = new ContactHubspot;
-
-        $actionSchema = SchemaContainer::getAction($resource, 'getAll');
+        $actionSchema = SchemaContainer::getAction(new ContactHubspot, 'getAll');
 
         /**
          * @var CurlInterface $curl
          */
-        $object = ResourceFactory::build($resource, new Response($curl, $actionSchema));
+        $object = ResourceFactory::build($actionSchema, $curl, $this->requestInfoObject);
  
         $this->assertFalse($object->error());
     }
@@ -211,14 +185,12 @@ class ResourceResponseTest extends TestCase
         $curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
         $curl->method('status')->willReturn(300);
       
-        $resource = new ContactHubspot;
-
-        $actionSchema = SchemaContainer::getAction($resource, 'getAll');
+        $actionSchema = SchemaContainer::getAction(new ContactHubspot, 'getAll');
 
         /**
          * @var CurlInterface $curl
          */
-        $object = ResourceFactory::build($resource, new Response($curl, $actionSchema));
+        $object = ResourceFactory::build($actionSchema, $curl, $this->requestInfoObject);
  
         $this->assertTrue($object->error());
     }
@@ -228,27 +200,25 @@ class ResourceResponseTest extends TestCase
         $curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
         $curl->method('status')->willReturn(404);
       
-        $resource = new ContactHubspot;
-
-        $actionSchema = SchemaContainer::getAction($resource, 'getAll');
+        $actionSchema = SchemaContainer::getAction(new ContactHubspot, 'getAll');
 
         /**
          * @var CurlInterface $curl
          */
-        $object = ResourceFactory::build($resource, new Response($curl, $actionSchema));
+        $object = ResourceFactory::build($actionSchema, $curl, $this->requestInfoObject);
   
         $this->assertTrue($object->error());
     }
 
     public function testErrorMethodThrowExceptionIfCallBeforeRequest()
     {
-        $resource = new AssociationHubspot;
+        $this->resource = new AssociationHubspot;
 
         $this->expectExceptionMessage(
-            $resource::class ."::error() must not be used before actions:\n\n". SchemaContainer::get($resource)
+            $this->resource::class ."::error() must not be used before actions:\n\n". SchemaContainer::get($this->resource)
         );
       
-        $resource->error();
+        $this->resource->error();
     }
 
     public function testIfMultiStatusISCorrect()
@@ -256,14 +226,12 @@ class ResourceResponseTest extends TestCase
         $curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
         $curl->method('status')->willReturn(HubspotConfig::MULTI_STATUS_CODE);
       
-        $resource = new ContactHubspot;
-
-        $actionSchema = SchemaContainer::getAction($resource, 'getAll');
+        $actionSchema = SchemaContainer::getAction(new ContactHubspot, 'getAll');
 
         /**
          * @var CurlInterface $curl
          */
-        $object = ResourceFactory::build($resource, new Response($curl, $actionSchema));
+        $object = ResourceFactory::build($actionSchema, $curl, $this->requestInfoObject);
   
         $this->assertTrue($object->isMultiStatus());
     }
@@ -271,11 +239,11 @@ class ResourceResponseTest extends TestCase
 
     public function testInvalidEmailMethodThrowExceptionIfCallBeforeRequest()
     {
-        $resource = new AssociationHubspot;
+        $this->resource = new AssociationHubspot;
 
         $this->expectException(HubspotApiException::class);
       
-        $resource->invalidEmailError();
+        $this->resource->invalidEmailError();
     }
 
     public function testInvalidEmailMethodAnaliseString()
@@ -283,25 +251,23 @@ class ResourceResponseTest extends TestCase
         $curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
         $curl->method('response')->willReturn('teste INVALID_EMAIL 123');
       
-        $resource = new ContactHubspot;
-
-        $actionSchema = SchemaContainer::getAction($resource, 'getAll');
+        $actionSchema = SchemaContainer::getAction(new ContactHubspot, 'getAll');
 
         /**
          * @var CurlInterface $curl
          */
-        $object = ResourceFactory::build($resource, new Response($curl, $actionSchema));
+        $object = ResourceFactory::build($actionSchema, $curl, $this->requestInfoObject);
   
         $this->assertTrue($object->invalidEmailError());
     }
 
     public function testMultiStatusMethodThrowExceptionIfCallBeforeRequest()
     {
-        $resource = new AssociationHubspot;
+        $this->resource = new AssociationHubspot;
 
         $this->expectException(HubspotApiException::class);
       
-        $resource->isMultiStatus();
+        $this->resource->isMultiStatus();
     }
 
     public function testIfTooManyRequestsErrorStatusISCorrect()
@@ -309,24 +275,22 @@ class ResourceResponseTest extends TestCase
         $curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
         $curl->method('status')->willReturn(HubspotConfig::TOO_MANY_REQUESTS_ERROR_CODE);
       
-        $resource = new ContactHubspot;
-
-        $actionSchema = SchemaContainer::getAction($resource, 'getAll');
+        $actionSchema = SchemaContainer::getAction(new ContactHubspot, 'getAll');
 
         /**
          * @var CurlInterface $curl
          */
-        $object = ResourceFactory::build($resource, new Response($curl, $actionSchema));
+        $object = ResourceFactory::build($actionSchema, $curl, $this->requestInfoObject);
   
         $this->assertTrue($object->isTooManyRequestsError());
     }
 
     public function testIfTooManyRequestsErrorWithResponseNullThrowException()
     {
-        $resource = new AssociationHubspot;
+        $this->resource = new AssociationHubspot;
 
         $this->expectException(HubspotApiException::class);
       
-        $resource->isTooManyRequestsError();
+        $this->resource->isTooManyRequestsError();
     }
 }

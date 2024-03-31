@@ -2,17 +2,15 @@
 
 namespace LTL\Hubspot\Tests\Resource;
 
-use LTL\Curl\Curl;
 use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Containers\BuilderContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Globals\ApikeyGlobal;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
-use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
+use LTL\Hubspot\Core\Response\RequestInfoObject;
 use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\ResourceFactory;
-use LTL\Hubspot\Factories\ResponseDataFactory;
 use LTL\Hubspot\Hubspot;
 use LTL\Hubspot\Resources\V3\CompanyHubspot;
 use LTL\Hubspot\Resources\V3\ContactHubspot;
@@ -22,37 +20,35 @@ use PHPUnit\Framework\TestCase;
 
 class ResourceTest extends TestCase
 {
-    private ResponseInterface|null $response;
+    private ResourceInterface $resource;
 
-    private ResourceInterface $baseResource;
+    private AssociationHubspot $baseResource;
 
-    private array $result;
+    private array $result = [
+        'results' => [
+            [
+                'typeId' => 5,
+                'label' => 'test_label',
+                'category' => 'HUBSPOT_DEFINED'
+            ],
+            [
+                'typeId' => 5,
+                'label' => 'test_label',
+                'category' => 'HUBSPOT_DEFINED'
+            ]
+        ],
+        'paging' => [
+            'next' => [
+                'after' => 100
+            ]
+        ]
+    ];
+
+    private RequestInfoObject $requestInfoObject;
 
     protected function setUp(): void
     {
-        $this->result = [
-            'results' => [
-                [
-                    'typeId' => 5,
-                    'label' => 'test_label',
-                    'category' => 'HUBSPOT_DEFINED'
-                ],
-                [
-                    'typeId' => 5,
-                    'label' => 'test_label',
-                    'category' => 'HUBSPOT_DEFINED'
-                ]
-            ],
-            'paging' => [
-                'next' => [
-                    'after' => 100
-                ]
-            ]
-        ];
-
-        $this->response = null;
-
-        $curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
+        $curl = $this->getMockBuilder(CurlInterface::class)->disableOriginalConstructor()->getMock();
         $curl->method('status')->willReturn(202);
         $curl->method('response')->willReturn(json_encode($this->result));
         $curl->method('uri')
@@ -60,12 +56,17 @@ class ResourceTest extends TestCase
         $curl->method('headers')->willReturn(['Content-Type' => 'application/json;charset=utf-8']);
 
         $this->baseResource = new AssociationHubspot;
+
         $actionSchema = SchemaContainer::getAction($this->baseResource, 'getDefinition');
+
+        $this->requestInfoObject = new RequestInfoObject([
+            'hasObject' => false
+        ]);
 
         /**
          * @var CurlInterface $curl
          */
-        $this->response = new Response($curl, $actionSchema);
+        $this->resource = ResourceFactory::build($actionSchema, $curl, $this->requestInfoObject);
     }
 
 
@@ -167,14 +168,13 @@ class ResourceTest extends TestCase
         
         $baseResource = new ContactHubspot;
 
-        $curlMock = $this->getMockBuilder(Curl::class)->getMock();
-        $curlMock->method('response')->willReturn(json_encode($curlResponse));
+        $curl = $this->getMockBuilder(CurlInterface::class)->getMock();
+        $curl->method('response')->willReturn(json_encode($curlResponse));
 
         /**
-         * @var CurlInterface $curlMock
+         * @var CurlInterface $curl
          */
-        $response = new Response($curlMock, SchemaContainer::getAction($baseResource, 'getAll'));
-        $resource = ResourceFactory::build($baseResource, $response);
+        $resource = ResourceFactory::build(SchemaContainer::getAction($baseResource, 'getAll'), $curl, $this->requestInfoObject);
 
         $this->assertTrue($resource->empty());
     }

@@ -40,20 +40,20 @@ abstract class Resource implements ResourceInterface
         }
     }
 
-    public static function __callStatic($name, $arguments)
+    public static function __callStatic($method, $arguments)
     {
         $className = removeFromAnonymousClassName(static::class);
         
-        if(in_array($name, GlobalComponents::getMethods())) {
+        if(in_array($method, GlobalComponents::getMethods())) {
             try {
-                return GlobalComponents::{$name}(...$arguments);
+                return GlobalComponents::{$method}(...$arguments);
             } catch (TypeError $exception) {
                 throw new HubspotApiException($exception->getMessage(), $className);
             }
         }
 
         try {
-            return call_user_func_array([(new static), $name], $arguments);
+            return (new static)->{$method}(...$arguments);
         } catch (Error $exception) {
             /**Call with Hubspot abstract class */
 

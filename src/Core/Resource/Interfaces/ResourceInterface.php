@@ -30,7 +30,6 @@ interface ResourceInterface extends
     public function invalidEmailError(): bool;
     public function isTooManyRequestsError(): bool;
     public function error(): bool;
-    public function documentation(): string|null;
     public function headers(): array|null;
     public function empty(): bool;
     #[Override]

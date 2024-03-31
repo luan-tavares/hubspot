@@ -25,5 +25,3 @@ $files = FileHubspot::withProgressBar()->upload($post_data);
 foreach ($files as $file) {
     dump($file);
 }
-
-dump($files->documentation());

@@ -7,6 +7,7 @@ use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
+use LTL\Hubspot\Core\Response\RequestInfoObject;
 use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Factories\ResourceFactory;
 use LTL\Hubspot\Resources\V3\ContactHubspot;
@@ -14,21 +15,22 @@ use PHPUnit\Framework\TestCase;
 
 class EnumerableTest extends TestCase
 {
+    private array $requestInfo = [
+        'hasObject' => false
+    ];
+
     private function resource(array $items): ResourceInterface
     {
         $curl = $this->getMockBuilder(Curl::class)->getMock();
         $curl->method('response')->willReturn(json_encode($items));
         $curl->method('error')->willReturn(false);
 
-        $actionSchema = SchemaContainer::getAction(new ContactHubspot, 'getAll');
-        
-        /** @var CurlInterface $curl */
-        $response = new Response($curl, $actionSchema);
+        $requestInfoObject = new RequestInfoObject($this->requestInfo);
 
-        /**
-         * @var ResponseInterface $response
-         */
-        return ResourceFactory::build((new ContactHubspot), $response);
+        $actionSchema = SchemaContainer::getAction(new ContactHubspot, 'getAll');
+
+        /** @var CurlInterface $curl */
+        return ResourceFactory::build($actionSchema, $curl, $requestInfoObject);
     }
 
     public function testMapIsCorrect()

@@ -7,17 +7,14 @@ use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
-use LTL\Hubspot\Core\Response\Response;
+use LTL\Hubspot\Core\Response\RequestInfoObject;
 use LTL\Hubspot\Factories\ResourceFactory;
-use LTL\Hubspot\Objects\AssociationDefinitionObject;
 use LTL\Hubspot\Resources\V4\AssociationHubspot;
 use PHPUnit\Framework\TestCase;
 
 class ResourceIterableTest extends TestCase
 {
-    private ResponseInterface|null $response;
-
-    private ResourceInterface $baseResource;
+    private ResourceInterface $resource;
 
     private array $result;
 
@@ -43,8 +40,6 @@ class ResourceIterableTest extends TestCase
             ]
         ];
 
-        $this->response = null;
-
         $curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
         $curl->method('status')->willReturn(202);
         $curl->method('response')->willReturn(json_encode($this->result));
@@ -52,25 +47,26 @@ class ResourceIterableTest extends TestCase
             ->willReturn('https://test.com/api?hapikey=12345678-1234-1234-1234-abcde1234567');
         $curl->method('headers')->willReturn(['Content-Type' => 'application/json;charset=utf-8']);
 
-        $this->baseResource = new AssociationHubspot;
-        $actionSchema = SchemaContainer::getAction($this->baseResource, 'getDefinition');
+        $requestInfoObject = new RequestInfoObject([
+            'hasObject' => false
+        ]);
+        
+        $actionSchema = SchemaContainer::getAction(new AssociationHubspot, 'getDefinition');
 
         /**
          * @var CurlInterface $curl
          */
-        $this->response = new Response($curl, $actionSchema);
+        $this->resource = ResourceFactory::build($actionSchema, $curl, $requestInfoObject);
     }
 
 
     public function testIfIterableIsCorrect()
     {
-        $resource = ResourceFactory::build($this->baseResource, $this->response);
-
         $expected = 2;
 
         $return = [];
 
-        foreach ($resource as $value) {
+        foreach ($this->resource as $value) {
             $return[] = $value;
         }
       
@@ -79,15 +75,11 @@ class ResourceIterableTest extends TestCase
 
     public function testIfCountableIsCorrect()
     {
-        $resource = ResourceFactory::build($this->baseResource, $this->response);
-      
-        $this->assertEquals(count($resource), 2);
+        $this->assertEquals(count($this->resource), 2);
     }
 
     public function testIfArrayAccessIsCorrect()
     {
-        $resource = ResourceFactory::build($this->baseResource, $this->response);
-      
-        $this->assertEquals($resource['results'], $this->result['results']);
+        $this->assertEquals($this->resource['results'], $this->result['results']);
     }
 }

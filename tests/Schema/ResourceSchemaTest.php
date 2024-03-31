@@ -60,22 +60,6 @@ class ResourceSchemaTest extends TestCase
         $this->assertFalse($object->getAction('getAll')->isLatestVersion);
     }
 
-    public function testIfActionDocumentationInV1ResourceIsCorrect()
-    {
-        $expectedDocumentation = 'https://legacydocs.hubspot.com/docs/methods/contacts/get_contacts';
-
-        $object = SchemaContainer::get(new V1\ContactHubspot);
-
-        $this->assertEquals($expectedDocumentation, $object->getAction('getAll')->documentation);
-    }
-
-    public function testIfSchemaDocumentationInV1ResourceIsCorrect()
-    {
-        $object = SchemaContainer::get(new V1\ContactHubspot);
-
-        $this->assertEquals('', $object->getAction('getAll')->schemaDocumentation);
-    }
-
     public function testIfProtectedParsePropertyIsNull()
     {
         $object = new stdClass;

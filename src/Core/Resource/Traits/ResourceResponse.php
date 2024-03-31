@@ -71,13 +71,6 @@ trait ResourceResponse
 
         return $this->response->hasErrors();
     }
- 
-    public function documentation(): string|null
-    {
-        $this->verifyIfResponseExists(__FUNCTION__);
-
-        return $this->response->getDocumentation();
-    }
 
     public function headers(): array|null
     {

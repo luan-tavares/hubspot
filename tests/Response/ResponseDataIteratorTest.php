@@ -5,9 +5,9 @@ namespace LTL\Hubspot\Tests\Response;
 use LTL\Curl\Curl;
 use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Containers\SchemaContainer;
+use LTL\Hubspot\Core\Response\RequestInfoObject;
+use LTL\Hubspot\Core\Response\Response;
 use LTL\Hubspot\Core\Schema\Interfaces\ActionSchemaInterface;
-use LTL\Hubspot\Factories\ObjectFactory;
-use LTL\Hubspot\Factories\ResponseDataFactory;
 use LTL\Hubspot\Resources\V4\AssociationHubspot;
 use PHPUnit\Framework\TestCase;
 
@@ -16,6 +16,8 @@ class ResponseDataIteratorTest extends TestCase
     private CurlInterface $curl;
 
     private ActionSchemaInterface $actionSchema;
+
+    private RequestInfoObject $requestInfoObject;
 
     private array $result;
 
@@ -42,26 +44,25 @@ class ResponseDataIteratorTest extends TestCase
         $this->curl = $curl;
 
         $this->actionSchema = SchemaContainer::getAction(new AssociationHubspot, 'getDefinition');
+
+        $this->requestInfoObject = new RequestInfoObject([
+            'hasObject' => false
+        ]);
     }
 
 
     public function testIfIterableIsCorrect()
     {
-        $responseData = ResponseDataFactory::build($this->actionSchema, $this->curl);
+        $response = new Response($this->curl, $this->actionSchema, $this->requestInfoObject);
 
-        $responseData->next();
+        $response->next();
 
-        $responseData->rewind();
-
-        $actionSchema = SchemaContainer::getAction(new AssociationHubspot, 'getDefinition');
-
-        $object = ObjectFactory::build((object) [
+        $response->rewind();
+ 
+        $this->assertEquals((object) [
             'typeId' => 5,
             'label' => 'test_label',
             'category' => 'HUBSPOT_DEFINED'
-        ], $actionSchema, false);
-
-      
-        $this->assertEquals($object, $responseData->current());
+        ], $response->current());
     }
 }

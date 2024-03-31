@@ -2,14 +2,12 @@
 
 namespace LTL\Hubspot\Core\Schema;
 
-use Error;
 use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 use LTL\Hubspot\Core\Schema\Interfaces\ActionSchemaInterface;
 use LTL\Hubspot\Core\Schema\Interfaces\ResourceSchemaInterface;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\ActionSchemaFactory;
-use RuntimeException;
 
 class ResourceSchema implements ResourceSchemaInterface
 {
@@ -35,7 +33,6 @@ class ResourceSchema implements ResourceSchemaInterface
             $this->actions[$action]->version = $schema->version;
             $this->actions[$action]->isLatestVersion = $schema->latest ?? false;
             $this->actions[$action]->schemaHasAuthentication = $schema->authentication ?? true;
-            $this->actions[$action]->schemaDocumentation = $schema->documentation ?? '';
             $this->actions[$action]->defaultProperties = $schema->defaultProperties ?? null;
             $this->actions[$action]->schemaObject = $schema->object ?? null;
         }
