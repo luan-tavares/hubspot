@@ -39,6 +39,9 @@ class Response implements ResponseInterface
 
     public function __get($property)
     {
+        /**
+         *
+         */
         if(!is_null($value = @$this->result->{$property})) {
             return $value;
         }
