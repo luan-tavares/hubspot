@@ -26,7 +26,7 @@ $get = $a->get(100);
 $ddd = $get['s'];
 
 foreach ($getAll as $key => $value) {
-    # code...
+    dd($value);
 }
 
 CompanyHubspot::importAll(function ($fn) {
