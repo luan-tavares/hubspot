@@ -4,78 +4,83 @@ namespace LTL\Hubspot\Resources\V1;
 
 use LTL\Hubspot\Hubspot;
 use LTL\HubspotRequestBody\Resources as Body;
+use LTL\Hubspot\Objects as Objects;
 
 /**
- * @method static $this getAll() Get all contact lists.
+ * @template TResponse
+ * @template TIterator
+ * @extends Hubspot<TResponse, TIterator>
+ *
+ * @method static self<array<int, object>, object> getAll() Get all contact lists.
  * See https://legacydocs.hubspot.com/docs/methods/lists/get_lists
  *
- * @method $this getAll() Get all contact lists.
+ * @method self<array<int, object>, object> getAll() Get all contact lists.
  * See https://legacydocs.hubspot.com/docs/methods/lists/get_lists
  *
- * @method static $this create(array $requestBody) Create a new contact list.
+ * @method static self<object, null> create(array $requestBody) Create a new contact list.
  * See https://legacydocs.hubspot.com/docs/methods/lists/create_list
  *
- * @method $this create(array $requestBody) Create a new contact list.
+ * @method self<object, null> create(array $requestBody) Create a new contact list.
  * See https://legacydocs.hubspot.com/docs/methods/lists/create_list
  *
- * @method static $this update(int|string $listId, array $requestBody) Update a contact list.
+ * @method static self<object, null> update(int|string $listId, array $requestBody) Update a contact list.
  * See https://legacydocs.hubspot.com/docs/methods/lists/update_list
  *
- * @method $this update(int|string $listId, array $requestBody) Update a contact list.
+ * @method self<object, null> update(int|string $listId, array $requestBody) Update a contact list.
  * See https://legacydocs.hubspot.com/docs/methods/lists/update_list
  *
- * @method static $this get(int|string $listId) Get a contact list by its unique ID.
+ * @method static self<object, null> get(int|string $listId) Get a contact list by its unique ID.
  * See https://legacydocs.hubspot.com/docs/methods/lists/get_list
  *
- * @method $this get(int|string $listId) Get a contact list by its unique ID.
+ * @method self<object, null> get(int|string $listId) Get a contact list by its unique ID.
  * See https://legacydocs.hubspot.com/docs/methods/lists/get_list
  *
- * @method static $this delete(int|string $listId) Delete a contact list.
+ * @method static self<object, null> delete(int|string $listId) Delete a contact list.
  * See https://legacydocs.hubspot.com/docs/methods/lists/delete_list
  *
- * @method $this delete(int|string $listId) Delete a contact list.
+ * @method self<object, null> delete(int|string $listId) Delete a contact list.
  * See https://legacydocs.hubspot.com/docs/methods/lists/delete_list
  *
- * @method static $this batchRead() Get a group of contact lists.
+ * @method static self<object, null> batchRead() Get a group of contact lists.
  * See https://legacydocs.hubspot.com/docs/methods/lists/get_batch_lists
  *
- * @method $this batchRead() Get a group of contact lists.
+ * @method self<object, null> batchRead() Get a group of contact lists.
  * See https://legacydocs.hubspot.com/docs/methods/lists/get_batch_lists
  *
- * @method static $this getAllStatic() Get static contact lists.
+ * @method static self<array<int, object>, object> getAllStatic() Get static contact lists.
  * See https://legacydocs.hubspot.com/docs/methods/lists/get_static_lists
  *
- * @method $this getAllStatic() Get static contact lists.
+ * @method self<array<int, object>, object> getAllStatic() Get static contact lists.
  * See https://legacydocs.hubspot.com/docs/methods/lists/get_static_lists
  *
- * @method static $this getAllDynamic() Get dynamic contact lists (active lists).
+ * @method static self<array<int, object>, object> getAllDynamic() Get dynamic contact lists (active lists).
  * See https://legacydocs.hubspot.com/docs/methods/lists/get_dynamic_lists
  *
- * @method $this getAllDynamic() Get dynamic contact lists (active lists).
+ * @method self<array<int, object>, object> getAllDynamic() Get dynamic contact lists (active lists).
  * See https://legacydocs.hubspot.com/docs/methods/lists/get_dynamic_lists
  *
- * @method static $this getContacts(int|string $listId) Get contacts in a list.
+ * @method static self<array<int, object>, object> getContacts(int|string $listId) Get contacts in a list.
  * See https://legacydocs.hubspot.com/docs/methods/lists/get_list_contacts
  *
- * @method $this getContacts(int|string $listId) Get contacts in a list.
+ * @method self<array<int, object>, object> getContacts(int|string $listId) Get contacts in a list.
  * See https://legacydocs.hubspot.com/docs/methods/lists/get_list_contacts
  *
- * @method static $this getRecentlyContacts(int|string $listId) Get recently added contacts from a list.
+ * @method static self<array<int, object>, object> getRecentlyContacts(int|string $listId) Get recently added contacts from a list.
  * See https://legacydocs.hubspot.com/docs/methods/lists/get_list_contacts_recent
  *
- * @method $this getRecentlyContacts(int|string $listId) Get recently added contacts from a list.
+ * @method self<array<int, object>, object> getRecentlyContacts(int|string $listId) Get recently added contacts from a list.
  * See https://legacydocs.hubspot.com/docs/methods/lists/get_list_contacts_recent
  *
- * @method static $this addContacts(int|string $listId, array $requestBody) Add existing contacts to a list.
+ * @method static self<object, null> addContacts(int|string $listId, array $requestBody) Add existing contacts to a list.
  * See https://legacydocs.hubspot.com/docs/methods/lists/get_list_contacts_recent
  *
- * @method $this addContacts(int|string $listId, array $requestBody) Add existing contacts to a list.
+ * @method self<object, null> addContacts(int|string $listId, array $requestBody) Add existing contacts to a list.
  * See https://legacydocs.hubspot.com/docs/methods/lists/get_list_contacts_recent
  *
- * @method static $this removeContacts(int|string $listId, array $requestBody) Remove an existing contact from a list.
+ * @method static self<object, null> removeContacts(int|string $listId, array $requestBody) Remove an existing contact from a list.
  * See https://legacydocs.hubspot.com/docs/methods/lists/remove_contact_from_list
  *
- * @method $this removeContacts(int|string $listId, array $requestBody) Remove an existing contact from a list.
+ * @method self<object, null> removeContacts(int|string $listId, array $requestBody) Remove an existing contact from a list.
  * See https://legacydocs.hubspot.com/docs/methods/lists/remove_contact_from_list
  *
  */

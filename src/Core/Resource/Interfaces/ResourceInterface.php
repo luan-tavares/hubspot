@@ -5,13 +5,16 @@ namespace LTL\Hubspot\Core\Resource\Interfaces;
 use ArrayAccess;
 use Countable;
 use IteratorAggregate;
-use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
 use LTL\Hubspot\Interfaces\ArrayableInterface;
 use LTL\Hubspot\Interfaces\EnumerableInterface;
 use LTL\Hubspot\Interfaces\JsonableInterface;
 use LTL\ListMethods\PublicMethods\Interfaces\PublicMethodsListableInterface;
-use Override;
 
+/**
+ * @implements ArrayAccess<string|int,array|int|string|null>
+ * @implements IteratorAggregate<int, TIterator>
+ * @template TIterator
+ */
 interface ResourceInterface extends
     PublicMethodsListableInterface,
     ArrayableInterface,
@@ -32,6 +35,4 @@ interface ResourceInterface extends
     public function error(): bool;
     public function headers(): array|null;
     public function empty(): bool;
-    #[Override]
-    public function getIterator(): ResponseInterface;
 }

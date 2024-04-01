@@ -20,10 +20,9 @@ if (!file_exists($dir.'/autoload.php')) {
 
 require $dir.'/autoload.php';
 
-use LTL\Hubspot\Core\Handlers\Handlers;
+
 use LTL\Hubspot\Core\Handlers\HandlersProvider;
 use LTL\Hubspot\Core\HubspotConfig;
-use LTL\Hubspot\Core\Schema\ResourceSchema;
 
 $basePath = HubspotConfig::BASE_PATH;
 
@@ -83,7 +82,9 @@ foreach ($resources as $resource) {
     $content = str_replace('{{class}}', $document->class, $content);
     $content = str_replace('{{version}}', $document->version, $content);
 
-    $doc = '';
+    $doc = " * @template TResponse\n";
+    $doc .= " * @template TIterator\n";
+    $doc .= " * @extends Hubspot<TResponse, TIterator>\n *\n";
 
     if ($documentation) {
         $doc .= " * @link {$documentation}\n *\n";
@@ -100,15 +101,42 @@ foreach ($resources as $resource) {
         $methodDocumentation = $actionSchema->documentation ?? $documentation;
 
         $description = $actionSchema->description ?? null;
+
+
+        if(is_null(@$actionSchema->iteratorIndex)) {
+            $tIterator = 'null';
+
+            if(!property_exists($actionSchema, 'object')) {
+                $tResponse = 'object';
+            } else {
+                if(is_null($actionSchema->object)) {
+                    $tResponse = 'null';
+                } else {
+                    $tResponse = "Objects\\{$actionSchema->object}|object";
+                }
+            }
+        } else {
+
+            if(is_null($tResponse = @$actionSchema->object)) {
+                $tIterator = 'object';
+                $tResponse = 'array<int, object>';
+            } else {
+                $tIterator = "Objects\\{$tResponse}|object";
+                $tResponse = "array<int, Objects\\{$tResponse}|object>";
+            }
+
+        }
+
+        
     
-        $doc .= " * @method static \$this {$action}({$params}) {$description}\n";
+        $doc .= " * @method static self<{$tResponse}, {$tIterator}> {$action}({$params}) {$description}\n";
 
         if ($methodDocumentation) {
             $doc .= " * See {$methodDocumentation}\n";
         }
         $doc .= " *\n";
 
-        $doc .= " * @method \$this {$action}({$params}) {$description}\n";
+        $doc .= " * @method self<{$tResponse}, {$tIterator}> {$action}({$params}) {$description}\n";
 
         if ($methodDocumentation) {
             $doc .= " * See {$methodDocumentation}\n";
@@ -116,7 +144,7 @@ foreach ($resources as $resource) {
         $doc .= " *\n";
     }
 
-    if(!is_null($object = @$document->object)) {
+    if(!is_null($object = @$actionSchema->object)) {
         $classObject = 'LTL\\Hubspot\\Objects\\'. $object;
         $reflectionClass = new ReflectionClass($classObject);
 

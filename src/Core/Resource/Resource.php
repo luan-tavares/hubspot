@@ -16,6 +16,11 @@ use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\ListMethods\PublicMethods\Traits\PublicMethodsListable;
 use TypeError;
 
+/**
+ * @template TResponse
+ * @template TIterator
+ * @implements ResourceInterface<TIterator>
+ */
 abstract class Resource implements ResourceInterface
 {
     use PublicMethodsListable,

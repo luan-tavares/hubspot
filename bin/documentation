@@ -76,7 +76,10 @@ function generateDoc(string $class, string $title, bool $onlyStatic = false): st
 
     return $doc;
 }
-$doc = "/**\n";
+$doc = "/**\n *\n";
+$doc .= " * @template TResponse\n";
+$doc .= " * @template TIterator\n";
+$doc .= " * @extends Resource<TResponse, TIterator>\n *\n";
 $doc .= generateDoc(QueryComponentInterface::class, 'Uri Query Methods');
 $doc .= generateDoc(HeaderComponentInterface::class, 'Uri Header Methods');
 $doc .= generateDoc(CurlComponentInterface::class, 'Uri Curl Methods');

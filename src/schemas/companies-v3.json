@@ -37,30 +37,21 @@
         "delete": {
             "path": "objects/companies/{companyId}",
             "method": "DELETE",
-            "description": "Move an company identified by {companyId} to the recycling bin."
+            "description": "Move an company identified by {companyId} to the recycling bin.",
+            "object": null
         },
-        "getAssociations": {
-            "path": "objects/companies/{companyId}/associations/{toObjectType}",
-            "method": "GET",
-            "description": "List associations of a company by type.",
-            "iteratorIndex": "results",
-            "afterIndex": "paging.next.after"
-        },
-        "createAssociation": {
-            "path": "objects/companies/{companyId}/associations/{toObjectType}/{toObjectId}/{associationType}",
-            "method": "PUT",
-            "description": "Associate a company with another object."
-        },
-        "removeAssociation": {
-            "path": "objects/companies/{companyId}/associations/{toObjectType}/{toObjectId}/{associationType}",
-            "method": "DELETE",
-            "description": "Remove an association between a company and an object."
+        "gdprDelete": {
+            "path": "objects/companies/gdpr-delete",
+            "method": "POST",
+            "description": "Permanently delete a contact and all associated content to follow GDPR.",
+            "object": null
         },
         "batchDelete": {
             "path": "objects/companies/batch/archive",
             "method": "POST",
             "bodyBuilder": "HubspotBatchDeleteBody",
-            "description": "Archive a batch of companies by ID."
+            "description": "Archive a batch of companies by ID.",
+            "object": null
         },
         "batchCreate": {
             "path": "objects/companies/batch/create",

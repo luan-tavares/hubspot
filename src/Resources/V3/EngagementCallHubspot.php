@@ -4,105 +4,110 @@ namespace LTL\Hubspot\Resources\V3;
 
 use LTL\Hubspot\Hubspot;
 use LTL\HubspotRequestBody\Resources as Body;
+use LTL\Hubspot\Objects as Objects;
 use LTL\Hubspot\Resources\V3\Interfaces\{EngagementHubspotInterface, CrmHubspotInterface};
 
 /**
+ * @template TResponse
+ * @template TIterator
+ * @extends Hubspot<TResponse, TIterator>
+ *
  * @link https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method static $this getAll() Read a page of calls. Control what is returned via the properties query param.
+ * @method static self<array<int, object>, object> getAll() Read a page of calls. Control what is returned via the properties query param.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method $this getAll() Read a page of calls. Control what is returned via the properties query param.
+ * @method self<array<int, object>, object> getAll() Read a page of calls. Control what is returned via the properties query param.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method static $this get(int|string $callId) Read an note identified by {callId}.
+ * @method static self<object, null> get(int|string $callId) Read an note identified by {callId}.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method $this get(int|string $callId) Read an note identified by {callId}.
+ * @method self<object, null> get(int|string $callId) Read an note identified by {callId}.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method static $this create(array|Body\HubspotCrmCreateBody $requestBody) Create a note with the given properties and return a copy of the object, including the ID.
+ * @method static self<object, null> create(array|Body\HubspotCrmCreateBody $requestBody) Create a note with the given properties and return a copy of the object, including the ID.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method $this create(array|Body\HubspotCrmCreateBody $requestBody) Create a note with the given properties and return a copy of the object, including the ID.
+ * @method self<object, null> create(array|Body\HubspotCrmCreateBody $requestBody) Create a note with the given properties and return a copy of the object, including the ID.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method static $this update(int|string $callId, array|Body\HubspotCrmUpdateBody $requestBody) Perform a partial update of an note identified by {callId}.
+ * @method static self<object, null> update(int|string $callId, array|Body\HubspotCrmUpdateBody $requestBody) Perform a partial update of an note identified by {callId}.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method $this update(int|string $callId, array|Body\HubspotCrmUpdateBody $requestBody) Perform a partial update of an note identified by {callId}.
+ * @method self<object, null> update(int|string $callId, array|Body\HubspotCrmUpdateBody $requestBody) Perform a partial update of an note identified by {callId}.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method static $this delete(int|string $callId) Move an note identified by {callId} to the recycling bin.
+ * @method static self<object, null> delete(int|string $callId) Move an note identified by {callId} to the recycling bin.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method $this delete(int|string $callId) Move an note identified by {callId} to the recycling bin.
+ * @method self<object, null> delete(int|string $callId) Move an note identified by {callId} to the recycling bin.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method static $this getAssociations(int|string $callId, int|string $toObjectType) List associations of a note by type.
+ * @method static self<array<int, object>, object> getAssociations(int|string $callId, int|string $toObjectType) List associations of a note by type.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method $this getAssociations(int|string $callId, int|string $toObjectType) List associations of a note by type.
+ * @method self<array<int, object>, object> getAssociations(int|string $callId, int|string $toObjectType) List associations of a note by type.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method static $this createAssociation(int|string $callId, int|string $toObjectType, int|string $toObjectId, int|string $associationType) Associate a note with another object.
+ * @method static self<object, null> createAssociation(int|string $callId, int|string $toObjectType, int|string $toObjectId, int|string $associationType) Associate a note with another object.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method $this createAssociation(int|string $callId, int|string $toObjectType, int|string $toObjectId, int|string $associationType) Associate a note with another object.
+ * @method self<object, null> createAssociation(int|string $callId, int|string $toObjectType, int|string $toObjectId, int|string $associationType) Associate a note with another object.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method static $this removeAssociation(int|string $callId, int|string $toObjectType, int|string $toObjectId, int|string $associationType) Remove an association between ticket and an object.
+ * @method static self<object, null> removeAssociation(int|string $callId, int|string $toObjectType, int|string $toObjectId, int|string $associationType) Remove an association between ticket and an object.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method $this removeAssociation(int|string $callId, int|string $toObjectType, int|string $toObjectId, int|string $associationType) Remove an association between ticket and an object.
+ * @method self<object, null> removeAssociation(int|string $callId, int|string $toObjectType, int|string $toObjectId, int|string $associationType) Remove an association between ticket and an object.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method static $this batchDelete(array|Body\HubspotBatchDeleteBody $requestBody) Archive a batch of calls by ID.
+ * @method static self<object, null> batchDelete(array|Body\HubspotBatchDeleteBody $requestBody) Archive a batch of calls by ID.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method $this batchDelete(array|Body\HubspotBatchDeleteBody $requestBody) Archive a batch of calls by ID.
+ * @method self<object, null> batchDelete(array|Body\HubspotBatchDeleteBody $requestBody) Archive a batch of calls by ID.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method static $this batchCreate(array|Body\HubspotBatchCreateBody $requestBody) Create a batch of calls.
+ * @method static self<array<int, object>, object> batchCreate(array|Body\HubspotBatchCreateBody $requestBody) Create a batch of calls.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method $this batchCreate(array|Body\HubspotBatchCreateBody $requestBody) Create a batch of calls.
+ * @method self<array<int, object>, object> batchCreate(array|Body\HubspotBatchCreateBody $requestBody) Create a batch of calls.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method static $this batchRead(array|Body\HubspotBatchReadBody $requestBody) Read a batch of calls by internal ID, or unique property values.
+ * @method static self<array<int, object>, object> batchRead(array|Body\HubspotBatchReadBody $requestBody) Read a batch of calls by internal ID, or unique property values.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method $this batchRead(array|Body\HubspotBatchReadBody $requestBody) Read a batch of calls by internal ID, or unique property values.
+ * @method self<array<int, object>, object> batchRead(array|Body\HubspotBatchReadBody $requestBody) Read a batch of calls by internal ID, or unique property values.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method static $this batchUpdate(array|Body\HubspotBatchUpdateBody $requestBody) Update a batch of calls.
+ * @method static self<array<int, object>, object> batchUpdate(array|Body\HubspotBatchUpdateBody $requestBody) Update a batch of calls.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method $this batchUpdate(array|Body\HubspotBatchUpdateBody $requestBody) Update a batch of calls.
+ * @method self<array<int, object>, object> batchUpdate(array|Body\HubspotBatchUpdateBody $requestBody) Update a batch of calls.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method static $this search(array|Body\HubspotSearchBody $requestBody) Search calls.
+ * @method static self<array<int, object>, object> search(array|Body\HubspotSearchBody $requestBody) Search calls.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method $this search(array|Body\HubspotSearchBody $requestBody) Search calls.
+ * @method self<array<int, object>, object> search(array|Body\HubspotSearchBody $requestBody) Search calls.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method static $this merge(array $requestBody) Merge two calls with same type
+ * @method static self<object, null> merge(array $requestBody) Merge two calls with same type
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method $this merge(array $requestBody) Merge two calls with same type
+ * @method self<object, null> merge(array $requestBody) Merge two calls with same type
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method static $this createOrUpdate(Body\HubspotCrmUpdateBody|array $requestBody, string|int|null $idHubspot = null) (Handler) Use Create or Update call if id exists.
+ * @method static self<object, null> createOrUpdate(Body\HubspotCrmUpdateBody|array $requestBody, string|int|null $idHubspot = null) (Handler) Use Create or Update call if id exists.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method $this createOrUpdate(Body\HubspotCrmUpdateBody|array $requestBody, string|int|null $idHubspot = null) (Handler) Use Create or Update call if id exists.
+ * @method self<object, null> createOrUpdate(Body\HubspotCrmUpdateBody|array $requestBody, string|int|null $idHubspot = null) (Handler) Use Create or Update call if id exists.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method static $this importAll(callable $fn) (Handler) Import All Deals using offset and getAll
+ * @method static self<object, null> importAll(callable $fn) (Handler) Import All Deals using offset and getAll
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
- * @method $this importAll(callable $fn) (Handler) Import All Deals using offset and getAll
+ * @method self<object, null> importAll(callable $fn) (Handler) Import All Deals using offset and getAll
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/calls
  *
  */

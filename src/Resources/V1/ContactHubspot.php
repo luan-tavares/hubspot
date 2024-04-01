@@ -4,90 +4,95 @@ namespace LTL\Hubspot\Resources\V1;
 
 use LTL\Hubspot\Hubspot;
 use LTL\HubspotRequestBody\Resources as Body;
+use LTL\Hubspot\Objects as Objects;
 
 /**
- * @method static $this getAll() 
+ * @template TResponse
+ * @template TIterator
+ * @extends Hubspot<TResponse, TIterator>
+ *
+ * @method static self<object, null> getAll() 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/get_contacts
  *
- * @method $this getAll() 
+ * @method self<object, null> getAll() 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/get_contacts
  *
- * @method static $this get(int|string $vid) 
+ * @method static self<object, null> get(int|string $vid) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/get_contact
  *
- * @method $this get(int|string $vid) 
+ * @method self<object, null> get(int|string $vid) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/get_contact
  *
- * @method static $this getByEmail(int|string $email) 
+ * @method static self<object, null> getByEmail(int|string $email) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/get_contact_by_email
  *
- * @method $this getByEmail(int|string $email) 
+ * @method self<object, null> getByEmail(int|string $email) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/get_contact_by_email
  *
- * @method static $this getRecentlyUpdated() 
+ * @method static self<object, null> getRecentlyUpdated() 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/get_recently_updated_contacts
  *
- * @method $this getRecentlyUpdated() 
+ * @method self<object, null> getRecentlyUpdated() 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/get_recently_updated_contacts
  *
- * @method static $this getRecentlyCreated() 
+ * @method static self<object, null> getRecentlyCreated() 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/get_recently_created_contacts
  *
- * @method $this getRecentlyCreated() 
+ * @method self<object, null> getRecentlyCreated() 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/get_recently_created_contacts
  *
- * @method static $this getBatch() 
+ * @method static self<object, null> getBatch() 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/get_batch_by_vid
  *
- * @method $this getBatch() 
+ * @method self<object, null> getBatch() 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/get_batch_by_vid
  *
- * @method static $this getBatchByEmail() 
+ * @method static self<object, null> getBatchByEmail() 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/get_batch_by_email
  *
- * @method $this getBatchByEmail() 
+ * @method self<object, null> getBatchByEmail() 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/get_batch_by_email
  *
- * @method static $this create(array $requestBody) 
+ * @method static self<object, null> create(array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/create_contact
  *
- * @method $this create(array $requestBody) 
+ * @method self<object, null> create(array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/create_contact
  *
- * @method static $this updateById(int|string $vid, array $requestBody) 
+ * @method static self<object, null> updateById(int|string $vid, array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/update_contact
  *
- * @method $this updateById(int|string $vid, array $requestBody) 
+ * @method self<object, null> updateById(int|string $vid, array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/update_contact
  *
- * @method static $this updateByEmail(int|string $email, array $requestBody) 
+ * @method static self<object, null> updateByEmail(int|string $email, array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/update_contact-by-email
  *
- * @method $this updateByEmail(int|string $email, array $requestBody) 
+ * @method self<object, null> updateByEmail(int|string $email, array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/update_contact-by-email
  *
- * @method static $this createOrUpdate(int|string $email, array $requestBody) 
+ * @method static self<object, null> createOrUpdate(int|string $email, array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/create_or_update
  *
- * @method $this createOrUpdate(int|string $email, array $requestBody) 
+ * @method self<object, null> createOrUpdate(int|string $email, array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/create_or_update
  *
- * @method static $this batchCreateOrUpdate(array $requestBody) 
+ * @method static self<object, null> batchCreateOrUpdate(array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/batch_create_or_update
  *
- * @method $this batchCreateOrUpdate(array $requestBody) 
+ * @method self<object, null> batchCreateOrUpdate(array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/batch_create_or_update
  *
- * @method static $this delete(int|string $vid) 
+ * @method static self<object, null> delete(int|string $vid) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/delete_contact
  *
- * @method $this delete(int|string $vid) 
+ * @method self<object, null> delete(int|string $vid) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/delete_contact
  *
- * @method static $this merge(int|string $vId, array $requestBody) 
+ * @method static self<object, null> merge(int|string $vId, array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/merge-contacts
  *
- * @method $this merge(int|string $vId, array $requestBody) 
+ * @method self<object, null> merge(int|string $vId, array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/merge-contacts
  *
  */

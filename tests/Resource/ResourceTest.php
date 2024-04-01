@@ -157,7 +157,7 @@ class ResourceTest extends TestCase
     {
         $this->expectException(HubspotApiException::class);
 
-        Hubspot::aaa();
+        Hubspot::aaas();
     }
 
     public function testIfEmptyCountableIsCorrect()

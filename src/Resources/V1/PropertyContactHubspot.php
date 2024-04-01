@@ -4,48 +4,53 @@ namespace LTL\Hubspot\Resources\V1;
 
 use LTL\Hubspot\Hubspot;
 use LTL\HubspotRequestBody\Resources as Body;
+use LTL\Hubspot\Objects as Objects;
 
 /**
- * @method static $this getAll() 
+ * @template TResponse
+ * @template TIterator
+ * @extends Hubspot<TResponse, TIterator>
  *
- * @method $this getAll() 
+ * @method static self<object, null> getAll() 
  *
- * @method static $this get(int|string $property_name) 
+ * @method self<object, null> getAll() 
  *
- * @method $this get(int|string $property_name) 
+ * @method static self<object, null> get(int|string $property_name) 
  *
- * @method static $this create(array $requestBody) 
+ * @method self<object, null> get(int|string $property_name) 
+ *
+ * @method static self<object, null> create(array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/v2/create_contacts_property
  *
- * @method $this create(array $requestBody) 
+ * @method self<object, null> create(array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/v2/create_contacts_property
  *
- * @method static $this update(int|string $property_name, array $requestBody) 
+ * @method static self<object, null> update(int|string $property_name, array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/v2/update_contact_property
  *
- * @method $this update(int|string $property_name, array $requestBody) 
+ * @method self<object, null> update(int|string $property_name, array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/v2/update_contact_property
  *
- * @method static $this delete(int|string $property_name) 
+ * @method static self<object, null> delete(int|string $property_name) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/v2/delete_contact_property
  *
- * @method $this delete(int|string $property_name) 
+ * @method self<object, null> delete(int|string $property_name) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/v2/delete_contact_property
  *
- * @method static $this getAllGroups(array $requestBody) 
+ * @method static self<object, null> getAllGroups(array $requestBody) 
  *
- * @method $this getAllGroups(array $requestBody) 
+ * @method self<object, null> getAllGroups(array $requestBody) 
  *
- * @method static $this createGroup(array $requestBody) 
+ * @method static self<object, null> createGroup(array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/v2/create_contacts_property_group
  *
- * @method $this createGroup(array $requestBody) 
+ * @method self<object, null> createGroup(array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/v2/create_contacts_property_group
  *
- * @method static $this updateGroup(int|string $group_name, array $requestBody) 
+ * @method static self<object, null> updateGroup(int|string $group_name, array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/v2/update_contact_property_group
  *
- * @method $this updateGroup(int|string $group_name, array $requestBody) 
+ * @method self<object, null> updateGroup(int|string $group_name, array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/contacts/v2/update_contact_property_group
  *
  */

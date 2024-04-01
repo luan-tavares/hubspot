@@ -4,45 +4,34 @@
 
 require_once __DIR__ .'/__init.php';
 
+use LTL\Hubspot\Concerns\WithMaxLimit;
+use LTL\Hubspot\Concerns\WithObjectResponse;
 use LTL\Hubspot\Resources\V3\CompanyHubspot;
+use LTL\Hubspot\Resources\V3\Interfaces\CrmHubspotInterface;
 
 $after = $i = $memory = 0;
 
-//dd(CompanyHubspot::get(140053003));
-
-class B extends CompanyHubspot
+class B extends CompanyHubspot implements WithObjectResponse
 {
 
 }
-$a = new class extends CompanyHubspot {
+$a = new class extends CompanyHubspot implements WithMaxLimit, WithObjectResponse, CrmHubspotInterface {
 
 };
 
-dd(B::propertiesWithHistory('name')->associations('contact')->getAll());
+$getAll = $a->getAll();
 
-/** */
-while (true) {
-    $companies = CompanyHubspot::limit(2);
-    $companies = $companies->after($after)->getAll();
+$get = $a->get(100);
 
-    foreach ($companies as $company) {
-        dd($company);
-    }
+$ddd = $get['s'];
 
-    dd($companies->createdAt);
-    
-    dump($companies->map(function ($company) use (&$i) {
-        $i++;
-
-        return "{$i} - {$company->id} - {$company->properties->name}";
-    }));
-   
-    $after = $companies->after;
-
-    dump(memory_get_peak_usage(), memory_get_peak_usage() - $memory, $after);
-    $memory = memory_get_peak_usage();
-
-    if (!$after) {
-        break;
-    }
+foreach ($getAll as $key => $value) {
+    # code...
 }
+
+CompanyHubspot::importAll(function ($fn) {
+    
+    foreach ($fn as $value) {
+        dump($value->id);
+    }
+});

@@ -14,6 +14,11 @@ use ReflectionClass;
 
 /**
  *
+ * @template TResponse
+ * @template TIterator
+ * @extends Resource<TResponse, TIterator>
+ *
+ *
  * Uri Query Methods
  *
  * @method $this query(string $query, ?string $value) 

@@ -4,66 +4,71 @@ namespace LTL\Hubspot\Resources\V1;
 
 use LTL\Hubspot\Hubspot;
 use LTL\HubspotRequestBody\Resources as Body;
+use LTL\Hubspot\Objects as Objects;
 
 /**
- * @method static $this getAll() 
+ * @template TResponse
+ * @template TIterator
+ * @extends Hubspot<TResponse, TIterator>
+ *
+ * @method static self<object, null> getAll() 
  * See https://legacydocs.hubspot.com/docs/methods/deals/get_deal_properties
  *
- * @method $this getAll() 
+ * @method self<object, null> getAll() 
  * See https://legacydocs.hubspot.com/docs/methods/deals/get_deal_properties
  *
- * @method static $this get(int|string $property) 
+ * @method static self<object, null> get(int|string $property) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/get_deal_property
  *
- * @method $this get(int|string $property) 
+ * @method self<object, null> get(int|string $property) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/get_deal_property
  *
- * @method static $this create(array $requestBody) 
+ * @method static self<object, null> create(array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/create_deal_property
  *
- * @method $this create(array $requestBody) 
+ * @method self<object, null> create(array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/create_deal_property
  *
- * @method static $this update(int|string $property, array $requestBody) 
+ * @method static self<object, null> update(int|string $property, array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/update_deal_property
  *
- * @method $this update(int|string $property, array $requestBody) 
+ * @method self<object, null> update(int|string $property, array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/update_deal_property
  *
- * @method static $this delete(int|string $property) 
+ * @method static self<object, null> delete(int|string $property) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/delete_deal_property
  *
- * @method $this delete(int|string $property) 
+ * @method self<object, null> delete(int|string $property) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/delete_deal_property
  *
- * @method static $this getAllGroups() 
+ * @method static self<object, null> getAllGroups() 
  * See https://legacydocs.hubspot.com/docs/methods/deals/get_deal_property_groups
  *
- * @method $this getAllGroups() 
+ * @method self<object, null> getAllGroups() 
  * See https://legacydocs.hubspot.com/docs/methods/deals/get_deal_property_groups
  *
- * @method static $this getGroup(int|string $group) 
+ * @method static self<object, null> getGroup(int|string $group) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/get_deal_property_group
  *
- * @method $this getGroup(int|string $group) 
+ * @method self<object, null> getGroup(int|string $group) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/get_deal_property_group
  *
- * @method static $this createGroup(array $requestBody) 
+ * @method static self<object, null> createGroup(array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/create_deal_property_group
  *
- * @method $this createGroup(array $requestBody) 
+ * @method self<object, null> createGroup(array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/create_deal_property_group
  *
- * @method static $this updateGroup(int|string $group, array $requestBody) 
+ * @method static self<object, null> updateGroup(int|string $group, array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/update_deal_property_group
  *
- * @method $this updateGroup(int|string $group, array $requestBody) 
+ * @method self<object, null> updateGroup(int|string $group, array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/update_deal_property_group
  *
- * @method static $this deleteGroup(int|string $group) 
+ * @method static self<object, null> deleteGroup(int|string $group) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/delete_deal_property_group
  *
- * @method $this deleteGroup(int|string $group) 
+ * @method self<object, null> deleteGroup(int|string $group) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/delete_deal_property_group
  *
  */

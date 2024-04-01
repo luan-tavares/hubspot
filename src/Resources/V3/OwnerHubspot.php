@@ -4,26 +4,31 @@ namespace LTL\Hubspot\Resources\V3;
 
 use LTL\Hubspot\Hubspot;
 use LTL\HubspotRequestBody\Resources as Body;
+use LTL\Hubspot\Objects as Objects;
 
 /**
+ * @template TResponse
+ * @template TIterator
+ * @extends Hubspot<TResponse, TIterator>
+ *
  * @link https://developers.hubspot.com/docs/api/crm/owners
  *
- * @method static $this getAll() Read a page of owners.
+ * @method static self<array<int, object>, object> getAll() Read a page of owners.
  * See https://developers.hubspot.com/docs/api/crm/owners
  *
- * @method $this getAll() Read a page of owners.
+ * @method self<array<int, object>, object> getAll() Read a page of owners.
  * See https://developers.hubspot.com/docs/api/crm/owners
  *
- * @method static $this get(int|string $ownerId) Read an owner identified by {ownerId}.
+ * @method static self<object, null> get(int|string $ownerId) Read an owner identified by {ownerId}.
  * See https://developers.hubspot.com/docs/api/crm/owners
  *
- * @method $this get(int|string $ownerId) Read an owner identified by {ownerId}.
+ * @method self<object, null> get(int|string $ownerId) Read an owner identified by {ownerId}.
  * See https://developers.hubspot.com/docs/api/crm/owners
  *
- * @method static $this importAll(callable $fn) (Handler) Import All Contacts using offset and getAll
+ * @method static self<object, null> importAll(callable $fn) (Handler) Import All Contacts using offset and getAll
  * See https://developers.hubspot.com/docs/api/crm/owners
  *
- * @method $this importAll(callable $fn) (Handler) Import All Contacts using offset and getAll
+ * @method self<object, null> importAll(callable $fn) (Handler) Import All Contacts using offset and getAll
  * See https://developers.hubspot.com/docs/api/crm/owners
  *
  */

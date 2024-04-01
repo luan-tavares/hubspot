@@ -39,15 +39,11 @@ class Response implements ResponseInterface
 
     public function __get($property)
     {
-        /**
-         *
-         */
         if(!is_null($value = @$this->result->{$property})) {
             return $value;
         }
       
-        throw new HubspotApiException("Property {$property} not exists in response");
-        
+        throw new HubspotApiException("Property \"{$property}\" not exists.");
     }
 
     public function __isset($property): bool

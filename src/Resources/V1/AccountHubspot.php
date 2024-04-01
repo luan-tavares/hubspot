@@ -4,18 +4,23 @@ namespace LTL\Hubspot\Resources\V1;
 
 use LTL\Hubspot\Hubspot;
 use LTL\HubspotRequestBody\Resources as Body;
+use LTL\Hubspot\Objects as Objects;
 
 /**
- * @method static $this getRateLimit() 
+ * @template TResponse
+ * @template TIterator
+ * @extends Hubspot<TResponse, TIterator>
+ *
+ * @method static self<object, null> getRateLimit() 
  * See https://developers.hubspot.com/docs/api/usage-details
  *
- * @method $this getRateLimit() 
+ * @method self<object, null> getRateLimit() 
  * See https://developers.hubspot.com/docs/api/usage-details
  *
- * @method static $this getDetails() 
+ * @method static self<object, null> getDetails() 
  * See https://legacydocs.hubspot.com/docs/methods/get-account-details
  *
- * @method $this getDetails() 
+ * @method self<object, null> getDetails() 
  * See https://legacydocs.hubspot.com/docs/methods/get-account-details
  *
  */

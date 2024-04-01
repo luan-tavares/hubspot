@@ -4,6 +4,7 @@ namespace LTL\Hubspot\Resources\V{{version}};
 
 use LTL\Hubspot\Hubspot;
 use LTL\HubspotRequestBody\Resources as Body;
+use LTL\Hubspot\Objects as Objects;
 
 /**
 {{docs}} */
