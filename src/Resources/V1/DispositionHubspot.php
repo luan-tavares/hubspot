@@ -7,14 +7,13 @@ use LTL\HubspotRequestBody\Resources as Body;
 use LTL\Hubspot\Objects as Objects;
 
 /**
- * @template TResponse
  * @template TIterator
- * @extends Hubspot<TResponse, TIterator>
+ * @extends Hubspot<TIterator>
  *
- * @method static self<object, null> getAll() Get call engagement dispositions.
+ * @method static self<null> getAll() Get call engagement dispositions.
  * See https://legacydocs.hubspot.com/docs/methods/engagements/get-call-dispositions
  *
- * @method self<object, null> getAll() Get call engagement dispositions.
+ * @method self<null> getAll() Get call engagement dispositions.
  * See https://legacydocs.hubspot.com/docs/methods/engagements/get-call-dispositions
  *
  */

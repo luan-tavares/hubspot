@@ -7,22 +7,21 @@ use LTL\HubspotRequestBody\Resources as Body;
 use LTL\Hubspot\Objects as Objects;
 
 /**
- * @template TResponse
  * @template TIterator
- * @extends Hubspot<TResponse, TIterator>
+ * @extends Hubspot<TIterator>
  *
  * @link https://app.hubspot.com/developer-docs/api?spec=v1/apis/cms/v3/site-search
  *
- * @method static self<array<int, object>, object> getIndexes(int|string $contentId) For a given account and document ID (page ID, blog post ID, HubDB row ID, etc.), return all indexed data for that document.
+ * @method static self<object> getIndexes(int|string $contentId) For a given account and document ID (page ID, blog post ID, HubDB row ID, etc.), return all indexed data for that document.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/cms/v3/site-search
  *
- * @method self<array<int, object>, object> getIndexes(int|string $contentId) For a given account and document ID (page ID, blog post ID, HubDB row ID, etc.), return all indexed data for that document.
+ * @method self<object> getIndexes(int|string $contentId) For a given account and document ID (page ID, blog post ID, HubDB row ID, etc.), return all indexed data for that document.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/cms/v3/site-search
  *
- * @method static self<array<int, object>, object> search() Returns any website content matching the given search criteria for a given HubSpot account.
+ * @method static self<object> search() Returns any website content matching the given search criteria for a given HubSpot account.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/cms/v3/site-search
  *
- * @method self<array<int, object>, object> search() Returns any website content matching the given search criteria for a given HubSpot account.
+ * @method self<object> search() Returns any website content matching the given search criteria for a given HubSpot account.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/cms/v3/site-search
  *
  */

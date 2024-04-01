@@ -7,20 +7,19 @@ use LTL\HubspotRequestBody\Resources as Body;
 use LTL\Hubspot\Objects as Objects;
 
 /**
- * @template TResponse
  * @template TIterator
- * @extends Hubspot<TResponse, TIterator>
+ * @extends Hubspot<TIterator>
  *
- * @method static self<object, null> getAll() 
+ * @method static self<null> getAll() 
  * See https://legacydocs.hubspot.com/docs/methods/workflows/v3/get_workflows
  *
- * @method self<object, null> getAll() 
+ * @method self<null> getAll() 
  * See https://legacydocs.hubspot.com/docs/methods/workflows/v3/get_workflows
  *
- * @method static self<object, null> get(int|string $workflowId) 
+ * @method static self<null> get(int|string $workflowId) 
  * See https://legacydocs.hubspot.com/docs/methods/workflows/v3/get_workflow
  *
- * @method self<object, null> get(int|string $workflowId) 
+ * @method self<null> get(int|string $workflowId) 
  * See https://legacydocs.hubspot.com/docs/methods/workflows/v3/get_workflow
  *
  */

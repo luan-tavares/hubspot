@@ -7,56 +7,55 @@ use LTL\HubspotRequestBody\Resources as Body;
 use LTL\Hubspot\Objects as Objects;
 
 /**
- * @template TResponse
  * @template TIterator
- * @extends Hubspot<TResponse, TIterator>
+ * @extends Hubspot<TIterator>
  *
- * @method static self<object, null> getAll(int|string $objectType) 
+ * @method static self<null> getAll(int|string $objectType) 
  * See https://legacydocs.hubspot.com/docs/methods/crm-properties/get-properties
  *
- * @method self<object, null> getAll(int|string $objectType) 
+ * @method self<null> getAll(int|string $objectType) 
  * See https://legacydocs.hubspot.com/docs/methods/crm-properties/get-properties
  *
- * @method static self<object, null> create(int|string $objectType, array $requestBody) 
+ * @method static self<null> create(int|string $objectType, array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/crm-properties/create-property
  *
- * @method self<object, null> create(int|string $objectType, array $requestBody) 
+ * @method self<null> create(int|string $objectType, array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/crm-properties/create-property
  *
- * @method static self<object, null> update(int|string $objectType, int|string $propertyName, array $requestBody) 
+ * @method static self<null> update(int|string $objectType, int|string $propertyName, array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/crm-properties/update-property
  *
- * @method self<object, null> update(int|string $objectType, int|string $propertyName, array $requestBody) 
+ * @method self<null> update(int|string $objectType, int|string $propertyName, array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/crm-properties/update-property
  *
- * @method static self<object, null> delete(int|string $objectType, int|string $propertyName) 
+ * @method static self<null> delete(int|string $objectType, int|string $propertyName) 
  * See https://legacydocs.hubspot.com/docs/methods/crm-properties/delete-property
  *
- * @method self<object, null> delete(int|string $objectType, int|string $propertyName) 
+ * @method self<null> delete(int|string $objectType, int|string $propertyName) 
  * See https://legacydocs.hubspot.com/docs/methods/crm-properties/delete-property
  *
- * @method static self<object, null> getGroups(int|string $objectType) 
+ * @method static self<null> getGroups(int|string $objectType) 
  * See https://legacydocs.hubspot.com/docs/methods/crm-properties/get-property-groups
  *
- * @method self<object, null> getGroups(int|string $objectType) 
+ * @method self<null> getGroups(int|string $objectType) 
  * See https://legacydocs.hubspot.com/docs/methods/crm-properties/get-property-groups
  *
- * @method static self<object, null> createGroup(int|string $objectType, array $requestBody) 
+ * @method static self<null> createGroup(int|string $objectType, array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/crm-properties/create-property-group
  *
- * @method self<object, null> createGroup(int|string $objectType, array $requestBody) 
+ * @method self<null> createGroup(int|string $objectType, array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/crm-properties/create-property-group
  *
- * @method static self<object, null> updateGroup(int|string $objectType, int|string $groupName, array $requestBody) 
+ * @method static self<null> updateGroup(int|string $objectType, int|string $groupName, array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/crm-properties/udpate-property-group
  *
- * @method self<object, null> updateGroup(int|string $objectType, int|string $groupName, array $requestBody) 
+ * @method self<null> updateGroup(int|string $objectType, int|string $groupName, array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/crm-properties/udpate-property-group
  *
- * @method static self<object, null> deleteGroup(int|string $objectType, int|string $groupName) 
+ * @method static self<null> deleteGroup(int|string $objectType, int|string $groupName) 
  * See https://legacydocs.hubspot.com/docs/methods/crm-properties/delete-property-group
  *
- * @method self<object, null> deleteGroup(int|string $objectType, int|string $groupName) 
+ * @method self<null> deleteGroup(int|string $objectType, int|string $groupName) 
  * See https://legacydocs.hubspot.com/docs/methods/crm-properties/delete-property-group
  *
  */

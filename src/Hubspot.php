@@ -14,9 +14,8 @@ use ReflectionClass;
 
 /**
  *
- * @template TResponse
  * @template TIterator
- * @extends Resource<TResponse, TIterator>
+ * @extends Resource<TIterator>
  *
  *
  * Uri Query Methods

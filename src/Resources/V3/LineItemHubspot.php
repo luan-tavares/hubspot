@@ -8,100 +8,99 @@ use LTL\Hubspot\Objects as Objects;
 use LTL\Hubspot\Resources\V3\Interfaces\{CrmHubspotInterface};
 
 /**
- * @template TResponse
  * @template TIterator
- * @extends Hubspot<TResponse, TIterator>
+ * @extends Hubspot<TIterator>
  *
  * @link https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method static self<array<int, object>, object> getAll() Read a page of line items. Control what is returned via the properties query param.
+ * @method static self<object> getAll() Read a page of line items. Control what is returned via the properties query param.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method self<array<int, object>, object> getAll() Read a page of line items. Control what is returned via the properties query param.
+ * @method self<object> getAll() Read a page of line items. Control what is returned via the properties query param.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method static self<object, null> get(int|string $lineItemId) Read an line item identified by {lineItemId}.
+ * @method static self<null> get(int|string $lineItemId) Read an line item identified by {lineItemId}.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method self<object, null> get(int|string $lineItemId) Read an line item identified by {lineItemId}.
+ * @method self<null> get(int|string $lineItemId) Read an line item identified by {lineItemId}.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method static self<object, null> create(array|Body\HubspotCrmCreateBody $requestBody) Create a line item with the given properties and return a copy of the object, including the ID.
+ * @method static self<null> create(array|Body\HubspotCrmCreateBody $requestBody) Create a line item with the given properties and return a copy of the object, including the ID.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method self<object, null> create(array|Body\HubspotCrmCreateBody $requestBody) Create a line item with the given properties and return a copy of the object, including the ID.
+ * @method self<null> create(array|Body\HubspotCrmCreateBody $requestBody) Create a line item with the given properties and return a copy of the object, including the ID.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method static self<object, null> update(int|string $lineItemId, array|Body\HubspotCrmUpdateBody $requestBody) Perform a partial update of an line item identified by {lineItemId}.
+ * @method static self<null> update(int|string $lineItemId, array|Body\HubspotCrmUpdateBody $requestBody) Perform a partial update of an line item identified by {lineItemId}.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method self<object, null> update(int|string $lineItemId, array|Body\HubspotCrmUpdateBody $requestBody) Perform a partial update of an line item identified by {lineItemId}.
+ * @method self<null> update(int|string $lineItemId, array|Body\HubspotCrmUpdateBody $requestBody) Perform a partial update of an line item identified by {lineItemId}.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method static self<object, null> delete(int|string $lineItemId) Move an line item identified by {lineItemId} to the recycling bin.
+ * @method static self<null> delete(int|string $lineItemId) Move an line item identified by {lineItemId} to the recycling bin.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method self<object, null> delete(int|string $lineItemId) Move an line item identified by {lineItemId} to the recycling bin.
+ * @method self<null> delete(int|string $lineItemId) Move an line item identified by {lineItemId} to the recycling bin.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method static self<array<int, object>, object> getAssociations(int|string $lineItemId, int|string $toObjectType) List associations of a line item by type.
+ * @method static self<object> getAssociations(int|string $lineItemId, int|string $toObjectType) List associations of a line item by type.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method self<array<int, object>, object> getAssociations(int|string $lineItemId, int|string $toObjectType) List associations of a line item by type.
+ * @method self<object> getAssociations(int|string $lineItemId, int|string $toObjectType) List associations of a line item by type.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method static self<object, null> createAssociation(int|string $lineItemId, int|string $toObjectType, int|string $toObjectId, int|string $associationType, array $requestBody) Associate a line item with another object.
+ * @method static self<null> createAssociation(int|string $lineItemId, int|string $toObjectType, int|string $toObjectId, int|string $associationType, array $requestBody) Associate a line item with another object.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method self<object, null> createAssociation(int|string $lineItemId, int|string $toObjectType, int|string $toObjectId, int|string $associationType, array $requestBody) Associate a line item with another object.
+ * @method self<null> createAssociation(int|string $lineItemId, int|string $toObjectType, int|string $toObjectId, int|string $associationType, array $requestBody) Associate a line item with another object.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method static self<object, null> removeAssociation(int|string $lineItemId, int|string $toObjectType, int|string $toObjectId, int|string $associationType) Remove an association between line items and an object.
+ * @method static self<null> removeAssociation(int|string $lineItemId, int|string $toObjectType, int|string $toObjectId, int|string $associationType) Remove an association between line items and an object.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method self<object, null> removeAssociation(int|string $lineItemId, int|string $toObjectType, int|string $toObjectId, int|string $associationType) Remove an association between line items and an object.
+ * @method self<null> removeAssociation(int|string $lineItemId, int|string $toObjectType, int|string $toObjectId, int|string $associationType) Remove an association between line items and an object.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method static self<object, null> batchDelete(array|Body\HubspotBatchDeleteBody $requestBody) Archive a batch of line items by ID.
+ * @method static self<null> batchDelete(array|Body\HubspotBatchDeleteBody $requestBody) Archive a batch of line items by ID.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method self<object, null> batchDelete(array|Body\HubspotBatchDeleteBody $requestBody) Archive a batch of line items by ID.
+ * @method self<null> batchDelete(array|Body\HubspotBatchDeleteBody $requestBody) Archive a batch of line items by ID.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method static self<array<int, object>, object> batchCreate(array|Body\HubspotBatchCreateBody $requestBody) Create a batch of line items.
+ * @method static self<object> batchCreate(array|Body\HubspotBatchCreateBody $requestBody) Create a batch of line items.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method self<array<int, object>, object> batchCreate(array|Body\HubspotBatchCreateBody $requestBody) Create a batch of line items.
+ * @method self<object> batchCreate(array|Body\HubspotBatchCreateBody $requestBody) Create a batch of line items.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method static self<array<int, object>, object> batchRead(array|Body\HubspotBatchReadBody $requestBody) Read a batch of line items by internal ID, or unique property values.
+ * @method static self<object> batchRead(array|Body\HubspotBatchReadBody $requestBody) Read a batch of line items by internal ID, or unique property values.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method self<array<int, object>, object> batchRead(array|Body\HubspotBatchReadBody $requestBody) Read a batch of line items by internal ID, or unique property values.
+ * @method self<object> batchRead(array|Body\HubspotBatchReadBody $requestBody) Read a batch of line items by internal ID, or unique property values.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method static self<array<int, object>, object> batchUpdate(array|Body\HubspotBatchUpdateBody $requestBody) Update a batch of line items.
+ * @method static self<object> batchUpdate(array|Body\HubspotBatchUpdateBody $requestBody) Update a batch of line items.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method self<array<int, object>, object> batchUpdate(array|Body\HubspotBatchUpdateBody $requestBody) Update a batch of line items.
+ * @method self<object> batchUpdate(array|Body\HubspotBatchUpdateBody $requestBody) Update a batch of line items.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method static self<array<int, object>, object> search(array|Body\HubspotSearchBody $requestBody) Search line items.
+ * @method static self<object> search(array|Body\HubspotSearchBody $requestBody) Search line items.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method self<array<int, object>, object> search(array|Body\HubspotSearchBody $requestBody) Search line items.
+ * @method self<object> search(array|Body\HubspotSearchBody $requestBody) Search line items.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method static self<object, null> merge(array $requestBody) Merge two line items with same type.
+ * @method static self<null> merge(array $requestBody) Merge two line items with same type.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method self<object, null> merge(array $requestBody) Merge two line items with same type.
+ * @method self<null> merge(array $requestBody) Merge two line items with same type.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method static self<object, null> createOrUpdate(Body\HubspotCrmUpdateBody|array $requestBody, string|int|null $idHubspot = null) (Handler) Use Create or Update line item if id exists.
+ * @method static self<null> createOrUpdate(Body\HubspotCrmUpdateBody|array $requestBody, string|int|null $idHubspot = null) (Handler) Use Create or Update line item if id exists.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
- * @method self<object, null> createOrUpdate(Body\HubspotCrmUpdateBody|array $requestBody, string|int|null $idHubspot = null) (Handler) Use Create or Update line item if id exists.
+ * @method self<null> createOrUpdate(Body\HubspotCrmUpdateBody|array $requestBody, string|int|null $idHubspot = null) (Handler) Use Create or Update line item if id exists.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
  */

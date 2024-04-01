@@ -7,88 +7,87 @@ use LTL\HubspotRequestBody\Resources as Body;
 use LTL\Hubspot\Objects as Objects;
 
 /**
- * @template TResponse
  * @template TIterator
- * @extends Hubspot<TResponse, TIterator>
+ * @extends Hubspot<TIterator>
  *
  * @link https://developers.hubspot.com/docs/api/crm/properties
  *
- * @method static self<array<int, object>, object> getAll(int|string $objectType) Read all existing properties for the specified object type and HubSpot account.
+ * @method static self<object> getAll(int|string $objectType) Read all existing properties for the specified object type and HubSpot account.
  * See https://developers.hubspot.com/docs/api/crm/properties
  *
- * @method self<array<int, object>, object> getAll(int|string $objectType) Read all existing properties for the specified object type and HubSpot account.
+ * @method self<object> getAll(int|string $objectType) Read all existing properties for the specified object type and HubSpot account.
  * See https://developers.hubspot.com/docs/api/crm/properties
  *
- * @method static self<object, null> get(int|string $objectType, int|string $propertyName) Read a property identified by {propertyName}.
+ * @method static self<null> get(int|string $objectType, int|string $propertyName) Read a property identified by {propertyName}.
  * See https://developers.hubspot.com/docs/api/crm/properties
  *
- * @method self<object, null> get(int|string $objectType, int|string $propertyName) Read a property identified by {propertyName}.
+ * @method self<null> get(int|string $objectType, int|string $propertyName) Read a property identified by {propertyName}.
  * See https://developers.hubspot.com/docs/api/crm/properties
  *
- * @method static self<object, null> create(int|string $objectType, array $requestBody) Create and return a copy of a new property for the specified object type.
+ * @method static self<null> create(int|string $objectType, array $requestBody) Create and return a copy of a new property for the specified object type.
  * See https://developers.hubspot.com/docs/api/crm/properties
  *
- * @method self<object, null> create(int|string $objectType, array $requestBody) Create and return a copy of a new property for the specified object type.
+ * @method self<null> create(int|string $objectType, array $requestBody) Create and return a copy of a new property for the specified object type.
  * See https://developers.hubspot.com/docs/api/crm/properties
  *
- * @method static self<object, null> update(int|string $objectType, int|string $propertyName, array $requestBody) Perform a partial update of a property identified by {propertyName}. Provided fields will be overwritten.
+ * @method static self<null> update(int|string $objectType, int|string $propertyName, array $requestBody) Perform a partial update of a property identified by {propertyName}. Provided fields will be overwritten.
  * See https://developers.hubspot.com/docs/api/crm/properties
  *
- * @method self<object, null> update(int|string $objectType, int|string $propertyName, array $requestBody) Perform a partial update of a property identified by {propertyName}. Provided fields will be overwritten.
+ * @method self<null> update(int|string $objectType, int|string $propertyName, array $requestBody) Perform a partial update of a property identified by {propertyName}. Provided fields will be overwritten.
  * See https://developers.hubspot.com/docs/api/crm/properties
  *
- * @method static self<object, null> delete(int|string $objectType, int|string $propertyName) Move a property identified by {propertyName} to the recycling bin.
+ * @method static self<null> delete(int|string $objectType, int|string $propertyName) Move a property identified by {propertyName} to the recycling bin.
  * See https://developers.hubspot.com/docs/api/crm/properties
  *
- * @method self<object, null> delete(int|string $objectType, int|string $propertyName) Move a property identified by {propertyName} to the recycling bin.
+ * @method self<null> delete(int|string $objectType, int|string $propertyName) Move a property identified by {propertyName} to the recycling bin.
  * See https://developers.hubspot.com/docs/api/crm/properties
  *
- * @method static self<object, null> batchDelete(int|string $objectType, array $requestBody) Archive a provided list of properties.
+ * @method static self<null> batchDelete(int|string $objectType, array $requestBody) Archive a provided list of properties.
  * See https://developers.hubspot.com/docs/api/crm/properties
  *
- * @method self<object, null> batchDelete(int|string $objectType, array $requestBody) Archive a provided list of properties.
+ * @method self<null> batchDelete(int|string $objectType, array $requestBody) Archive a provided list of properties.
  * See https://developers.hubspot.com/docs/api/crm/properties
  *
- * @method static self<array<int, object>, object> batchCreate(int|string $objectType, array $requestBody) Create a batch of properties using the same rules as when creating an individual property.
+ * @method static self<object> batchCreate(int|string $objectType, array $requestBody) Create a batch of properties using the same rules as when creating an individual property.
  * See https://developers.hubspot.com/docs/api/crm/properties
  *
- * @method self<array<int, object>, object> batchCreate(int|string $objectType, array $requestBody) Create a batch of properties using the same rules as when creating an individual property.
+ * @method self<object> batchCreate(int|string $objectType, array $requestBody) Create a batch of properties using the same rules as when creating an individual property.
  * See https://developers.hubspot.com/docs/api/crm/properties
  *
- * @method static self<array<int, object>, object> batchRead(int|string $objectType, array $requestBody) Read a provided list of properties.
+ * @method static self<object> batchRead(int|string $objectType, array $requestBody) Read a provided list of properties.
  * See https://developers.hubspot.com/docs/api/crm/properties
  *
- * @method self<array<int, object>, object> batchRead(int|string $objectType, array $requestBody) Read a provided list of properties.
+ * @method self<object> batchRead(int|string $objectType, array $requestBody) Read a provided list of properties.
  * See https://developers.hubspot.com/docs/api/crm/properties
  *
- * @method static self<array<int, object>, object> getAllGroups(int|string $objectType) Read all existing property groups for the specified object type and HubSpot account.
+ * @method static self<object> getAllGroups(int|string $objectType) Read all existing property groups for the specified object type and HubSpot account.
  * See https://developers.hubspot.com/docs/api/crm/properties
  *
- * @method self<array<int, object>, object> getAllGroups(int|string $objectType) Read all existing property groups for the specified object type and HubSpot account.
+ * @method self<object> getAllGroups(int|string $objectType) Read all existing property groups for the specified object type and HubSpot account.
  * See https://developers.hubspot.com/docs/api/crm/properties
  *
- * @method static self<object, null> getGroup(int|string $objectType, int|string $groupName) Read a property group identified by {groupName}.
+ * @method static self<null> getGroup(int|string $objectType, int|string $groupName) Read a property group identified by {groupName}.
  * See https://developers.hubspot.com/docs/api/crm/properties
  *
- * @method self<object, null> getGroup(int|string $objectType, int|string $groupName) Read a property group identified by {groupName}.
+ * @method self<null> getGroup(int|string $objectType, int|string $groupName) Read a property group identified by {groupName}.
  * See https://developers.hubspot.com/docs/api/crm/properties
  *
- * @method static self<object, null> createGroup(int|string $objectType, array $requestBody) Create and return a copy of a new property group.
+ * @method static self<null> createGroup(int|string $objectType, array $requestBody) Create and return a copy of a new property group.
  * See https://developers.hubspot.com/docs/api/crm/properties
  *
- * @method self<object, null> createGroup(int|string $objectType, array $requestBody) Create and return a copy of a new property group.
+ * @method self<null> createGroup(int|string $objectType, array $requestBody) Create and return a copy of a new property group.
  * See https://developers.hubspot.com/docs/api/crm/properties
  *
- * @method static self<object, null> updateGroup(int|string $objectType, int|string $groupName, array $requestBody) Perform a partial update of a property group identified by {groupName}. Provided fields will be overwritten.
+ * @method static self<null> updateGroup(int|string $objectType, int|string $groupName, array $requestBody) Perform a partial update of a property group identified by {groupName}. Provided fields will be overwritten.
  * See https://developers.hubspot.com/docs/api/crm/properties
  *
- * @method self<object, null> updateGroup(int|string $objectType, int|string $groupName, array $requestBody) Perform a partial update of a property group identified by {groupName}. Provided fields will be overwritten.
+ * @method self<null> updateGroup(int|string $objectType, int|string $groupName, array $requestBody) Perform a partial update of a property group identified by {groupName}. Provided fields will be overwritten.
  * See https://developers.hubspot.com/docs/api/crm/properties
  *
- * @method static self<object, null> deleteGroup(int|string $objectType, int|string $groupName) Move a property group identified by {groupName} to the recycling bin.
+ * @method static self<null> deleteGroup(int|string $objectType, int|string $groupName) Move a property group identified by {groupName} to the recycling bin.
  * See https://developers.hubspot.com/docs/api/crm/properties
  *
- * @method self<object, null> deleteGroup(int|string $objectType, int|string $groupName) Move a property group identified by {groupName} to the recycling bin.
+ * @method self<null> deleteGroup(int|string $objectType, int|string $groupName) Move a property group identified by {groupName} to the recycling bin.
  * See https://developers.hubspot.com/docs/api/crm/properties
  *
  */

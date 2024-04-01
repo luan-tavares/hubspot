@@ -6,6 +6,7 @@ require_once __DIR__ .'/__init.php';
 
 use LTL\Hubspot\Concerns\WithMaxLimit;
 use LTL\Hubspot\Concerns\WithObjectResponse;
+use LTL\Hubspot\Concerns\WithRequestException;
 use LTL\Hubspot\Resources\V3\CompanyHubspot;
 use LTL\Hubspot\Resources\V3\Interfaces\CrmHubspotInterface;
 
@@ -15,23 +16,23 @@ class B extends CompanyHubspot implements WithObjectResponse
 {
 
 }
-$a = new class extends CompanyHubspot implements WithMaxLimit, WithObjectResponse, CrmHubspotInterface {
+$a = new class extends CompanyHubspot implements WithMaxLimit, WithRequestException, WithObjectResponse, CrmHubspotInterface {
 
 };
 
-$getAll = $a->getAll();
+$getAll = CompanyHubspot::getAll();
 
-$get = $a->get(100);
-
-$ddd = $get['s'];
+$get = $a->get(19740053003);
+$ddd = $get->id;
 
 foreach ($getAll as $key => $value) {
-    dd($value);
+    # code...
 }
 
-CompanyHubspot::importAll(function ($fn) {
-    
-    foreach ($fn as $value) {
+dump($ddd);
+
+$a->importAll(function (CompanyHubspot $c) {
+    foreach ($c as $value) {
         dump($value->id);
     }
 });

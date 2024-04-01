@@ -17,7 +17,6 @@ use LTL\ListMethods\PublicMethods\Traits\PublicMethodsListable;
 use TypeError;
 
 /**
- * @template TResponse
  * @template TIterator
  * @implements ResourceInterface<TIterator>
  */

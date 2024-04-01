@@ -7,20 +7,19 @@ use LTL\HubspotRequestBody\Resources as Body;
 use LTL\Hubspot\Objects as Objects;
 
 /**
- * @template TResponse
  * @template TIterator
- * @extends Hubspot<TResponse, TIterator>
+ * @extends Hubspot<TIterator>
  *
- * @method static self<object, null> getRateLimit() 
+ * @method static self<null> getRateLimit() 
  * See https://developers.hubspot.com/docs/api/usage-details
  *
- * @method self<object, null> getRateLimit() 
+ * @method self<null> getRateLimit() 
  * See https://developers.hubspot.com/docs/api/usage-details
  *
- * @method static self<object, null> getDetails() 
+ * @method static self<null> getDetails() 
  * See https://legacydocs.hubspot.com/docs/methods/get-account-details
  *
- * @method self<object, null> getDetails() 
+ * @method self<null> getDetails() 
  * See https://legacydocs.hubspot.com/docs/methods/get-account-details
  *
  */

@@ -82,9 +82,8 @@ foreach ($resources as $resource) {
     $content = str_replace('{{class}}', $document->class, $content);
     $content = str_replace('{{version}}', $document->version, $content);
 
-    $doc = " * @template TResponse\n";
-    $doc .= " * @template TIterator\n";
-    $doc .= " * @extends Hubspot<TResponse, TIterator>\n *\n";
+    $doc = " * @template TIterator\n";
+    $doc .= " * @extends Hubspot<TIterator>\n *\n";
 
     if ($documentation) {
         $doc .= " * @link {$documentation}\n *\n";
@@ -104,39 +103,33 @@ foreach ($resources as $resource) {
 
 
         if(is_null(@$actionSchema->iteratorIndex)) {
-            $tIterator = 'null';
-
-            if(!property_exists($actionSchema, 'object')) {
-                $tResponse = 'object';
+           
+            if(is_null(@$actionSchema->object)) {
+                $tResponse = 'self<null>';
             } else {
-                if(is_null($actionSchema->object)) {
-                    $tResponse = 'null';
-                } else {
-                    $tResponse = "Objects\\{$actionSchema->object}|object";
-                }
+                $tResponse = "self<null>&Objects\\{$actionSchema->object}";
             }
+            
+            $final =  $tResponse;
         } else {
-
             if(is_null($tResponse = @$actionSchema->object)) {
                 $tIterator = 'object';
-                $tResponse = 'array<int, object>';
             } else {
                 $tIterator = "Objects\\{$tResponse}|object";
-                $tResponse = "array<int, Objects\\{$tResponse}|object>";
             }
-
+            $final = "self<{$tIterator}>";
         }
 
         
     
-        $doc .= " * @method static self<{$tResponse}, {$tIterator}> {$action}({$params}) {$description}\n";
+        $doc .= " * @method static {$final} {$action}({$params}) {$description}\n";
 
         if ($methodDocumentation) {
             $doc .= " * See {$methodDocumentation}\n";
         }
         $doc .= " *\n";
 
-        $doc .= " * @method self<{$tResponse}, {$tIterator}> {$action}({$params}) {$description}\n";
+        $doc .= " * @method {$final} {$action}({$params}) {$description}\n";
 
         if ($methodDocumentation) {
             $doc .= " * See {$methodDocumentation}\n";

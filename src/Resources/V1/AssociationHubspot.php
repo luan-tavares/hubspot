@@ -7,38 +7,37 @@ use LTL\HubspotRequestBody\Resources as Body;
 use LTL\Hubspot\Objects as Objects;
 
 /**
- * @template TResponse
  * @template TIterator
- * @extends Hubspot<TResponse, TIterator>
+ * @extends Hubspot<TIterator>
  *
- * @method static self<object, null> get(int|string $objectId, int|string $definitionId) 
+ * @method static self<null> get(int|string $objectId, int|string $definitionId) 
  * See https://legacydocs.hubspot.com/docs/methods/crm-associations/get-associations
  *
- * @method self<object, null> get(int|string $objectId, int|string $definitionId) 
+ * @method self<null> get(int|string $objectId, int|string $definitionId) 
  * See https://legacydocs.hubspot.com/docs/methods/crm-associations/get-associations
  *
- * @method static self<object, null> create(array $requestBody) 
+ * @method static self<null> create(array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/crm-associations/associate-objects
  *
- * @method self<object, null> create(array $requestBody) 
+ * @method self<null> create(array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/crm-associations/associate-objects
  *
- * @method static self<object, null> delete() 
+ * @method static self<null> delete() 
  * See https://legacydocs.hubspot.com/docs/methods/crm-associations/delete-association
  *
- * @method self<object, null> delete() 
+ * @method self<null> delete() 
  * See https://legacydocs.hubspot.com/docs/methods/crm-associations/delete-association
  *
- * @method static self<object, null> batchCreate(array $requestBody) 
+ * @method static self<null> batchCreate(array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/crm-associations/batch-associate-objects
  *
- * @method self<object, null> batchCreate(array $requestBody) 
+ * @method self<null> batchCreate(array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/crm-associations/batch-associate-objects
  *
- * @method static self<object, null> batchDelete(array $requestBody) 
+ * @method static self<null> batchDelete(array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/crm-associations/batch-delete-associations
  *
- * @method self<object, null> batchDelete(array $requestBody) 
+ * @method self<null> batchDelete(array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/crm-associations/batch-delete-associations
  *
  */

@@ -7,82 +7,81 @@ use LTL\HubspotRequestBody\Resources as Body;
 use LTL\Hubspot\Objects as Objects;
 
 /**
- * @template TResponse
  * @template TIterator
- * @extends Hubspot<TResponse, TIterator>
+ * @extends Hubspot<TIterator>
  *
  * @link https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method static self<array<int, Objects\AssociationDefinitionObject|object>, Objects\AssociationDefinitionObject|object> getDefinition(int|string $fromObjectType, int|string $toObjectType) Returns all association types between two object types.
+ * @method static self<Objects\AssociationDefinitionObject|object> getDefinition(int|string $fromObjectType, int|string $toObjectType) Returns all association types between two object types.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method self<array<int, Objects\AssociationDefinitionObject|object>, Objects\AssociationDefinitionObject|object> getDefinition(int|string $fromObjectType, int|string $toObjectType) Returns all association types between two object types.
+ * @method self<Objects\AssociationDefinitionObject|object> getDefinition(int|string $fromObjectType, int|string $toObjectType) Returns all association types between two object types.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method static self<array<int, Objects\AssociationDefinitionObject|object>, Objects\AssociationDefinitionObject|object> createDefinition(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Create a user defined association definition.
+ * @method static self<Objects\AssociationDefinitionObject|object> createDefinition(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Create a user defined association definition.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method self<array<int, Objects\AssociationDefinitionObject|object>, Objects\AssociationDefinitionObject|object> createDefinition(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Create a user defined association definition.
+ * @method self<Objects\AssociationDefinitionObject|object> createDefinition(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Create a user defined association definition.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method static self<object, null> updateDefinition(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Update a user defined association definition.
+ * @method static self<null> updateDefinition(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Update a user defined association definition.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method self<object, null> updateDefinition(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Update a user defined association definition.
+ * @method self<null> updateDefinition(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Update a user defined association definition.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method static self<object, null> deleteDefinition(int|string $fromObjectType, int|string $toObjectType, int|string $associationTypeId) Deletes an association definition.
+ * @method static self<null> deleteDefinition(int|string $fromObjectType, int|string $toObjectType, int|string $associationTypeId) Deletes an association definition.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method self<object, null> deleteDefinition(int|string $fromObjectType, int|string $toObjectType, int|string $associationTypeId) Deletes an association definition.
+ * @method self<null> deleteDefinition(int|string $fromObjectType, int|string $toObjectType, int|string $associationTypeId) Deletes an association definition.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method static self<object, null> batchDelete(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Batch delete associations for objects.
+ * @method static self<null> batchDelete(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Batch delete associations for objects.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method self<object, null> batchDelete(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Batch delete associations for objects.
+ * @method self<null> batchDelete(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Batch delete associations for objects.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method static self<Objects\AssociationObject|object, null> batchCreate(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Batch create associations for objects.
+ * @method static self<null>&Objects\AssociationObject batchCreate(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Batch create associations for objects.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method self<Objects\AssociationObject|object, null> batchCreate(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Batch create associations for objects.
+ * @method self<null>&Objects\AssociationObject batchCreate(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Batch create associations for objects.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method static self<object, null> batchCreateDefault(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Create the default (most generic) association type between two object types.
+ * @method static self<null> batchCreateDefault(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Create the default (most generic) association type between two object types.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method self<object, null> batchCreateDefault(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Create the default (most generic) association type between two object types.
+ * @method self<null> batchCreateDefault(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Create the default (most generic) association type between two object types.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method static self<array<int, object>, object> batchGet(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Batch read associations for objects to specific object type.
+ * @method static self<object> batchGet(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Batch read associations for objects to specific object type.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method self<array<int, object>, object> batchGet(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Batch read associations for objects to specific object type.
+ * @method self<object> batchGet(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Batch read associations for objects to specific object type.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method static self<array<int, object>, object> getAll(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType) List all associations of an object by object type. Limit 1000 per call.
+ * @method static self<object> getAll(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType) List all associations of an object by object type. Limit 1000 per call.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method self<array<int, object>, object> getAll(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType) List all associations of an object by object type. Limit 1000 per call.
+ * @method self<object> getAll(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType) List all associations of an object by object type. Limit 1000 per call.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method static self<object, null> create(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType, int|string $toObjectId, array $requestBody) Set association labels between two records.
+ * @method static self<null> create(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType, int|string $toObjectId, array $requestBody) Set association labels between two records.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method self<object, null> create(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType, int|string $toObjectId, array $requestBody) Set association labels between two records.
+ * @method self<null> create(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType, int|string $toObjectId, array $requestBody) Set association labels between two records.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method static self<object, null> delete(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType, int|string $toObjectId) deletes all associations between two records.
+ * @method static self<null> delete(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType, int|string $toObjectId) deletes all associations between two records.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method self<object, null> delete(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType, int|string $toObjectId) deletes all associations between two records.
+ * @method self<null> delete(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType, int|string $toObjectId) deletes all associations between two records.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method static self<object, null> importAll(string|int $fromObjectType, string|int $fromObjectId, string|int $toObjectType, callable $fn) (Handler) Import All relations using offset and getAll
+ * @method static self<null> importAll(string|int $fromObjectType, string|int $fromObjectId, string|int $toObjectType, callable $fn) (Handler) Import All relations using offset and getAll
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method self<object, null> importAll(string|int $fromObjectType, string|int $fromObjectId, string|int $toObjectType, callable $fn) (Handler) Import All relations using offset and getAll
+ * @method self<null> importAll(string|int $fromObjectType, string|int $fromObjectId, string|int $toObjectType, callable $fn) (Handler) Import All relations using offset and getAll
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
  */

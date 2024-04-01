@@ -8,94 +8,93 @@ use LTL\Hubspot\Objects as Objects;
 use LTL\Hubspot\Resources\V3\Interfaces\{CrmHubspotInterface};
 
 /**
- * @template TResponse
  * @template TIterator
- * @extends Hubspot<TResponse, TIterator>
+ * @extends Hubspot<TIterator>
  *
  * @link https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method static self<array<int, Objects\CrmObject|object>, Objects\CrmObject|object> getAll() Read a page of companies. Control what is returned via the properties query param.
+ * @method static self<Objects\CrmObject|object> getAll() Read a page of companies. Control what is returned via the properties query param.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method self<array<int, Objects\CrmObject|object>, Objects\CrmObject|object> getAll() Read a page of companies. Control what is returned via the properties query param.
+ * @method self<Objects\CrmObject|object> getAll() Read a page of companies. Control what is returned via the properties query param.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method static self<Objects\CrmObject|object, null> get(int|string $companyId) Read an company identified by {companyId}.
+ * @method static self<null>&Objects\CrmObject get(int|string $companyId) Read an company identified by {companyId}.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method self<Objects\CrmObject|object, null> get(int|string $companyId) Read an company identified by {companyId}.
+ * @method self<null>&Objects\CrmObject get(int|string $companyId) Read an company identified by {companyId}.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method static self<Objects\CrmObject|object, null> create(array|Body\HubspotCrmCreateBody $requestBody) Create a company with the given properties and return a copy of the object, including the ID.
+ * @method static self<null>&Objects\CrmObject create(array|Body\HubspotCrmCreateBody $requestBody) Create a company with the given properties and return a copy of the object, including the ID.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method self<Objects\CrmObject|object, null> create(array|Body\HubspotCrmCreateBody $requestBody) Create a company with the given properties and return a copy of the object, including the ID.
+ * @method self<null>&Objects\CrmObject create(array|Body\HubspotCrmCreateBody $requestBody) Create a company with the given properties and return a copy of the object, including the ID.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method static self<Objects\CrmObject|object, null> update(int|string $companyId, array|Body\HubspotCrmUpdateBody $requestBody) Perform a partial update of an company identified by {companyId}.
+ * @method static self<null>&Objects\CrmObject update(int|string $companyId, array|Body\HubspotCrmUpdateBody $requestBody) Perform a partial update of an company identified by {companyId}.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method self<Objects\CrmObject|object, null> update(int|string $companyId, array|Body\HubspotCrmUpdateBody $requestBody) Perform a partial update of an company identified by {companyId}.
+ * @method self<null>&Objects\CrmObject update(int|string $companyId, array|Body\HubspotCrmUpdateBody $requestBody) Perform a partial update of an company identified by {companyId}.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method static self<null, null> delete(int|string $companyId) Move an company identified by {companyId} to the recycling bin.
+ * @method static self<null> delete(int|string $companyId) Move an company identified by {companyId} to the recycling bin.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method self<null, null> delete(int|string $companyId) Move an company identified by {companyId} to the recycling bin.
+ * @method self<null> delete(int|string $companyId) Move an company identified by {companyId} to the recycling bin.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method static self<null, null> gdprDelete(array $requestBody) Permanently delete a contact and all associated content to follow GDPR.
+ * @method static self<null> gdprDelete(array $requestBody) Permanently delete a contact and all associated content to follow GDPR.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method self<null, null> gdprDelete(array $requestBody) Permanently delete a contact and all associated content to follow GDPR.
+ * @method self<null> gdprDelete(array $requestBody) Permanently delete a contact and all associated content to follow GDPR.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method static self<null, null> batchDelete(array|Body\HubspotBatchDeleteBody $requestBody) Archive a batch of companies by ID.
+ * @method static self<null> batchDelete(array|Body\HubspotBatchDeleteBody $requestBody) Archive a batch of companies by ID.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method self<null, null> batchDelete(array|Body\HubspotBatchDeleteBody $requestBody) Archive a batch of companies by ID.
+ * @method self<null> batchDelete(array|Body\HubspotBatchDeleteBody $requestBody) Archive a batch of companies by ID.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method static self<array<int, Objects\CrmObject|object>, Objects\CrmObject|object> batchCreate(array|Body\HubspotBatchCreateBody $requestBody) Create a batch of companies.
+ * @method static self<Objects\CrmObject|object> batchCreate(array|Body\HubspotBatchCreateBody $requestBody) Create a batch of companies.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method self<array<int, Objects\CrmObject|object>, Objects\CrmObject|object> batchCreate(array|Body\HubspotBatchCreateBody $requestBody) Create a batch of companies.
+ * @method self<Objects\CrmObject|object> batchCreate(array|Body\HubspotBatchCreateBody $requestBody) Create a batch of companies.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method static self<array<int, Objects\CrmObject|object>, Objects\CrmObject|object> batchRead(array|Body\HubspotBatchReadBody $requestBody) Read a batch of companies by internal ID, or unique property values.
+ * @method static self<Objects\CrmObject|object> batchRead(array|Body\HubspotBatchReadBody $requestBody) Read a batch of companies by internal ID, or unique property values.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method self<array<int, Objects\CrmObject|object>, Objects\CrmObject|object> batchRead(array|Body\HubspotBatchReadBody $requestBody) Read a batch of companies by internal ID, or unique property values.
+ * @method self<Objects\CrmObject|object> batchRead(array|Body\HubspotBatchReadBody $requestBody) Read a batch of companies by internal ID, or unique property values.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method static self<array<int, Objects\CrmObject|object>, Objects\CrmObject|object> batchUpdate(array|Body\HubspotBatchUpdateBody $requestBody) Update a batch of companies.
+ * @method static self<Objects\CrmObject|object> batchUpdate(array|Body\HubspotBatchUpdateBody $requestBody) Update a batch of companies.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method self<array<int, Objects\CrmObject|object>, Objects\CrmObject|object> batchUpdate(array|Body\HubspotBatchUpdateBody $requestBody) Update a batch of companies.
+ * @method self<Objects\CrmObject|object> batchUpdate(array|Body\HubspotBatchUpdateBody $requestBody) Update a batch of companies.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method static self<array<int, Objects\CrmObject|object>, Objects\CrmObject|object> search(array|Body\HubspotSearchBody $requestBody) Search companies.
+ * @method static self<Objects\CrmObject|object> search(array|Body\HubspotSearchBody $requestBody) Search companies.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method self<array<int, Objects\CrmObject|object>, Objects\CrmObject|object> search(array|Body\HubspotSearchBody $requestBody) Search companies.
+ * @method self<Objects\CrmObject|object> search(array|Body\HubspotSearchBody $requestBody) Search companies.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method static self<object, null> merge(array $requestBody) Merge two companies with same type.
+ * @method static self<null> merge(array $requestBody) Merge two companies with same type.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method self<object, null> merge(array $requestBody) Merge two companies with same type.
+ * @method self<null> merge(array $requestBody) Merge two companies with same type.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method static self<object, null> createOrUpdate(Body\HubspotCrmUpdateBody|array $requestBody, string|int|null $idHubspot = null) (Handler) Use Create or Update company if id is not null.
+ * @method static self<null> createOrUpdate(Body\HubspotCrmUpdateBody|array $requestBody, string|int|null $idHubspot = null) (Handler) Use Create or Update company if id is not null.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method self<object, null> createOrUpdate(Body\HubspotCrmUpdateBody|array $requestBody, string|int|null $idHubspot = null) (Handler) Use Create or Update company if id is not null.
+ * @method self<null> createOrUpdate(Body\HubspotCrmUpdateBody|array $requestBody, string|int|null $idHubspot = null) (Handler) Use Create or Update company if id is not null.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method static self<object, null> importAll(callable $fn) (Handler) Import All Companies using offset and getAll
+ * @method static self<null> importAll(callable $fn) (Handler) Import All Companies using offset and getAll
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
- * @method self<object, null> importAll(callable $fn) (Handler) Import All Companies using offset and getAll
+ * @method self<null> importAll(callable $fn) (Handler) Import All Companies using offset and getAll
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
  */

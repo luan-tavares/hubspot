@@ -7,56 +7,55 @@ use LTL\HubspotRequestBody\Resources as Body;
 use LTL\Hubspot\Objects as Objects;
 
 /**
- * @template TResponse
  * @template TIterator
- * @extends Hubspot<TResponse, TIterator>
+ * @extends Hubspot<TIterator>
  *
- * @method static self<object, null> get(int|string $dealId) 
+ * @method static self<null> get(int|string $dealId) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/get_deal
  *
- * @method self<object, null> get(int|string $dealId) 
+ * @method self<null> get(int|string $dealId) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/get_deal
  *
- * @method static self<object, null> getAll() 
+ * @method static self<null> getAll() 
  * See https://legacydocs.hubspot.com/docs/methods/deals/get-all-deals
  *
- * @method self<object, null> getAll() 
+ * @method self<null> getAll() 
  * See https://legacydocs.hubspot.com/docs/methods/deals/get-all-deals
  *
- * @method static self<object, null> getRecentlyModified() 
+ * @method static self<null> getRecentlyModified() 
  * See https://legacydocs.hubspot.com/docs/methods/deals/get_deals_modified
  *
- * @method self<object, null> getRecentlyModified() 
+ * @method self<null> getRecentlyModified() 
  * See https://legacydocs.hubspot.com/docs/methods/deals/get_deals_modified
  *
- * @method static self<object, null> getRecentlyCreated() 
+ * @method static self<null> getRecentlyCreated() 
  * See https://legacydocs.hubspot.com/docs/methods/deals/get_deals_created
  *
- * @method self<object, null> getRecentlyCreated() 
+ * @method self<null> getRecentlyCreated() 
  * See https://legacydocs.hubspot.com/docs/methods/deals/get_deals_created
  *
- * @method static self<object, null> create(array $requestBody) 
+ * @method static self<null> create(array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/create_deal
  *
- * @method self<object, null> create(array $requestBody) 
+ * @method self<null> create(array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/create_deal
  *
- * @method static self<object, null> update(int|string $dealId, array $requestBody) 
+ * @method static self<null> update(int|string $dealId, array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/update_deal
  *
- * @method self<object, null> update(int|string $dealId, array $requestBody) 
+ * @method self<null> update(int|string $dealId, array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/update_deal
  *
- * @method static self<object, null> delete(int|string $dealId) 
+ * @method static self<null> delete(int|string $dealId) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/delete_deal
  *
- * @method self<object, null> delete(int|string $dealId) 
+ * @method self<null> delete(int|string $dealId) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/delete_deal
  *
- * @method static self<object, null> batchUpdate(array $requestBody) 
+ * @method static self<null> batchUpdate(array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/batch-update-deals
  *
- * @method self<object, null> batchUpdate(array $requestBody) 
+ * @method self<null> batchUpdate(array $requestBody) 
  * See https://legacydocs.hubspot.com/docs/methods/deals/batch-update-deals
  *
  */

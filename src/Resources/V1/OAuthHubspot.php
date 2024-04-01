@@ -7,34 +7,33 @@ use LTL\HubspotRequestBody\Resources as Body;
 use LTL\Hubspot\Objects as Objects;
 
 /**
- * @template TResponse
  * @template TIterator
- * @extends Hubspot<TResponse, TIterator>
+ * @extends Hubspot<TIterator>
  *
  * @link https://app.hubspot.com/developer-docs/api?spec=v1/apis/auth/v1/oauth
  *
- * @method static self<object, null> getAccessToken(int|string $token) Get access-token info.
+ * @method static self<null> getAccessToken(int|string $token) Get access-token info.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/auth/v1/oauth
  *
- * @method self<object, null> getAccessToken(int|string $token) Get access-token info.
+ * @method self<null> getAccessToken(int|string $token) Get access-token info.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/auth/v1/oauth
  *
- * @method static self<object, null> getRefreshToken(int|string $token) Get access-token info.
+ * @method static self<null> getRefreshToken(int|string $token) Get access-token info.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/auth/v1/oauth
  *
- * @method self<object, null> getRefreshToken(int|string $token) Get access-token info.
+ * @method self<null> getRefreshToken(int|string $token) Get access-token info.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/auth/v1/oauth
  *
- * @method static self<object, null> deleteRefreshToken(int|string $token) Delete refresh-token.
+ * @method static self<null> deleteRefreshToken(int|string $token) Delete refresh-token.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/auth/v1/oauth
  *
- * @method self<object, null> deleteRefreshToken(int|string $token) Delete refresh-token.
+ * @method self<null> deleteRefreshToken(int|string $token) Delete refresh-token.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/auth/v1/oauth
  *
- * @method static self<object, null> createOrRefresh(array $requestBody) Install or Refresh App and create token.
+ * @method static self<null> createOrRefresh(array $requestBody) Install or Refresh App and create token.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/auth/v1/oauth
  *
- * @method self<object, null> createOrRefresh(array $requestBody) Install or Refresh App and create token.
+ * @method self<null> createOrRefresh(array $requestBody) Install or Refresh App and create token.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/auth/v1/oauth
  *
  */

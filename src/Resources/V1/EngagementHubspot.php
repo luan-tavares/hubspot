@@ -7,50 +7,49 @@ use LTL\HubspotRequestBody\Resources as Body;
 use LTL\Hubspot\Objects as Objects;
 
 /**
- * @template TResponse
  * @template TIterator
- * @extends Hubspot<TResponse, TIterator>
+ * @extends Hubspot<TIterator>
  *
- * @method static self<array<int, object>, object> getRecents() Get recent engagements.
+ * @method static self<object> getRecents() Get recent engagements.
  * See https://legacydocs.hubspot.com/docs/methods/engagements/get-recent-engagements
  *
- * @method self<array<int, object>, object> getRecents() Get recent engagements.
+ * @method self<object> getRecents() Get recent engagements.
  * See https://legacydocs.hubspot.com/docs/methods/engagements/get-recent-engagements
  *
- * @method static self<object, null> create(array $requestBody) Create an engagement.
+ * @method static self<null> create(array $requestBody) Create an engagement.
  * See https://legacydocs.hubspot.com/docs/methods/engagements/create_engagement
  *
- * @method self<object, null> create(array $requestBody) Create an engagement.
+ * @method self<null> create(array $requestBody) Create an engagement.
  * See https://legacydocs.hubspot.com/docs/methods/engagements/create_engagement
  *
- * @method static self<object, null> update(int|string $engagementId, array $requestBody) Update an Engagement.
+ * @method static self<null> update(int|string $engagementId, array $requestBody) Update an Engagement.
  * See https://legacydocs.hubspot.com/docs/methods/engagements/update_engagement-patch
  *
- * @method self<object, null> update(int|string $engagementId, array $requestBody) Update an Engagement.
+ * @method self<null> update(int|string $engagementId, array $requestBody) Update an Engagement.
  * See https://legacydocs.hubspot.com/docs/methods/engagements/update_engagement-patch
  *
- * @method static self<object, null> get(int|string $engagementId) Get an engagement.
+ * @method static self<null> get(int|string $engagementId) Get an engagement.
  * See https://legacydocs.hubspot.com/docs/methods/engagements/get_engagement
  *
- * @method self<object, null> get(int|string $engagementId) Get an engagement.
+ * @method self<null> get(int|string $engagementId) Get an engagement.
  * See https://legacydocs.hubspot.com/docs/methods/engagements/get_engagement
  *
- * @method static self<array<int, object>, object> getAll() Get all engagements.
+ * @method static self<object> getAll() Get all engagements.
  * See https://legacydocs.hubspot.com/docs/methods/engagements/get-all-engagements
  *
- * @method self<array<int, object>, object> getAll() Get all engagements.
+ * @method self<object> getAll() Get all engagements.
  * See https://legacydocs.hubspot.com/docs/methods/engagements/get-all-engagements
  *
- * @method static self<object, null> delete(int|string $engagementId) DELETE an Engagement.
+ * @method static self<null> delete(int|string $engagementId) DELETE an Engagement.
  * See https://legacydocs.hubspot.com/docs/methods/engagements/delete-engagement
  *
- * @method self<object, null> delete(int|string $engagementId) DELETE an Engagement.
+ * @method self<null> delete(int|string $engagementId) DELETE an Engagement.
  * See https://legacydocs.hubspot.com/docs/methods/engagements/delete-engagement
  *
- * @method static self<object, null> getCallDispositions() Get call engagement dispositions.
+ * @method static self<null> getCallDispositions() Get call engagement dispositions.
  * See https://legacydocs.hubspot.com/docs/methods/engagements/get-call-dispositions
  *
- * @method self<object, null> getCallDispositions() Get call engagement dispositions.
+ * @method self<null> getCallDispositions() Get call engagement dispositions.
  * See https://legacydocs.hubspot.com/docs/methods/engagements/get-call-dispositions
  *
  */

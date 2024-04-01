@@ -6,9 +6,8 @@ use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 
 /**
  *
- * @template TResponse
  * @template TIterator
- * @extends Resource<TResponse, TIterator>
+ * @extends Resource<TIterator>
  *
  *
  * Uri Query Methods
