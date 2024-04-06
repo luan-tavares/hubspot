@@ -14,102 +14,75 @@ use LTL\Hubspot\Core\Schema\ActionProperties\HandlerActionProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\HasBodyActionProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\IteratorIndexActionProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\MethodActionProperty;
+use LTL\Hubspot\Core\Schema\ActionProperties\ObjectIteratorProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\ObjectProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\ParamsActionProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\QueryAsParamProperty;
 use LTL\Hubspot\Core\Schema\ActionProperties\ResourceClassActionProperty;
-use LTL\Hubspot\Core\Schema\Interfaces\ActionSchemaInterface;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 
-/**
- * @property array|null $params
- * @property array|null $baseQuery
- * @property array|null $baseHeader
- * @property bool $authentication
- * @property bool $hasBody
- * @property string|null $description
- * @property string|null $iteratorIndex
- * @property string|null $afterIndex
- * @property string $resourceClass
- * @property string $baseUri
- * @property string $method
- * @property string|null $handler
- * @property array|null $queryAsParam
- * @property string|null $object
- */
-class ActionSchema implements ActionSchemaInterface
+class ActionSchema
 {
     #[ParamsActionProperty]
-    private array|null $params;
+    public readonly array|null $params;
 
     #[QueryAsParamProperty]
-    private array|null $queryAsParam;
+    public readonly array|null $queryAsParam;
     
     #[BaseQueryActionProperty]
-    private array|null $baseQuery;
+    public readonly array|null $baseQuery;
     
     #[BaseHeaderActionProperty]
-    private array|null $baseHeader;
+    public readonly array|null $baseHeader;
     
     #[AuthenticationActionProperty]
-    private bool $authentication;
+    public readonly bool $authentication;
     
     #[HasBodyActionProperty]
-    private bool $hasBody;
+    public readonly bool $hasBody;
      
     #[DescriptionActionProperty]
-    private string|null $description;
+    public readonly string|null $description;
 
     #[IteratorIndexActionProperty]
-    private string|null $iteratorIndex;
+    public readonly string|null $iteratorIndex;
 
     #[AfterIndexActionProperty]
-    private string|null $afterIndex;
+    public readonly string|null $afterIndex;
     
     #[ResourceClassActionProperty]
-    private string $resourceClass;
+    public readonly string $resourceClass;
 
     #[BaseUriActionProperty]
-    private string $baseUri;
+    public readonly string $baseUri;
     
     #[MethodActionProperty]
-    private string $method;
+    public readonly string $method;
 
     #[ActionMethodActionProperty]
-    private string $action;
+    public readonly string $action;
 
     #[HandlerActionProperty]
-    private string|null $handler;
+    public readonly string|null $handler;
 
     #[BodyTypesProperty]
-    private array|null $bodyTypes;
+    public readonly array|null $bodyTypes;
 
     #[ObjectProperty]
-    private string|null $object;
+    public readonly string|null $object;
 
-    /**
-     * \LTL\Hubspot\Factories\ActionSchemaFactory
-     */
+    #[ObjectIteratorProperty]
+    public readonly string|null $objectIterator;
+
     private function __construct()
     {
+        /**
+         * \LTL\Hubspot\Factories\ActionSchemaFactory
+         */
     }
 
     private function __clone()
     {
-    }
-
-    public function __get($property)
-    {
-        if (!array_key_exists($property, get_object_vars($this))) {
-            throw new HubspotApiException("Property {$property} not exists in ". __CLASS__);
-        }
-
-        return $this->{$property};
-    }
-
-    public function __isset($property)
-    {
-        return isset($this->{$property});
     }
 
     public function __toString()

@@ -4,7 +4,7 @@ namespace LTL\Hubspot\Core\Request\Interfaces;
 
 use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Core\Request\Interfaces\RequestArgumentsInterface;
-use LTL\Hubspot\Core\Schema\Interfaces\ActionSchemaInterface;
+use LTL\Hubspot\Core\Schema\ActionSchema;
 
 interface RequestInterface
 {
@@ -26,5 +26,5 @@ interface RequestInterface
     public function setRequestTries(int $limit): self;
     public function removeException(): self;
 
-    public function connect(ActionSchemaInterface $actionSchema, array $arguments): CurlInterface;
+    public function connect(ActionSchema $actionSchema, array $arguments): CurlInterface;
 }

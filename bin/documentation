@@ -39,6 +39,7 @@ function generateDoc(string $class, string $title, bool $onlyStatic = false): st
     
     $doc = " *\n * {$title}\n *\n";
     foreach ($reflectionMethods as $reflectionMethod) {
+       
         if ($reflectionMethod->class !== $class) {
             continue;
         }

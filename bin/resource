@@ -100,36 +100,38 @@ foreach ($resources as $resource) {
         $methodDocumentation = $actionSchema->documentation ?? $documentation;
 
         $description = $actionSchema->description ?? null;
-
+ 
 
         if(is_null(@$actionSchema->iteratorIndex)) {
-           
-            if(is_null(@$actionSchema->object)) {
-                $tResponse = 'self<null>';
+            if(is_null($objectData = @$actionSchema->object)) {
+                $object = 'self<null>';
             } else {
-                $tResponse = "self<null>&Objects\\{$actionSchema->object}";
+                $object = "Objects\\{$objectData}&self<null>";
             }
-            
-            $final =  $tResponse;
         } else {
-            if(is_null($tResponse = @$actionSchema->object)) {
-                $tIterator = 'object';
+            if(is_null($objectIterator = @$actionSchema->objectIterator)) {
+                $oIterator = 'object';
             } else {
-                $tIterator = "Objects\\{$tResponse}|object";
+                $oIterator = "Objects\\{$objectIterator}";
             }
-            $final = "self<{$tIterator}>";
+
+            if(is_null($objectData = @$actionSchema->object)) {
+                $object = "self<{$oIterator}>";
+            } else {
+                $object = "Objects\\{$objectData}&self<{$oIterator}>";
+            }
         }
 
         
     
-        $doc .= " * @method static {$final} {$action}({$params}) {$description}\n";
+        $doc .= " * @method static {$object} {$action}({$params}) {$description}\n";
 
         if ($methodDocumentation) {
             $doc .= " * See {$methodDocumentation}\n";
         }
         $doc .= " *\n";
 
-        $doc .= " * @method {$final} {$action}({$params}) {$description}\n";
+        $doc .= " * @method {$object} {$action}({$params}) {$description}\n";
 
         if ($methodDocumentation) {
             $doc .= " * See {$methodDocumentation}\n";

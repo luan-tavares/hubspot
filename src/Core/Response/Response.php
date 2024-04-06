@@ -6,7 +6,7 @@ use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Core\Globals\ApikeyGlobal;
 use LTL\Hubspot\Core\Response\Interfaces\ResponseInterface;
 use LTL\Hubspot\Core\Response\StatusResponse;
-use LTL\Hubspot\Core\Schema\Interfaces\ActionSchemaInterface;
+use LTL\Hubspot\Core\Schema\ActionSchema;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 
 class Response implements ResponseInterface
@@ -23,7 +23,11 @@ class Response implements ResponseInterface
 
     private string|int|null $after;
 
-    public function __construct(CurlInterface $curl, ActionSchemaInterface $actionSchema, RequestInfoObject $requestInfoObject)
+    private string|null $iteratorIndex = null;
+
+    private int $pointer = 0;
+
+    public function __construct(CurlInterface $curl, ActionSchema $actionSchema, RequestInfoObject $requestInfoObject)
     {
         $raw = $curl->response();
         $this->status = new StatusResponse($curl->status(), $raw);
@@ -35,6 +39,10 @@ class Response implements ResponseInterface
 
         $this->result = $responseObject->result;
         $this->after = $responseObject->after;
+
+        if($responseObject->isIterator) {
+            $this->iteratorIndex = $actionSchema->iteratorIndex;
+        }
     }
 
     public function __get($property)
@@ -123,7 +131,7 @@ class Response implements ResponseInterface
 
     private function verifyIterable(): void
     {
-        if (is_array($this->result)) {
+        if (!is_null($this->iteratorIndex)) {
             return;
         }
 
@@ -140,27 +148,28 @@ class Response implements ResponseInterface
     {
         $this->verifyIterable();
 
-        reset($this->result);
+        $this->pointer = 0;
     }
     
     public function current(): object|int
     {
-        return current($this->result);
+        
+        return $this->result->{$this->iteratorIndex}[$this->pointer];
     }
     
     public function key(): mixed
     {
-        return key($this->result);
+        return $this->pointer;
     }
     
     public function next(): void
     {
-        next($this->result);
+        $this->pointer++;
     }
     
     public function valid(): bool
     {
-        return !is_null(key($this->result));
+        return isset($this->result->{$this->iteratorIndex}[$this->pointer]);
     }
 
     /**Countable */

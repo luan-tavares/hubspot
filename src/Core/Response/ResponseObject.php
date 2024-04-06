@@ -4,13 +4,11 @@ namespace LTL\Hubspot\Core\Response;
 
 use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Core\Response\AfterResponse;
-use LTL\Hubspot\Core\Schema\Interfaces\ActionSchemaInterface;
-use LTL\Hubspot\Exceptions\HubspotApiException;
-use LTL\Hubspot\Objects\ErrorObject;
+use LTL\Hubspot\Core\Schema\ActionSchema;
 use LTL\Hubspot\Objects\Interfaces\ObjectInterface;
 use ReflectionClass;
+use ReflectionNamedType;
 use ReflectionProperty;
-use TypeError;
 
 class ResponseObject
 {
@@ -18,33 +16,36 @@ class ResponseObject
 
     public readonly string|int|null $after;
 
+    public readonly bool $isIterator;
+
     public function __construct(
-        ActionSchemaInterface $actionSchema,
+        ActionSchema $actionSchema,
         CurlInterface $curl,
         RequestInfoObject $requestInfoObject
     ) {
-        $raw = $curl->response();
-        
-        $objectResponse = json_decode($raw);
+        $objectResponse = json_decode($curl->response());
 
         $this->after = AfterResponse::get($actionSchema, $objectResponse);
-       
-        $data = $this->getResultData($actionSchema, $objectResponse);
-    
 
-        /**Delete or plain text 404 error */
-        if(is_null($data)) {
-            $this->result = $data;
+        $this->isIterator = IsIteratorResponse::get($actionSchema, $objectResponse);
+
+        if(is_null($objectResponse)) {
+            $this->result = null;
+
+            return;
+        }
+
+        if(!$requestInfoObject->hasObject || is_null($objectClass = $actionSchema->object)) {
+            $this->result = $objectResponse;
             
             return;
         }
 
-        if(is_null($objectClass = $this->getResolveObject($curl, $requestInfoObject, $actionSchema))) {
-            $this->result = $data;
-            
-            return;
-        }
+        $this->result = $this->buildObject($objectClass, $objectResponse, $actionSchema);
+    }
 
+    private function buildObject(string $objectClass, object $object, ActionSchema $actionSchema): object
+    {
         /**
          * @var ReflectionClass<ObjectInterface> $reflectionClass
          */
@@ -52,85 +53,41 @@ class ResponseObject
 
         $reflectionProperties = $reflectionClass->getProperties(ReflectionProperty::IS_PUBLIC|ReflectionProperty::IS_READONLY);
 
-        if(!is_array($data)) {
-            $this->result = $this->setProperties($reflectionClass, $reflectionProperties, $objectResponse);
-            
-            return;
-        }
+        $newObject = $reflectionClass->newInstanceWithoutConstructor();
 
-        $this->result = array_map(function (object $objectResponse) use ($reflectionClass, $reflectionProperties) {
-            return $this->setProperties($reflectionClass, $reflectionProperties, $objectResponse);
-        }, $data);
+        foreach ($reflectionProperties as $reflectionProperty) {
+            $value = $this->setObject($reflectionProperty, $actionSchema, $object);
+          
+            $reflectionProperty->setValue($newObject, $value);
+        }
+       
+        return $newObject;
     }
 
-    /**
-     * @param ReflectionClass<ObjectInterface> $reflectionClass
-     * @param array<ReflectionProperty> $reflectionProperties
-     */
-    private function setProperties(
-        ReflectionClass $reflectionClass,
-        array $reflectionProperties,
-        object $objectResponse
-    ): ObjectInterface {
-        $final = $reflectionClass->newInstanceWithoutConstructor();
+    private function setObject(ReflectionProperty $reflectionProperty, ActionSchema $actionSchema, object $object): mixed
+    {
+        $reflectionType = $reflectionProperty->getType();
+        $name = $reflectionProperty->getName();
 
-        $errors = null;
-        
-        try {
-            foreach ($reflectionProperties as $property) {
-                $property->setValue($final, @$objectResponse->{$property->name});
+        if ($reflectionType instanceof ReflectionNamedType) {
+            if($name === $actionSchema->iteratorIndex && $reflectionType->getName() === 'array') {
+                $list = $object->{$name};
+                $value = [];
+                    
+                foreach ($list as $singleObject) {
+                    $value[] = $this->buildObject($actionSchema->objectIterator, $singleObject, $actionSchema);
+                }
+                
+                return $value;
             }
-        } catch(TypeError) {
-            $errors[] = $property->name;
+
+            if(class_exists($reflectionType->getName())) {
+                if(in_array(ObjectInterface::class, class_implements($reflectionType->getName()))) {
+                    return $this->buildObject($reflectionType->getName(), $object->{$name}, $actionSchema);
+                }
+            }
+            
+            return @$object->{$reflectionProperty->name};
         }
-
-        if(!is_null($errors)) {
-            throw new HubspotApiException('Missing: '. implode(',', $errors));
-        }
-       
-        return $final;
-    }
-
-    private function getResolveObject(
-        CurlInterface $curl,
-        RequestInfoObject $requestInfoObject,
-        ActionSchemaInterface $actionSchema
-    ): string|null {
-        $hasError = $curl->error();
-
-        $withObject = $requestInfoObject->hasObject;
-
-        if(!$withObject) {
-            return null;
-        }
-
-        if($hasError) {
-            return ErrorObject::class;
-        }
-
-        if(is_null($objectClass = $actionSchema->object)) {
-            return null;
-        }
-       
-        return $objectClass;
-    }
-
-    private function getResultData(
-        ActionSchemaInterface $actionSchema,
-        object|array|null $objectResponse
-    ): array|object|null {
-        if (is_array($objectResponse)) {
-            return $objectResponse;
-        }
-
-        if(is_null($objectResponse)) {
-            return null;
-        }
-
-        if(is_null($iteratorIndex = $actionSchema->iteratorIndex)) {
-            return $objectResponse;
-        }
-
-        return $objectResponse->{$iteratorIndex};
     }
 }

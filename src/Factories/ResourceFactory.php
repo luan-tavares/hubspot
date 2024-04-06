@@ -7,20 +7,23 @@ use LTL\Hubspot\Containers\SingletonContainer;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 use LTL\Hubspot\Core\Response\RequestInfoObject;
 use LTL\Hubspot\Core\Response\Response;
-use LTL\Hubspot\Core\Schema\Interfaces\ActionSchemaInterface;
+use LTL\Hubspot\Core\Schema\ActionSchema;
 use ReflectionClass;
 
 abstract class ResourceFactory
 {
+    /**
+     * @return ResourceInterface
+     */
     public static function build(
-        ActionSchemaInterface $actionSchema,
+        ActionSchema $actionSchema,
         CurlInterface $curl,
         RequestInfoObject $requestInfoObject
     ): ResourceInterface {
         $response = new Response($curl, $actionSchema, $requestInfoObject);
-
+ 
         /**
-         * @var ReflectionClass $reflectionClass
+         * @var ReflectionClass<ResourceInterface> $reflectionClass
          */
         $reflectionClass = SingletonContainer::get($actionSchema->resourceClass, function ($class) {
             return new ReflectionClass($class);

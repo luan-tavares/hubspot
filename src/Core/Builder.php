@@ -68,8 +68,8 @@ class Builder implements BuilderInterface
         if (!is_null($handler)) {
             return Handlers::call($this, $handler, $arguments);
         }
-
-        $dto = new RequestInfoObject($this->request->getResponseRequest());
+        
+        $dto = new RequestInfoObject($this->request->getResponseRequest(), $this->baseResource);
 
         $curl = $this->request->connect($actionSchema, $arguments);
 

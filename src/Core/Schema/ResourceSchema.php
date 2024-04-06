@@ -4,12 +4,11 @@ namespace LTL\Hubspot\Core\Schema;
 
 use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
-use LTL\Hubspot\Core\Schema\Interfaces\ActionSchemaInterface;
-use LTL\Hubspot\Core\Schema\Interfaces\ResourceSchemaInterface;
+use LTL\Hubspot\Core\Schema\ActionSchema;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Factories\ActionSchemaFactory;
 
-class ResourceSchema implements ResourceSchemaInterface
+class ResourceSchema
 {
     private array $actionSchemas = [];
 
@@ -34,7 +33,6 @@ class ResourceSchema implements ResourceSchemaInterface
             $this->actions[$action]->isLatestVersion = $schema->latest ?? false;
             $this->actions[$action]->schemaHasAuthentication = $schema->authentication ?? true;
             $this->actions[$action]->defaultProperties = $schema->defaultProperties ?? null;
-            $this->actions[$action]->schemaObject = $schema->object ?? null;
         }
     }
 
@@ -61,7 +59,7 @@ class ResourceSchema implements ResourceSchemaInterface
         return array_keys($this->actions);
     }
 
-    public function getActionDefinition(string $action): ActionSchemaInterface
+    public function getActionDefinition(string $action): ActionSchema
     {
         if (!array_key_exists($action, $this->actionSchemas)) {
             $this->actionSchemas[$action] = ActionSchemaFactory::build($this, $action);

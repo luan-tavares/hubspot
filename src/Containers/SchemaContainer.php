@@ -3,8 +3,7 @@
 namespace LTL\Hubspot\Containers;
 
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
-use LTL\Hubspot\Core\Schema\Interfaces\ActionSchemaInterface;
-use LTL\Hubspot\Core\Schema\Interfaces\ResourceSchemaInterface;
+use LTL\Hubspot\Core\Schema\ActionSchema;
 use LTL\Hubspot\Core\Schema\ResourceSchema;
 use LTL\Hubspot\Interfaces\ContainerByResourceInterface;
 
@@ -12,7 +11,7 @@ abstract class SchemaContainer implements ContainerByResourceInterface
 {
     private static array $objects = [];
 
-    public static function get(ResourceInterface $resource): ResourceSchemaInterface
+    public static function get(ResourceInterface $resource): ResourceSchema
     {
         $hash = get_class($resource);
 
@@ -24,7 +23,7 @@ abstract class SchemaContainer implements ContainerByResourceInterface
         return self::$objects[$hash];
     }
 
-    public static function getAction(ResourceInterface $resource, string $action): ActionSchemaInterface
+    public static function getAction(ResourceInterface $resource, string $action): ActionSchema
     {
         return self::get($resource)->getActionDefinition($action);
     }

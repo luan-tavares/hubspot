@@ -10,6 +10,8 @@ use LTL\Hubspot\Concerns\WithObjectResponse;
 use LTL\Hubspot\Concerns\WithRequestException;
 use LTL\Hubspot\Concerns\WithRequestTries;
 use LTL\Hubspot\Core\Resource\Resource;
+use LTL\Hubspot\Properties\AbstractProperties;
+use LTL\Hubspot\Properties\PropertiesInterface;
 use ReflectionClass;
 
 /**
@@ -110,8 +112,6 @@ use ReflectionClass;
 */
 abstract class Hubspot extends Resource
 {
-    protected array $properties;
-
     protected array $associations;
 
     protected array $propertiesWithHistory;
@@ -146,10 +146,6 @@ abstract class Hubspot extends Resource
 
         if(in_array(WithEnrollUpdateList::class, $interfaces)) {
             $this->enrollObjectsUpdateList();
-        }
-
-        if(isset($this->properties)) {
-            $this->properties(...$this->properties);
         }
 
         if(isset($this->propertiesWithHistory)) {

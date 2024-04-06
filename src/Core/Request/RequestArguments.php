@@ -3,7 +3,7 @@
 namespace LTL\Hubspot\Core\Request;
 
 use LTL\Hubspot\Core\Request\Interfaces\RequestArgumentsInterface;
-use LTL\Hubspot\Core\Schema\Interfaces\ActionSchemaInterface;
+use LTL\Hubspot\Core\Schema\ActionSchema;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\HubspotRequestBody\Core\AbstractBody;
 
@@ -15,7 +15,7 @@ class RequestArguments implements RequestArgumentsInterface
 
     private array|AbstractBody|null $body = null;
     
-    public function __construct(private ActionSchemaInterface $actionSchema, array $arguments = [])
+    public function __construct(private ActionSchema $actionSchema, array $arguments = [])
     {
 
         $nArguments = count($arguments);

@@ -5,13 +5,10 @@ namespace LTL\Hubspot\Core\Resource\Traits;
 use Closure;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 
-/**
- * @template TIterator
- */
 trait ResourceEnumerable
 {
     /**
-     * @param Closure(TIterator $item, int $index): void $callback
+     * @param Closure(object $item, int $index): void $callback
      */
     public function each(callable $callback): void
     {

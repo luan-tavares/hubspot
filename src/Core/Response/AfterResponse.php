@@ -2,11 +2,11 @@
 
 namespace LTL\Hubspot\Core\Response;
 
-use LTL\Hubspot\Core\Schema\Interfaces\ActionSchemaInterface;
+use LTL\Hubspot\Core\Schema\ActionSchema;
 
 abstract class AfterResponse
 {
-    public static function get(ActionSchemaInterface $actionSchema, object|array|null $objectResponse)
+    public static function get(ActionSchema $actionSchema, object|array|null $objectResponse)
     {
         if (is_null($actionSchema->afterIndex)) {
             return null;

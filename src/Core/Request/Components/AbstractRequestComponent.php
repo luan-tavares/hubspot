@@ -79,6 +79,13 @@ abstract class AbstractRequestComponent
         return $this->add($name, $value);
     }
 
+    public function addNull(string $name): self
+    {
+        $this->items[$name] = null;
+
+        return $this;
+    }
+
     public function add(string $name, string|int|array|bool|null $value = null): self
     {
         if (is_null($value)) {

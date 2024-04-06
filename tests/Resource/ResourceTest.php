@@ -99,7 +99,7 @@ class ResourceTest extends TestCase
 
     public function testIfToStringMagicMethodIsCorrect()
     {
-        $builder = (new DealHubspot)->properties('a,b,c');
+        $builder = (new DealHubspot)->properties('a', 'b', 'c');
    
         $this->assertEquals((string) $builder->baseResource(), 'deals-v3');
     }

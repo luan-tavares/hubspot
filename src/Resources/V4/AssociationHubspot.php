@@ -12,16 +12,16 @@ use LTL\Hubspot\Objects as Objects;
  *
  * @link https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method static self<Objects\AssociationDefinitionObject|object> getDefinition(int|string $fromObjectType, int|string $toObjectType) Returns all association types between two object types.
+ * @method static Objects\AssociationDefinitionObject&self<object> getDefinition(int|string $fromObjectType, int|string $toObjectType) Returns all association types between two object types.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method self<Objects\AssociationDefinitionObject|object> getDefinition(int|string $fromObjectType, int|string $toObjectType) Returns all association types between two object types.
+ * @method Objects\AssociationDefinitionObject&self<object> getDefinition(int|string $fromObjectType, int|string $toObjectType) Returns all association types between two object types.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method static self<Objects\AssociationDefinitionObject|object> createDefinition(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Create a user defined association definition.
+ * @method static Objects\AssociationDefinitionObject&self<object> createDefinition(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Create a user defined association definition.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method self<Objects\AssociationDefinitionObject|object> createDefinition(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Create a user defined association definition.
+ * @method Objects\AssociationDefinitionObject&self<object> createDefinition(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Create a user defined association definition.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
  * @method static self<null> updateDefinition(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Update a user defined association definition.
@@ -42,10 +42,10 @@ use LTL\Hubspot\Objects as Objects;
  * @method self<null> batchDelete(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Batch delete associations for objects.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method static self<null>&Objects\AssociationObject batchCreate(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Batch create associations for objects.
+ * @method static Objects\AssociationObject&self<null> batchCreate(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Batch create associations for objects.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method self<null>&Objects\AssociationObject batchCreate(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Batch create associations for objects.
+ * @method Objects\AssociationObject&self<null> batchCreate(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Batch create associations for objects.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
  * @method static self<null> batchCreateDefault(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Create the default (most generic) association type between two object types.

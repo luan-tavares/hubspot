@@ -12,7 +12,8 @@
             "description": "Read a page of companies. Control what is returned via the properties query param.",
             "iteratorIndex": "results",
             "afterIndex": "paging.next.after",
-            "object": "CrmObject"
+            "object": "CrmListObject",
+            "objectIterator": "CrmObject"
         },
         "get": {
             "path": "objects/companies/{companyId}",

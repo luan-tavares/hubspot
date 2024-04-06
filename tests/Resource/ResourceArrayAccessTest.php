@@ -4,9 +4,7 @@ namespace LTL\Hubspot\Tests\Resource;
 
 use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Containers\SchemaContainer;
-use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 use LTL\Hubspot\Core\Response\RequestInfoObject;
-use LTL\Hubspot\Core\Schema\Interfaces\ActionSchemaInterface;
 use LTL\Hubspot\Factories\ResourceFactory;
 use LTL\Hubspot\Resources\V3\ContactHubspot;
 use LTL\Hubspot\Resources\V4\AssociationHubspot;

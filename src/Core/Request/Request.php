@@ -12,7 +12,7 @@ use LTL\Hubspot\Core\Request\Interfaces\ResourceRequestComponentInterface;
 use LTL\Hubspot\Core\Request\Interfaces\ResponseRequestComponentInterface;
 use LTL\Hubspot\Core\Request\RequestComponentsList;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
-use LTL\Hubspot\Core\Schema\Interfaces\ActionSchemaInterface;
+use LTL\Hubspot\Core\Schema\ActionSchema;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 
 class Request implements RequestInterface
@@ -51,7 +51,7 @@ class Request implements RequestInterface
         throw new HubspotApiException("{$className}::{$method}() not exists");
     }
 
-    public function connect(ActionSchemaInterface $actionSchema, array $arguments): CurlInterface
+    public function connect(ActionSchema $actionSchema, array $arguments): CurlInterface
     {
         $requestArguments = new RequestArguments($actionSchema, $arguments);
 
