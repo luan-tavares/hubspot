@@ -103,6 +103,12 @@ use LTL\Hubspot\Resources\V3\Interfaces\{CrmHubspotInterface};
  * @method self<null> createOrUpdate(Body\HubspotCrmUpdateBody|array $requestBody, string|int|null $idHubspot = null) (Handler) Use Create or Update line item if id exists.
  * See https://developers.hubspot.com/docs/api/crm/line-items
  *
+ * @method static self<null> importAll(callable $fn) (Handler) Import all line item.
+ * See https://developers.hubspot.com/docs/api/crm/line-items
+ *
+ * @method self<null> importAll(callable $fn) (Handler) Import all line item.
+ * See https://developers.hubspot.com/docs/api/crm/line-items
+ *
  */
 class LineItemHubspot extends Hubspot implements CrmHubspotInterface
 {
