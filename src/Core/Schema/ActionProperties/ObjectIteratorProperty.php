@@ -8,7 +8,7 @@ class ObjectIteratorProperty extends ActionProperty
 {
     protected function parse(object $actionSchema): string|null
     {
-        if (isset($actionSchema->object)) {
+        if (isset($actionSchema->objectIterator)) {
             return 'LTL\\Hubspot\\Objects\\'. $actionSchema->objectIterator;
         }
        
