@@ -178,7 +178,7 @@ class Response implements ResponseInterface
     {
         $this->verifyIterable();
 
-        return count($this->result);
+        return count($this->result->{$this->iteratorIndex});
     }
 
     public function empty(): bool

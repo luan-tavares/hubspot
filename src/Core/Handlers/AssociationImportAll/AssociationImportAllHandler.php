@@ -30,6 +30,7 @@ abstract class AssociationImportAllHandler
              * @var ResourceInterface $resourceHubspot
              */
             $resourceHubspot = $builder->getAll($fromObjectType, $fromObjectId, $toObjectType);
+            
            
             $after = $resourceHubspot->getAfter();
             
