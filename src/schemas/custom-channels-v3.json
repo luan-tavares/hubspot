@@ -1,0 +1,19 @@
+{
+    "resource": "conversations",
+    "class": "CustomChannelHubspot",
+    "documentation": "-",
+    "version": 3,
+    "latest": true,
+    "actions": {
+        "createChannelAccount": {
+            "path": "custom-channels/{channelId}/channel-accounts",
+            "method": "POST",
+            "description": "Create channel account in portal."
+        },
+        "postMessage": {
+            "path": "custom-channels/{channelId}/messages",
+            "method": "POST",
+            "description": "Post Message in thread."
+        }
+    }
+}
