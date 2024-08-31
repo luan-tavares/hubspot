@@ -23,7 +23,7 @@ abstract class RequestConnection implements RequestConnectionInterface
         }
 
         $headers = RequestHeaders::get($request, $requestArguments);
-        
+
         $uri = RequestUri::get($request, $requestArguments);
 
         $curlParams = $request->getCurlParams();
@@ -33,11 +33,11 @@ abstract class RequestConnection implements RequestConnectionInterface
         $curl = self::recursiveCurl($request, $requestArguments, $curl);
 
         if ($curl->error() && $request->hasWithRequestException()) {
-            $response = empty($curl->response())?'"NO RESPONSE"':$curl->response();
+            $response = empty($curl->response()) ? '"NO RESPONSE"' : $curl->response();
 
             throw new HubspotApiException("Error {$curl->status()} :: {$response}");
         }
-        
+
         return $curl;
     }
 
@@ -48,10 +48,10 @@ abstract class RequestConnection implements RequestConnectionInterface
         int $current = 1
     ): CurlInterface {
         $requestTries = $request->getRequestsTries();
-        
+
         $curlResponse = $curl->request($requestArguments->getMethod(), $requestArguments->body());
- 
-        if ($curlResponse->status() !== HubspotConfig::TOO_MANY_REQUESTS_ERROR_CODE) {
+
+        if (!in_array($curlResponse->status(), HubspotConfig::TRY_AGAIN_STATUS_LIST)) {
             return $curlResponse;
         }
 
