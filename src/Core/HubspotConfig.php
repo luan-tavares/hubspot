@@ -20,9 +20,12 @@ abstract class HubspotConfig
 
     public const SERVER_STRANGE_ERROR_CODE = 502;
 
+    public const SERVER_GENERIC_ERROR_CODE = 500;
+
     public const TRY_AGAIN_STATUS_LIST = [
         self::SERVER_STRANGE_ERROR_CODE,
-        self::TOO_MANY_REQUESTS_ERROR_CODE
+        self::TOO_MANY_REQUESTS_ERROR_CODE,
+        self::SERVER_GENERIC_ERROR_CODE
     ];
 
     public const MAX_REQUESTS_TRIES = 15;
