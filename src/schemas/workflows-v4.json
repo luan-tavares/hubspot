@@ -1,0 +1,26 @@
+{
+    "resource": "automation",
+    "class": "WorkflowHubspot",
+    "version": 4,
+    "documentation": "https://developers.hubspot.com/docs/api/automation/workflows",
+    "actions": {
+        "getAll": {
+            "path": "flows",
+            "method": "GET",
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
+        },
+        "create": {
+            "path": "flows",
+            "method": "POST"
+        },
+        "get": {
+            "path": "flows/{flowId}",
+            "method": "GET"
+        },
+        "delete": {
+            "path": "flows/{flowId}",
+            "method": "DELETE"
+        }
+    }
+}
