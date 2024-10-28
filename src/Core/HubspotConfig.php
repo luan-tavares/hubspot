@@ -33,7 +33,7 @@ abstract class HubspotConfig
         self::SERVER_GENERIC_2_ERROR_CODE,
         self::SERVER_GENERIC_3_ERROR_CODE
     ];
-
+    /** */
     public const MAX_REQUESTS_TRIES = 15;
 
     public const CONFLICT_ERROR_CODE = 409;
