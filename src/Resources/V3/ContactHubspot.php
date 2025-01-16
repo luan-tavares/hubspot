@@ -121,10 +121,10 @@ use LTL\Hubspot\Resources\V3\Interfaces\{CrmHubspotInterface};
  * @method self<null> importAll(callable $fn) (Handler) Import All Contacts using offset and getAll
  * See https://developers.hubspot.com/docs/api/crm/contacts
  *
- * @method static self<null> createOrUpdateByEmail(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $idHubspot = null) (Handler) Create or Update If Email Exists
+ * @method static self<null> createOrUpdateByEmail(Body\HubspotCrmUpdateBody|array $requestBody, string|int|null $idHubspot = null) (Handler) Create or Update If Email Exists
  * See https://developers.hubspot.com/docs/api/crm/contacts
  *
- * @method self<null> createOrUpdateByEmail(LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder|array $requestBody, string|int|null $idHubspot = null) (Handler) Create or Update If Email Exists
+ * @method self<null> createOrUpdateByEmail(Body\HubspotCrmUpdateBody|array $requestBody, string|int|null $idHubspot = null) (Handler) Create or Update If Email Exists
  * See https://developers.hubspot.com/docs/api/crm/contacts
  *
  */

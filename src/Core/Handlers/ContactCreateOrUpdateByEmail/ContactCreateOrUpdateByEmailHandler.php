@@ -2,24 +2,24 @@
 
 namespace LTL\Hubspot\Core\Handlers\ContactCreateOrUpdateByEmail;
 
-use LTL\Hubspot\Core\BodyBuilder\BaseBodyBuilder;
 use LTL\Hubspot\Core\Builder;
 use LTL\Hubspot\Core\Helpers\GetIdFromErrorMessageHelper;
 use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
 use LTL\Hubspot\Exceptions\HubspotApiException;
+use LTL\HubspotRequestBody\Resources\HubspotCrmUpdateBody;
 
 abstract class ContactCreateOrUpdateByEmailHandler
 {
     public static function handle(
         Builder $builder,
-        BaseBodyBuilder|array $requestBody,
+        HubspotCrmUpdateBody|array $requestBody,
         int|null|string $idHubspot = null
     ): ResourceInterface {
         $request = $builder->request();
 
         $hasException = $request->hasWithRequestException();
-        
+
         $request->removeException();
 
         $hubspotResponse = self::createOrUpdate($builder, $requestBody, $idHubspot);
@@ -52,7 +52,7 @@ abstract class ContactCreateOrUpdateByEmailHandler
 
     private static function createOrUpdate(
         Builder $builder,
-        BaseBodyBuilder|array $requestBody,
+        HubspotCrmUpdateBody|array $requestBody,
         int|null|string $idHubspot = null
     ): ResourceInterface {
         if (is_null($idHubspot)) {
