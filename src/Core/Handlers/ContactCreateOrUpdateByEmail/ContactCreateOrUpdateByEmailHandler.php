@@ -17,7 +17,7 @@ abstract class ContactCreateOrUpdateByEmailHandler
         int|null|string $idHubspot = null
     ): ResourceInterface {
         $request = $builder->request();
-
+        /** */
         $hasException = $request->hasWithRequestException();
 
         $request->removeException();
