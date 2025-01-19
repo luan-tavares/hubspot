@@ -100,6 +100,4 @@ use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
  * @method static $this setGlobalApikey(string $apikey) 
  * @method static $this setGlobalOAuth(string $token) 
 */
-interface HubspotInterface extends ResourceInterface
-{
-}
+interface HubspotInterface extends ResourceInterface {}
