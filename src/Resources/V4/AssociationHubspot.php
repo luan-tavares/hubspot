@@ -72,6 +72,12 @@ use LTL\Hubspot\Objects as Objects;
  * @method self<null> create(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType, int|string $toObjectId, array $requestBody) Set association labels between two records.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
+ * @method static self<null> createDefault(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType, int|string $toObjectId) Set association labels between two records default.
+ * See https://developers.hubspot.com/docs/api/crm/associations/v4
+ *
+ * @method self<null> createDefault(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType, int|string $toObjectId) Set association labels between two records default.
+ * See https://developers.hubspot.com/docs/api/crm/associations/v4
+ *
  * @method static self<null> delete(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType, int|string $toObjectId) deletes all associations between two records.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *

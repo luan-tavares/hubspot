@@ -63,6 +63,12 @@
             "method": "PUT",
             "description": "Set association labels between two records."
         },
+        "createDefault": {
+            "path": "objects/{fromObjectType}/{fromObjectId}/associations/default/{toObjectType}/{toObjectId}",
+            "method": "PUT",
+            "hasBody": false,
+            "description": "Set association labels between two records default."
+        },
         "delete": {
             "path": "objects/{fromObjectType}/{fromObjectId}/associations/{toObjectType}/{toObjectId}",
             "method": "DELETE",
