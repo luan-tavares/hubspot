@@ -26,6 +26,8 @@ use ReflectionClass;
  * @method static $this query(string $query, ?string $value) 
  * @method $this byEmail() 
  * @method static $this byEmail() 
+ * @method $this idProperty(string $propertyUnique) 
+ * @method static $this idProperty(string $propertyUnique) 
  * @method $this q(string $query) 
  * @method static $this q(string $query) 
  * @method $this archived() 

@@ -34,6 +34,11 @@ class QueryRequestComponent extends AbstractRequestComponent implements QueryCom
         return $this->addNotNull('archived', 'true');
     }
 
+    public function idProperty(string $propertyUnique): self
+    {
+        return $this->addNotNull('idProperty', $propertyUnique);
+    }
+
     public function includeForeignIds(): self
     {
         return $this->addNotNull('includeForeignIds', 'true');

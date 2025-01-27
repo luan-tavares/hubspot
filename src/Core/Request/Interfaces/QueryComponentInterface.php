@@ -9,6 +9,7 @@ interface QueryComponentInterface extends ComponentInterface, PublicMethodsLista
 {
     public function query(string $query, string|null $value = null): self;
     public function byEmail(): self;
+    public function idProperty(string $propertyUnique): self;
     public function q(string $query): self;
     public function archived(): self;
     public function includeForeignIds(): self;
