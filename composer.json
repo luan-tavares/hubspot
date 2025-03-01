@@ -32,11 +32,10 @@
         "bin/resource"
     ],
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "luan-tavares/list-methods": "^1.0",
         "luan-tavares/simple-curl": "^2.0",
         "luan-tavares/simple-deploy": "^1.0",
-        "nesbot/carbon": "^2.62",
         "luan-tavares/hubspot-request-body": "^1.0"
     },
     "require-dev": {
