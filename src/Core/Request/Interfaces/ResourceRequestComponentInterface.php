@@ -10,4 +10,5 @@ interface ResourceRequestComponentInterface extends ComponentInterface, PublicMe
     public function withRequestTries(): self;
     public function withRequestException(): self;
     public function notWithRequestException(): self;
+    public function defineRequestTries(int $tries): self;
 }

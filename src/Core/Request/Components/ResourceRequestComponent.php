@@ -21,6 +21,11 @@ class ResourceRequestComponent extends AbstractRequestComponent implements Resou
         return $this->addNotNull('tries', HubspotConfig::MAX_REQUESTS_TRIES);
     }
 
+    public function defineRequestTries(int $tries): self
+    {
+        return $this->addNotNull('tries', $tries);
+    }
+
     public function withRequestException(): self
     {
         return $this->addNotNull('exception', true);

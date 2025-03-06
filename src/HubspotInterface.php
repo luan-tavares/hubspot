@@ -89,6 +89,8 @@ use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
  * @method static $this withRequestException() 
  * @method $this notWithRequestException() 
  * @method static $this notWithRequestException() 
+ * @method $this defineRequestTries(int $tries) 
+ * @method static $this defineRequestTries(int $tries) 
  *
  * Response Type Methods
  *
