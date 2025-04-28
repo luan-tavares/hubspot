@@ -40,17 +40,17 @@ class Response implements ResponseInterface
         $this->result = $responseObject->result;
         $this->after = $responseObject->after;
 
-        if($responseObject->isIterator) {
+        if ($responseObject->isIterator) {
             $this->iteratorIndex = $actionSchema->iteratorIndex;
         }
     }
 
     public function __get($property)
     {
-        if(!is_null($value = @$this->result->{$property})) {
+        if (!is_null($value = @$this->result->{$property})) {
             return $value;
         }
-      
+
         throw new HubspotApiException("Property \"{$property}\" not exists.");
     }
 
@@ -105,6 +105,11 @@ class Response implements ResponseInterface
         return $this->status->hasErrors();
     }
 
+    public function isServerError(): bool
+    {
+        return ($this->status >= 500 && $this->status < 600);
+    }
+
     public function isMultiStatus(): bool
     {
         return $this->status->isMultiStatus();
@@ -150,23 +155,23 @@ class Response implements ResponseInterface
 
         $this->pointer = 0;
     }
-    
+
     public function current(): object|int
     {
-        
+
         return $this->result->{$this->iteratorIndex}[$this->pointer];
     }
-    
+
     public function key(): mixed
     {
         return $this->pointer;
     }
-    
+
     public function next(): void
     {
         $this->pointer++;
     }
-    
+
     public function valid(): bool
     {
         return isset($this->result->{$this->iteratorIndex}[$this->pointer]);

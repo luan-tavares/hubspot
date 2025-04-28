@@ -15,7 +15,7 @@ trait ResourceResponse
 
         return $this->response->toArray();
     }
-  
+
     public function toJson(): string
     {
         $this->verifyIfResponseExists(__FUNCTION__);
@@ -36,7 +36,7 @@ trait ResourceResponse
 
         return $this->response->getResult();
     }
-  
+
     public function status(): int
     {
         $this->verifyIfResponseExists(__FUNCTION__);
@@ -49,6 +49,13 @@ trait ResourceResponse
         $this->verifyIfResponseExists(__FUNCTION__);
 
         return $this->response->isMultiStatus();
+    }
+
+    public function isServerError(): bool
+    {
+        $this->verifyIfResponseExists(__FUNCTION__);
+
+        return $this->response->isServerError();
     }
 
     public function invalidEmailError(): bool
