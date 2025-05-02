@@ -25,7 +25,7 @@ $post_data = [
 ];
 
 
-$request = FileHubspot::withProgressBar()->withHeaders()->upload($post_data);
+$request = FileHubspot::withProgressBar()->setTimeout(1)->withHeaders()->upload($post_data);
 dd($request);
 
 $params = [

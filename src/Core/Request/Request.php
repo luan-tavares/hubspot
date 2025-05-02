@@ -1,4 +1,5 @@
 <?php
+
 namespace LTL\Hubspot\Core\Request;
 
 use LTL\Curl\Interfaces\CurlInterface;
@@ -28,15 +29,13 @@ class Request implements RequestInterface
     private ResponseRequestComponentInterface $responseRequest;
 
     private ResourceInterface $resource;
-    
+
     private function __construct()
     {
         /**Factory \LTL\Hubspot\Factories\RequestFactory */
     }
 
-    private function __clone()
-    {
-    }
+    private function __clone() {}
 
     public function __call($method, $arguments)
     {
@@ -77,16 +76,16 @@ class Request implements RequestInterface
     public function addUriArguments(RequestArgumentsInterface $requestArguments): self
     {
         $this->query->addArrayBefore($requestArguments->baseQuery());
-        
+
         $this->query->addArrayBefore($requestArguments->queriesAsParams());
-        
+
         return $this;
     }
 
     public function addBaseHeader(RequestArgumentsInterface $requestArguments): self
     {
         $this->header->addArrayBefore($requestArguments->baseHeader());
-        
+
         return $this;
     }
 
@@ -101,7 +100,7 @@ class Request implements RequestInterface
     {
         $maxTries = HubspotConfig::MAX_REQUESTS_TRIES;
 
-        if($tries >= 1 && $tries <= $maxTries) {
+        if ($tries >= 1 && $tries <= $maxTries) {
             $this->resourceRequest->add('tries', $tries);
 
             return $this;
@@ -116,14 +115,14 @@ class Request implements RequestInterface
 
         return $this;
     }
-    
+
     public function removeOAuth(): self
     {
         $this->header->delete('Authorization');
 
         return $this;
     }
- 
+
     /**Items for Curl Request */
 
     public function getQueries(): array
@@ -144,6 +143,11 @@ class Request implements RequestInterface
     public function getResponseRequest(): array
     {
         return $this->responseRequest->all();
+    }
+
+    public function getClientTimeout(): int
+    {
+        return $this->curl->value(CURLOPT_TIMEOUT);
     }
 
     public function getRequestsTries(): int
