@@ -3,6 +3,7 @@
 namespace LTL\Hubspot\Core\Request;
 
 use LTL\Curl\Curl;
+use LTL\Curl\CurlException;
 use LTL\Curl\Interfaces\CurlInterface;
 use LTL\Hubspot\Core\Globals\TimesleepGlobal;
 use LTL\Hubspot\Core\HubspotConfig;
@@ -30,7 +31,11 @@ abstract class RequestConnection implements RequestConnectionInterface
 
         $curl->addUri($uri)->addHeaders($headers)->addParams($curlParams);
 
-        $curl = self::recursiveCurl($request, $requestArguments, $curl);
+        try {
+            $curl = self::recursiveCurl($request, $requestArguments, $curl);
+        } catch (CurlException $exception) {
+            throw new HubspotApiException($exception->getMessage());
+        }
 
         if ($curl->error() && $request->hasWithRequestException()) {
             $response = empty($curl->response()) ? '"NO RESPONSE"' : $curl->response();

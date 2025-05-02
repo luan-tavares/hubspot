@@ -1,11 +1,11 @@
 <?php
 
-require_once __DIR__ .'/__init.php';
+require_once __DIR__ . '/__init.php';
 
 use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Resources\V3\FileHubspot;
 
-$path = HubspotConfig::BASE_PATH .'/luan.csv';
+$path = '/home/luan/Downloads/Aula-de-JavaScript-Funcional-e-Frontend.pptx';
 
 $upload_file = new CURLFile($path, 'application/octet-stream');
 
@@ -25,7 +25,8 @@ $post_data = [
 ];
 
 
-
+$request = FileHubspot::withProgressBar()->withHeaders()->upload($post_data);
+dd($request);
 
 $params = [
     'access' => 'PRIVATE',
@@ -38,7 +39,6 @@ $params = [
     'folderPath' => '/__luan'
 ];
 
-$request = FileHubspot::withProgressBar()->withHeaders()->upload($post_data);
 
 dump($request->url);
 $file = FileHubspot::withProgressBar()->importFromUrl($params);

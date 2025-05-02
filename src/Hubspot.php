@@ -90,6 +90,8 @@ use ReflectionClass;
  * @method static $this withProgressBar() 
  * @method $this withHeaders() 
  * @method static $this withHeaders() 
+ * @method $this setTimeout(int $timeout) 
+ * @method static $this setTimeout(int $timeout) 
  *
  * Others Resources Methods
  *

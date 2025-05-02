@@ -36,6 +36,8 @@ abstract class HubspotConfig
     /** */
     public const MAX_REQUESTS_TRIES = 15;
 
+    public const TIMEOUT = 10;
+
     public const CONFLICT_ERROR_CODE = 409;
 
     public const NOT_FOUND_ERROR_CODE = 404;

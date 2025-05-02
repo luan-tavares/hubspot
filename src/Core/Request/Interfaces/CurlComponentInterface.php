@@ -9,4 +9,5 @@ interface CurlComponentInterface extends ComponentInterface, PublicMethodsListab
 {
     public function withProgressBar(): self;
     public function withHeaders(): self;
+    public function setTimeout(int $timeout): self;
 }
