@@ -12,6 +12,8 @@ use LTL\Hubspot\Core\Request\Interfaces\RequestConnectionInterface;
 use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
 use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Exceptions\HubspotClientTimeoutException;
+use LTL\Hubspot\Exceptions\HubspotCurlException;
+use LTL\Hubspot\Exceptions\HubspotCurlRecvException;
 
 abstract class RequestConnection implements RequestConnectionInterface
 {
@@ -35,10 +37,16 @@ abstract class RequestConnection implements RequestConnectionInterface
         try {
             $curl = self::recursiveCurl($request, $requestArguments, $curl);
         } catch (CurlException $exception) {
-            if ($exception->getCode() === CURLE_OPERATION_TIMEDOUT) {
-                throw new HubspotClientTimeoutException("Client Timeout: {$request->getClientTimeout()} seconds.");
+            $code = $exception->getCode();
+            $message = $exception->getMessage();
+
+            if ($code === CURLE_OPERATION_TIMEDOUT) {
+                throw new HubspotClientTimeoutException("Client Timeout: {$request->getClientTimeout()} seconds.", $code);
             }
-            throw new HubspotApiException($exception->getMessage());
+            if ($code === CURLE_RECV_ERROR) {
+                throw new HubspotCurlRecvException($message, $code);
+            }
+            throw new HubspotCurlException($message, $code);
         }
 
         if ($curl->error() && $request->hasWithRequestException()) {
