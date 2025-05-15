@@ -12,6 +12,7 @@ class ResponseRequestComponent extends AbstractRequestComponent implements Respo
     protected function register(): void
     {
         $this->notWithObjectResponse();
+        $this->isErrorIfPropertyNotExists();
     }
 
     public function withObjectResponse(): self
@@ -22,5 +23,15 @@ class ResponseRequestComponent extends AbstractRequestComponent implements Respo
     public function notWithObjectResponse(): self
     {
         return $this->addNotNull('hasObject', false);
+    }
+
+    public function isErrorIfPropertyNotExists(): self
+    {
+        return $this->addNotNull('errorIfPropertyExists', true);
+    }
+
+    public function isNullIfPropertyNotExists(): self
+    {
+        return $this->addNotNull('errorIfPropertyExists', false);
     }
 }

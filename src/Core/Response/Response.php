@@ -27,6 +27,8 @@ class Response implements ResponseInterface
 
     private int $pointer = 0;
 
+    private readonly bool $hasErrorIfPropertyNotExists;
+
     public function __construct(CurlInterface $curl, ActionSchema $actionSchema, RequestInfoObject $requestInfoObject)
     {
         $raw = $curl->response();
@@ -34,6 +36,7 @@ class Response implements ResponseInterface
         $this->uri = ApikeyGlobal::uriMask($curl->uri());
         $this->headers = $curl->headers();
         $this->raw = $raw;
+        $this->hasErrorIfPropertyNotExists = $requestInfoObject->hasErrorIfPropertyNotExists;
 
         $responseObject = new ResponseObject($actionSchema, $curl, $requestInfoObject);
 
@@ -49,6 +52,10 @@ class Response implements ResponseInterface
     {
         if (!is_null($value = @$this->result->{$property})) {
             return $value;
+        }
+
+        if (!$this->hasErrorIfPropertyNotExists) {
+            return null;
         }
 
         throw new HubspotApiException("Property \"{$property}\" not exists.");

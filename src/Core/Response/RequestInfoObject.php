@@ -10,11 +10,16 @@ class RequestInfoObject
 {
     public readonly bool $hasObject;
 
+    public readonly bool $hasErrorIfPropertyNotExists;
+
     public readonly string|null $propertyClass;
 
     public function __construct(array $responseRequestData, ResourceInterface $resource)
     {
+
         $this->hasObject = $responseRequestData['hasObject'];
+
+        $this->hasErrorIfPropertyNotExists = $responseRequestData['errorIfPropertyExists'];
 
         try {
             $reflectionProperty = new ReflectionProperty($resource, 'properties');
@@ -22,12 +27,10 @@ class RequestInfoObject
             $type = $reflectionProperty->getType();
 
             $this->propertyClass = $type->getName();
-        } catch(ReflectionException) {
+        } catch (ReflectionException) {
             $this->propertyClass = null;
 
             return;
         }
-
-       
     }
 }

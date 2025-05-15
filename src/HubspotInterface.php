@@ -100,6 +100,10 @@ use LTL\Hubspot\Core\Resource\Interfaces\ResourceInterface;
  * @method static $this withObjectResponse() 
  * @method $this notWithObjectResponse() 
  * @method static $this notWithObjectResponse() 
+ * @method $this isErrorIfPropertyNotExists() 
+ * @method static $this isErrorIfPropertyNotExists() 
+ * @method $this isNullIfPropertyNotExists() 
+ * @method static $this isNullIfPropertyNotExists() 
  *
  * Global Methods
  *

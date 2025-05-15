@@ -5,6 +5,7 @@
 require_once __DIR__ . '/__init.php';
 
 use LTL\Hubspot\Concerns\WithObjectResponse;
+use LTL\Hubspot\Concerns\WithPropertyNullIfNotExists;
 use LTL\Hubspot\Concerns\WithRequestException;
 use LTL\Hubspot\Objects\CrmObject;
 use LTL\Hubspot\Resources\V3\CompanyHubspot;
@@ -17,10 +18,10 @@ $a = new class extends CompanyHubspot implements WithRequestException, WithObjec
 
 $k = $a->getAll();
 
+dd(@$k->teste);
+$a = CompanyHubspot::isNullIfPropertyNotExists()->limit(100)->get(195211107);
 
-$a = CompanyHubspot::limit(100)->getAll();
 
-dd($a);
 
 $a->importAll(function ($companies) {
     foreach ($companies as $key => $value) {

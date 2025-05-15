@@ -7,6 +7,7 @@ use LTL\Hubspot\Concerns\WithHeaders;
 use LTL\Hubspot\Concerns\WithListFilters;
 use LTL\Hubspot\Concerns\WithMaxLimit;
 use LTL\Hubspot\Concerns\WithObjectResponse;
+use LTL\Hubspot\Concerns\WithPropertyNullIfNotExists;
 use LTL\Hubspot\Concerns\WithRequestException;
 use LTL\Hubspot\Concerns\WithRequestTries;
 use LTL\Hubspot\Core\Resource\Resource;
@@ -110,6 +111,10 @@ use ReflectionClass;
  * @method static $this withObjectResponse() 
  * @method $this notWithObjectResponse() 
  * @method static $this notWithObjectResponse() 
+ * @method $this isErrorIfPropertyNotExists() 
+ * @method static $this isErrorIfPropertyNotExists() 
+ * @method $this isNullIfPropertyNotExists() 
+ * @method static $this isNullIfPropertyNotExists() 
  *
  * Global Methods
  *
@@ -121,51 +126,53 @@ abstract class Hubspot extends Resource
     protected array $associations;
 
     protected array $propertiesWithHistory;
-    
+
     public function __construct()
     {
         $interfaces = (new ReflectionClass($this))->getInterfaceNames();
 
-        if(in_array(WithRequestException::class, $interfaces)) {
+        if (in_array(WithRequestException::class, $interfaces)) {
             $this->withRequestException();
         }
 
-        if(in_array(WithObjectResponse::class, $interfaces)) {
+        if (in_array(WithObjectResponse::class, $interfaces)) {
             $this->withObjectResponse();
         }
 
-        if(in_array(WithHeaders::class, $interfaces)) {
+        if (in_array(WithHeaders::class, $interfaces)) {
             $this->withHeaders();
         }
 
-        if(in_array(WithRequestTries::class, $interfaces)) {
+        if (in_array(WithRequestTries::class, $interfaces)) {
             $this->withRequestTries();
         }
 
-        if(in_array(WithMaxLimit::class, $interfaces)) {
+        if (in_array(WithMaxLimit::class, $interfaces)) {
             $this->maxLimit();
         }
 
-        if(in_array(WithListFilters::class, $interfaces)) {
+        if (in_array(WithListFilters::class, $interfaces)) {
             $this->withListFilters();
         }
 
-        if(in_array(WithEnrollUpdateList::class, $interfaces)) {
+        if (in_array(WithEnrollUpdateList::class, $interfaces)) {
             $this->enrollObjectsUpdateList();
         }
 
-        if(isset($this->propertiesWithHistory)) {
+        if (in_array(WithPropertyNullIfNotExists::class, $interfaces)) {
+            $this->isNullIfPropertyNotExists();
+        }
+
+        if (isset($this->propertiesWithHistory)) {
             $this->propertiesWithHistory(...$this->propertiesWithHistory);
         }
 
-        if(isset($this->associations)) {
+        if (isset($this->associations)) {
             $this->associations(...$this->associations);
         }
 
         $this->init();
     }
 
-    protected function init()
-    {
-    }
+    protected function init() {}
 }

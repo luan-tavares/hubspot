@@ -9,4 +9,6 @@ interface ResponseRequestComponentInterface extends ComponentInterface, PublicMe
 {
     public function withObjectResponse(): self;
     public function notWithObjectResponse(): self;
+    public function isErrorIfPropertyNotExists(): self;
+    public function isNullIfPropertyNotExists(): self;
 }
