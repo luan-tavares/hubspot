@@ -14,6 +14,7 @@ use LTL\Hubspot\Exceptions\HubspotApiException;
 use LTL\Hubspot\Exceptions\HubspotClientTimeoutException;
 use LTL\Hubspot\Exceptions\HubspotCurlException;
 use LTL\Hubspot\Exceptions\HubspotCurlRecvException;
+use LTL\Hubspot\Exceptions\PropertyCoordinatesHubspotApiException;
 
 abstract class RequestConnection implements RequestConnectionInterface
 {
@@ -50,6 +51,11 @@ abstract class RequestConnection implements RequestConnectionInterface
         }
 
         if ($curl->error() && $request->hasWithRequestException()) {
+
+            if (preg_match('/PropertyValueCoordinates.*?(\d+)\s+already has that value\./', $curl->response(), $matches)) {
+                throw new PropertyCoordinatesHubspotApiException($matches[1]);
+            }
+
             $response = empty($curl->response()) ? '"NO RESPONSE"' : $curl->response();
 
             throw new HubspotApiException("Error {$curl->status()} :: {$response}");
