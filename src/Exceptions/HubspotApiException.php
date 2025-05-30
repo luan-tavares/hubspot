@@ -15,7 +15,7 @@ class HubspotApiException extends Exception
         $this->message = $this->replaceMessageClass($message, $resourceClass);
 
         $root = explode('/Exceptions/', __FILE__)[0];
-    
+
         foreach ($this->getTrace() as $trace) {
             if (!array_key_exists('file', $trace)) {
                 continue;
@@ -46,13 +46,13 @@ class HubspotApiException extends Exception
     public static function throwIf(bool $condition, string $message): void
     {
         if ($condition) {
-            throw new self($message);
+            throw new static($message);
         }
     }
 
     public function __toString()
     {
-        return __CLASS__ .": {$this->message} in {$this->file} on line {$this->line}";
+        return static::class . ": {$this->message} in {$this->file} on line {$this->line}";
     }
 
     private function replaceMessageClass(string $message, string|null $resourceClass): string
@@ -63,9 +63,9 @@ class HubspotApiException extends Exception
 
         preg_match_all('/LTL\\\Hubspot(.*?)::/', $message, $matches, PREG_PATTERN_ORDER);
         foreach ($matches[0] as $match) {
-            $message = str_replace($match, $resourceClass .'::', $message);
+            $message = str_replace($match, $resourceClass . '::', $message);
         }
-        
+
         preg_match_all('/\ in\ (.*?)\ on\ line\ \d*/', $message, $matches, PREG_PATTERN_ORDER);
         foreach ($matches[0] as $match) {
             $message = str_replace($match, '', $message);
