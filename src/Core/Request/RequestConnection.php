@@ -52,10 +52,19 @@ abstract class RequestConnection implements RequestConnectionInterface
 
         if ($curl->error() && $request->hasWithRequestException()) {
 
-            if (preg_match('/PropertyValueCoordinates.*?(\d+)\s+already has that value\./', $curl->response(), $matches)) {
-                throw new PropertyCoordinatesHubspotApiException($matches[1]);
-            }
+            // Regex para capturar name, value, target e exists
+            $regex = '/PropertyValueCoordinates\{.*?propertyName=(.*?), value=\[(.*?)\].*?\} on (\d+)\. (\d+) already has that value\./';
 
+            if (preg_match($regex, $curl->response(), $matches)) {
+                $resultado = [
+                    'name' => $matches[1],
+                    'value' => $matches[2],
+                    'target' => $matches[3],
+                    'exists' => $matches[4],
+                ];
+
+                throw new PropertyCoordinatesHubspotApiException(json_encode($resultado));
+            }
             $response = empty($curl->response()) ? '"NO RESPONSE"' : $curl->response();
 
             throw new HubspotApiException("Error {$curl->status()} :: {$response}");
