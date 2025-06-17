@@ -34,7 +34,7 @@ abstract class HubspotConfig
         self::SERVER_GENERIC_3_ERROR_CODE
     ];
     /** */
-    public const MAX_REQUESTS_TRIES = 5;
+    public const MAX_REQUESTS_TRIES = 4;
 
     public const TIMEOUT = 10;
 
@@ -44,7 +44,7 @@ abstract class HubspotConfig
 
     public const MULTI_STATUS_CODE = 207;
 
-    public const SLEEP_SECONDS = 1;
+    public const SLEEP_SECONDS = 2;
 
     public const MAX_LIMIT = 1E2;
 }

@@ -5,15 +5,12 @@ namespace LTL\Hubspot\Core\Request;
 use LTL\Curl\Curl;
 use LTL\Curl\CurlException;
 use LTL\Curl\Interfaces\CurlInterface;
-use LTL\Hubspot\Core\Globals\TimesleepGlobal;
 use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Request\Interfaces\RequestArgumentsInterface;
 use LTL\Hubspot\Core\Request\Interfaces\RequestConnectionInterface;
 use LTL\Hubspot\Core\Request\Interfaces\RequestInterface;
 use LTL\Hubspot\Exceptions\HubspotApiException;
-use LTL\Hubspot\Exceptions\HubspotClientTimeoutException;
 use LTL\Hubspot\Exceptions\HubspotCurlException;
-use LTL\Hubspot\Exceptions\HubspotCurlRecvException;
 use LTL\Hubspot\Exceptions\PropertyCoordinatesHubspotApiException;
 
 abstract class RequestConnection implements RequestConnectionInterface
@@ -41,13 +38,7 @@ abstract class RequestConnection implements RequestConnectionInterface
             $code = $exception->getCode();
             $message = $exception->getMessage();
 
-            if ($code === CURLE_OPERATION_TIMEDOUT) {
-                throw new HubspotClientTimeoutException("Client Timeout: {$request->getClientTimeout()} seconds.", $code);
-            }
-            if ($code === CURLE_RECV_ERROR) {
-                throw new HubspotCurlRecvException($message, $code);
-            }
-            throw new HubspotCurlException($message, $code);
+            throw new HubspotCurlException("Code {$code} :: {$message}", $code);
         }
 
         if ($curl->error() && $request->hasWithRequestException()) {
@@ -81,17 +72,26 @@ abstract class RequestConnection implements RequestConnectionInterface
     ): CurlInterface {
         $requestTries = $request->getRequestsTries();
 
-        $curlResponse = $curl->request($requestArguments->getMethod(), $requestArguments->body());
+        try {
+            $curlResponse = $curl->request($requestArguments->getMethod(), $requestArguments->body());
 
-        if (!in_array($curlResponse->status(), HubspotConfig::TRY_AGAIN_STATUS_LIST)) {
-            return $curlResponse;
+            if (!in_array($curlResponse->status(), HubspotConfig::TRY_AGAIN_STATUS_LIST)) {
+                return $curlResponse;
+            }
+
+            if ($current === $requestTries) {
+                return $curlResponse;
+            }
+        } catch (CurlException $exception) {
+            if ($current === $requestTries) {
+                $code = $exception->getCode();
+                $message = $exception->getMessage();
+
+                throw new HubspotCurlException("Code {$code} :: {$message}", $code);
+            }
         }
 
-        if ($current === $requestTries) {
-            return $curlResponse;
-        }
-
-        sleep(TimesleepGlobal::get());
+        sleep(HubspotConfig::SLEEP_SECONDS);
 
         return self::recursiveCurl($request, $requestArguments, $curl, ++$current);
     }
