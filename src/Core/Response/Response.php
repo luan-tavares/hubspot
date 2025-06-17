@@ -114,7 +114,7 @@ class Response implements ResponseInterface
 
     public function isServerError(): bool
     {
-        return ($this->status >= 500 && $this->status < 600);
+        return ($this->status->get() >= 500 && $this->status->get() < 600);
     }
 
     public function isMultiStatus(): bool
