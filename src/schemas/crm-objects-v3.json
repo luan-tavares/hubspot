@@ -69,6 +69,13 @@
             "iteratorIndex": "results",
             "afterIndex": "paging.next.after"
         },
+        "batchUpsert": {
+            "path": "objects/{objectType}/batch/upsert",
+            "method": "POST",
+            "description": "Update or create a batch of objects.",
+            "iteratorIndex": "results",
+            "afterIndex": "paging.next.after"
+        },
         "getAssociations": {
             "path": "objects/{fromObjectType}/{fromObjectId}/associations/{toObjectType}",
             "method": "GET",

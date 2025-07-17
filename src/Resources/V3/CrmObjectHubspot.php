@@ -72,6 +72,12 @@ use LTL\Hubspot\Objects as Objects;
  * @method self<object> batchUpdate(int|string $objectType, array|Body\HubspotBatchUpdateBody $requestBody) Update a batch of objects.
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
+ * @method static self<object> batchUpsert(int|string $objectType, array $requestBody) Update or create a batch of objects.
+ * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
+ *
+ * @method self<object> batchUpsert(int|string $objectType, array $requestBody) Update or create a batch of objects.
+ * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
+ *
  * @method static self<object> getAssociations(int|string $fromObjectType, int|string $fromObjectId, int|string $toObjectType) List associations of an object by type.
  * See https://developers.hubspot.com/docs/api/crm/crm-custom-objects
  *
