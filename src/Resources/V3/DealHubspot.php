@@ -85,6 +85,12 @@ use LTL\Hubspot\Resources\V3\Interfaces\{CrmHubspotInterface};
  * @method self<object> batchUpdate(array|Body\HubspotBatchUpdateBody $requestBody) Update a batch of deals.
  * See https://developers.hubspot.com/docs/api/crm/deals
  *
+ * @method static self<object> batchUpsert(array $requestBody) Upsert a batch of deals.
+ * See https://developers.hubspot.com/docs/api/crm/deals
+ *
+ * @method self<object> batchUpsert(array $requestBody) Upsert a batch of deals.
+ * See https://developers.hubspot.com/docs/api/crm/deals
+ *
  * @method static self<object> search(array|Body\HubspotSearchBody $requestBody) Search deals.
  * See https://developers.hubspot.com/docs/api/crm/deals
  *
