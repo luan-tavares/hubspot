@@ -46,6 +46,10 @@ use LTL\Hubspot\Objects as Objects;
  *
  * @method self<null> batchUpdate(array|Body\HubspotBatchUpdateBody $requestBody) Update a batch of tasks.
  *
+ * @method static self<object> batchUpsert(array $requestBody) Upsert a batch of tasks.
+ *
+ * @method self<object> batchUpsert(array $requestBody) Upsert a batch of tasks.
+ *
  * @method static self<null> search(array|Body\HubspotSearchBody $requestBody) Search tasks.
  *
  * @method self<null> search(array|Body\HubspotSearchBody $requestBody) Search tasks.
