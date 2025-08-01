@@ -94,6 +94,13 @@
             "iteratorIndex": "results",
             "afterIndex": null
         },
+        "batchUpsert": {
+            "path": "objects/notes/batch/upsert",
+            "method": "POST",
+            "description": "Upsert a batch of notes.",
+            "iteratorIndex": "results",
+            "afterIndex": null
+        },
         "search": {
             "path": "objects/notes/search",
             "method": "POST",

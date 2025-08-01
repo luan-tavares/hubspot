@@ -101,6 +101,13 @@
             "iteratorIndex": "results",
             "afterIndex": null
         },
+        "batchUpsert": {
+            "path": "objects/meetings/batch/upsert",
+            "method": "POST",
+            "description": "Upsert a batch of meetings.",
+            "iteratorIndex": "results",
+            "afterIndex": null
+        },
         "search": {
             "path": "objects/meetings/search",
             "method": "POST",

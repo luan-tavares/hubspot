@@ -85,6 +85,12 @@ use LTL\Hubspot\Resources\V3\Interfaces\{EngagementHubspotInterface, CrmHubspotI
  * @method self<object> batchUpdate(array|Body\HubspotBatchUpdateBody $requestBody) Update a batch of notes.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/notes
  *
+ * @method static self<object> batchUpsert(array $requestBody) Upsert a batch of notes.
+ * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/notes
+ *
+ * @method self<object> batchUpsert(array $requestBody) Upsert a batch of notes.
+ * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/notes
+ *
  * @method static self<object> search(array|Body\HubspotSearchBody $requestBody) Search notes.
  * See https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/objects/notes
  *

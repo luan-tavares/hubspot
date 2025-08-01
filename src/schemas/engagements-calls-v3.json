@@ -102,6 +102,13 @@
             "iteratorIndex": "results",
             "afterIndex": null
         },
+        "batchUpsert": {
+            "path": "objects/calls/batch/upsert",
+            "method": "POST",
+            "description": "Upsert a batch of calls.",
+            "iteratorIndex": "results",
+            "afterIndex": null
+        },
         "search": {
             "path": "objects/calls/search",
             "method": "POST",

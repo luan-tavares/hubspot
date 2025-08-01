@@ -99,6 +99,13 @@
             "iteratorIndex": "results",
             "afterIndex": null
         },
+        "batchUpsert": {
+            "path": "objects/emails/batch/upsert",
+            "method": "POST",
+            "description": "Upsert a batch of emails.",
+            "iteratorIndex": "results",
+            "afterIndex": null
+        },
         "search": {
             "path": "objects/emails/search",
             "method": "POST",

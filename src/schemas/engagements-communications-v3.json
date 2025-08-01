@@ -96,6 +96,13 @@
             "iteratorIndex": "results",
             "afterIndex": null
         },
+        "batchUpsert": {
+            "path": "objects/communications/batch/upsert",
+            "method": "POST",
+            "description": "Upsert a batch of communications.",
+            "iteratorIndex": "results",
+            "afterIndex": null
+        },
         "search": {
             "path": "objects/communications/search",
             "method": "POST",
