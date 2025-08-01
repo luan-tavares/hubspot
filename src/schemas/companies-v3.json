@@ -72,6 +72,13 @@
             "afterIndex": null,
             "object": "CrmObject"
         },
+        "batchUpsert": {
+            "path": "objects/companies/batch/upsert",
+            "method": "POST",
+            "description": "Upsert a batch of companies.",
+            "iteratorIndex": "results",
+            "afterIndex": null
+        },
         "batchUpdate": {
             "path": "objects/companies/batch/update",
             "method": "POST",

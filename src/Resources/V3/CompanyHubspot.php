@@ -67,6 +67,12 @@ use LTL\Hubspot\Resources\V3\Interfaces\{CrmHubspotInterface};
  * @method Objects\CrmObject&self<object> batchRead(array|Body\HubspotBatchReadBody $requestBody) Read a batch of companies by internal ID, or unique property values.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
+ * @method static self<object> batchUpsert(array $requestBody) Upsert a batch of companies.
+ * See https://developers.hubspot.com/docs/api/crm/companies
+ *
+ * @method self<object> batchUpsert(array $requestBody) Upsert a batch of companies.
+ * See https://developers.hubspot.com/docs/api/crm/companies
+ *
  * @method static Objects\CrmObject&self<object> batchUpdate(array|Body\HubspotBatchUpdateBody $requestBody) Update a batch of companies.
  * See https://developers.hubspot.com/docs/api/crm/companies
  *
