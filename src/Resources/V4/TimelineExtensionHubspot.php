@@ -12,10 +12,10 @@ use LTL\Hubspot\Objects as Objects;
  *
  * @link https://developers.hubspot.com/docs/apps/developer-platform/add-features/app-events/send-event-occurrences
  *
- * @method static self<null> create(array $requestBody) Event templates define the general structure for a custom timeline event. 
+ * @method static self<null> createEvent(array $requestBody) Event templates define the general structure for a custom timeline event. 
  * See https://developers.hubspot.com/docs/apps/developer-platform/add-features/app-events/send-event-occurrences
  *
- * @method self<null> create(array $requestBody) Event templates define the general structure for a custom timeline event. 
+ * @method self<null> createEvent(array $requestBody) Event templates define the general structure for a custom timeline event. 
  * See https://developers.hubspot.com/docs/apps/developer-platform/add-features/app-events/send-event-occurrences
  *
  */

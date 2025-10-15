@@ -5,7 +5,7 @@
     "version": 4,
     "latest": true,
     "actions": {
-        "create": {
+        "createEvent": {
             "path": "timeline/v4/events",
             "method": "POST",
             "description": "Event templates define the general structure for a custom timeline event. "
