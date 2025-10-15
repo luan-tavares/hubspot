@@ -6,7 +6,8 @@
     "latest": true,
     "actions": {
         "createEvent": {
-            "path": "timeline/v4/events",
+            "absolutePath": true,
+            "path": "integrators/timeline/v4/events",
             "method": "POST",
             "description": "Event templates define the general structure for a custom timeline event. "
         }
