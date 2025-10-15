@@ -1,0 +1,14 @@
+{
+    "resource": "integrators",
+    "class": "TimelineExtensionHubspot",
+    "documentation": "https://developers.hubspot.com/docs/apps/developer-platform/add-features/app-events/send-event-occurrences",
+    "version": 4,
+    "latest": true,
+    "actions": {
+        "create": {
+            "path": "timeline/v4/events",
+            "method": "POST",
+            "description": "Event templates define the general structure for a custom timeline event. "
+        }
+    }
+}

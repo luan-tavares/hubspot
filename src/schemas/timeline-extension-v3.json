@@ -3,7 +3,7 @@
     "class": "TimelineExtensionHubspot",
     "documentation": "https://app.hubspot.com/developer-docs/api?spec=v1/apis/crm/v3/timeline",
     "version": 3,
-    "latest": true,
+    "latest": false,
     "actions": {
         "getAll": {
             "path": "timeline/{appId}/event-templates",
