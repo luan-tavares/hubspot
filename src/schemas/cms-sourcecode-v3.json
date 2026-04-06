@@ -15,6 +15,7 @@
             "description": "Save asset to design manager."
         },
         "get": {
+            "absolutePath": true,
             "path": "cms/source-code/2026-03/{environment}/content/{path}",
             "method": "GET",
             "description": "Get cms content."
@@ -25,6 +26,7 @@
             "description": "Get cms metadata content."
         },
         "createOrUpdate": {
+            "absolutePath": true,
             "path": "cms/source-code/2026-03/{environment}/content/{path}",
             "method": "PUT",
             "headers": {
@@ -42,6 +44,7 @@
             "description": "Validate content."
         },
         "delete": {
+            "absolutePath": true,
             "path": "cms/source-code/2026-03/{environment}/content/{path}",
             "method": "DELETE",
             "description": "Delete cms content file."
