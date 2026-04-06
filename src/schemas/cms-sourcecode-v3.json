@@ -1,6 +1,6 @@
 {
     "resource": "cms/source-code/2026-03",
-    "class": "Cmssource-codeHubspot",
+    "class": "CmsSourceCodeHubspot",
     "documentation": "https://developers.hubspot.com/docs/api-reference/latest/cms/source-code/guide",
     "version": 3,
     "latest": true,
