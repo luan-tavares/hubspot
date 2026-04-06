@@ -1,0 +1,50 @@
+{
+    "resource": "cms/sourcecode/2026-03",
+    "class": "CmsSourceCodeHubspot",
+    "documentation": "https://developers.hubspot.com/docs/api-reference/latest/cms/source-code/guide",
+    "version": 3,
+    "latest": true,
+    "actions": {
+        "create": {
+            "absolutePath": true,
+            "path": "cms/sourcecode/2026-03/{environment}/content/{path}",
+            "method": "POST",
+            "headers": {
+                "Content-Type": "multipart/form-data"
+            },
+            "description": "Save asset to design manager."
+        },
+        "get": {
+            "path": "cms/sourcecode/2026-03/{environment}/content/{path}",
+            "method": "GET",
+            "description": "Get cms content."
+        },
+        "getMetadata": {
+            "path": "cms/sourcecode/2026-03/{environment}/metadata/{path}",
+            "method": "GET",
+            "description": "Get cms metadata content."
+        },
+        "createOrUpdate": {
+            "path": "cms/sourcecode/2026-03/{environment}/content/{path}",
+            "method": "PUT",
+            "headers": {
+                "Content-Type": "multipart/form-data"
+            },
+            "description": "Upload cms content file."
+        },
+        "validate": {
+            "absolutePath": true,
+            "path": "cms/sourcecode/2026-03/{environment}/validate/{path}",
+            "method": "POST",
+            "headers": {
+                "Content-Type": "multipart/form-data"
+            },
+            "description": "Validate content."
+        },
+        "delete": {
+            "path": "cms/sourcecode/2026-03/{environment}/content/{path}",
+            "method": "DELETE",
+            "description": "Delete cms content file."
+        }
+    }
+}
