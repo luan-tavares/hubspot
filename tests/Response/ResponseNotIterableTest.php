@@ -40,8 +40,9 @@ class ResponseNotIterableTest extends TestCase
         $this->actionSchema = SchemaContainer::getAction(new ContactHubspot, 'get');
 
         $this->requestInfoObject = new RequestInfoObject([
-            'hasObject' => false
-        ]);
+            'hasObject' => false,
+            'errorIfPropertyExists' => true
+        ], new ContactHubspot);
     }
 
     public function testIfNotIterableThrowHubspotApiException()

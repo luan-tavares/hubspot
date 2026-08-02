@@ -54,8 +54,9 @@ class ResponseDataTest extends TestCase
     protected function setUp(): void
     {
         $this->requestInfoObject = new RequestInfoObject([
-            'hasObject' => true
-        ]);
+            'hasObject' => true,
+            'errorIfPropertyExists' => true
+        ], new AssociationHubspot);
 
         $curl = $this->getMockBuilder(CurlInterface::class)->disableOriginalConstructor()->getMock();
         $curl->method('response')->willReturn(json_encode($this->result));
@@ -73,10 +74,10 @@ class ResponseDataTest extends TestCase
     public function testIfIterableObjectIsCorrect()
     {
         $response = new Response($this->curl, $this->actionSchema, $this->requestInfoObject);
-       
-  
+
+
         $return = [];
-        
+
         foreach ($response as $data) {
             $return[] = $data->typeId;
         }
@@ -85,7 +86,7 @@ class ResponseDataTest extends TestCase
             5,
             15
         ];
-      
+
         $this->assertEquals($expected, $return);
     }
 
@@ -141,7 +142,8 @@ class ResponseDataTest extends TestCase
             ],
             'paging' => [
                 'next' => [
-                    'after' => 123456
+                    'after' => 123456,
+                    'link' => 'https://api.hubapi.com/crm/v3/objects/companies?after=123456'
                 ]
             ]
         ];
@@ -153,7 +155,7 @@ class ResponseDataTest extends TestCase
 
         /** @var CurlInterface $curl */
         $response = new Response($curl, $actionSchema, $this->requestInfoObject);
-       
+
         $this->assertEquals(
             $result['paging']['next']['after'],
             $response->getAfter()
@@ -169,7 +171,7 @@ class ResponseDataTest extends TestCase
 
         /** @var CurlInterface $curl */
         $response = new Response($curl, $actionSchema, $this->requestInfoObject);
-       
+
         $this->assertEquals(
             $this->oneResult['id'],
             $response->id
@@ -185,7 +187,7 @@ class ResponseDataTest extends TestCase
 
         /** @var CurlInterface $curl */
         $response = new Response($curl, $actionSchema, $this->requestInfoObject);
-       
+
         $this->assertTrue(isset($response->id));
     }
 
@@ -251,7 +253,7 @@ class ResponseDataTest extends TestCase
         foreach ($response as $value) {
             $result[] = $value->typeId;
         }
-       
+
         $this->assertEquals(
             $result,
             [5, 15]
@@ -270,7 +272,7 @@ class ResponseDataTest extends TestCase
          * @var CurlInterface $curl
          */
         $response = new Response($curl, $actionSchema, $this->requestInfoObject);
-       
+
         $this->assertEquals($response->toArray(), []);
     }
 
@@ -288,7 +290,7 @@ class ResponseDataTest extends TestCase
         $response = new Response($curl, $actionSchema, $this->requestInfoObject);
 
         $this->expectException(HubspotApiException::class);
-       
+
         $response->anotherProperty;
     }
 
@@ -304,7 +306,7 @@ class ResponseDataTest extends TestCase
          * @var CurlInterface $curl
          */
         $response = new Response($curl, $actionSchema, $this->requestInfoObject);
-       
+
         $this->assertFalse(isset($response->anotherProperty));
     }
 }

@@ -26,26 +26,27 @@ class RequestTest extends TestCase
 
         $method = 'unknowMethod';
 
-        $this->expectExceptionMessage(CompanyHubspot::class ."::{$method}() not exists");
-        
+        $this->expectExceptionMessage(CompanyHubspot::class . "::{$method}() not exists");
+
         $request->{$method}();
     }
 
     public function testCurlAddProgressIsCorrect()
     {
         /**
-         * @var BuilderInterface $builder
+         * @var \LTL\Hubspot\Core\BuilderInterface $builder
          */
         $builder = CompanyHubspot::withProgressBar();
-        
+
         /**
          * @var RequestInterface $request
          */
         $request = $builder->request();
-        
+
         $this->assertEquals($request->getCurlParams(), [
+            CURLOPT_TIMEOUT => \LTL\Hubspot\Core\HubspotConfig::TIMEOUT,
             CURLOPT_NOPROGRESS => false,
-            CURLOPT_PROGRESSFUNCTION => \LTL\Curl\CurlProgressBar::class .'::progress'
+            CURLOPT_PROGRESSFUNCTION => \LTL\Curl\CurlProgressBar::class . '::progress'
         ]);
     }
 
@@ -55,13 +56,14 @@ class RequestTest extends TestCase
          * @var BuilderInterface $builder
          */
         $builder = CompanyHubspot::withHeaders();
-        
+
         /**
          * @var RequestInterface $request
          */
         $request = $builder->request();
-        
+
         $this->assertEquals($request->getCurlParams(), [
+            CURLOPT_TIMEOUT => \LTL\Hubspot\Core\HubspotConfig::TIMEOUT,
             CURLOPT_HEADER => true
         ]);
     }
@@ -74,12 +76,12 @@ class RequestTest extends TestCase
          * @var BuilderInterface $builder
          */
         $builder = CompanyHubspot::oAuth('bbb')->apikey('aaa');
-        
+
         /**
          * @var RequestInterface $request
          */
         $request = $builder->request();
-     
+
         $this->assertEquals($request->getHeaders(), []);
     }
 
@@ -89,12 +91,12 @@ class RequestTest extends TestCase
          * @var BuilderInterface $builder
          */
         $builder = CompanyHubspot::apikey('aaa')->oAuth('bbb');
-        
+
         /**
          * @var RequestInterface $request
          */
         $request = $builder->request();
-     
+
         $this->assertEquals($request->getQueries(), []);
     }
 
@@ -124,7 +126,7 @@ class RequestTest extends TestCase
         $requestArgumentsMock = $this->getMockBuilder(RequestArguments::class)
             ->onlyMethods(['queriesAsParams', 'baseQuery'])
             ->disableOriginalConstructor()->getMock();
-  
+
         $requestArgumentsMock->method('queriesAsParams')->willReturn([5]);
         $requestArgumentsMock->method('baseQuery')->willReturn([6]);
 
@@ -133,7 +135,7 @@ class RequestTest extends TestCase
          */
         $request->addUriArguments($requestArgumentsMock);
 
-        $this->assertEquals($request->getQueries(), [5,6]);
+        $this->assertEquals($request->getQueries(), [5, 6]);
     }
 
     public function testRemoveExceptionIsCorrect()

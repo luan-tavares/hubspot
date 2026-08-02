@@ -72,6 +72,13 @@ trait ResourceResponse
         return $this->response->isTooManyRequestsError();
     }
 
+    public function isNotFoundError(): bool
+    {
+        $this->verifyIfResponseExists(__FUNCTION__);
+
+        return $this->response->isNotFoundError();
+    }
+
     public function error(): bool
     {
         $this->verifyIfResponseExists(__FUNCTION__);

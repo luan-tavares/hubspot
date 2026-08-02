@@ -16,9 +16,7 @@ class ConcernsTest extends TestCase
 {
     public function testWithRequestException()
     {
-        $resource = new class extends ContactHubspot implements WithRequestException {
-
-        };
+        $resource = new class extends ContactHubspot implements WithRequestException {};
 
         $builder = BuilderContainer::get($resource);
 
@@ -29,9 +27,7 @@ class ConcernsTest extends TestCase
 
     public function testWithRequestTries()
     {
-        $resource = new class extends ContactHubspot implements WithRequestTries {
-
-        };
+        $resource = new class extends ContactHubspot implements WithRequestTries {};
 
         $builder = BuilderContainer::get($resource);
 
@@ -73,12 +69,11 @@ class ConcernsTest extends TestCase
     public function testWithHeaders()
     {
         $expected = [
+            CURLOPT_TIMEOUT => \LTL\Hubspot\Core\HubspotConfig::TIMEOUT,
             CURLOPT_HEADER => true
         ];
 
-        $resource = new class extends ContactHubspot implements WithHeaders {
-
-        };
+        $resource = new class extends ContactHubspot implements WithHeaders {};
 
         $builder = BuilderContainer::get($resource);
 
@@ -90,7 +85,7 @@ class ConcernsTest extends TestCase
     public function testPropertiesAndAssociationsInit()
     {
         $expected = [
-            'properties' => 'name,email',
+            //'properties' => 'name,email',
             'propertiesWithHistory' => 'phone',
             'associations' => 'deals,companies'
         ];

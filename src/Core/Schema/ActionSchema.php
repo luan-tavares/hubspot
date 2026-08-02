@@ -28,19 +28,19 @@ class ActionSchema
 
     #[QueryAsParamProperty]
     public readonly array|null $queryAsParam;
-    
+
     #[BaseQueryActionProperty]
     public readonly array|null $baseQuery;
-    
+
     #[BaseHeaderActionProperty]
     public readonly array|null $baseHeader;
-    
+
     #[AuthenticationActionProperty]
     public readonly bool $authentication;
-    
+
     #[HasBodyActionProperty]
     public readonly bool $hasBody;
-     
+
     #[DescriptionActionProperty]
     public readonly string|null $description;
 
@@ -49,13 +49,13 @@ class ActionSchema
 
     #[AfterIndexActionProperty]
     public readonly string|null $afterIndex;
-    
+
     #[ResourceClassActionProperty]
     public readonly string $resourceClass;
 
     #[BaseUriActionProperty]
     public readonly string $baseUri;
-    
+
     #[MethodActionProperty]
     public readonly string $method;
 
@@ -81,8 +81,11 @@ class ActionSchema
          */
     }
 
-    private function __clone()
+    private function __clone() {}
+
+    public function __get($property)
     {
+        throw new HubspotApiException("Property {$property} not exists in " . static::class);
     }
 
     public function __toString()

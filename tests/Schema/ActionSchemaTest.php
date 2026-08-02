@@ -18,7 +18,7 @@ class ActionSchemaTest extends TestCase
 
         $this->assertEquals(
             (string) $object,
-            '- '. OwnerHubspot::class ."::getAll()\n- ". OwnerHubspot::class ."::get()\n- ". OwnerHubspot::class ."::importAll()\n\n"
+            '- ' . OwnerHubspot::class . "::getAll()\n- " . OwnerHubspot::class . "::get()\n- " . OwnerHubspot::class . "::importAll()\n\n"
         );
     }
 
@@ -48,6 +48,7 @@ class ActionSchemaTest extends TestCase
             'batchCreate',
             'batchRead',
             'batchUpdate',
+            'batchUpsert',
             'search',
             'merge',
             'createOrUpdate',
@@ -80,7 +81,7 @@ class ActionSchemaTest extends TestCase
 
         $object = SchemaContainer::get($resource);
 
-        $this->expectExceptionMessage($resource::class ."::{$action}() not exists");
+        $this->expectExceptionMessage($resource::class . "::{$action}() not exists");
 
         $object->getAction($action);
     }
@@ -118,7 +119,7 @@ class ActionSchemaTest extends TestCase
 
         $property = 'unknowProperty';
 
-        $this->expectExceptionMessage("Property {$property} not exists in ". ActionSchema::class);
+        $this->expectExceptionMessage("Property {$property} not exists in " . ActionSchema::class);
 
         $object->{$property};
     }

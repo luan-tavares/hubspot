@@ -2,27 +2,19 @@
 
 namespace LTL\Hubspot\Core\Resource\Interfaces;
 
-use ArrayAccess;
-use Countable;
-use IteratorAggregate;
-use LTL\Hubspot\Interfaces\ArrayableInterface;
-use LTL\Hubspot\Interfaces\EnumerableInterface;
-use LTL\Hubspot\Interfaces\JsonableInterface;
-use LTL\ListMethods\PublicMethods\Interfaces\PublicMethodsListableInterface;
-
 /**
- * @implements ArrayAccess<string|int,array|int|string|null>
- * @implements IteratorAggregate<int, TIterator>
+ * @implements \ArrayAccess<string|int,array|int|string|null>
+ * @implements \IteratorAggregate<int, TIterator>
  * @template TIterator
  */
 interface ResourceInterface extends
-    PublicMethodsListableInterface,
-    ArrayableInterface,
-    JsonableInterface,
-    EnumerableInterface,
-    ArrayAccess,
-    IteratorAggregate,
-    Countable
+    \LTL\ListMethods\PublicMethods\Interfaces\PublicMethodsListableInterface,
+    \LTL\Hubspot\Interfaces\ArrayableInterface,
+    \LTL\Hubspot\Interfaces\JsonableInterface,
+    \LTL\Hubspot\Interfaces\EnumerableInterface,
+    \ArrayAccess,
+    \IteratorAggregate,
+    \Countable
 {
     public function toArray(): array;
     public function toJson(): string;
@@ -33,6 +25,7 @@ interface ResourceInterface extends
     public function invalidEmailError(): bool;
     public function isServerError(): bool;
     public function isTooManyRequestsError(): bool;
+    public function isNotFoundError(): bool;
     public function error(): bool;
     public function headers(): array|null;
     public function empty(): bool;

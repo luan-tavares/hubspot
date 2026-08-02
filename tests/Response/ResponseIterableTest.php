@@ -44,8 +44,9 @@ class ResponseIterableTest extends TestCase
         $curl->method('headers')->willReturn(['Content-Type' => 'application/json;charset=utf-8']);
 
         $this->requestInfoObject = new RequestInfoObject([
-            'hasObject' => false
-        ]);
+            'hasObject' => false,
+            'errorIfPropertyExists' => true
+        ], new HubDbHubspot);
 
         $this->curl = $curl;
 

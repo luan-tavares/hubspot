@@ -16,6 +16,7 @@ interface ResponseInterface extends ArrayableInterface, JsonableInterface, Itera
     public function isServerError(): bool;
     public function isMultiStatus(): bool;
     public function isTooManyRequestsError(): bool;
+    public function isNotFoundError(): bool;
     public function isInvalidEmailError(): bool;
     public function getHeaders(): array|null;
     public function getResult(): array|object|null;

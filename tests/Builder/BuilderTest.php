@@ -52,7 +52,8 @@ class BuilderTest extends TestCase
 
         $requestMock = $this->getMockBuilder(Request::class)->disableOriginalConstructor()->getMock();
         $requestMock->method('getResponseRequest')->willReturn([
-            'hasObject' => false
+            'hasObject' => false,
+            'errorIfPropertyExists' => true
         ]);
         $requestMock->expects($this->exactly(1))->method('connect');
 

@@ -46,8 +46,9 @@ class ResponseDataIteratorTest extends TestCase
         $this->actionSchema = SchemaContainer::getAction(new AssociationHubspot, 'getDefinition');
 
         $this->requestInfoObject = new RequestInfoObject([
-            'hasObject' => false
-        ]);
+            'hasObject' => false,
+            'errorIfPropertyExists' => true
+        ], new AssociationHubspot);
     }
 
 

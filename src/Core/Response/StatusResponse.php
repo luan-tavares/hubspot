@@ -7,7 +7,7 @@ use LTL\Hubspot\Core\HubspotConfig;
 class StatusResponse
 {
     private bool $isInvalidEmail;
-    
+
     public function __construct(private int $status, string $raw)
     {
         $this->isInvalidEmail = str_contains($raw, 'INVALID_EMAIL');
@@ -31,6 +31,11 @@ class StatusResponse
     public function isTooManyRequestsError(): bool
     {
         return ($this->status === HubspotConfig::TOO_MANY_REQUESTS_ERROR_CODE);
+    }
+
+    public function isNotFoundError(): bool
+    {
+        return ($this->status === HubspotConfig::NOT_FOUND_ERROR_CODE);
     }
 
     public function isInvalidEmailError(): bool

@@ -10,14 +10,16 @@
             "method": "GET",
             "description": "Returns all association types between two object types.",
             "iteratorIndex": "results",
-            "object": "AssociationDefinitionObject"
+            "object": "AssociationDefinitionListObject",
+            "objectIterator": "AssociationDefinitionObject"
         },
         "createDefinition": {
             "path": "associations/{fromObjectType}/{toObjectType}/labels",
             "method": "POST",
             "description": "Create a user defined association definition.",
             "iteratorIndex": "results",
-            "object": "AssociationDefinitionObject"
+            "object": "AssociationDefinitionListObject",
+            "objectIterator": "AssociationDefinitionObject"
         },
         "updateDefinition": {
             "path": "associations/{fromObjectType}/{toObjectType}/labels",

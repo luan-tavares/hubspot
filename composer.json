@@ -32,7 +32,7 @@
         "bin/resource"
     ],
     "require": {
-        "php": "^8.2",
+        "php": "^8.4",
         "luan-tavares/list-methods": "^1.0",
         "luan-tavares/simple-curl": "^2.0",
         "luan-tavares/simple-deploy": "^1.0",
@@ -40,7 +40,7 @@
     },
     "require-dev": {
         "larapack/dd": "1.*",
-        "phpunit/phpunit": "^10",
+        "phpunit/phpunit": "^11",
         "illuminate/collections": "^9",
         "infection/infection": "^0"
     },

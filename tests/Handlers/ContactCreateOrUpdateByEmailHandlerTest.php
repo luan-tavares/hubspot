@@ -25,8 +25,9 @@ class ContactCreateOrUpdateByEmailHandlerTest extends TestCase
     protected function setUp(): void
     {
         $this->requestInfoObject = new RequestInfoObject([
-            'hasObject' => false
-        ]);
+            'hasObject' => false,
+            'errorIfPropertyExists' => true
+        ], new ContactHubspot);
     }
 
     public function testIfContactCreateOrUpdateByEmailHandlerTestNameIsCorrect()

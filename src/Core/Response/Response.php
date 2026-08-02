@@ -128,6 +128,11 @@ class Response implements ResponseInterface
         return $this->status->isTooManyRequestsError();
     }
 
+    public function isNotFoundError(): bool
+    {
+        return $this->status->isNotFoundError();
+    }
+
     public function isInvalidEmailError(): bool
     {
         return $this->status->isInvalidEmailError();

@@ -5,6 +5,7 @@ namespace LTL\Hubspot\Core\Request;
 use LTL\Curl\Curl;
 use LTL\Curl\CurlException;
 use LTL\Curl\Interfaces\CurlInterface;
+use LTL\Hubspot\Core\Globals\TimesleepGlobal;
 use LTL\Hubspot\Core\HubspotConfig;
 use LTL\Hubspot\Core\Request\Interfaces\RequestArgumentsInterface;
 use LTL\Hubspot\Core\Request\Interfaces\RequestConnectionInterface;
@@ -91,7 +92,7 @@ abstract class RequestConnection implements RequestConnectionInterface
             }
         }
 
-        sleep(HubspotConfig::SLEEP_SECONDS);
+        sleep(TimesleepGlobal::get());
 
         return self::recursiveCurl($request, $requestArguments, $curl, ++$current);
     }

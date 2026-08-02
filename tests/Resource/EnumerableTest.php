@@ -16,7 +16,8 @@ use PHPUnit\Framework\TestCase;
 class EnumerableTest extends TestCase
 {
     private array $requestInfo = [
-        'hasObject' => false
+        'hasObject' => false,
+        'errorIfPropertyExists' => true
     ];
 
     private function resource(array $items): ResourceInterface
@@ -25,7 +26,7 @@ class EnumerableTest extends TestCase
         $curl->method('response')->willReturn(json_encode($items));
         $curl->method('error')->willReturn(false);
 
-        $requestInfoObject = new RequestInfoObject($this->requestInfo);
+        $requestInfoObject = new RequestInfoObject($this->requestInfo, new ContactHubspot);
 
         $actionSchema = SchemaContainer::getAction(new ContactHubspot, 'getAll');
 

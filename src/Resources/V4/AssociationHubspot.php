@@ -12,16 +12,16 @@ use LTL\Hubspot\Objects as Objects;
  *
  * @link https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method static Objects\AssociationDefinitionObject&self<object> getDefinition(int|string $fromObjectType, int|string $toObjectType) Returns all association types between two object types.
+ * @method static Objects\AssociationDefinitionListObject&self<Objects\AssociationDefinitionObject> getDefinition(int|string $fromObjectType, int|string $toObjectType) Returns all association types between two object types.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method Objects\AssociationDefinitionObject&self<object> getDefinition(int|string $fromObjectType, int|string $toObjectType) Returns all association types between two object types.
+ * @method Objects\AssociationDefinitionListObject&self<Objects\AssociationDefinitionObject> getDefinition(int|string $fromObjectType, int|string $toObjectType) Returns all association types between two object types.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method static Objects\AssociationDefinitionObject&self<object> createDefinition(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Create a user defined association definition.
+ * @method static Objects\AssociationDefinitionListObject&self<Objects\AssociationDefinitionObject> createDefinition(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Create a user defined association definition.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
- * @method Objects\AssociationDefinitionObject&self<object> createDefinition(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Create a user defined association definition.
+ * @method Objects\AssociationDefinitionListObject&self<Objects\AssociationDefinitionObject> createDefinition(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Create a user defined association definition.
  * See https://developers.hubspot.com/docs/api/crm/associations/v4
  *
  * @method static self<null> updateDefinition(int|string $fromObjectType, int|string $toObjectType, array $requestBody) Update a user defined association definition.

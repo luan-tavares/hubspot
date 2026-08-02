@@ -48,8 +48,9 @@ class ResourceIterableTest extends TestCase
         $curl->method('headers')->willReturn(['Content-Type' => 'application/json;charset=utf-8']);
 
         $requestInfoObject = new RequestInfoObject([
-            'hasObject' => false
-        ]);
+            'hasObject' => false,
+            'errorIfPropertyExists' => true
+        ], new AssociationHubspot);
         
         $actionSchema = SchemaContainer::getAction(new AssociationHubspot, 'getDefinition');
 

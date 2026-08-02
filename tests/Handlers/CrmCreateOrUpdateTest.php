@@ -23,8 +23,9 @@ class CrmCreateOrUpdateTest extends TestCase
     protected function setUp(): void
     {
         $this->requestInfoObject = new RequestInfoObject([
-            'hasObject' => false
-        ]);
+            'hasObject' => false,
+            'errorIfPropertyExists' => true
+        ], new ContactHubspot);
     }
 
     public function testIfCrmCreateOrUpdateHandlerNameIsCorrect()
@@ -236,7 +237,7 @@ class CrmCreateOrUpdateTest extends TestCase
             ->getMock();
 
         $getMap = [
-            ['message', 'id 555 n']
+            ['message', 'Contact already exists. Existing ID: 555']
         ];
 
         $resourceMock->method('__get')->willReturnMap($getMap);

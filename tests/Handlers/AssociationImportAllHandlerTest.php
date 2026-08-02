@@ -26,8 +26,9 @@ class AssociationImportAllHandlerTest extends TestCase
         $this->baseResource = new AssociationHubspot;
 
         $this->requestInfoObject = new RequestInfoObject([
-            'hasObject' => false
-        ]);
+            'hasObject' => false,
+            'errorIfPropertyExists' => true
+        ], $this->baseResource);
     }
 
     public function testIfHandlerNameIsCorrect()

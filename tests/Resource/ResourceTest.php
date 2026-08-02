@@ -60,8 +60,9 @@ class ResourceTest extends TestCase
         $actionSchema = SchemaContainer::getAction($this->baseResource, 'getDefinition');
 
         $this->requestInfoObject = new RequestInfoObject([
-            'hasObject' => false
-        ]);
+            'hasObject' => false,
+            'errorIfPropertyExists' => true
+        ], $this->baseResource);
 
         /**
          * @var CurlInterface $curl

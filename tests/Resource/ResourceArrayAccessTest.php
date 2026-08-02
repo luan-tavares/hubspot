@@ -40,8 +40,9 @@ class ResourceArrayAccessTest extends TestCase
         ];
 
         $requestInfoObject = new RequestInfoObject([
-            'hasObject' => false
-        ]);
+            'hasObject' => false,
+            'errorIfPropertyExists' => true
+        ], new AssociationHubspot);
 
         $curl = $this->getMockBuilder(CurlInterface::class)->disableOriginalConstructor()->getMock();
         $curl->method('response')->willReturn(json_encode($this->result));
