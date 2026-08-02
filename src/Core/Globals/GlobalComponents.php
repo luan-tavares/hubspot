@@ -18,6 +18,6 @@ abstract class GlobalComponents implements GlobalComponentInterface, StaticPubli
     public static function setGlobalOAuth(string $token): void
     {
         OAuthGlobal::store($token);
+        /** */
     }
-
 }
