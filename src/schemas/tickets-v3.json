@@ -82,6 +82,13 @@
             "iteratorIndex": "results",
             "afterIndex": null
         },
+        "batchUpsert": {
+            "path": "objects/tickets/batch/upsert",
+            "method": "POST",
+            "description": "Upsert a batch of tickets.",
+            "iteratorIndex": "results",
+            "afterIndex": null
+        },
         "search": {
             "path": "objects/tickets/search",
             "method": "POST",

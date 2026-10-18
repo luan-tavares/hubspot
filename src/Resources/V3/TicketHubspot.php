@@ -85,6 +85,12 @@ use LTL\Hubspot\Resources\V3\Interfaces\{CrmHubspotInterface};
  * @method self<object> batchUpdate(array|Body\HubspotBatchUpdateBody $requestBody) Update a batch of tickets.
  * See https://developers.hubspot.com/docs/api/crm/tickets
  *
+ * @method static self<object> batchUpsert(array $requestBody) Upsert a batch of tickets.
+ * See https://developers.hubspot.com/docs/api/crm/tickets
+ *
+ * @method self<object> batchUpsert(array $requestBody) Upsert a batch of tickets.
+ * See https://developers.hubspot.com/docs/api/crm/tickets
+ *
  * @method static self<object> search(array|Body\HubspotSearchBody $requestBody) Search tickets.
  * See https://developers.hubspot.com/docs/api/crm/tickets
  *

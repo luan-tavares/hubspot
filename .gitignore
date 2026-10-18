@@ -2,4 +2,4 @@
 .env
 .phpunit.result.cache
 infection.log
-/.phpunit.cache
+/.phpunit.cache.claude/settings.local.json
