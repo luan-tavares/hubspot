@@ -44,6 +44,13 @@ trait ResourceResponse
         return $this->response->getStatus();
     }
 
+    public function tryCount(): int
+    {
+        $this->verifyIfResponseExists(__FUNCTION__);
+
+        return $this->response->getTryCount();
+    }
+
     public function isMultiStatus(): bool
     {
         $this->verifyIfResponseExists(__FUNCTION__);

@@ -21,5 +21,6 @@ interface ResponseInterface extends ArrayableInterface, JsonableInterface, Itera
     public function getHeaders(): array|null;
     public function getResult(): array|object|null;
     public function getAfter(): int|string|null;
+    public function getTryCount(): int;
     public function empty(): bool;
 }

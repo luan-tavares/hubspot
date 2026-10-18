@@ -19,7 +19,8 @@ abstract class RequestConnection implements RequestConnectionInterface
     public static function handle(
         RequestInterface $request,
         RequestArgumentsInterface $requestArguments,
-        CurlInterface|null $curl = null
+        CurlInterface|null $curl = null,
+        int &$tryCount = 0
     ): CurlInterface {
         if (is_null($curl)) {
             $curl = new Curl;
@@ -34,7 +35,7 @@ abstract class RequestConnection implements RequestConnectionInterface
         $curl->addUri($uri)->addHeaders($headers)->addParams($curlParams);
 
         try {
-            $curl = self::recursiveCurl($request, $requestArguments, $curl);
+            $curl = self::recursiveCurl($request, $requestArguments, $curl, $tryCount);
         } catch (CurlException $exception) {
             $code = $exception->getCode();
             $message = $exception->getMessage();
@@ -69,9 +70,12 @@ abstract class RequestConnection implements RequestConnectionInterface
         RequestInterface $request,
         RequestArgumentsInterface $requestArguments,
         CurlInterface $curl,
+        int &$tryCount,
         int $current = 1
     ): CurlInterface {
         $requestTries = $request->getRequestsTries();
+
+        $tryCount = $current - 1;
 
         try {
             $curlResponse = $curl->request($requestArguments->getMethod(), $requestArguments->body());
@@ -94,6 +98,6 @@ abstract class RequestConnection implements RequestConnectionInterface
 
         sleep(TimesleepGlobal::get());
 
-        return self::recursiveCurl($request, $requestArguments, $curl, ++$current);
+        return self::recursiveCurl($request, $requestArguments, $curl, $tryCount, ++$current);
     }
 }

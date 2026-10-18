@@ -69,9 +69,11 @@ class Builder implements BuilderInterface
             return Handlers::call($this, $handler, $arguments);
         }
         
-        $dto = new RequestInfoObject($this->request->getResponseRequest(), $this->baseResource);
+        $tryCount = 0;
 
-        $curl = $this->request->connect($actionSchema, $arguments);
+        $curl = $this->request->connect($actionSchema, $arguments, $tryCount);
+
+        $dto = new RequestInfoObject($this->request->getResponseRequest(), $this->baseResource, $tryCount);
 
         return ResourceFactory::build($actionSchema, $curl, $dto);
     }

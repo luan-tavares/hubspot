@@ -27,5 +27,5 @@ interface RequestInterface
     public function setRequestTries(int $limit): self;
     public function removeException(): self;
 
-    public function connect(ActionSchema $actionSchema, array $arguments): CurlInterface;
+    public function connect(ActionSchema $actionSchema, array $arguments, int &$tryCount = 0): CurlInterface;
 }

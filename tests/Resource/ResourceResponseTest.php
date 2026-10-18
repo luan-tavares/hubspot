@@ -261,6 +261,40 @@ class ResourceResponseTest extends TestCase
         $this->assertTrue($object->invalidEmailError());
     }
 
+    public function testTryCountMethodIsZeroByDefault()
+    {
+        $this->assertEquals(0, $this->resource->tryCount());
+    }
+
+    public function testTryCountMethodIsCorrect()
+    {
+        $curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
+        $curl->method('status')->willReturn(200);
+
+        $requestInfoObject = new RequestInfoObject([
+            'hasObject' => false,
+            'errorIfPropertyExists' => true
+        ], new ContactHubspot, 2);
+
+        $actionSchema = SchemaContainer::getAction(new ContactHubspot, 'getAll');
+
+        /**
+         * @var CurlInterface $curl
+         */
+        $object = ResourceFactory::build($actionSchema, $curl, $requestInfoObject);
+
+        $this->assertEquals(2, $object->tryCount());
+    }
+
+    public function testTryCountMethodThrowExceptionIfCallBeforeRequest()
+    {
+        $this->resource = new AssociationHubspot;
+
+        $this->expectException(HubspotApiException::class);
+
+        $this->resource->tryCount();
+    }
+
     public function testMultiStatusMethodThrowExceptionIfCallBeforeRequest()
     {
         $this->resource = new AssociationHubspot;

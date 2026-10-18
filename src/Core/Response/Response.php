@@ -27,6 +27,8 @@ class Response implements ResponseInterface
 
     private int $pointer = 0;
 
+    private readonly int $tryCount;
+
     private readonly bool $hasErrorIfPropertyNotExists;
 
     public function __construct(CurlInterface $curl, ActionSchema $actionSchema, RequestInfoObject $requestInfoObject)
@@ -36,6 +38,7 @@ class Response implements ResponseInterface
         $this->uri = ApikeyGlobal::uriMask($curl->uri());
         $this->headers = $curl->headers();
         $this->raw = $raw;
+        $this->tryCount = $requestInfoObject->tryCount;
         $this->hasErrorIfPropertyNotExists = $requestInfoObject->hasErrorIfPropertyNotExists;
 
         $responseObject = new ResponseObject($actionSchema, $curl, $requestInfoObject);
@@ -98,6 +101,11 @@ class Response implements ResponseInterface
     public function getHeaders(): array|null
     {
         return $this->headers;
+    }
+
+    public function getTryCount(): int
+    {
+        return $this->tryCount;
     }
 
     /**Status */

@@ -110,6 +110,8 @@ Antes de chamar uma action, encadeie quantos métodos de configuração forem ne
 | `withRequestException()` | Lança `HubspotApiException` quando a resposta vier com erro |
 | `notWithRequestException()` | (padrão) Não lança exceção — trate o erro manualmente via `->error()` |
 
+Depois da chamada, `->tryCount()` informa quantas vezes a requisição foi repetida (começa em `0`). Veja [Status e erros](#status-e-erros).
+
 ### 1.5 Formato da resposta
 
 | Método | Descrição |
@@ -279,6 +281,7 @@ O retorno de **toda** action é sempre uma instância do próprio Resource (ex. 
 | Método | Retorno |
 |---|---|
 | `->status()` | `int` — código HTTP |
+| `->tryCount()` | `int` — quantas vezes a requisição foi **repetida** automaticamente por 429/5xx (ver `withRequestTries()`); `0` = respondeu na primeira tentativa |
 | `->error()` | `bool` — houve erro (status ≥ 400) |
 | `->isServerError()` | `bool` — erro 5xx |
 | `->isNotFoundError()` | `bool` — 404 |
@@ -355,6 +358,7 @@ ContactHubspot::maxLimit()->importAll(function ($page) {
 - Ative `->withRequestException()` (ou implemente a interface `WithRequestException` no resource) para que qualquer resposta com erro lance `LTL\Hubspot\Exceptions\HubspotApiException`.
 - Falhas de rede/timeout lançam `HubspotCurlException` (ou `HubspotClientTimeoutException` em timeout).
 - Combine com `->withRequestTries()` / `->defineRequestTries($n)` para tentar novamente automaticamente em erros transitórios (429/500/502/503/520) antes de desistir.
+- Depois da action, `->tryCount()` diz quantas novas tentativas foram feitas (`0` se a primeira já respondeu). Se igualar `tentativas - 1`, todas foram usadas e o status final é o da última.
 
 ```php
 try {

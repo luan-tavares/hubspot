@@ -388,6 +388,98 @@ class RequestConnectionTest extends TestCase
         $this->assertEquals(1, $request->getRequestsTries());
     }
 
+    public function testIfTryCountWithoutRetryIsZero()
+    {
+        TimesleepGlobal::set(0);
+
+        $resource = new ContactHubspot;
+
+        $request = RequestFactory::build($resource);
+
+        $request->setRequestTries(3);
+
+        $requestArguments = new RequestArguments(SchemaContainer::getAction($resource, 'getAll'));
+
+        $curl = $this->getMockBuilder(Curl::class)->getMock();
+        $curl->method('request')->willReturn($curl);
+        $curl->method('addUri')->willReturn($curl);
+        $curl->method('addHeaders')->willReturn($curl);
+        $curl->method('addParams')->willReturn($curl);
+        $curl->method('status')->willReturn(200);
+
+        $tryCount = 0;
+
+        /**
+         * @var CurlInterface $curl
+         */
+        RequestConnection::handle($request, $requestArguments, $curl, $tryCount);
+
+        $this->assertEquals(0, $tryCount);
+    }
+
+    public function testIfTryCountAfterExhaustTriesIsCorrect()
+    {
+        TimesleepGlobal::set(0);
+
+        $resource = new ContactHubspot;
+
+        $request = RequestFactory::build($resource);
+
+        $request->setRequestTries(3);
+
+        $requestArguments = new RequestArguments(SchemaContainer::getAction($resource, 'getAll'));
+
+        $curl = $this->getMockBuilder(Curl::class)->getMock();
+        $curl->method('request')->willReturn($curl);
+        $curl->method('addUri')->willReturn($curl);
+        $curl->method('addHeaders')->willReturn($curl);
+        $curl->method('addParams')->willReturn($curl);
+        $curl->method('status')->willReturn(HubspotConfig::TOO_MANY_REQUESTS_ERROR_CODE);
+
+        $tryCount = 0;
+
+        /**
+         * @var CurlInterface $curl
+         */
+        RequestConnection::handle($request, $requestArguments, $curl, $tryCount);
+
+        $this->assertEquals(2, $tryCount);
+    }
+
+    public function testIfTryCountAfterRetrySuccessIsCorrect()
+    {
+        TimesleepGlobal::set(0);
+
+        $resource = new ContactHubspot;
+
+        $request = RequestFactory::build($resource);
+
+        $request->setRequestTries(4);
+
+        $requestArguments = new RequestArguments(SchemaContainer::getAction($resource, 'getAll'));
+
+        $curl = $this->getMockBuilder(Curl::class)->getMock();
+        $curl->method('request')->willReturn($curl);
+        $curl->method('addUri')->willReturn($curl);
+        $curl->method('addHeaders')->willReturn($curl);
+        $curl->method('addParams')->willReturn($curl);
+        $curl->method('status')->willReturnOnConsecutiveCalls(
+            HubspotConfig::TOO_MANY_REQUESTS_ERROR_CODE,
+            HubspotConfig::SERVER_GENERIC_ERROR_CODE,
+            200,
+            200
+        );
+
+        $tryCount = 0;
+
+        /**
+         * @var CurlInterface $curl
+         */
+        RequestConnection::handle($request, $requestArguments, $curl, $tryCount);
+
+        $this->assertEquals(2, $tryCount);
+    }
+
     public function testIfTriesLessZeroThrowException()
     {
         $tries = -1;

@@ -50,11 +50,11 @@ class Request implements RequestInterface
         throw new HubspotApiException("{$className}::{$method}() not exists");
     }
 
-    public function connect(ActionSchema $actionSchema, array $arguments): CurlInterface
+    public function connect(ActionSchema $actionSchema, array $arguments, int &$tryCount = 0): CurlInterface
     {
         $requestArguments = new RequestArguments($actionSchema, $arguments);
 
-        return RequestConnection::handle($this, $requestArguments);
+        return RequestConnection::handle($this, $requestArguments, null, $tryCount);
     }
 
     public function destroyComponents(): void

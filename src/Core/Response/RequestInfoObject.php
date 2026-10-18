@@ -14,10 +14,14 @@ class RequestInfoObject
 
     public readonly string|null $propertyClass;
 
-    public function __construct(array $responseRequestData, ResourceInterface $resource)
+    public readonly int $tryCount;
+
+    public function __construct(array $responseRequestData, ResourceInterface $resource, int $tryCount = 0)
     {
 
         $this->hasObject = $responseRequestData['hasObject'];
+
+        $this->tryCount = $tryCount;
 
         $this->hasErrorIfPropertyNotExists = $responseRequestData['errorIfPropertyExists'];
 

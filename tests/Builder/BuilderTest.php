@@ -2,6 +2,7 @@
 
 namespace LTL\Hubspot\Tests\Builder;
 
+use LTL\Curl\Curl;
 use LTL\Hubspot\Containers\BuilderContainer;
 use LTL\Hubspot\Containers\SchemaContainer;
 use LTL\Hubspot\Core\Globals\ApikeyGlobal;
@@ -63,5 +64,34 @@ class BuilderTest extends TestCase
         $builder = BuilderFactory::build($resource, $requestMock);
 
         $builder->getAll();
+    }
+
+    public function testIfBuilderPassTryCountToResource()
+    {
+        $resource = new ContactHubspot;
+
+        $curl = $this->getMockBuilder(Curl::class)->disableOriginalConstructor()->getMock();
+        $curl->method('status')->willReturn(200);
+        $curl->method('response')->willReturn(json_encode(['results' => []]));
+
+        $requestMock = $this->getMockBuilder(Request::class)->disableOriginalConstructor()->getMock();
+        $requestMock->method('getResponseRequest')->willReturn([
+            'hasObject' => false,
+            'errorIfPropertyExists' => true
+        ]);
+        $requestMock->method('connect')->willReturnCallback(
+            function ($actionSchema, $arguments, &$tryCount) use ($curl) {
+                $tryCount = 3;
+
+                return $curl;
+            }
+        );
+
+        /**
+         * @var RequestInterface $requestMock
+         */
+        $builder = BuilderFactory::build($resource, $requestMock);
+
+        $this->assertEquals(3, $builder->getAll()->tryCount());
     }
 }

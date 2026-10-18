@@ -21,6 +21,7 @@ interface ResourceInterface extends
     public function getAfter(): string|int|null;
     public function data(): object|array|null;
     public function status(): int;
+    public function tryCount(): int;
     public function isMultiStatus(): bool;
     public function invalidEmailError(): bool;
     public function isServerError(): bool;
