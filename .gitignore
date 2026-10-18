@@ -3,4 +3,4 @@
 .phpunit.result.cache
 infection.log
 /.phpunit.cache
-.claude/settings.local.json
+/.claude
